@@ -1,0 +1,7 @@
+gdm.mcp.schemas module
+======================
+
+.. automodule:: gdm.mcp.schemas
+   :members:
+   :show-inheritance:
+   :undoc-members:

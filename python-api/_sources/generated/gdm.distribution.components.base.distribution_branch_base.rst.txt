@@ -1,0 +1,7 @@
+gdm.distribution.components.base.distribution\_branch\_base module
+==================================================================
+
+.. automodule:: gdm.distribution.components.base.distribution_branch_base
+   :members:
+   :show-inheritance:
+   :undoc-members:

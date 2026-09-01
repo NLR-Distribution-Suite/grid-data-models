@@ -1,0 +1,7 @@
+gdm.distribution.equipment.bare\_conductor\_equipment module
+============================================================
+
+.. automodule:: gdm.distribution.equipment.bare_conductor_equipment
+   :members:
+   :show-inheritance:
+   :undoc-members:

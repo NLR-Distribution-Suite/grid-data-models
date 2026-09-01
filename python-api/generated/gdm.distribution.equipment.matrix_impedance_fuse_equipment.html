@@ -1,0 +1,647 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>gdm.distribution.equipment.matrix_impedance_fuse_equipment module &#8212; Grid-Data-Models API</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=cb8930eaaf36d9849b67" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=cb8930eaaf36d9849b67" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/autodoc_pydantic.css" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../_static/scripts/fontawesome.js?digest=cb8930eaaf36d9849b67"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=cb8930eaaf36d9849b67" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=cb8930eaaf36d9849b67" />
+
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'generated/gdm.distribution.equipment.matrix_impedance_fuse_equipment';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="gdm.distribution.equipment.matrix_impedance_recloser_equipment module" href="gdm.distribution.equipment.matrix_impedance_recloser_equipment.html" />
+    <link rel="prev" title="gdm.distribution.equipment.matrix_impedance_branch_equipment module" href="gdm.distribution.equipment.matrix_impedance_branch_equipment.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  
+    
+    <script src="../_static/searchtools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Grid-Data-Models API</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="modules.html">
+    gdm
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="modules.html">
+    gdm
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item pst-sidebar-collapse"><button id="pst-collapse-sidebar-button" aria-expanded="true" aria-controls="pst-primary-sidebar">
+  <svg class="pst-icon" role="img" aria-hidden="true" focusable="false" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+    <path fill="currentColor" d="M3 15.5C2.36232 15.5 1.74874 15.2564 1.28478 14.8189C0.820828 14.3815 0.541576 13.7832 0.504167 13.1467L0.5 13L0.5 3C0.499965 2.36232 0.743605 1.74874 1.18107 1.28478C1.61854 0.820828 2.21676 0.541576 2.85333 0.504167L3 0.5L13 0.5C13.6377 0.499965 14.2513 0.743605 14.7152 1.18107C15.1792 1.61854 15.4584 2.21676 15.4958 2.85333L15.5 3L15.5 13C15.5 13.6377 15.2564 14.2513 14.8189 14.7152C14.3815 15.1792 13.7832 15.4584 13.1467 15.4958L13 15.5L3 15.5ZM3 13.8333L10.5 13.8333L10.5 2.16667L3 2.16667C2.79589 2.16669 2.59889 2.24163 2.44636 2.37726C2.29383 2.5129 2.19638 2.69979 2.1725 2.9025L2.16667 3L2.16667 13C2.16669 13.2041 2.24163 13.4011 2.37726 13.5536C2.5129 13.7062 2.69979 13.8036 2.9025 13.8275L3 13.8333ZM6.65583 10.325L6.5775 10.2558L4.91083 8.58917C4.76735 8.44567 4.68116 8.25476 4.66843 8.05223C4.65569 7.84971 4.71729 7.6495 4.84167 7.48917L4.91083 7.41083L6.5775 5.74417C6.72747 5.59471 6.9287 5.50794 7.14032 5.50148C7.35194 5.49502 7.55809 5.56935 7.7169 5.70937C7.8757 5.8494 7.97525 6.04463 7.99533 6.25539C8.01541 6.46616 7.95451 6.67667 7.825 6.84417L7.75583 6.9225L6.67917 8L7.75583 9.0775C7.89931 9.22099 7.98551 9.41191 7.99824 9.61443C8.01097 9.81695 7.94938 10.0172 7.825 10.1775L7.75583 10.2558C7.61234 10.3993 7.42142 10.4855 7.2189 10.4982C7.01638 10.511 6.81617 10.4494 6.65583 10.325Z"/>
+  </svg>
+  <span class="pst-collapse-sidebar-label">Collapse Sidebar</span>
+  <span class="pst-expand-sidebar-label">Expand Sidebar</span>
+</button></div>
+        <div class="sidebar-primary-item">
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="gdm.html">gdm package</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 has-children"><a class="reference internal" href="gdm.dataset.html">gdm.dataset package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="gdm.dataset.cost_model.html">gdm.dataset.cost_model module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gdm.dataset.dataset_system.html">gdm.dataset.dataset_system module</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="gdm.distribution.html">gdm.distribution package</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l3 has-children"><a class="reference internal" href="gdm.distribution.common.html">gdm.distribution.common package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.common.curve.html">gdm.distribution.common.curve module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.common.limitset.html">gdm.distribution.common.limitset module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.common.sequence_pair.html">gdm.distribution.common.sequence_pair module</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="gdm.distribution.components.html">gdm.distribution.components package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.components.base.html">gdm.distribution.components.base package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.components.distribution_battery.html">gdm.distribution.components.distribution_battery module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.components.distribution_bus.html">gdm.distribution.components.distribution_bus module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.components.distribution_capacitor.html">gdm.distribution.components.distribution_capacitor module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.components.distribution_feeder.html">gdm.distribution.components.distribution_feeder module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.components.distribution_load.html">gdm.distribution.components.distribution_load module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.components.distribution_regulator.html">gdm.distribution.components.distribution_regulator module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.components.distribution_solar.html">gdm.distribution.components.distribution_solar module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.components.distribution_substation.html">gdm.distribution.components.distribution_substation module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.components.distribution_transformer.html">gdm.distribution.components.distribution_transformer module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.components.distribution_vsource.html">gdm.distribution.components.distribution_vsource module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.components.geometry_branch.html">gdm.distribution.components.geometry_branch module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.components.geometry_switch.html">gdm.distribution.components.geometry_switch module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.components.matrix_impedance_branch.html">gdm.distribution.components.matrix_impedance_branch module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.components.matrix_impedance_fuse.html">gdm.distribution.components.matrix_impedance_fuse module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.components.matrix_impedance_recloser.html">gdm.distribution.components.matrix_impedance_recloser module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.components.matrix_impedance_switch.html">gdm.distribution.components.matrix_impedance_switch module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.components.sequence_impedance_branch.html">gdm.distribution.components.sequence_impedance_branch module</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="gdm.distribution.controllers.html">gdm.distribution.controllers package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.controllers.base.html">gdm.distribution.controllers.base package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.controllers.distribution_capacitor_controller.html">gdm.distribution.controllers.distribution_capacitor_controller module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.controllers.distribution_inverter_controller.html">gdm.distribution.controllers.distribution_inverter_controller module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.controllers.distribution_recloser_controller.html">gdm.distribution.controllers.distribution_recloser_controller module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.controllers.distribution_regulator_controller.html">gdm.distribution.controllers.distribution_regulator_controller module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.controllers.distribution_switch_controller.html">gdm.distribution.controllers.distribution_switch_controller module</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 current active has-children"><a class="reference internal" href="gdm.distribution.equipment.html">gdm.distribution.equipment package</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.equipment.base.html">gdm.distribution.equipment.base package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.equipment.bare_conductor_equipment.html">gdm.distribution.equipment.bare_conductor_equipment module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.equipment.battery_equipment.html">gdm.distribution.equipment.battery_equipment module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.equipment.capacitor_equipment.html">gdm.distribution.equipment.capacitor_equipment module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.equipment.concentric_cable_equipment.html">gdm.distribution.equipment.concentric_cable_equipment module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.equipment.distribution_transformer_equipment.html">gdm.distribution.equipment.distribution_transformer_equipment module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.equipment.geometry_branch_equipment.html">gdm.distribution.equipment.geometry_branch_equipment module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.equipment.inverter_equipment.html">gdm.distribution.equipment.inverter_equipment module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.equipment.load_equipment.html">gdm.distribution.equipment.load_equipment module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.equipment.matrix_impedance_branch_equipment.html">gdm.distribution.equipment.matrix_impedance_branch_equipment module</a></li>
+<li class="toctree-l4 current active"><a class="current reference internal" href="#">gdm.distribution.equipment.matrix_impedance_fuse_equipment module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.equipment.matrix_impedance_recloser_equipment.html">gdm.distribution.equipment.matrix_impedance_recloser_equipment module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.equipment.matrix_impedance_switch_equipment.html">gdm.distribution.equipment.matrix_impedance_switch_equipment module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.equipment.phase_capacitor_equipment.html">gdm.distribution.equipment.phase_capacitor_equipment module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.equipment.phase_load_equipment.html">gdm.distribution.equipment.phase_load_equipment module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.equipment.phase_voltagesource_equipment.html">gdm.distribution.equipment.phase_voltagesource_equipment module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.equipment.recloser_controller_equipment.html">gdm.distribution.equipment.recloser_controller_equipment module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.equipment.sequence_impedance_branch_equipment.html">gdm.distribution.equipment.sequence_impedance_branch_equipment module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.equipment.solar_equipment.html">gdm.distribution.equipment.solar_equipment module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.equipment.voltagesource_equipment.html">gdm.distribution.equipment.voltagesource_equipment module</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="gdm.distribution.market.html">gdm.distribution.market package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.market.aggregator.html">gdm.distribution.market.aggregator module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.market.tariff.html">gdm.distribution.market.tariff module</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="gdm.distribution.model_reduction.html">gdm.distribution.model_reduction package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.model_reduction.reducer.html">gdm.distribution.model_reduction.reducer module</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="gdm.distribution.upgrade_handler.html">gdm.distribution.upgrade_handler package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.upgrade_handler.from__2_0_1__to__2_1_2.html">gdm.distribution.upgrade_handler.from__2_0_1__to__2_1_2 module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.upgrade_handler.from__2_1_2__to__2_1_3.html">gdm.distribution.upgrade_handler.from__2_1_2__to__2_1_3 module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.upgrade_handler.from__2_1_3__to__2_1_4.html">gdm.distribution.upgrade_handler.from__2_1_3__to__2_1_4 module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.upgrade_handler.from__2_1_4__to__2_1_5.html">gdm.distribution.upgrade_handler.from__2_1_4__to__2_1_5 module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.upgrade_handler.from__2_1_5__to__2_2_0.html">gdm.distribution.upgrade_handler.from__2_1_5__to__2_2_0 module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.upgrade_handler.from__2_2_0__to__2_2_1.html">gdm.distribution.upgrade_handler.from__2_2_0__to__2_2_1 module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.upgrade_handler.from__2_2_1__to__2_3_0.html">gdm.distribution.upgrade_handler.from__2_2_1__to__2_3_0 module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.upgrade_handler.from__2_3_0__to__2_3_1.html">gdm.distribution.upgrade_handler.from__2_3_0__to__2_3_1 module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.upgrade_handler.from__2_3_1__to__2_3_2.html">gdm.distribution.upgrade_handler.from__2_3_1__to__2_3_2 module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.upgrade_handler.from__2_3_2__to__2_3_3.html">gdm.distribution.upgrade_handler.from__2_3_2__to__2_3_3 module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.upgrade_handler.from__2_3_3__to__2_3_4.html">gdm.distribution.upgrade_handler.from__2_3_3__to__2_3_4 module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.upgrade_handler.from__2_3_4__to__2_3_5.html">gdm.distribution.upgrade_handler.from__2_3_4__to__2_3_5 module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.upgrade_handler.from__2_3_5__to__2_3_6.html">gdm.distribution.upgrade_handler.from__2_3_5__to__2_3_6 module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.upgrade_handler.from__2_3_6__to__2_3_7.html">gdm.distribution.upgrade_handler.from__2_3_6__to__2_3_7 module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.upgrade_handler.from__2_3_7__to__2_3_8.html">gdm.distribution.upgrade_handler.from__2_3_7__to__2_3_8 module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.upgrade_handler.upgrade_handler.html">gdm.distribution.upgrade_handler.upgrade_handler module</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="gdm.distribution.utils.html">gdm.distribution.utils package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.utils.aggregate_components.html">gdm.distribution.utils.aggregate_components module</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="gdm.distribution.catalog_system.html">gdm.distribution.catalog_system module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gdm.distribution.distribution_graph.html">gdm.distribution.distribution_graph module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gdm.distribution.distribution_system.html">gdm.distribution.distribution_system module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gdm.distribution.enums.html">gdm.distribution.enums module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gdm.distribution.sys_functools.html">gdm.distribution.sys_functools module</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="gdm.mcp.html">gdm.mcp package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="gdm.mcp.inspection.html">gdm.mcp.inspection package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="gdm.mcp.inspection.inspector.html">gdm.mcp.inspection.inspector module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.mcp.inspection.relationships.html">gdm.mcp.inspection.relationships module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.mcp.inspection.topology.html">gdm.mcp.inspection.topology module</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="gdm.mcp.knowledge.html">gdm.mcp.knowledge package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="gdm.mcp.knowledge.documentation.html">gdm.mcp.knowledge.documentation module</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="gdm.mcp.operations.html">gdm.mcp.operations package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="gdm.mcp.operations.merger.html">gdm.mcp.operations.merger module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.mcp.operations.splitter.html">gdm.mcp.operations.splitter module</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="gdm.mcp.utilities.html">gdm.mcp.utilities package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="gdm.mcp.utilities.subsystem.html">gdm.mcp.utilities.subsystem module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.mcp.utilities.timeseries.html">gdm.mcp.utilities.timeseries module</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="gdm.mcp.validation.html">gdm.mcp.validation package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="gdm.mcp.validation.auto_fixer.html">gdm.mcp.validation.auto_fixer module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.mcp.validation.diagnostics.html">gdm.mcp.validation.diagnostics module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.mcp.validation.suggestions.html">gdm.mcp.validation.suggestions module</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="gdm.mcp.exceptions.html">gdm.mcp.exceptions module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gdm.mcp.schemas.html">gdm.mcp.schemas module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gdm.mcp.server.html">gdm.mcp.server module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gdm.mcp.version.html">gdm.mcp.version module</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="gdm.structural.html">gdm.structural package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="gdm.structural.components.html">gdm.structural.components package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="gdm.structural.components.base.html">gdm.structural.components.base module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.structural.components.building.html">gdm.structural.components.building module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.structural.components.overhead_line_segment.html">gdm.structural.components.overhead_line_segment module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.structural.components.pole.html">gdm.structural.components.pole module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.structural.components.pvsystem.html">gdm.structural.components.pvsystem module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.structural.components.transformer.html">gdm.structural.components.transformer module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.structural.components.underground_cable.html">gdm.structural.components.underground_cable module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.structural.components.underground_junction.html">gdm.structural.components.underground_junction module</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="gdm.structural.structural_system.html">gdm.structural.structural_system module</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="gdm.constants.html">gdm.constants module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gdm.exceptions.html">gdm.exceptions module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gdm.hashing_utils.html">gdm.hashing_utils module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gdm.quantities.html">gdm.quantities module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gdm.tracked_changes.html">gdm.tracked_changes module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gdm.version.html">gdm.version module</a></li>
+</ul>
+</details></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="modules.html" class="nav-link">gdm</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="gdm.html" class="nav-link">gdm package</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="gdm.distribution.html" class="nav-link">gdm.distribution package</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="gdm.distribution.equipment.html" class="nav-link">gdm.distribution.equipment package</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">gdm.distribution.equipment.matrix_impedance_fuse_equipment module</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="module-gdm.distribution.equipment.matrix_impedance_fuse_equipment">
+<span id="gdm-distribution-equipment-matrix-impedance-fuse-equipment-module"></span><h1>gdm.distribution.equipment.matrix_impedance_fuse_equipment module<a class="headerlink" href="#module-gdm.distribution.equipment.matrix_impedance_fuse_equipment" title="Link to this heading">#</a></h1>
+<p>This module contains matrix impedacne phase.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="gdm.distribution.equipment.matrix_impedance_fuse_equipment.MatrixImpedanceFuseEquipment">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">gdm.distribution.equipment.matrix_impedance_fuse_equipment.</span></span><span class="sig-name descname"><span class="pre">MatrixImpedanceFuseEquipment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">*,</span> <span class="pre">uuid:</span> <span class="pre">~uuid.UUID</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;,</span> <span class="pre">name:</span> <span class="pre">str,</span> <span class="pre">construction:</span> <span class="pre">~typing.Annotated[~gdm.distribution.enums.LineType,</span> <span class="pre">~pydantic.json_schema.WithJsonSchema(json_schema={'type':</span> <span class="pre">'string'},</span> <span class="pre">mode=None)]</span> <span class="pre">=</span> <span class="pre">LineType.OVERHEAD,</span> <span class="pre">r_matrix:</span> <span class="pre">~typing.Annotated[~gdm.quantities.ResistancePULength,</span> <span class="pre">~pydantic.json_schema.WithJsonSchema(json_schema={'type':</span> <span class="pre">'string'},</span> <span class="pre">mode=None)],</span> <span class="pre">x_matrix:</span> <span class="pre">~typing.Annotated[~gdm.quantities.ReactancePULength,</span> <span class="pre">~pydantic.json_schema.WithJsonSchema(json_schema={'type':</span> <span class="pre">'string'},</span> <span class="pre">mode=None)],</span> <span class="pre">c_matrix:</span> <span class="pre">~typing.Annotated[~gdm.quantities.CapacitancePULength,</span> <span class="pre">~pydantic.json_schema.WithJsonSchema(json_schema={'type':</span> <span class="pre">'string'},</span> <span class="pre">mode=None)],</span> <span class="pre">ampacity:</span> <span class="pre">~typing.Annotated[~infrasys.quantities.Current,</span> <span class="pre">~pydantic.json_schema.WithJsonSchema(json_schema={'type':</span> <span class="pre">'string'},</span> <span class="pre">mode=None),</span> <span class="pre">~annotated_types.Gt(gt=0)],</span> <span class="pre">delay:</span> <span class="pre">~typing.Annotated[~infrasys.quantities.Time,</span> <span class="pre">~pydantic.json_schema.WithJsonSchema(json_schema={'type':</span> <span class="pre">'string'},</span> <span class="pre">mode=None)],</span> <span class="pre">tcc_curve:</span> <span class="pre">~gdm.distribution.common.curve.TimeCurrentCurve</span></em><span class="sig-paren">)</span><a class="headerlink" href="#gdm.distribution.equipment.matrix_impedance_fuse_equipment.MatrixImpedanceFuseEquipment" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="gdm.distribution.equipment.base.matrix_impedance_branch_equipment_base.html#gdm.distribution.equipment.base.matrix_impedance_branch_equipment_base.MatrixImpedanceBranchEquipmentBase" title="gdm.distribution.equipment.base.matrix_impedance_branch_equipment_base.MatrixImpedanceBranchEquipmentBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">MatrixImpedanceBranchEquipmentBase</span></code></a></p>
+<p>Data model for impedance based fuse equipment.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.distribution.equipment.matrix_impedance_fuse_equipment.MatrixImpedanceFuseEquipment.delay">
+<span class="sig-name descname"><span class="pre">delay</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">')]</span></span><a class="headerlink" href="#gdm.distribution.equipment.matrix_impedance_fuse_equipment.MatrixImpedanceFuseEquipment.delay" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.distribution.equipment.matrix_impedance_fuse_equipment.MatrixImpedanceFuseEquipment.tcc_curve">
+<span class="sig-name descname"><span class="pre">tcc_curve</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="gdm.distribution.common.curve.html#gdm.distribution.common.curve.TimeCurrentCurve" title="gdm.distribution.common.curve.TimeCurrentCurve"><span class="pre">TimeCurrentCurve</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">FieldInfo</span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">annotation</span></span><span class="o"><span class="pre">=</span></span><span class="pre">NoneType</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">required</span></span><span class="o"><span class="pre">=</span></span><span class="k"><span class="pre">True</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">description</span></span><span class="o"><span class="pre">=</span></span><span class="s"><span class="pre">'Time</span> <span class="pre">current</span> <span class="pre">curve'</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#gdm.distribution.equipment.matrix_impedance_fuse_equipment.MatrixImpedanceFuseEquipment.tcc_curve" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gdm.distribution.equipment.matrix_impedance_fuse_equipment.MatrixImpedanceFuseEquipment.example">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">example</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#gdm.distribution.equipment.matrix_impedance_fuse_equipment.MatrixImpedanceFuseEquipment" title="gdm.distribution.equipment.matrix_impedance_fuse_equipment.MatrixImpedanceFuseEquipment"><span class="pre">MatrixImpedanceFuseEquipment</span></a></span></span><a class="headerlink" href="#gdm.distribution.equipment.matrix_impedance_fuse_equipment.MatrixImpedanceFuseEquipment.example" title="Link to this definition">#</a></dt>
+<dd><p>Example for matrix impedance model.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.distribution.equipment.matrix_impedance_fuse_equipment.MatrixImpedanceFuseEquipment.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'arbitrary_types_allowed':</span> <span class="pre">True,</span> <span class="pre">'extra':</span> <span class="pre">'forbid',</span> <span class="pre">'populate_by_name':</span> <span class="pre">True,</span> <span class="pre">'str_strip_whitespace':</span> <span class="pre">True,</span> <span class="pre">'use_enum_values':</span> <span class="pre">False,</span> <span class="pre">'validate_assignment':</span> <span class="pre">True,</span> <span class="pre">'validate_by_alias':</span> <span class="pre">True,</span> <span class="pre">'validate_by_name':</span> <span class="pre">True,</span> <span class="pre">'validate_default':</span> <span class="pre">True}</span></span><a class="headerlink" href="#gdm.distribution.equipment.matrix_impedance_fuse_equipment.MatrixImpedanceFuseEquipment.model_config" title="Link to this definition">#</a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="gdm.distribution.equipment.matrix_impedance_branch_equipment.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">gdm.distribution.equipment.matrix_impedance_branch_equipment module</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="gdm.distribution.equipment.matrix_impedance_recloser_equipment.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">gdm.distribution.equipment.matrix_impedance_recloser_equipment module</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.equipment.matrix_impedance_fuse_equipment.MatrixImpedanceFuseEquipment"><code class="docutils literal notranslate"><span class="pre">MatrixImpedanceFuseEquipment</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.equipment.matrix_impedance_fuse_equipment.MatrixImpedanceFuseEquipment.delay"><code class="docutils literal notranslate"><span class="pre">MatrixImpedanceFuseEquipment.delay</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.equipment.matrix_impedance_fuse_equipment.MatrixImpedanceFuseEquipment.tcc_curve"><code class="docutils literal notranslate"><span class="pre">MatrixImpedanceFuseEquipment.tcc_curve</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.equipment.matrix_impedance_fuse_equipment.MatrixImpedanceFuseEquipment.example"><code class="docutils literal notranslate"><span class="pre">MatrixImpedanceFuseEquipment.example()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.equipment.matrix_impedance_fuse_equipment.MatrixImpedanceFuseEquipment.model_config"><code class="docutils literal notranslate"><span class="pre">MatrixImpedanceFuseEquipment.model_config</span></code></a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+
+  <div class="tocsection sourcelink">
+    <a href="../_sources/generated/gdm.distribution.equipment.matrix_impedance_fuse_equipment.rst.txt">
+      <i class="fa-solid fa-file-lines"></i> Show Source
+    </a>
+  </div>
+</div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=cb8930eaaf36d9849b67"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=cb8930eaaf36d9849b67"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.21.0.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

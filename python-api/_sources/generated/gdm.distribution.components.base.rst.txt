@@ -1,0 +1,18 @@
+gdm.distribution.components.base package
+========================================
+
+.. automodule:: gdm.distribution.components.base
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   gdm.distribution.components.base.distribution_branch_base
+   gdm.distribution.components.base.distribution_component_base
+   gdm.distribution.components.base.distribution_switch_base
+   gdm.distribution.components.base.distribution_transformer_base

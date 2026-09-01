@@ -1,0 +1,7 @@
+gdm.quantities module
+=====================
+
+.. automodule:: gdm.quantities
+   :members:
+   :show-inheritance:
+   :undoc-members:

@@ -1,0 +1,15 @@
+gdm.distribution.utils package
+==============================
+
+.. automodule:: gdm.distribution.utils
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   gdm.distribution.utils.aggregate_components

@@ -1,0 +1,7 @@
+gdm.distribution.distribution\_system module
+============================================
+
+.. automodule:: gdm.distribution.distribution_system
+   :members:
+   :show-inheritance:
+   :undoc-members:

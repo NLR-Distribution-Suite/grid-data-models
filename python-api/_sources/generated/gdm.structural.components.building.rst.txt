@@ -1,0 +1,7 @@
+gdm.structural.components.building module
+=========================================
+
+.. automodule:: gdm.structural.components.building
+   :members:
+   :show-inheritance:
+   :undoc-members:

@@ -1,0 +1,7 @@
+gdm.distribution.common.curve module
+====================================
+
+.. automodule:: gdm.distribution.common.curve
+   :members:
+   :show-inheritance:
+   :undoc-members:

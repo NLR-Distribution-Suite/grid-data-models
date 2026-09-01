@@ -1,0 +1,7 @@
+gdm.distribution.components.matrix\_impedance\_branch module
+============================================================
+
+.. automodule:: gdm.distribution.components.matrix_impedance_branch
+   :members:
+   :show-inheritance:
+   :undoc-members:

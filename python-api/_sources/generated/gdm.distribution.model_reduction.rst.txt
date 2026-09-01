@@ -1,0 +1,15 @@
+gdm.distribution.model\_reduction package
+=========================================
+
+.. automodule:: gdm.distribution.model_reduction
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   gdm.distribution.model_reduction.reducer

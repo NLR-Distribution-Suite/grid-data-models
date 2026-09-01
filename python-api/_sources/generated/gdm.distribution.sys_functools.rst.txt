@@ -1,0 +1,7 @@
+gdm.distribution.sys\_functools module
+======================================
+
+.. automodule:: gdm.distribution.sys_functools
+   :members:
+   :show-inheritance:
+   :undoc-members:

@@ -1,0 +1,7 @@
+gdm.dataset.dataset\_system module
+==================================
+
+.. automodule:: gdm.dataset.dataset_system
+   :members:
+   :show-inheritance:
+   :undoc-members:

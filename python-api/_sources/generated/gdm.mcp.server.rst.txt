@@ -1,0 +1,7 @@
+gdm.mcp.server module
+=====================
+
+.. automodule:: gdm.mcp.server
+   :members:
+   :show-inheritance:
+   :undoc-members:

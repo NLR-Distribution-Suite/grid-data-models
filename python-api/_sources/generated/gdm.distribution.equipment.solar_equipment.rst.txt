@@ -1,0 +1,7 @@
+gdm.distribution.equipment.solar\_equipment module
+==================================================
+
+.. automodule:: gdm.distribution.equipment.solar_equipment
+   :members:
+   :show-inheritance:
+   :undoc-members:

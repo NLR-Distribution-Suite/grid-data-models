@@ -1,0 +1,7 @@
+gdm.version module
+==================
+
+.. automodule:: gdm.version
+   :members:
+   :show-inheritance:
+   :undoc-members:

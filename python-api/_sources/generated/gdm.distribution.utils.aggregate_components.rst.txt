@@ -1,0 +1,7 @@
+gdm.distribution.utils.aggregate\_components module
+===================================================
+
+.. automodule:: gdm.distribution.utils.aggregate_components
+   :members:
+   :show-inheritance:
+   :undoc-members:

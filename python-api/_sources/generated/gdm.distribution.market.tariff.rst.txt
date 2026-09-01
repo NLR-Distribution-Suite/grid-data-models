@@ -1,0 +1,7 @@
+gdm.distribution.market.tariff module
+=====================================
+
+.. automodule:: gdm.distribution.market.tariff
+   :members:
+   :show-inheritance:
+   :undoc-members:

@@ -1,0 +1,7 @@
+gdm.mcp.inspection.inspector module
+===================================
+
+.. automodule:: gdm.mcp.inspection.inspector
+   :members:
+   :show-inheritance:
+   :undoc-members:

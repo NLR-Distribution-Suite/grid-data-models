@@ -1,0 +1,7 @@
+gdm.distribution.equipment.inverter\_equipment module
+=====================================================
+
+.. automodule:: gdm.distribution.equipment.inverter_equipment
+   :members:
+   :show-inheritance:
+   :undoc-members:

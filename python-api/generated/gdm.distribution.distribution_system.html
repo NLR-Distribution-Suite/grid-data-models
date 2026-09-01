@@ -1,0 +1,1032 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>gdm.distribution.distribution_system module &#8212; Grid-Data-Models API</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=cb8930eaaf36d9849b67" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=cb8930eaaf36d9849b67" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/autodoc_pydantic.css" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../_static/scripts/fontawesome.js?digest=cb8930eaaf36d9849b67"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=cb8930eaaf36d9849b67" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=cb8930eaaf36d9849b67" />
+
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'generated/gdm.distribution.distribution_system';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="gdm.distribution.enums module" href="gdm.distribution.enums.html" />
+    <link rel="prev" title="gdm.distribution.distribution_graph module" href="gdm.distribution.distribution_graph.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  
+    
+    <script src="../_static/searchtools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Grid-Data-Models API</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="modules.html">
+    gdm
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="modules.html">
+    gdm
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item pst-sidebar-collapse"><button id="pst-collapse-sidebar-button" aria-expanded="true" aria-controls="pst-primary-sidebar">
+  <svg class="pst-icon" role="img" aria-hidden="true" focusable="false" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+    <path fill="currentColor" d="M3 15.5C2.36232 15.5 1.74874 15.2564 1.28478 14.8189C0.820828 14.3815 0.541576 13.7832 0.504167 13.1467L0.5 13L0.5 3C0.499965 2.36232 0.743605 1.74874 1.18107 1.28478C1.61854 0.820828 2.21676 0.541576 2.85333 0.504167L3 0.5L13 0.5C13.6377 0.499965 14.2513 0.743605 14.7152 1.18107C15.1792 1.61854 15.4584 2.21676 15.4958 2.85333L15.5 3L15.5 13C15.5 13.6377 15.2564 14.2513 14.8189 14.7152C14.3815 15.1792 13.7832 15.4584 13.1467 15.4958L13 15.5L3 15.5ZM3 13.8333L10.5 13.8333L10.5 2.16667L3 2.16667C2.79589 2.16669 2.59889 2.24163 2.44636 2.37726C2.29383 2.5129 2.19638 2.69979 2.1725 2.9025L2.16667 3L2.16667 13C2.16669 13.2041 2.24163 13.4011 2.37726 13.5536C2.5129 13.7062 2.69979 13.8036 2.9025 13.8275L3 13.8333ZM6.65583 10.325L6.5775 10.2558L4.91083 8.58917C4.76735 8.44567 4.68116 8.25476 4.66843 8.05223C4.65569 7.84971 4.71729 7.6495 4.84167 7.48917L4.91083 7.41083L6.5775 5.74417C6.72747 5.59471 6.9287 5.50794 7.14032 5.50148C7.35194 5.49502 7.55809 5.56935 7.7169 5.70937C7.8757 5.8494 7.97525 6.04463 7.99533 6.25539C8.01541 6.46616 7.95451 6.67667 7.825 6.84417L7.75583 6.9225L6.67917 8L7.75583 9.0775C7.89931 9.22099 7.98551 9.41191 7.99824 9.61443C8.01097 9.81695 7.94938 10.0172 7.825 10.1775L7.75583 10.2558C7.61234 10.3993 7.42142 10.4855 7.2189 10.4982C7.01638 10.511 6.81617 10.4494 6.65583 10.325Z"/>
+  </svg>
+  <span class="pst-collapse-sidebar-label">Collapse Sidebar</span>
+  <span class="pst-expand-sidebar-label">Expand Sidebar</span>
+</button></div>
+        <div class="sidebar-primary-item">
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="gdm.html">gdm package</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 has-children"><a class="reference internal" href="gdm.dataset.html">gdm.dataset package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="gdm.dataset.cost_model.html">gdm.dataset.cost_model module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gdm.dataset.dataset_system.html">gdm.dataset.dataset_system module</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="gdm.distribution.html">gdm.distribution package</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l3 has-children"><a class="reference internal" href="gdm.distribution.common.html">gdm.distribution.common package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.common.curve.html">gdm.distribution.common.curve module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.common.limitset.html">gdm.distribution.common.limitset module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.common.sequence_pair.html">gdm.distribution.common.sequence_pair module</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="gdm.distribution.components.html">gdm.distribution.components package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.components.base.html">gdm.distribution.components.base package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.components.distribution_battery.html">gdm.distribution.components.distribution_battery module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.components.distribution_bus.html">gdm.distribution.components.distribution_bus module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.components.distribution_capacitor.html">gdm.distribution.components.distribution_capacitor module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.components.distribution_feeder.html">gdm.distribution.components.distribution_feeder module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.components.distribution_load.html">gdm.distribution.components.distribution_load module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.components.distribution_regulator.html">gdm.distribution.components.distribution_regulator module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.components.distribution_solar.html">gdm.distribution.components.distribution_solar module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.components.distribution_substation.html">gdm.distribution.components.distribution_substation module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.components.distribution_transformer.html">gdm.distribution.components.distribution_transformer module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.components.distribution_vsource.html">gdm.distribution.components.distribution_vsource module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.components.geometry_branch.html">gdm.distribution.components.geometry_branch module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.components.geometry_switch.html">gdm.distribution.components.geometry_switch module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.components.matrix_impedance_branch.html">gdm.distribution.components.matrix_impedance_branch module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.components.matrix_impedance_fuse.html">gdm.distribution.components.matrix_impedance_fuse module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.components.matrix_impedance_recloser.html">gdm.distribution.components.matrix_impedance_recloser module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.components.matrix_impedance_switch.html">gdm.distribution.components.matrix_impedance_switch module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.components.sequence_impedance_branch.html">gdm.distribution.components.sequence_impedance_branch module</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="gdm.distribution.controllers.html">gdm.distribution.controllers package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.controllers.base.html">gdm.distribution.controllers.base package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.controllers.distribution_capacitor_controller.html">gdm.distribution.controllers.distribution_capacitor_controller module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.controllers.distribution_inverter_controller.html">gdm.distribution.controllers.distribution_inverter_controller module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.controllers.distribution_recloser_controller.html">gdm.distribution.controllers.distribution_recloser_controller module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.controllers.distribution_regulator_controller.html">gdm.distribution.controllers.distribution_regulator_controller module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.controllers.distribution_switch_controller.html">gdm.distribution.controllers.distribution_switch_controller module</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="gdm.distribution.equipment.html">gdm.distribution.equipment package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.equipment.base.html">gdm.distribution.equipment.base package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.equipment.bare_conductor_equipment.html">gdm.distribution.equipment.bare_conductor_equipment module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.equipment.battery_equipment.html">gdm.distribution.equipment.battery_equipment module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.equipment.capacitor_equipment.html">gdm.distribution.equipment.capacitor_equipment module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.equipment.concentric_cable_equipment.html">gdm.distribution.equipment.concentric_cable_equipment module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.equipment.distribution_transformer_equipment.html">gdm.distribution.equipment.distribution_transformer_equipment module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.equipment.geometry_branch_equipment.html">gdm.distribution.equipment.geometry_branch_equipment module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.equipment.inverter_equipment.html">gdm.distribution.equipment.inverter_equipment module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.equipment.load_equipment.html">gdm.distribution.equipment.load_equipment module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.equipment.matrix_impedance_branch_equipment.html">gdm.distribution.equipment.matrix_impedance_branch_equipment module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.equipment.matrix_impedance_fuse_equipment.html">gdm.distribution.equipment.matrix_impedance_fuse_equipment module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.equipment.matrix_impedance_recloser_equipment.html">gdm.distribution.equipment.matrix_impedance_recloser_equipment module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.equipment.matrix_impedance_switch_equipment.html">gdm.distribution.equipment.matrix_impedance_switch_equipment module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.equipment.phase_capacitor_equipment.html">gdm.distribution.equipment.phase_capacitor_equipment module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.equipment.phase_load_equipment.html">gdm.distribution.equipment.phase_load_equipment module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.equipment.phase_voltagesource_equipment.html">gdm.distribution.equipment.phase_voltagesource_equipment module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.equipment.recloser_controller_equipment.html">gdm.distribution.equipment.recloser_controller_equipment module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.equipment.sequence_impedance_branch_equipment.html">gdm.distribution.equipment.sequence_impedance_branch_equipment module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.equipment.solar_equipment.html">gdm.distribution.equipment.solar_equipment module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.equipment.voltagesource_equipment.html">gdm.distribution.equipment.voltagesource_equipment module</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="gdm.distribution.market.html">gdm.distribution.market package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.market.aggregator.html">gdm.distribution.market.aggregator module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.market.tariff.html">gdm.distribution.market.tariff module</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="gdm.distribution.model_reduction.html">gdm.distribution.model_reduction package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.model_reduction.reducer.html">gdm.distribution.model_reduction.reducer module</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="gdm.distribution.upgrade_handler.html">gdm.distribution.upgrade_handler package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.upgrade_handler.from__2_0_1__to__2_1_2.html">gdm.distribution.upgrade_handler.from__2_0_1__to__2_1_2 module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.upgrade_handler.from__2_1_2__to__2_1_3.html">gdm.distribution.upgrade_handler.from__2_1_2__to__2_1_3 module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.upgrade_handler.from__2_1_3__to__2_1_4.html">gdm.distribution.upgrade_handler.from__2_1_3__to__2_1_4 module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.upgrade_handler.from__2_1_4__to__2_1_5.html">gdm.distribution.upgrade_handler.from__2_1_4__to__2_1_5 module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.upgrade_handler.from__2_1_5__to__2_2_0.html">gdm.distribution.upgrade_handler.from__2_1_5__to__2_2_0 module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.upgrade_handler.from__2_2_0__to__2_2_1.html">gdm.distribution.upgrade_handler.from__2_2_0__to__2_2_1 module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.upgrade_handler.from__2_2_1__to__2_3_0.html">gdm.distribution.upgrade_handler.from__2_2_1__to__2_3_0 module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.upgrade_handler.from__2_3_0__to__2_3_1.html">gdm.distribution.upgrade_handler.from__2_3_0__to__2_3_1 module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.upgrade_handler.from__2_3_1__to__2_3_2.html">gdm.distribution.upgrade_handler.from__2_3_1__to__2_3_2 module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.upgrade_handler.from__2_3_2__to__2_3_3.html">gdm.distribution.upgrade_handler.from__2_3_2__to__2_3_3 module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.upgrade_handler.from__2_3_3__to__2_3_4.html">gdm.distribution.upgrade_handler.from__2_3_3__to__2_3_4 module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.upgrade_handler.from__2_3_4__to__2_3_5.html">gdm.distribution.upgrade_handler.from__2_3_4__to__2_3_5 module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.upgrade_handler.from__2_3_5__to__2_3_6.html">gdm.distribution.upgrade_handler.from__2_3_5__to__2_3_6 module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.upgrade_handler.from__2_3_6__to__2_3_7.html">gdm.distribution.upgrade_handler.from__2_3_6__to__2_3_7 module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.upgrade_handler.from__2_3_7__to__2_3_8.html">gdm.distribution.upgrade_handler.from__2_3_7__to__2_3_8 module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.upgrade_handler.upgrade_handler.html">gdm.distribution.upgrade_handler.upgrade_handler module</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="gdm.distribution.utils.html">gdm.distribution.utils package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.utils.aggregate_components.html">gdm.distribution.utils.aggregate_components module</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="gdm.distribution.catalog_system.html">gdm.distribution.catalog_system module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gdm.distribution.distribution_graph.html">gdm.distribution.distribution_graph module</a></li>
+<li class="toctree-l3 current active"><a class="current reference internal" href="#">gdm.distribution.distribution_system module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gdm.distribution.enums.html">gdm.distribution.enums module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gdm.distribution.sys_functools.html">gdm.distribution.sys_functools module</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="gdm.mcp.html">gdm.mcp package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="gdm.mcp.inspection.html">gdm.mcp.inspection package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="gdm.mcp.inspection.inspector.html">gdm.mcp.inspection.inspector module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.mcp.inspection.relationships.html">gdm.mcp.inspection.relationships module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.mcp.inspection.topology.html">gdm.mcp.inspection.topology module</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="gdm.mcp.knowledge.html">gdm.mcp.knowledge package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="gdm.mcp.knowledge.documentation.html">gdm.mcp.knowledge.documentation module</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="gdm.mcp.operations.html">gdm.mcp.operations package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="gdm.mcp.operations.merger.html">gdm.mcp.operations.merger module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.mcp.operations.splitter.html">gdm.mcp.operations.splitter module</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="gdm.mcp.utilities.html">gdm.mcp.utilities package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="gdm.mcp.utilities.subsystem.html">gdm.mcp.utilities.subsystem module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.mcp.utilities.timeseries.html">gdm.mcp.utilities.timeseries module</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="gdm.mcp.validation.html">gdm.mcp.validation package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="gdm.mcp.validation.auto_fixer.html">gdm.mcp.validation.auto_fixer module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.mcp.validation.diagnostics.html">gdm.mcp.validation.diagnostics module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.mcp.validation.suggestions.html">gdm.mcp.validation.suggestions module</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="gdm.mcp.exceptions.html">gdm.mcp.exceptions module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gdm.mcp.schemas.html">gdm.mcp.schemas module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gdm.mcp.server.html">gdm.mcp.server module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gdm.mcp.version.html">gdm.mcp.version module</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="gdm.structural.html">gdm.structural package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="gdm.structural.components.html">gdm.structural.components package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="gdm.structural.components.base.html">gdm.structural.components.base module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.structural.components.building.html">gdm.structural.components.building module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.structural.components.overhead_line_segment.html">gdm.structural.components.overhead_line_segment module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.structural.components.pole.html">gdm.structural.components.pole module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.structural.components.pvsystem.html">gdm.structural.components.pvsystem module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.structural.components.transformer.html">gdm.structural.components.transformer module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.structural.components.underground_cable.html">gdm.structural.components.underground_cable module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.structural.components.underground_junction.html">gdm.structural.components.underground_junction module</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="gdm.structural.structural_system.html">gdm.structural.structural_system module</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="gdm.constants.html">gdm.constants module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gdm.exceptions.html">gdm.exceptions module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gdm.hashing_utils.html">gdm.hashing_utils module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gdm.quantities.html">gdm.quantities module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gdm.tracked_changes.html">gdm.tracked_changes module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gdm.version.html">gdm.version module</a></li>
+</ul>
+</details></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="modules.html" class="nav-link">gdm</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="gdm.html" class="nav-link">gdm package</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="gdm.distribution.html" class="nav-link">gdm.distribution package</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">gdm.distribution.distribution_system module</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="module-gdm.distribution.distribution_system">
+<span id="gdm-distribution-distribution-system-module"></span><h1>gdm.distribution.distribution_system module<a class="headerlink" href="#module-gdm.distribution.distribution_system" title="Link to this heading">#</a></h1>
+<p>This module contains distribution system.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="gdm.distribution.distribution_system.UserAttributes">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">gdm.distribution.distribution_system.</span></span><span class="sig-name descname"><span class="pre">UserAttributes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">profile_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">profile_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_actual</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gdm.distribution.distribution_system.UserAttributes" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
+<p>Data model for single time series data user attributes.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.distribution.distribution_system.UserAttributes.profile_name">
+<span class="sig-name descname"><span class="pre">profile_name</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">FieldInfo</span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">annotation</span></span><span class="o"><span class="pre">=</span></span><span class="pre">NoneType</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">required</span></span><span class="o"><span class="pre">=</span></span><span class="k"><span class="pre">True</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">description</span></span><span class="o"><span class="pre">=</span></span><span class="s"><span class="pre">'Name</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">profile</span> <span class="pre">to</span> <span class="pre">be</span> <span class="pre">used</span> <span class="pre">in</span> <span class="pre">original</span> <span class="pre">powerflow</span> <span class="pre">model.'</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#gdm.distribution.distribution_system.UserAttributes.profile_name" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.distribution.distribution_system.UserAttributes.profile_type">
+<span class="sig-name descname"><span class="pre">profile_type</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">FieldInfo</span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">annotation</span></span><span class="o"><span class="pre">=</span></span><span class="pre">NoneType</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">required</span></span><span class="o"><span class="pre">=</span></span><span class="k"><span class="pre">True</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">description</span></span><span class="o"><span class="pre">=</span></span><span class="s"><span class="pre">'Type</span> <span class="pre">of</span> <span class="pre">profile</span> <span class="pre">could</span> <span class="pre">be</span> <span class="pre">PMult,</span> <span class="pre">QMult</span> <span class="pre">etc.'</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#gdm.distribution.distribution_system.UserAttributes.profile_type" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.distribution.distribution_system.UserAttributes.use_actual">
+<span class="sig-name descname"><span class="pre">use_actual</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">FieldInfo</span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">annotation</span></span><span class="o"><span class="pre">=</span></span><span class="pre">NoneType</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">required</span></span><span class="o"><span class="pre">=</span></span><span class="k"><span class="pre">True</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">description</span></span><span class="o"><span class="pre">=</span></span><span class="s"><span class="pre">'Boolean</span> <span class="pre">flag</span> <span class="pre">indicating</span> <span class="pre">whether</span> <span class="pre">these</span> <span class="pre">values</span> <span class="pre">are</span> <span class="pre">actual</span> <span class="pre">or</span> <span class="pre">not.'</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#gdm.distribution.distribution_system.UserAttributes.use_actual" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.distribution.distribution_system.UserAttributes.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></span><a class="headerlink" href="#gdm.distribution.distribution_system.UserAttributes.model_config" title="Link to this definition">#</a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="gdm.distribution.distribution_system.DistributionSystem">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">gdm.distribution.distribution_system.</span></span><span class="sig-name descname"><span class="pre">DistributionSystem</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gdm.distribution.distribution_system.DistributionSystem" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">System</span></code></p>
+<p>Class interface for distribution system.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="gdm.distribution.distribution_system.DistributionSystem.get_bus_connected_components">
+<span class="sig-name descname"><span class="pre">get_bus_connected_components</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bus_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">component_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Component</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">Component</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="headerlink" href="#gdm.distribution.distribution_system.DistributionSystem.get_bus_connected_components" title="Link to this definition">#</a></dt>
+<dd><p>Retrieve components connected to a specified bus.</p>
+<p>This method returns a list of components of a specified type that are connected to a given bus
+within the distribution system. It checks for connections based on the presence of a ‘bus’ or
+‘buses’ field in the component model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>bus_name</strong> (<em>str</em>) – The name of the bus to which the components are connected.</p></li>
+<li><p><strong>component_type</strong> (<em>Component</em>) – The type of components to search for connections.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of components connected to the specified bus, or None if no components are found.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list[Component] | None</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>The method filters components based on whether they have a direct connection to the specified</p></li>
+</ul>
+<p>bus, either through a single ‘bus’ field or a list of ‘buses’.
+- This is useful for identifying all components that are directly associated with a particular
+bus in the distribution network.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gdm.distribution.distribution_system.DistributionSystem.get_model_types_with_field_type">
+<span class="sig-name descname"><span class="pre">get_model_types_with_field_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><span class="pre">Component</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><span class="pre">Component</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#gdm.distribution.distribution_system.DistributionSystem.get_model_types_with_field_type" title="Link to this definition">#</a></dt>
+<dd><p>Retrieve model types containing a specific field type.</p>
+<p>This method identifies and returns a list of component model types that include a field
+with the specified type. It is useful for determining which models within the distribution
+system have fields of a particular component type.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>field_type</strong> (<em>Type</em><em>[</em><em>Component</em><em>]</em>) – The component type to search for within model fields.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of model types that contain fields of the specified component type.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list[Type[Component]]</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>The method iterates over all component types in the system and checks their fields</p></li>
+</ul>
+<p>for the specified type.
+- This can be used to identify models that have specific relationships or dependencies
+based on their field types.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gdm.distribution.distribution_system.DistributionSystem.get_source_bus">
+<span class="sig-name descname"><span class="pre">get_source_bus</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="gdm.distribution.components.distribution_bus.html#gdm.distribution.components.distribution_bus.DistributionBus" title="gdm.distribution.components.distribution_bus.DistributionBus"><span class="pre">DistributionBus</span></a></span></span><a class="headerlink" href="#gdm.distribution.distribution_system.DistributionSystem.get_source_bus" title="Link to this definition">#</a></dt>
+<dd><p>Identifies and returns the source bus of the distribution system.</p>
+<p>This method retrieves the distribution voltage source components and extracts the
+associated bus. It ensures that there is exactly one voltage source bus in the system,
+which serves as the starting point for power distribution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The bus associated with the single distribution voltage source in the system.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="gdm.distribution.components.distribution_bus.html#gdm.distribution.components.distribution_bus.DistributionBus" title="gdm.distribution.components.distribution_bus.DistributionBus">DistributionBus</a></p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="gdm.exceptions.html#gdm.exceptions.MultipleOrEmptyVsourceFound" title="gdm.exceptions.MultipleOrEmptyVsourceFound"><strong>MultipleOrEmptyVsourceFound</strong></a> – If there are multiple or no voltage sources found in the system.</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>The source bus is crucial for constructing directed graphs and analyzing power flow</p></li>
+</ul>
+<p>within the distribution network.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gdm.distribution.distribution_system.DistributionSystem.get_undirected_graph">
+<span class="sig-name descname"><span class="pre">get_undirected_graph</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">MultiGraph</span></span></span><a class="headerlink" href="#gdm.distribution.distribution_system.DistributionSystem.get_undirected_graph" title="Link to this definition">#</a></dt>
+<dd><p>Constructs an undirected graph representation of the distribution system.</p>
+<p>This method generates an undirected graph using NetworkX, where nodes represent distribution
+buses and edges represent connections between them. The graph is constructed by iterating
+over all distribution buses and their connecting branches and transformers.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>An undirected graph representing the distribution system, with nodes as buses and edges
+as connections between them.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>nx.Graph</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>The graph is useful for analyzing the connectivity and topology of the distribution network.</p></li>
+<li><p>Each edge in the graph includes metadata such as the component’s name and type.</p></li>
+</ul>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gdm.distribution.distribution_system.DistributionSystem.get_subsystem">
+<span class="sig-name descname"><span class="pre">get_subsystem</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">bus_names:</span> <span class="pre">list[str],</span> <span class="pre">name:</span> <span class="pre">str,</span> <span class="pre">keep_time_series:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">False,</span> <span class="pre">keep_timeseries:</span> <span class="pre">bool</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">time_series_type:</span> <span class="pre">~typing.Type[~infrasys.time_series_models.TimeSeriesData]</span> <span class="pre">=</span> <span class="pre">&lt;class</span> <span class="pre">'infrasys.time_series_models.SingleTimeSeries'&gt;,</span> <span class="pre">directed_graph:</span> <span class="pre">~networkx.classes.digraph.DiGraph</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#gdm.distribution.distribution_system.DistributionSystem" title="gdm.distribution.distribution_system.DistributionSystem"><span class="pre">DistributionSystem</span></a></span></span><a class="headerlink" href="#gdm.distribution.distribution_system.DistributionSystem.get_subsystem" title="Link to this definition">#</a></dt>
+<dd><p>Method to get subsystem from list of buses.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>bus_names</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – List of bus names</p></li>
+<li><p><strong>name</strong> (<em>str</em>) – Name of the subsystem.</p></li>
+<li><p><strong>keep_time_series</strong> (<em>bool</em>) – Set this flag to retain time series data associated with the component.</p></li>
+<li><p><strong>keep_timeseries</strong> (<em>bool</em><em> | </em><em>None</em>) – Deprecated alias for keep_time_series.</p></li>
+<li><p><strong>time_series_type</strong> (<em>Type</em><em>[</em><em>TimeSeriesData</em><em>]</em>) – Type of time series data. Defaults to: SingleTimeSeries</p></li>
+<li><p><strong>directed_graph</strong> (<em>nx.DiGraph</em><em> | </em><em>None</em>) – Optional precomputed directed graph for this system. When provided,
+it is reused instead of rebuilding the directed graph.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#gdm.distribution.distribution_system.DistributionSystem" title="gdm.distribution.distribution_system.DistributionSystem">DistributionSystem</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gdm.distribution.distribution_system.DistributionSystem.get_directed_graph">
+<span class="sig-name descname"><span class="pre">get_directed_graph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">return_radial_network</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DiGraph</span></span></span><a class="headerlink" href="#gdm.distribution.distribution_system.DistributionSystem.get_directed_graph" title="Link to this definition">#</a></dt>
+<dd><p>Constructs a directed graph representation of the distribution system.</p>
+<p>This method generates a directed graph using NetworkX, where nodes represent distribution
+buses and directed edges represent connections between them. The graph is constructed
+using a depth-first search (DFS) starting from the source bus, ensuring a hierarchical
+representation of the system.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A directed graph representing the distribution system, with nodes as buses and edges
+as connections between them.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>nx.DiGraph</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>The source bus is determined using the <cite>get_source_bus</cite> method.</p></li>
+<li><p>The directed graph is useful for analyzing the flow of electricity and identifying</p></li>
+</ul>
+<p>subsystems within the distribution network.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gdm.distribution.distribution_system.DistributionSystem.find_switch_buses_in_cycle">
+<span class="sig-name descname"><span class="pre">find_switch_buses_in_cycle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cycle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#gdm.distribution.distribution_system.DistributionSystem.find_switch_buses_in_cycle" title="Link to this definition">#</a></dt>
+<dd><p>Finds the switch edges in a given cycle.</p>
+<p>This method identifies the switch edges that are part of a cycle in the directed graph.
+It checks for edges in the cycle that correspond to switches and returns the
+(bus_1, bus_2) pairs for each switch edge found.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>cycle</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – A list of bus names that form a cycle in the directed graph.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of (bus_1, bus_2) tuples for each switch edge found in the cycle.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list[tuple[str, str]]</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>The method iterates through the edges in the cycle and checks for any switches.</p></li>
+<li><p>It returns the bus pairs that are connected by these switches.</p></li>
+</ul>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gdm.distribution.distribution_system.DistributionSystem.get_split_phase_mapping">
+<span class="sig-name descname"><span class="pre">get_split_phase_mapping</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">directed_graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DiGraph</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">set</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="gdm.distribution.enums.html#gdm.distribution.enums.Phase" title="gdm.distribution.enums.Phase"><span class="pre">Phase</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#gdm.distribution.distribution_system.DistributionSystem.get_split_phase_mapping" title="Link to this definition">#</a></dt>
+<dd><p>Generates a mapping of components to their split-phase configurations.</p>
+<p>This method identifies distribution transformers with center-tapped windings and
+constructs a mapping of components in the low-voltage subsystem to the phases of
+the high-voltage bus. The mapping is useful for understanding the phase relationships
+in split-phase systems.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A dictionary where keys are component names and values are sets of phases
+associated with the high-voltage bus.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>dict[str, set[<a class="reference internal" href="gdm.distribution.enums.html#gdm.distribution.enums.Phase" title="gdm.distribution.enums.Phase">Phase</a>]]</p>
+</dd>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>directed_graph</strong> (<em>nx.DiGraph</em><em> | </em><em>None</em>) – Optional precomputed directed graph for this system. When provided,
+it is reused instead of rebuilding the directed graph.</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>The method uses the directed graph representation of the distribution system to</p></li>
+</ul>
+<p>identify subsystems connected to low-voltage buses.
+- Only transformers with center-tapped windings are considered for split-phase mapping.</p>
+<section id="logs">
+<h2>Logs<a class="headerlink" href="#logs" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Logs the process of identifying and mapping split-phase transformers.</p></li>
+</ul>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gdm.distribution.distribution_system.DistributionSystem.to_gdf">
+<span class="sig-name descname"><span class="pre">to_gdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">export_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">GeoDataFrame</span></span></span><a class="headerlink" href="#gdm.distribution.distribution_system.DistributionSystem.to_gdf" title="Link to this definition">#</a></dt>
+<dd><p>Converts the distribution system into a GeoDataFrame.</p>
+<p>This method constructs a GeoDataFrame representing the distribution system’s nodes and edges,
+which can be used for geographic data analysis and visualization. The resulting GeoDataFrame
+includes spatial information and attributes for each component.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>export_file</strong> (<em>Path</em><em> | </em><em>None</em>) – Optional path to save the GeoDataFrame as a CSV file. If None, the GeoDataFrame is not saved.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A GeoDataFrame containing the spatial and attribute data of the distribution system.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>gpd.GeoDataFrame</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>The method uses the <cite>_build_node_geodataframe</cite> and <cite>_build_edge_geodataframe</cite> methods to</p></li>
+</ul>
+<p>construct the node and edge data, respectively.
+- The coordinate reference system is set to EPSG:4326 for compatibility with most geographic
+information systems.</p>
+<section id="id1">
+<h2>Logs<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Logs the path where the GeoDataFrame is saved if <cite>export_file</cite> is provided.</p></li>
+</ul>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gdm.distribution.distribution_system.DistributionSystem.to_geojson">
+<span class="sig-name descname"><span class="pre">to_geojson</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">export_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#gdm.distribution.distribution_system.DistributionSystem.to_geojson" title="Link to this definition">#</a></dt>
+<dd><p>Exports the distribution system to a GeoJSON file.</p>
+<p>This method converts the distribution system’s components into a GeoDataFrame and
+writes it to a GeoJSON file at the specified path. The GeoJSON format is suitable
+for geographic data visualization and analysis.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>export_file</strong> (<em>Path</em><em> | </em><em>str</em>) – The file path where the GeoJSON data will be saved.</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>FileNotFoundError</strong> – If the specified export path does not exist.</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>The method uses the <cite>to_gdf</cite> method to generate the GeoDataFrame representation</p></li>
+</ul>
+<p>of the distribution system.
+- The coordinate reference system (CRS) is determined from
+the distribution system bus data, defaulting to EPSG:4326 if not specified.</p>
+<section id="id2">
+<h2>Logs<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Logs the completion of the GeoJSON export process.</p></li>
+</ul>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gdm.distribution.distribution_system.DistributionSystem.plot">
+<span class="sig-name descname"><span class="pre">plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">export_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color_node_by</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="gdm.distribution.enums.html#gdm.distribution.enums.ColorNodeBy" title="gdm.distribution.enums.ColorNodeBy"><span class="pre">ColorNodeBy</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">ColorNodeBy.PHASE</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color_line_by</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="gdm.distribution.enums.html#gdm.distribution.enums.ColorLineBy" title="gdm.distribution.enums.ColorLineBy"><span class="pre">ColorLineBy</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">ColorLineBy.EQUIPMENT_TYPE</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_legend</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">map_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="gdm.distribution.enums.html#gdm.distribution.enums.MapType" title="gdm.distribution.enums.MapType"><span class="pre">MapType</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">MapType.SCATTER_GEO</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">style</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="gdm.distribution.enums.html#gdm.distribution.enums.PlotingStyle" title="gdm.distribution.enums.PlotingStyle"><span class="pre">PlotingStyle</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">PlotingStyle.CARTO_POSITRON</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zoom_level</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">11</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flip_coordinates</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#gdm.distribution.distribution_system.DistributionSystem.plot" title="Link to this definition">#</a></dt>
+<dd><p>Generates an interactive plot of the distribution system using Plotly.</p>
+<p>This method visualizes the distribution system’s nodes and edges on a geographical map.
+Nodes and edges can be colored based on specified attributes, and the plot can be
+exported to an HTML file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>export_path</strong> (<em>Path</em><em> | </em><em>None</em>) – Directory path to save the plot as an HTML file. If None, the plot is not saved.</p></li>
+<li><p><strong>zoom_level</strong> (<em>int</em>) – Zoom level for the map projection. Higher values zoom in closer.</p></li>
+<li><p><strong>show</strong> (<em>bool</em>) – If True, displays the plot in a web browser.</p></li>
+<li><p><strong>color_node_by</strong> (<a class="reference internal" href="gdm.distribution.enums.html#gdm.distribution.enums.ColorNodeBy" title="gdm.distribution.enums.ColorNodeBy"><em>ColorNodeBy</em></a>) – Attribute to color nodes by. Defaults to phase.</p></li>
+<li><p><strong>color_line_by</strong> (<a class="reference internal" href="gdm.distribution.enums.html#gdm.distribution.enums.ColorLineBy" title="gdm.distribution.enums.ColorLineBy"><em>ColorLineBy</em></a>) – Attribute to color lines by. Defaults to equipment type.</p></li>
+<li><p><strong>show_legend</strong> (<em>bool</em>) – If True, displays the legend on the plot.</p></li>
+<li><p><strong>**kwargs</strong> – Additional keyword arguments for customizing the plot’s appearance.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>NotADirectoryError</strong> – If the provided export path is not a directory.</p></li>
+<li><p><strong>FileNotFoundError</strong> – If the provided export path does not exist.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>The plot uses the geographical center of the nodes for centering the map.</p></li>
+<li><p>The coordinate reference system is set to EPSG:4326.</p></li>
+<li><p>The plot is interactive and can be zoomed and panned.</p></li>
+</ul>
+<section id="id3">
+<h2>Logs<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Logs the path where the plot is saved if <cite>export_path</cite> is provided.</p></li>
+</ul>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gdm.distribution.distribution_system.DistributionSystem.deepcopy">
+<span class="sig-name descname"><span class="pre">deepcopy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#gdm.distribution.distribution_system.DistributionSystem" title="gdm.distribution.distribution_system.DistributionSystem"><span class="pre">DistributionSystem</span></a></span></span><a class="headerlink" href="#gdm.distribution.distribution_system.DistributionSystem.deepcopy" title="Link to this definition">#</a></dt>
+<dd><p>Returns a deep copy of the distribution system.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gdm.distribution.distribution_system.DistributionSystem.convert_geometry_to_matrix_representation">
+<span class="sig-name descname"><span class="pre">convert_geometry_to_matrix_representation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">frequency_hz</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">60</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">soil_resistivity_ohm_m</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">100</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#gdm.distribution.distribution_system.DistributionSystem.convert_geometry_to_matrix_representation" title="Link to this definition">#</a></dt>
+<dd><p>Converts geometry-based branch models to matrix impedance representations.</p>
+<p>This method iterates over all components of type <cite>GeometryBranch</cite> within the distribution system
+and converts them to <cite>MatrixImpedanceBranch</cite> models. The conversion process involves calculating
+the impedance matrix based on the specified frequency and soil resistivity parameters. The original
+geometry-based branches are removed from the system and replaced with their matrix impedance counterparts.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>frequency_hz</strong> (<em>float</em><em>, </em><em>optional</em>) – The frequency in hertz used for impedance calculations. Defaults to 60 Hz.</p></li>
+<li><p><strong>soil_resistivity_ohm_m</strong> (<em>float</em><em>, </em><em>optional</em>) – The soil resistivity in ohm-meters used for impedance calculations. Defaults to 100 ohm-m.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>The method temporarily enables the automatic addition of composed components to ensure that</p></li>
+</ul>
+<p>the converted branches are properly integrated into the system.
+- After conversion, the original <cite>GeometryBranch</cite> components are removed, and the new
+<cite>MatrixImpedanceBranch</cite> components are added to the system.
+- This conversion is useful for systems that require matrix impedance representations for
+detailed electrical analysis.</p>
+<section id="id4">
+<h2>Logs<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Logs the start and completion of the conversion process, including the number of branches converted.</p></li>
+</ul>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gdm.distribution.distribution_system.DistributionSystem.kron_reduce">
+<span class="sig-name descname"><span class="pre">kron_reduce</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">frequency_hz</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">60</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">soil_resistivity_ohm_m</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">100</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gdm.distribution.distribution_system.DistributionSystem.kron_reduce" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gdm.distribution.distribution_system.DistributionSystem.get_cycles">
+<span class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">get_cycles</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">MultiDiGraph</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">MultiGraph</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#gdm.distribution.distribution_system.DistributionSystem.get_cycles" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="gdm.distribution.distribution_graph.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">gdm.distribution.distribution_graph module</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="gdm.distribution.enums.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">gdm.distribution.enums module</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.distribution_system.UserAttributes"><code class="docutils literal notranslate"><span class="pre">UserAttributes</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.distribution_system.UserAttributes.profile_name"><code class="docutils literal notranslate"><span class="pre">UserAttributes.profile_name</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.distribution_system.UserAttributes.profile_type"><code class="docutils literal notranslate"><span class="pre">UserAttributes.profile_type</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.distribution_system.UserAttributes.use_actual"><code class="docutils literal notranslate"><span class="pre">UserAttributes.use_actual</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.distribution_system.UserAttributes.model_config"><code class="docutils literal notranslate"><span class="pre">UserAttributes.model_config</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.distribution_system.DistributionSystem"><code class="docutils literal notranslate"><span class="pre">DistributionSystem</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.distribution_system.DistributionSystem.get_bus_connected_components"><code class="docutils literal notranslate"><span class="pre">DistributionSystem.get_bus_connected_components()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.distribution_system.DistributionSystem.get_model_types_with_field_type"><code class="docutils literal notranslate"><span class="pre">DistributionSystem.get_model_types_with_field_type()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.distribution_system.DistributionSystem.get_source_bus"><code class="docutils literal notranslate"><span class="pre">DistributionSystem.get_source_bus()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.distribution_system.DistributionSystem.get_undirected_graph"><code class="docutils literal notranslate"><span class="pre">DistributionSystem.get_undirected_graph()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.distribution_system.DistributionSystem.get_subsystem"><code class="docutils literal notranslate"><span class="pre">DistributionSystem.get_subsystem()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.distribution_system.DistributionSystem.get_directed_graph"><code class="docutils literal notranslate"><span class="pre">DistributionSystem.get_directed_graph()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.distribution_system.DistributionSystem.find_switch_buses_in_cycle"><code class="docutils literal notranslate"><span class="pre">DistributionSystem.find_switch_buses_in_cycle()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.distribution_system.DistributionSystem.get_split_phase_mapping"><code class="docutils literal notranslate"><span class="pre">DistributionSystem.get_split_phase_mapping()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.distribution_system.DistributionSystem.to_gdf"><code class="docutils literal notranslate"><span class="pre">DistributionSystem.to_gdf()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.distribution_system.DistributionSystem.to_geojson"><code class="docutils literal notranslate"><span class="pre">DistributionSystem.to_geojson()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.distribution_system.DistributionSystem.plot"><code class="docutils literal notranslate"><span class="pre">DistributionSystem.plot()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.distribution_system.DistributionSystem.deepcopy"><code class="docutils literal notranslate"><span class="pre">DistributionSystem.deepcopy()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.distribution_system.DistributionSystem.convert_geometry_to_matrix_representation"><code class="docutils literal notranslate"><span class="pre">DistributionSystem.convert_geometry_to_matrix_representation()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.distribution_system.DistributionSystem.kron_reduce"><code class="docutils literal notranslate"><span class="pre">DistributionSystem.kron_reduce()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.distribution_system.DistributionSystem.get_cycles"><code class="docutils literal notranslate"><span class="pre">DistributionSystem.get_cycles()</span></code></a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+
+  <div class="tocsection sourcelink">
+    <a href="../_sources/generated/gdm.distribution.distribution_system.rst.txt">
+      <i class="fa-solid fa-file-lines"></i> Show Source
+    </a>
+  </div>
+</div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=cb8930eaaf36d9849b67"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=cb8930eaaf36d9849b67"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.21.0.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

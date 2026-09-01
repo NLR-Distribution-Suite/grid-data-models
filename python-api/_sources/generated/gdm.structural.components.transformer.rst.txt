@@ -1,0 +1,7 @@
+gdm.structural.components.transformer module
+============================================
+
+.. automodule:: gdm.structural.components.transformer
+   :members:
+   :show-inheritance:
+   :undoc-members:

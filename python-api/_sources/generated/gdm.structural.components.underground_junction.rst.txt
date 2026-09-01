@@ -1,0 +1,7 @@
+gdm.structural.components.underground\_junction module
+======================================================
+
+.. automodule:: gdm.structural.components.underground_junction
+   :members:
+   :show-inheritance:
+   :undoc-members:

@@ -1,0 +1,7 @@
+gdm.distribution.components.distribution\_vsource module
+========================================================
+
+.. automodule:: gdm.distribution.components.distribution_vsource
+   :members:
+   :show-inheritance:
+   :undoc-members:

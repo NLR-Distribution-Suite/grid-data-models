@@ -1,0 +1,16 @@
+gdm.dataset package
+===================
+
+.. automodule:: gdm.dataset
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   gdm.dataset.cost_model
+   gdm.dataset.dataset_system

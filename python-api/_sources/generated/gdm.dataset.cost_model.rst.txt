@@ -1,0 +1,7 @@
+gdm.dataset.cost\_model module
+==============================
+
+.. automodule:: gdm.dataset.cost_model
+   :members:
+   :show-inheritance:
+   :undoc-members:

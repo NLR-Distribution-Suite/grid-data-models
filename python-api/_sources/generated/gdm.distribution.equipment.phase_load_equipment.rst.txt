@@ -1,0 +1,7 @@
+gdm.distribution.equipment.phase\_load\_equipment module
+========================================================
+
+.. automodule:: gdm.distribution.equipment.phase_load_equipment
+   :members:
+   :show-inheritance:
+   :undoc-members:

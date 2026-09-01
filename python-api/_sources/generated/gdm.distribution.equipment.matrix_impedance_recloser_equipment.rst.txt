@@ -1,0 +1,7 @@
+gdm.distribution.equipment.matrix\_impedance\_recloser\_equipment module
+========================================================================
+
+.. automodule:: gdm.distribution.equipment.matrix_impedance_recloser_equipment
+   :members:
+   :show-inheritance:
+   :undoc-members:

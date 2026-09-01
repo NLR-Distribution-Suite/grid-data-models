@@ -1,0 +1,7 @@
+gdm.distribution.components.base.distribution\_switch\_base module
+==================================================================
+
+.. automodule:: gdm.distribution.components.base.distribution_switch_base
+   :members:
+   :show-inheritance:
+   :undoc-members:

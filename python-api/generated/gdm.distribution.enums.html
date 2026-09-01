@@ -1,0 +1,1405 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>gdm.distribution.enums module &#8212; Grid-Data-Models API</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=cb8930eaaf36d9849b67" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=cb8930eaaf36d9849b67" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/autodoc_pydantic.css" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../_static/scripts/fontawesome.js?digest=cb8930eaaf36d9849b67"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=cb8930eaaf36d9849b67" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=cb8930eaaf36d9849b67" />
+
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'generated/gdm.distribution.enums';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="gdm.distribution.sys_functools module" href="gdm.distribution.sys_functools.html" />
+    <link rel="prev" title="gdm.distribution.distribution_system module" href="gdm.distribution.distribution_system.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  
+    
+    <script src="../_static/searchtools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Grid-Data-Models API</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="modules.html">
+    gdm
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="modules.html">
+    gdm
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item pst-sidebar-collapse"><button id="pst-collapse-sidebar-button" aria-expanded="true" aria-controls="pst-primary-sidebar">
+  <svg class="pst-icon" role="img" aria-hidden="true" focusable="false" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+    <path fill="currentColor" d="M3 15.5C2.36232 15.5 1.74874 15.2564 1.28478 14.8189C0.820828 14.3815 0.541576 13.7832 0.504167 13.1467L0.5 13L0.5 3C0.499965 2.36232 0.743605 1.74874 1.18107 1.28478C1.61854 0.820828 2.21676 0.541576 2.85333 0.504167L3 0.5L13 0.5C13.6377 0.499965 14.2513 0.743605 14.7152 1.18107C15.1792 1.61854 15.4584 2.21676 15.4958 2.85333L15.5 3L15.5 13C15.5 13.6377 15.2564 14.2513 14.8189 14.7152C14.3815 15.1792 13.7832 15.4584 13.1467 15.4958L13 15.5L3 15.5ZM3 13.8333L10.5 13.8333L10.5 2.16667L3 2.16667C2.79589 2.16669 2.59889 2.24163 2.44636 2.37726C2.29383 2.5129 2.19638 2.69979 2.1725 2.9025L2.16667 3L2.16667 13C2.16669 13.2041 2.24163 13.4011 2.37726 13.5536C2.5129 13.7062 2.69979 13.8036 2.9025 13.8275L3 13.8333ZM6.65583 10.325L6.5775 10.2558L4.91083 8.58917C4.76735 8.44567 4.68116 8.25476 4.66843 8.05223C4.65569 7.84971 4.71729 7.6495 4.84167 7.48917L4.91083 7.41083L6.5775 5.74417C6.72747 5.59471 6.9287 5.50794 7.14032 5.50148C7.35194 5.49502 7.55809 5.56935 7.7169 5.70937C7.8757 5.8494 7.97525 6.04463 7.99533 6.25539C8.01541 6.46616 7.95451 6.67667 7.825 6.84417L7.75583 6.9225L6.67917 8L7.75583 9.0775C7.89931 9.22099 7.98551 9.41191 7.99824 9.61443C8.01097 9.81695 7.94938 10.0172 7.825 10.1775L7.75583 10.2558C7.61234 10.3993 7.42142 10.4855 7.2189 10.4982C7.01638 10.511 6.81617 10.4494 6.65583 10.325Z"/>
+  </svg>
+  <span class="pst-collapse-sidebar-label">Collapse Sidebar</span>
+  <span class="pst-expand-sidebar-label">Expand Sidebar</span>
+</button></div>
+        <div class="sidebar-primary-item">
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="gdm.html">gdm package</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 has-children"><a class="reference internal" href="gdm.dataset.html">gdm.dataset package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="gdm.dataset.cost_model.html">gdm.dataset.cost_model module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gdm.dataset.dataset_system.html">gdm.dataset.dataset_system module</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="gdm.distribution.html">gdm.distribution package</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l3 has-children"><a class="reference internal" href="gdm.distribution.common.html">gdm.distribution.common package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.common.curve.html">gdm.distribution.common.curve module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.common.limitset.html">gdm.distribution.common.limitset module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.common.sequence_pair.html">gdm.distribution.common.sequence_pair module</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="gdm.distribution.components.html">gdm.distribution.components package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.components.base.html">gdm.distribution.components.base package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.components.distribution_battery.html">gdm.distribution.components.distribution_battery module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.components.distribution_bus.html">gdm.distribution.components.distribution_bus module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.components.distribution_capacitor.html">gdm.distribution.components.distribution_capacitor module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.components.distribution_feeder.html">gdm.distribution.components.distribution_feeder module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.components.distribution_load.html">gdm.distribution.components.distribution_load module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.components.distribution_regulator.html">gdm.distribution.components.distribution_regulator module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.components.distribution_solar.html">gdm.distribution.components.distribution_solar module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.components.distribution_substation.html">gdm.distribution.components.distribution_substation module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.components.distribution_transformer.html">gdm.distribution.components.distribution_transformer module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.components.distribution_vsource.html">gdm.distribution.components.distribution_vsource module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.components.geometry_branch.html">gdm.distribution.components.geometry_branch module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.components.geometry_switch.html">gdm.distribution.components.geometry_switch module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.components.matrix_impedance_branch.html">gdm.distribution.components.matrix_impedance_branch module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.components.matrix_impedance_fuse.html">gdm.distribution.components.matrix_impedance_fuse module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.components.matrix_impedance_recloser.html">gdm.distribution.components.matrix_impedance_recloser module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.components.matrix_impedance_switch.html">gdm.distribution.components.matrix_impedance_switch module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.components.sequence_impedance_branch.html">gdm.distribution.components.sequence_impedance_branch module</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="gdm.distribution.controllers.html">gdm.distribution.controllers package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.controllers.base.html">gdm.distribution.controllers.base package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.controllers.distribution_capacitor_controller.html">gdm.distribution.controllers.distribution_capacitor_controller module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.controllers.distribution_inverter_controller.html">gdm.distribution.controllers.distribution_inverter_controller module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.controllers.distribution_recloser_controller.html">gdm.distribution.controllers.distribution_recloser_controller module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.controllers.distribution_regulator_controller.html">gdm.distribution.controllers.distribution_regulator_controller module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.controllers.distribution_switch_controller.html">gdm.distribution.controllers.distribution_switch_controller module</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="gdm.distribution.equipment.html">gdm.distribution.equipment package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.equipment.base.html">gdm.distribution.equipment.base package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.equipment.bare_conductor_equipment.html">gdm.distribution.equipment.bare_conductor_equipment module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.equipment.battery_equipment.html">gdm.distribution.equipment.battery_equipment module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.equipment.capacitor_equipment.html">gdm.distribution.equipment.capacitor_equipment module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.equipment.concentric_cable_equipment.html">gdm.distribution.equipment.concentric_cable_equipment module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.equipment.distribution_transformer_equipment.html">gdm.distribution.equipment.distribution_transformer_equipment module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.equipment.geometry_branch_equipment.html">gdm.distribution.equipment.geometry_branch_equipment module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.equipment.inverter_equipment.html">gdm.distribution.equipment.inverter_equipment module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.equipment.load_equipment.html">gdm.distribution.equipment.load_equipment module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.equipment.matrix_impedance_branch_equipment.html">gdm.distribution.equipment.matrix_impedance_branch_equipment module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.equipment.matrix_impedance_fuse_equipment.html">gdm.distribution.equipment.matrix_impedance_fuse_equipment module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.equipment.matrix_impedance_recloser_equipment.html">gdm.distribution.equipment.matrix_impedance_recloser_equipment module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.equipment.matrix_impedance_switch_equipment.html">gdm.distribution.equipment.matrix_impedance_switch_equipment module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.equipment.phase_capacitor_equipment.html">gdm.distribution.equipment.phase_capacitor_equipment module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.equipment.phase_load_equipment.html">gdm.distribution.equipment.phase_load_equipment module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.equipment.phase_voltagesource_equipment.html">gdm.distribution.equipment.phase_voltagesource_equipment module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.equipment.recloser_controller_equipment.html">gdm.distribution.equipment.recloser_controller_equipment module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.equipment.sequence_impedance_branch_equipment.html">gdm.distribution.equipment.sequence_impedance_branch_equipment module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.equipment.solar_equipment.html">gdm.distribution.equipment.solar_equipment module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.equipment.voltagesource_equipment.html">gdm.distribution.equipment.voltagesource_equipment module</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="gdm.distribution.market.html">gdm.distribution.market package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.market.aggregator.html">gdm.distribution.market.aggregator module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.market.tariff.html">gdm.distribution.market.tariff module</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="gdm.distribution.model_reduction.html">gdm.distribution.model_reduction package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.model_reduction.reducer.html">gdm.distribution.model_reduction.reducer module</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="gdm.distribution.upgrade_handler.html">gdm.distribution.upgrade_handler package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.upgrade_handler.from__2_0_1__to__2_1_2.html">gdm.distribution.upgrade_handler.from__2_0_1__to__2_1_2 module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.upgrade_handler.from__2_1_2__to__2_1_3.html">gdm.distribution.upgrade_handler.from__2_1_2__to__2_1_3 module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.upgrade_handler.from__2_1_3__to__2_1_4.html">gdm.distribution.upgrade_handler.from__2_1_3__to__2_1_4 module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.upgrade_handler.from__2_1_4__to__2_1_5.html">gdm.distribution.upgrade_handler.from__2_1_4__to__2_1_5 module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.upgrade_handler.from__2_1_5__to__2_2_0.html">gdm.distribution.upgrade_handler.from__2_1_5__to__2_2_0 module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.upgrade_handler.from__2_2_0__to__2_2_1.html">gdm.distribution.upgrade_handler.from__2_2_0__to__2_2_1 module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.upgrade_handler.from__2_2_1__to__2_3_0.html">gdm.distribution.upgrade_handler.from__2_2_1__to__2_3_0 module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.upgrade_handler.from__2_3_0__to__2_3_1.html">gdm.distribution.upgrade_handler.from__2_3_0__to__2_3_1 module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.upgrade_handler.from__2_3_1__to__2_3_2.html">gdm.distribution.upgrade_handler.from__2_3_1__to__2_3_2 module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.upgrade_handler.from__2_3_2__to__2_3_3.html">gdm.distribution.upgrade_handler.from__2_3_2__to__2_3_3 module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.upgrade_handler.from__2_3_3__to__2_3_4.html">gdm.distribution.upgrade_handler.from__2_3_3__to__2_3_4 module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.upgrade_handler.from__2_3_4__to__2_3_5.html">gdm.distribution.upgrade_handler.from__2_3_4__to__2_3_5 module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.upgrade_handler.from__2_3_5__to__2_3_6.html">gdm.distribution.upgrade_handler.from__2_3_5__to__2_3_6 module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.upgrade_handler.from__2_3_6__to__2_3_7.html">gdm.distribution.upgrade_handler.from__2_3_6__to__2_3_7 module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.upgrade_handler.from__2_3_7__to__2_3_8.html">gdm.distribution.upgrade_handler.from__2_3_7__to__2_3_8 module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.upgrade_handler.upgrade_handler.html">gdm.distribution.upgrade_handler.upgrade_handler module</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="gdm.distribution.utils.html">gdm.distribution.utils package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="gdm.distribution.utils.aggregate_components.html">gdm.distribution.utils.aggregate_components module</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="gdm.distribution.catalog_system.html">gdm.distribution.catalog_system module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gdm.distribution.distribution_graph.html">gdm.distribution.distribution_graph module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gdm.distribution.distribution_system.html">gdm.distribution.distribution_system module</a></li>
+<li class="toctree-l3 current active"><a class="current reference internal" href="#">gdm.distribution.enums module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gdm.distribution.sys_functools.html">gdm.distribution.sys_functools module</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="gdm.mcp.html">gdm.mcp package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="gdm.mcp.inspection.html">gdm.mcp.inspection package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="gdm.mcp.inspection.inspector.html">gdm.mcp.inspection.inspector module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.mcp.inspection.relationships.html">gdm.mcp.inspection.relationships module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.mcp.inspection.topology.html">gdm.mcp.inspection.topology module</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="gdm.mcp.knowledge.html">gdm.mcp.knowledge package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="gdm.mcp.knowledge.documentation.html">gdm.mcp.knowledge.documentation module</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="gdm.mcp.operations.html">gdm.mcp.operations package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="gdm.mcp.operations.merger.html">gdm.mcp.operations.merger module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.mcp.operations.splitter.html">gdm.mcp.operations.splitter module</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="gdm.mcp.utilities.html">gdm.mcp.utilities package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="gdm.mcp.utilities.subsystem.html">gdm.mcp.utilities.subsystem module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.mcp.utilities.timeseries.html">gdm.mcp.utilities.timeseries module</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="gdm.mcp.validation.html">gdm.mcp.validation package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="gdm.mcp.validation.auto_fixer.html">gdm.mcp.validation.auto_fixer module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.mcp.validation.diagnostics.html">gdm.mcp.validation.diagnostics module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.mcp.validation.suggestions.html">gdm.mcp.validation.suggestions module</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="gdm.mcp.exceptions.html">gdm.mcp.exceptions module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gdm.mcp.schemas.html">gdm.mcp.schemas module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gdm.mcp.server.html">gdm.mcp.server module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gdm.mcp.version.html">gdm.mcp.version module</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="gdm.structural.html">gdm.structural package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="gdm.structural.components.html">gdm.structural.components package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="gdm.structural.components.base.html">gdm.structural.components.base module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.structural.components.building.html">gdm.structural.components.building module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.structural.components.overhead_line_segment.html">gdm.structural.components.overhead_line_segment module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.structural.components.pole.html">gdm.structural.components.pole module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.structural.components.pvsystem.html">gdm.structural.components.pvsystem module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.structural.components.transformer.html">gdm.structural.components.transformer module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.structural.components.underground_cable.html">gdm.structural.components.underground_cable module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.structural.components.underground_junction.html">gdm.structural.components.underground_junction module</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="gdm.structural.structural_system.html">gdm.structural.structural_system module</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="gdm.constants.html">gdm.constants module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gdm.exceptions.html">gdm.exceptions module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gdm.hashing_utils.html">gdm.hashing_utils module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gdm.quantities.html">gdm.quantities module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gdm.tracked_changes.html">gdm.tracked_changes module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gdm.version.html">gdm.version module</a></li>
+</ul>
+</details></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="modules.html" class="nav-link">gdm</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="gdm.html" class="nav-link">gdm package</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="gdm.distribution.html" class="nav-link">gdm.distribution package</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">gdm.distribution.enums module</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="module-gdm.distribution.enums">
+<span id="gdm-distribution-enums-module"></span><h1>gdm.distribution.enums module<a class="headerlink" href="#module-gdm.distribution.enums" title="Link to this heading">#</a></h1>
+<p>This module contains phase enums.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="gdm.distribution.enums.Phase">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">gdm.distribution.enums.</span></span><span class="sig-name descname"><span class="pre">Phase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gdm.distribution.enums.Phase" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>This class is used to represent a single phase from a set of possible values.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.distribution.enums.Phase.A">
+<span class="sig-name descname"><span class="pre">A</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'A'</span></span><a class="headerlink" href="#gdm.distribution.enums.Phase.A" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.distribution.enums.Phase.B">
+<span class="sig-name descname"><span class="pre">B</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'B'</span></span><a class="headerlink" href="#gdm.distribution.enums.Phase.B" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.distribution.enums.Phase.C">
+<span class="sig-name descname"><span class="pre">C</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'C'</span></span><a class="headerlink" href="#gdm.distribution.enums.Phase.C" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.distribution.enums.Phase.N">
+<span class="sig-name descname"><span class="pre">N</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'N'</span></span><a class="headerlink" href="#gdm.distribution.enums.Phase.N" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.distribution.enums.Phase.S1">
+<span class="sig-name descname"><span class="pre">S1</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'S1'</span></span><a class="headerlink" href="#gdm.distribution.enums.Phase.S1" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.distribution.enums.Phase.S2">
+<span class="sig-name descname"><span class="pre">S2</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'S2'</span></span><a class="headerlink" href="#gdm.distribution.enums.Phase.S2" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="gdm.distribution.enums.ConnectionType">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">gdm.distribution.enums.</span></span><span class="sig-name descname"><span class="pre">ConnectionType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gdm.distribution.enums.ConnectionType" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>Winding connection types.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.distribution.enums.ConnectionType.STAR">
+<span class="sig-name descname"><span class="pre">STAR</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'STAR'</span></span><a class="headerlink" href="#gdm.distribution.enums.ConnectionType.STAR" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.distribution.enums.ConnectionType.DELTA">
+<span class="sig-name descname"><span class="pre">DELTA</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'DELTA'</span></span><a class="headerlink" href="#gdm.distribution.enums.ConnectionType.DELTA" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.distribution.enums.ConnectionType.OPEN_DELTA">
+<span class="sig-name descname"><span class="pre">OPEN_DELTA</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'OPEN_DELTA'</span></span><a class="headerlink" href="#gdm.distribution.enums.ConnectionType.OPEN_DELTA" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.distribution.enums.ConnectionType.OPEN_STAR">
+<span class="sig-name descname"><span class="pre">OPEN_STAR</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'OPEN_STAR'</span></span><a class="headerlink" href="#gdm.distribution.enums.ConnectionType.OPEN_STAR" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.distribution.enums.ConnectionType.ZIG_ZAG">
+<span class="sig-name descname"><span class="pre">ZIG_ZAG</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'ZIG_ZAG'</span></span><a class="headerlink" href="#gdm.distribution.enums.ConnectionType.ZIG_ZAG" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="gdm.distribution.enums.TransformerMounting">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">gdm.distribution.enums.</span></span><span class="sig-name descname"><span class="pre">TransformerMounting</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gdm.distribution.enums.TransformerMounting" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>Transformer mounting type.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.distribution.enums.TransformerMounting.POLE_MOUNT">
+<span class="sig-name descname"><span class="pre">POLE_MOUNT</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'POLE_MOUNT'</span></span><a class="headerlink" href="#gdm.distribution.enums.TransformerMounting.POLE_MOUNT" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.distribution.enums.TransformerMounting.PAD_MOUNT">
+<span class="sig-name descname"><span class="pre">PAD_MOUNT</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'PAD_MOUNT'</span></span><a class="headerlink" href="#gdm.distribution.enums.TransformerMounting.PAD_MOUNT" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.distribution.enums.TransformerMounting.UNDERGROUND_VAULT">
+<span class="sig-name descname"><span class="pre">UNDERGROUND_VAULT</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'UNDERGROUND_VAULT'</span></span><a class="headerlink" href="#gdm.distribution.enums.TransformerMounting.UNDERGROUND_VAULT" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="gdm.distribution.enums.LineType">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">gdm.distribution.enums.</span></span><span class="sig-name descname"><span class="pre">LineType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gdm.distribution.enums.LineType" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>Line type.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.distribution.enums.LineType.OVERHEAD">
+<span class="sig-name descname"><span class="pre">OVERHEAD</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'OVERHEAD'</span></span><a class="headerlink" href="#gdm.distribution.enums.LineType.OVERHEAD" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.distribution.enums.LineType.UNDERGROUND">
+<span class="sig-name descname"><span class="pre">UNDERGROUND</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'UNDERGROUND'</span></span><a class="headerlink" href="#gdm.distribution.enums.LineType.UNDERGROUND" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="gdm.distribution.enums.VoltageTypes">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">gdm.distribution.enums.</span></span><span class="sig-name descname"><span class="pre">VoltageTypes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gdm.distribution.enums.VoltageTypes" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>Identifier of voltage types referenced in distribution models.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.distribution.enums.VoltageTypes.LINE_TO_LINE">
+<span class="sig-name descname"><span class="pre">LINE_TO_LINE</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'line-to-line'</span></span><a class="headerlink" href="#gdm.distribution.enums.VoltageTypes.LINE_TO_LINE" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.distribution.enums.VoltageTypes.LINE_TO_GROUND">
+<span class="sig-name descname"><span class="pre">LINE_TO_GROUND</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'line-to-ground'</span></span><a class="headerlink" href="#gdm.distribution.enums.VoltageTypes.LINE_TO_GROUND" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="gdm.distribution.enums.LimitType">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">gdm.distribution.enums.</span></span><span class="sig-name descname"><span class="pre">LimitType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gdm.distribution.enums.LimitType" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>Operational limit types.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.distribution.enums.LimitType.MIN">
+<span class="sig-name descname"><span class="pre">MIN</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'min'</span></span><a class="headerlink" href="#gdm.distribution.enums.LimitType.MIN" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.distribution.enums.LimitType.MAX">
+<span class="sig-name descname"><span class="pre">MAX</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'max'</span></span><a class="headerlink" href="#gdm.distribution.enums.LimitType.MAX" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="gdm.distribution.enums.BatteryState">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">gdm.distribution.enums.</span></span><span class="sig-name descname"><span class="pre">BatteryState</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gdm.distribution.enums.BatteryState" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>Repersents possible battery operation states.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.distribution.enums.BatteryState.CHARGING">
+<span class="sig-name descname"><span class="pre">CHARGING</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'charging'</span></span><a class="headerlink" href="#gdm.distribution.enums.BatteryState.CHARGING" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.distribution.enums.BatteryState.DISCHARGING">
+<span class="sig-name descname"><span class="pre">DISCHARGING</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'discharging'</span></span><a class="headerlink" href="#gdm.distribution.enums.BatteryState.DISCHARGING" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.distribution.enums.BatteryState.IDLING">
+<span class="sig-name descname"><span class="pre">IDLING</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'idling'</span></span><a class="headerlink" href="#gdm.distribution.enums.BatteryState.IDLING" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="gdm.distribution.enums.ControllerSupport">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">gdm.distribution.enums.</span></span><span class="sig-name descname"><span class="pre">ControllerSupport</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gdm.distribution.enums.ControllerSupport" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>Identifier for distribution components supported by the control algorithm</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.distribution.enums.ControllerSupport.BATTERY_ONLY">
+<span class="sig-name descname"><span class="pre">BATTERY_ONLY</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'battery-only'</span></span><a class="headerlink" href="#gdm.distribution.enums.ControllerSupport.BATTERY_ONLY" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.distribution.enums.ControllerSupport.SOLAR_ONLY">
+<span class="sig-name descname"><span class="pre">SOLAR_ONLY</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'solar-only'</span></span><a class="headerlink" href="#gdm.distribution.enums.ControllerSupport.SOLAR_ONLY" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.distribution.enums.ControllerSupport.BATTERY_AND_SOLAR">
+<span class="sig-name descname"><span class="pre">BATTERY_AND_SOLAR</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'battery-and-solar'</span></span><a class="headerlink" href="#gdm.distribution.enums.ControllerSupport.BATTERY_AND_SOLAR" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="gdm.distribution.enums.ColorNodeBy">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">gdm.distribution.enums.</span></span><span class="sig-name descname"><span class="pre">ColorNodeBy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gdm.distribution.enums.ColorNodeBy" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>Node color choices for the distribution system plot</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.distribution.enums.ColorNodeBy.PHASE">
+<span class="sig-name descname"><span class="pre">PHASE</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Phases'</span></span><a class="headerlink" href="#gdm.distribution.enums.ColorNodeBy.PHASE" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.distribution.enums.ColorNodeBy.DEFAULT">
+<span class="sig-name descname"><span class="pre">DEFAULT</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Default'</span></span><a class="headerlink" href="#gdm.distribution.enums.ColorNodeBy.DEFAULT" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.distribution.enums.ColorNodeBy.EQUIPMENT_TYPE">
+<span class="sig-name descname"><span class="pre">EQUIPMENT_TYPE</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Type'</span></span><a class="headerlink" href="#gdm.distribution.enums.ColorNodeBy.EQUIPMENT_TYPE" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.distribution.enums.ColorNodeBy.VOLTAGE_LEVEL">
+<span class="sig-name descname"><span class="pre">VOLTAGE_LEVEL</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'kV'</span></span><a class="headerlink" href="#gdm.distribution.enums.ColorNodeBy.VOLTAGE_LEVEL" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="gdm.distribution.enums.ColorLineBy">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">gdm.distribution.enums.</span></span><span class="sig-name descname"><span class="pre">ColorLineBy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gdm.distribution.enums.ColorLineBy" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>Line color choices for the distribution system plot</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.distribution.enums.ColorLineBy.PHASE">
+<span class="sig-name descname"><span class="pre">PHASE</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Phases'</span></span><a class="headerlink" href="#gdm.distribution.enums.ColorLineBy.PHASE" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.distribution.enums.ColorLineBy.DEFAULT">
+<span class="sig-name descname"><span class="pre">DEFAULT</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Default'</span></span><a class="headerlink" href="#gdm.distribution.enums.ColorLineBy.DEFAULT" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.distribution.enums.ColorLineBy.EQUIPMENT_TYPE">
+<span class="sig-name descname"><span class="pre">EQUIPMENT_TYPE</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Type'</span></span><a class="headerlink" href="#gdm.distribution.enums.ColorLineBy.EQUIPMENT_TYPE" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="gdm.distribution.enums.MapType">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">gdm.distribution.enums.</span></span><span class="sig-name descname"><span class="pre">MapType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gdm.distribution.enums.MapType" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>Map type choices for the distribution system plot</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.distribution.enums.MapType.SCATTER_MAP">
+<span class="sig-name descname"><span class="pre">SCATTER_MAP</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Scattermap'</span></span><a class="headerlink" href="#gdm.distribution.enums.MapType.SCATTER_MAP" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.distribution.enums.MapType.SCATTER_GEO">
+<span class="sig-name descname"><span class="pre">SCATTER_GEO</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Scattergeo'</span></span><a class="headerlink" href="#gdm.distribution.enums.MapType.SCATTER_GEO" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="gdm.distribution.enums.PlotingStyle">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">gdm.distribution.enums.</span></span><span class="sig-name descname"><span class="pre">PlotingStyle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gdm.distribution.enums.PlotingStyle" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.distribution.enums.PlotingStyle.CARTO_DARKMATTER">
+<span class="sig-name descname"><span class="pre">CARTO_DARKMATTER</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'carto-darkmatter'</span></span><a class="headerlink" href="#gdm.distribution.enums.PlotingStyle.CARTO_DARKMATTER" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.distribution.enums.PlotingStyle.OPEN_STREET_MAP">
+<span class="sig-name descname"><span class="pre">OPEN_STREET_MAP</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'open-street-map'</span></span><a class="headerlink" href="#gdm.distribution.enums.PlotingStyle.OPEN_STREET_MAP" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.distribution.enums.PlotingStyle.CARTO_POSITRON">
+<span class="sig-name descname"><span class="pre">CARTO_POSITRON</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'carto-positron'</span></span><a class="headerlink" href="#gdm.distribution.enums.PlotingStyle.CARTO_POSITRON" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.distribution.enums.PlotingStyle.WHITE_BG">
+<span class="sig-name descname"><span class="pre">WHITE_BG</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'white-bg'</span></span><a class="headerlink" href="#gdm.distribution.enums.PlotingStyle.WHITE_BG" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="gdm.distribution.enums.WireInsulationType">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">gdm.distribution.enums.</span></span><span class="sig-name descname"><span class="pre">WireInsulationType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gdm.distribution.enums.WireInsulationType" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.distribution.enums.WireInsulationType.AIR">
+<span class="sig-name descname"><span class="pre">AIR</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1.0</span></span><a class="headerlink" href="#gdm.distribution.enums.WireInsulationType.AIR" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.distribution.enums.WireInsulationType.PVC">
+<span class="sig-name descname"><span class="pre">PVC</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3.18</span></span><a class="headerlink" href="#gdm.distribution.enums.WireInsulationType.PVC" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.distribution.enums.WireInsulationType.XLPE">
+<span class="sig-name descname"><span class="pre">XLPE</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2.3</span></span><a class="headerlink" href="#gdm.distribution.enums.WireInsulationType.XLPE" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.distribution.enums.WireInsulationType.EPR">
+<span class="sig-name descname"><span class="pre">EPR</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2.5</span></span><a class="headerlink" href="#gdm.distribution.enums.WireInsulationType.EPR" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.distribution.enums.WireInsulationType.PE">
+<span class="sig-name descname"><span class="pre">PE</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2.25</span></span><a class="headerlink" href="#gdm.distribution.enums.WireInsulationType.PE" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.distribution.enums.WireInsulationType.TEFLON">
+<span class="sig-name descname"><span class="pre">TEFLON</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2.1</span></span><a class="headerlink" href="#gdm.distribution.enums.WireInsulationType.TEFLON" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.distribution.enums.WireInsulationType.SILICONE_RUBBER">
+<span class="sig-name descname"><span class="pre">SILICONE_RUBBER</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3.5</span></span><a class="headerlink" href="#gdm.distribution.enums.WireInsulationType.SILICONE_RUBBER" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.distribution.enums.WireInsulationType.PAPER">
+<span class="sig-name descname"><span class="pre">PAPER</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3.7</span></span><a class="headerlink" href="#gdm.distribution.enums.WireInsulationType.PAPER" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.distribution.enums.WireInsulationType.MICA">
+<span class="sig-name descname"><span class="pre">MICA</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">6.0</span></span><a class="headerlink" href="#gdm.distribution.enums.WireInsulationType.MICA" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="gdm.distribution.enums.TOUPeriodType">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">gdm.distribution.enums.</span></span><span class="sig-name descname"><span class="pre">TOUPeriodType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gdm.distribution.enums.TOUPeriodType" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.distribution.enums.TOUPeriodType.PEAK">
+<span class="sig-name descname"><span class="pre">PEAK</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'peak'</span></span><a class="headerlink" href="#gdm.distribution.enums.TOUPeriodType.PEAK" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.distribution.enums.TOUPeriodType.OFF_PEAK">
+<span class="sig-name descname"><span class="pre">OFF_PEAK</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'off_peak'</span></span><a class="headerlink" href="#gdm.distribution.enums.TOUPeriodType.OFF_PEAK" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.distribution.enums.TOUPeriodType.MID_PEAK">
+<span class="sig-name descname"><span class="pre">MID_PEAK</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'mid_peak'</span></span><a class="headerlink" href="#gdm.distribution.enums.TOUPeriodType.MID_PEAK" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="gdm.distribution.enums.Month">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">gdm.distribution.enums.</span></span><span class="sig-name descname"><span class="pre">Month</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gdm.distribution.enums.Month" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.distribution.enums.Month.JANUARY">
+<span class="sig-name descname"><span class="pre">JANUARY</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'january'</span></span><a class="headerlink" href="#gdm.distribution.enums.Month.JANUARY" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.distribution.enums.Month.FEBRUARY">
+<span class="sig-name descname"><span class="pre">FEBRUARY</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'february'</span></span><a class="headerlink" href="#gdm.distribution.enums.Month.FEBRUARY" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.distribution.enums.Month.MARCH">
+<span class="sig-name descname"><span class="pre">MARCH</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'march'</span></span><a class="headerlink" href="#gdm.distribution.enums.Month.MARCH" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.distribution.enums.Month.APRIL">
+<span class="sig-name descname"><span class="pre">APRIL</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'april'</span></span><a class="headerlink" href="#gdm.distribution.enums.Month.APRIL" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.distribution.enums.Month.MAY">
+<span class="sig-name descname"><span class="pre">MAY</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'may'</span></span><a class="headerlink" href="#gdm.distribution.enums.Month.MAY" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.distribution.enums.Month.JUNE">
+<span class="sig-name descname"><span class="pre">JUNE</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'june'</span></span><a class="headerlink" href="#gdm.distribution.enums.Month.JUNE" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.distribution.enums.Month.JULY">
+<span class="sig-name descname"><span class="pre">JULY</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'july'</span></span><a class="headerlink" href="#gdm.distribution.enums.Month.JULY" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.distribution.enums.Month.AUGUST">
+<span class="sig-name descname"><span class="pre">AUGUST</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'august'</span></span><a class="headerlink" href="#gdm.distribution.enums.Month.AUGUST" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.distribution.enums.Month.SEPTEMBER">
+<span class="sig-name descname"><span class="pre">SEPTEMBER</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'september'</span></span><a class="headerlink" href="#gdm.distribution.enums.Month.SEPTEMBER" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.distribution.enums.Month.OCTOBER">
+<span class="sig-name descname"><span class="pre">OCTOBER</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'october'</span></span><a class="headerlink" href="#gdm.distribution.enums.Month.OCTOBER" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.distribution.enums.Month.NOVEMBER">
+<span class="sig-name descname"><span class="pre">NOVEMBER</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'november'</span></span><a class="headerlink" href="#gdm.distribution.enums.Month.NOVEMBER" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.distribution.enums.Month.DECEMBER">
+<span class="sig-name descname"><span class="pre">DECEMBER</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'december'</span></span><a class="headerlink" href="#gdm.distribution.enums.Month.DECEMBER" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="gdm.distribution.enums.Season">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">gdm.distribution.enums.</span></span><span class="sig-name descname"><span class="pre">Season</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gdm.distribution.enums.Season" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.distribution.enums.Season.SUMMER">
+<span class="sig-name descname"><span class="pre">SUMMER</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'summer'</span></span><a class="headerlink" href="#gdm.distribution.enums.Season.SUMMER" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.distribution.enums.Season.WINTER">
+<span class="sig-name descname"><span class="pre">WINTER</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'winter'</span></span><a class="headerlink" href="#gdm.distribution.enums.Season.WINTER" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.distribution.enums.Season.SHOULDER">
+<span class="sig-name descname"><span class="pre">SHOULDER</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'shoulder'</span></span><a class="headerlink" href="#gdm.distribution.enums.Season.SHOULDER" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="gdm.distribution.enums.CustomerClass">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">gdm.distribution.enums.</span></span><span class="sig-name descname"><span class="pre">CustomerClass</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gdm.distribution.enums.CustomerClass" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.distribution.enums.CustomerClass.RESIDENTIAL">
+<span class="sig-name descname"><span class="pre">RESIDENTIAL</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'residential'</span></span><a class="headerlink" href="#gdm.distribution.enums.CustomerClass.RESIDENTIAL" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.distribution.enums.CustomerClass.COMMERCIAL">
+<span class="sig-name descname"><span class="pre">COMMERCIAL</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'commercial'</span></span><a class="headerlink" href="#gdm.distribution.enums.CustomerClass.COMMERCIAL" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.distribution.enums.CustomerClass.INDUSTRIAL">
+<span class="sig-name descname"><span class="pre">INDUSTRIAL</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'industrial'</span></span><a class="headerlink" href="#gdm.distribution.enums.CustomerClass.INDUSTRIAL" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.distribution.enums.CustomerClass.UTILITY">
+<span class="sig-name descname"><span class="pre">UTILITY</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'utility'</span></span><a class="headerlink" href="#gdm.distribution.enums.CustomerClass.UTILITY" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="gdm.distribution.enums.BillingDemandBasis">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">gdm.distribution.enums.</span></span><span class="sig-name descname"><span class="pre">BillingDemandBasis</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gdm.distribution.enums.BillingDemandBasis" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.distribution.enums.BillingDemandBasis.PEAK_15MIN">
+<span class="sig-name descname"><span class="pre">PEAK_15MIN</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'peak_15min'</span></span><a class="headerlink" href="#gdm.distribution.enums.BillingDemandBasis.PEAK_15MIN" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.distribution.enums.BillingDemandBasis.PEAK_HOUR">
+<span class="sig-name descname"><span class="pre">PEAK_HOUR</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'peak_hour'</span></span><a class="headerlink" href="#gdm.distribution.enums.BillingDemandBasis.PEAK_HOUR" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.distribution.enums.BillingDemandBasis.CONTRACT_DEMAND">
+<span class="sig-name descname"><span class="pre">CONTRACT_DEMAND</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'contract_demand'</span></span><a class="headerlink" href="#gdm.distribution.enums.BillingDemandBasis.CONTRACT_DEMAND" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="gdm.distribution.enums.WholesaleMarketType">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">gdm.distribution.enums.</span></span><span class="sig-name descname"><span class="pre">WholesaleMarketType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gdm.distribution.enums.WholesaleMarketType" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.distribution.enums.WholesaleMarketType.DAY_AHEAD">
+<span class="sig-name descname"><span class="pre">DAY_AHEAD</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'day_ahead'</span></span><a class="headerlink" href="#gdm.distribution.enums.WholesaleMarketType.DAY_AHEAD" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.distribution.enums.WholesaleMarketType.REAL_TIME">
+<span class="sig-name descname"><span class="pre">REAL_TIME</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'real_time'</span></span><a class="headerlink" href="#gdm.distribution.enums.WholesaleMarketType.REAL_TIME" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="gdm.distribution.enums.AncillaryServiceType">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">gdm.distribution.enums.</span></span><span class="sig-name descname"><span class="pre">AncillaryServiceType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gdm.distribution.enums.AncillaryServiceType" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.distribution.enums.AncillaryServiceType.REGULATION_UP">
+<span class="sig-name descname"><span class="pre">REGULATION_UP</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'regulation_up'</span></span><a class="headerlink" href="#gdm.distribution.enums.AncillaryServiceType.REGULATION_UP" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.distribution.enums.AncillaryServiceType.REGULATION_DOWN">
+<span class="sig-name descname"><span class="pre">REGULATION_DOWN</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'regulation_down'</span></span><a class="headerlink" href="#gdm.distribution.enums.AncillaryServiceType.REGULATION_DOWN" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.distribution.enums.AncillaryServiceType.SPINNING_RESERVE">
+<span class="sig-name descname"><span class="pre">SPINNING_RESERVE</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'spinning_reserve'</span></span><a class="headerlink" href="#gdm.distribution.enums.AncillaryServiceType.SPINNING_RESERVE" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.distribution.enums.AncillaryServiceType.NON_SPINNING_RESERVE">
+<span class="sig-name descname"><span class="pre">NON_SPINNING_RESERVE</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'non_spinning_reserve'</span></span><a class="headerlink" href="#gdm.distribution.enums.AncillaryServiceType.NON_SPINNING_RESERVE" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.distribution.enums.AncillaryServiceType.FREQUENCY_RESPONSE">
+<span class="sig-name descname"><span class="pre">FREQUENCY_RESPONSE</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'frequency_response'</span></span><a class="headerlink" href="#gdm.distribution.enums.AncillaryServiceType.FREQUENCY_RESPONSE" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.distribution.enums.AncillaryServiceType.REACTIVE_SUPPLY">
+<span class="sig-name descname"><span class="pre">REACTIVE_SUPPLY</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'reactive_supply'</span></span><a class="headerlink" href="#gdm.distribution.enums.AncillaryServiceType.REACTIVE_SUPPLY" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="gdm.distribution.enums.CapacityMarketType">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">gdm.distribution.enums.</span></span><span class="sig-name descname"><span class="pre">CapacityMarketType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gdm.distribution.enums.CapacityMarketType" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.distribution.enums.CapacityMarketType.FORWARD_CAPACITY">
+<span class="sig-name descname"><span class="pre">FORWARD_CAPACITY</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'forward_capacity'</span></span><a class="headerlink" href="#gdm.distribution.enums.CapacityMarketType.FORWARD_CAPACITY" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.distribution.enums.CapacityMarketType.RELIABILITY_MUST_RUN">
+<span class="sig-name descname"><span class="pre">RELIABILITY_MUST_RUN</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'reliability_must_run'</span></span><a class="headerlink" href="#gdm.distribution.enums.CapacityMarketType.RELIABILITY_MUST_RUN" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.distribution.enums.CapacityMarketType.RESOURCE_ADEQUACY">
+<span class="sig-name descname"><span class="pre">RESOURCE_ADEQUACY</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'resource_adequacy'</span></span><a class="headerlink" href="#gdm.distribution.enums.CapacityMarketType.RESOURCE_ADEQUACY" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="gdm.distribution.enums.PricingNodeType">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">gdm.distribution.enums.</span></span><span class="sig-name descname"><span class="pre">PricingNodeType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gdm.distribution.enums.PricingNodeType" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.distribution.enums.PricingNodeType.LOAD_ZONE">
+<span class="sig-name descname"><span class="pre">LOAD_ZONE</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'load_zone'</span></span><a class="headerlink" href="#gdm.distribution.enums.PricingNodeType.LOAD_ZONE" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.distribution.enums.PricingNodeType.GENERATOR_NODE">
+<span class="sig-name descname"><span class="pre">GENERATOR_NODE</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'generator_node'</span></span><a class="headerlink" href="#gdm.distribution.enums.PricingNodeType.GENERATOR_NODE" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.distribution.enums.PricingNodeType.HUB">
+<span class="sig-name descname"><span class="pre">HUB</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'hub'</span></span><a class="headerlink" href="#gdm.distribution.enums.PricingNodeType.HUB" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.distribution.enums.PricingNodeType.INTERFACE">
+<span class="sig-name descname"><span class="pre">INTERFACE</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'interface'</span></span><a class="headerlink" href="#gdm.distribution.enums.PricingNodeType.INTERFACE" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="gdm.distribution.enums.AggregatorType">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">gdm.distribution.enums.</span></span><span class="sig-name descname"><span class="pre">AggregatorType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gdm.distribution.enums.AggregatorType" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.distribution.enums.AggregatorType.DER">
+<span class="sig-name descname"><span class="pre">DER</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'der'</span></span><a class="headerlink" href="#gdm.distribution.enums.AggregatorType.DER" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.distribution.enums.AggregatorType.LOAD">
+<span class="sig-name descname"><span class="pre">LOAD</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'load'</span></span><a class="headerlink" href="#gdm.distribution.enums.AggregatorType.LOAD" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.distribution.enums.AggregatorType.GENERIC">
+<span class="sig-name descname"><span class="pre">GENERIC</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'generic'</span></span><a class="headerlink" href="#gdm.distribution.enums.AggregatorType.GENERIC" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="gdm.distribution.enums.DemandResponseType">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">gdm.distribution.enums.</span></span><span class="sig-name descname"><span class="pre">DemandResponseType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gdm.distribution.enums.DemandResponseType" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.distribution.enums.DemandResponseType.ECONOMIC">
+<span class="sig-name descname"><span class="pre">ECONOMIC</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'economic'</span></span><a class="headerlink" href="#gdm.distribution.enums.DemandResponseType.ECONOMIC" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.distribution.enums.DemandResponseType.EMERGENCY">
+<span class="sig-name descname"><span class="pre">EMERGENCY</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'emergency'</span></span><a class="headerlink" href="#gdm.distribution.enums.DemandResponseType.EMERGENCY" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.distribution.enums.DemandResponseType.DIRECT_LOAD_CONTROL">
+<span class="sig-name descname"><span class="pre">DIRECT_LOAD_CONTROL</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'direct_load_control'</span></span><a class="headerlink" href="#gdm.distribution.enums.DemandResponseType.DIRECT_LOAD_CONTROL" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.distribution.enums.DemandResponseType.INTERRUPTIBLE">
+<span class="sig-name descname"><span class="pre">INTERRUPTIBLE</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'interruptible'</span></span><a class="headerlink" href="#gdm.distribution.enums.DemandResponseType.INTERRUPTIBLE" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="gdm.distribution.distribution_system.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">gdm.distribution.distribution_system module</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="gdm.distribution.sys_functools.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">gdm.distribution.sys_functools module</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.Phase"><code class="docutils literal notranslate"><span class="pre">Phase</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.Phase.A"><code class="docutils literal notranslate"><span class="pre">Phase.A</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.Phase.B"><code class="docutils literal notranslate"><span class="pre">Phase.B</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.Phase.C"><code class="docutils literal notranslate"><span class="pre">Phase.C</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.Phase.N"><code class="docutils literal notranslate"><span class="pre">Phase.N</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.Phase.S1"><code class="docutils literal notranslate"><span class="pre">Phase.S1</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.Phase.S2"><code class="docutils literal notranslate"><span class="pre">Phase.S2</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.ConnectionType"><code class="docutils literal notranslate"><span class="pre">ConnectionType</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.ConnectionType.STAR"><code class="docutils literal notranslate"><span class="pre">ConnectionType.STAR</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.ConnectionType.DELTA"><code class="docutils literal notranslate"><span class="pre">ConnectionType.DELTA</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.ConnectionType.OPEN_DELTA"><code class="docutils literal notranslate"><span class="pre">ConnectionType.OPEN_DELTA</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.ConnectionType.OPEN_STAR"><code class="docutils literal notranslate"><span class="pre">ConnectionType.OPEN_STAR</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.ConnectionType.ZIG_ZAG"><code class="docutils literal notranslate"><span class="pre">ConnectionType.ZIG_ZAG</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.TransformerMounting"><code class="docutils literal notranslate"><span class="pre">TransformerMounting</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.TransformerMounting.POLE_MOUNT"><code class="docutils literal notranslate"><span class="pre">TransformerMounting.POLE_MOUNT</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.TransformerMounting.PAD_MOUNT"><code class="docutils literal notranslate"><span class="pre">TransformerMounting.PAD_MOUNT</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.TransformerMounting.UNDERGROUND_VAULT"><code class="docutils literal notranslate"><span class="pre">TransformerMounting.UNDERGROUND_VAULT</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.LineType"><code class="docutils literal notranslate"><span class="pre">LineType</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.LineType.OVERHEAD"><code class="docutils literal notranslate"><span class="pre">LineType.OVERHEAD</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.LineType.UNDERGROUND"><code class="docutils literal notranslate"><span class="pre">LineType.UNDERGROUND</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.VoltageTypes"><code class="docutils literal notranslate"><span class="pre">VoltageTypes</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.VoltageTypes.LINE_TO_LINE"><code class="docutils literal notranslate"><span class="pre">VoltageTypes.LINE_TO_LINE</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.VoltageTypes.LINE_TO_GROUND"><code class="docutils literal notranslate"><span class="pre">VoltageTypes.LINE_TO_GROUND</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.LimitType"><code class="docutils literal notranslate"><span class="pre">LimitType</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.LimitType.MIN"><code class="docutils literal notranslate"><span class="pre">LimitType.MIN</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.LimitType.MAX"><code class="docutils literal notranslate"><span class="pre">LimitType.MAX</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.BatteryState"><code class="docutils literal notranslate"><span class="pre">BatteryState</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.BatteryState.CHARGING"><code class="docutils literal notranslate"><span class="pre">BatteryState.CHARGING</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.BatteryState.DISCHARGING"><code class="docutils literal notranslate"><span class="pre">BatteryState.DISCHARGING</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.BatteryState.IDLING"><code class="docutils literal notranslate"><span class="pre">BatteryState.IDLING</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.ControllerSupport"><code class="docutils literal notranslate"><span class="pre">ControllerSupport</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.ControllerSupport.BATTERY_ONLY"><code class="docutils literal notranslate"><span class="pre">ControllerSupport.BATTERY_ONLY</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.ControllerSupport.SOLAR_ONLY"><code class="docutils literal notranslate"><span class="pre">ControllerSupport.SOLAR_ONLY</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.ControllerSupport.BATTERY_AND_SOLAR"><code class="docutils literal notranslate"><span class="pre">ControllerSupport.BATTERY_AND_SOLAR</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.ColorNodeBy"><code class="docutils literal notranslate"><span class="pre">ColorNodeBy</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.ColorNodeBy.PHASE"><code class="docutils literal notranslate"><span class="pre">ColorNodeBy.PHASE</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.ColorNodeBy.DEFAULT"><code class="docutils literal notranslate"><span class="pre">ColorNodeBy.DEFAULT</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.ColorNodeBy.EQUIPMENT_TYPE"><code class="docutils literal notranslate"><span class="pre">ColorNodeBy.EQUIPMENT_TYPE</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.ColorNodeBy.VOLTAGE_LEVEL"><code class="docutils literal notranslate"><span class="pre">ColorNodeBy.VOLTAGE_LEVEL</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.ColorLineBy"><code class="docutils literal notranslate"><span class="pre">ColorLineBy</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.ColorLineBy.PHASE"><code class="docutils literal notranslate"><span class="pre">ColorLineBy.PHASE</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.ColorLineBy.DEFAULT"><code class="docutils literal notranslate"><span class="pre">ColorLineBy.DEFAULT</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.ColorLineBy.EQUIPMENT_TYPE"><code class="docutils literal notranslate"><span class="pre">ColorLineBy.EQUIPMENT_TYPE</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.MapType"><code class="docutils literal notranslate"><span class="pre">MapType</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.MapType.SCATTER_MAP"><code class="docutils literal notranslate"><span class="pre">MapType.SCATTER_MAP</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.MapType.SCATTER_GEO"><code class="docutils literal notranslate"><span class="pre">MapType.SCATTER_GEO</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.PlotingStyle"><code class="docutils literal notranslate"><span class="pre">PlotingStyle</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.PlotingStyle.CARTO_DARKMATTER"><code class="docutils literal notranslate"><span class="pre">PlotingStyle.CARTO_DARKMATTER</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.PlotingStyle.OPEN_STREET_MAP"><code class="docutils literal notranslate"><span class="pre">PlotingStyle.OPEN_STREET_MAP</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.PlotingStyle.CARTO_POSITRON"><code class="docutils literal notranslate"><span class="pre">PlotingStyle.CARTO_POSITRON</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.PlotingStyle.WHITE_BG"><code class="docutils literal notranslate"><span class="pre">PlotingStyle.WHITE_BG</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.WireInsulationType"><code class="docutils literal notranslate"><span class="pre">WireInsulationType</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.WireInsulationType.AIR"><code class="docutils literal notranslate"><span class="pre">WireInsulationType.AIR</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.WireInsulationType.PVC"><code class="docutils literal notranslate"><span class="pre">WireInsulationType.PVC</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.WireInsulationType.XLPE"><code class="docutils literal notranslate"><span class="pre">WireInsulationType.XLPE</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.WireInsulationType.EPR"><code class="docutils literal notranslate"><span class="pre">WireInsulationType.EPR</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.WireInsulationType.PE"><code class="docutils literal notranslate"><span class="pre">WireInsulationType.PE</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.WireInsulationType.TEFLON"><code class="docutils literal notranslate"><span class="pre">WireInsulationType.TEFLON</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.WireInsulationType.SILICONE_RUBBER"><code class="docutils literal notranslate"><span class="pre">WireInsulationType.SILICONE_RUBBER</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.WireInsulationType.PAPER"><code class="docutils literal notranslate"><span class="pre">WireInsulationType.PAPER</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.WireInsulationType.MICA"><code class="docutils literal notranslate"><span class="pre">WireInsulationType.MICA</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.TOUPeriodType"><code class="docutils literal notranslate"><span class="pre">TOUPeriodType</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.TOUPeriodType.PEAK"><code class="docutils literal notranslate"><span class="pre">TOUPeriodType.PEAK</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.TOUPeriodType.OFF_PEAK"><code class="docutils literal notranslate"><span class="pre">TOUPeriodType.OFF_PEAK</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.TOUPeriodType.MID_PEAK"><code class="docutils literal notranslate"><span class="pre">TOUPeriodType.MID_PEAK</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.Month"><code class="docutils literal notranslate"><span class="pre">Month</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.Month.JANUARY"><code class="docutils literal notranslate"><span class="pre">Month.JANUARY</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.Month.FEBRUARY"><code class="docutils literal notranslate"><span class="pre">Month.FEBRUARY</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.Month.MARCH"><code class="docutils literal notranslate"><span class="pre">Month.MARCH</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.Month.APRIL"><code class="docutils literal notranslate"><span class="pre">Month.APRIL</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.Month.MAY"><code class="docutils literal notranslate"><span class="pre">Month.MAY</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.Month.JUNE"><code class="docutils literal notranslate"><span class="pre">Month.JUNE</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.Month.JULY"><code class="docutils literal notranslate"><span class="pre">Month.JULY</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.Month.AUGUST"><code class="docutils literal notranslate"><span class="pre">Month.AUGUST</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.Month.SEPTEMBER"><code class="docutils literal notranslate"><span class="pre">Month.SEPTEMBER</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.Month.OCTOBER"><code class="docutils literal notranslate"><span class="pre">Month.OCTOBER</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.Month.NOVEMBER"><code class="docutils literal notranslate"><span class="pre">Month.NOVEMBER</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.Month.DECEMBER"><code class="docutils literal notranslate"><span class="pre">Month.DECEMBER</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.Season"><code class="docutils literal notranslate"><span class="pre">Season</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.Season.SUMMER"><code class="docutils literal notranslate"><span class="pre">Season.SUMMER</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.Season.WINTER"><code class="docutils literal notranslate"><span class="pre">Season.WINTER</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.Season.SHOULDER"><code class="docutils literal notranslate"><span class="pre">Season.SHOULDER</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.CustomerClass"><code class="docutils literal notranslate"><span class="pre">CustomerClass</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.CustomerClass.RESIDENTIAL"><code class="docutils literal notranslate"><span class="pre">CustomerClass.RESIDENTIAL</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.CustomerClass.COMMERCIAL"><code class="docutils literal notranslate"><span class="pre">CustomerClass.COMMERCIAL</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.CustomerClass.INDUSTRIAL"><code class="docutils literal notranslate"><span class="pre">CustomerClass.INDUSTRIAL</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.CustomerClass.UTILITY"><code class="docutils literal notranslate"><span class="pre">CustomerClass.UTILITY</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.BillingDemandBasis"><code class="docutils literal notranslate"><span class="pre">BillingDemandBasis</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.BillingDemandBasis.PEAK_15MIN"><code class="docutils literal notranslate"><span class="pre">BillingDemandBasis.PEAK_15MIN</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.BillingDemandBasis.PEAK_HOUR"><code class="docutils literal notranslate"><span class="pre">BillingDemandBasis.PEAK_HOUR</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.BillingDemandBasis.CONTRACT_DEMAND"><code class="docutils literal notranslate"><span class="pre">BillingDemandBasis.CONTRACT_DEMAND</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.WholesaleMarketType"><code class="docutils literal notranslate"><span class="pre">WholesaleMarketType</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.WholesaleMarketType.DAY_AHEAD"><code class="docutils literal notranslate"><span class="pre">WholesaleMarketType.DAY_AHEAD</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.WholesaleMarketType.REAL_TIME"><code class="docutils literal notranslate"><span class="pre">WholesaleMarketType.REAL_TIME</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.AncillaryServiceType"><code class="docutils literal notranslate"><span class="pre">AncillaryServiceType</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.AncillaryServiceType.REGULATION_UP"><code class="docutils literal notranslate"><span class="pre">AncillaryServiceType.REGULATION_UP</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.AncillaryServiceType.REGULATION_DOWN"><code class="docutils literal notranslate"><span class="pre">AncillaryServiceType.REGULATION_DOWN</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.AncillaryServiceType.SPINNING_RESERVE"><code class="docutils literal notranslate"><span class="pre">AncillaryServiceType.SPINNING_RESERVE</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.AncillaryServiceType.NON_SPINNING_RESERVE"><code class="docutils literal notranslate"><span class="pre">AncillaryServiceType.NON_SPINNING_RESERVE</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.AncillaryServiceType.FREQUENCY_RESPONSE"><code class="docutils literal notranslate"><span class="pre">AncillaryServiceType.FREQUENCY_RESPONSE</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.AncillaryServiceType.REACTIVE_SUPPLY"><code class="docutils literal notranslate"><span class="pre">AncillaryServiceType.REACTIVE_SUPPLY</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.CapacityMarketType"><code class="docutils literal notranslate"><span class="pre">CapacityMarketType</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.CapacityMarketType.FORWARD_CAPACITY"><code class="docutils literal notranslate"><span class="pre">CapacityMarketType.FORWARD_CAPACITY</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.CapacityMarketType.RELIABILITY_MUST_RUN"><code class="docutils literal notranslate"><span class="pre">CapacityMarketType.RELIABILITY_MUST_RUN</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.CapacityMarketType.RESOURCE_ADEQUACY"><code class="docutils literal notranslate"><span class="pre">CapacityMarketType.RESOURCE_ADEQUACY</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.PricingNodeType"><code class="docutils literal notranslate"><span class="pre">PricingNodeType</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.PricingNodeType.LOAD_ZONE"><code class="docutils literal notranslate"><span class="pre">PricingNodeType.LOAD_ZONE</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.PricingNodeType.GENERATOR_NODE"><code class="docutils literal notranslate"><span class="pre">PricingNodeType.GENERATOR_NODE</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.PricingNodeType.HUB"><code class="docutils literal notranslate"><span class="pre">PricingNodeType.HUB</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.PricingNodeType.INTERFACE"><code class="docutils literal notranslate"><span class="pre">PricingNodeType.INTERFACE</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.AggregatorType"><code class="docutils literal notranslate"><span class="pre">AggregatorType</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.AggregatorType.DER"><code class="docutils literal notranslate"><span class="pre">AggregatorType.DER</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.AggregatorType.LOAD"><code class="docutils literal notranslate"><span class="pre">AggregatorType.LOAD</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.AggregatorType.GENERIC"><code class="docutils literal notranslate"><span class="pre">AggregatorType.GENERIC</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.DemandResponseType"><code class="docutils literal notranslate"><span class="pre">DemandResponseType</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.DemandResponseType.ECONOMIC"><code class="docutils literal notranslate"><span class="pre">DemandResponseType.ECONOMIC</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.DemandResponseType.EMERGENCY"><code class="docutils literal notranslate"><span class="pre">DemandResponseType.EMERGENCY</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.DemandResponseType.DIRECT_LOAD_CONTROL"><code class="docutils literal notranslate"><span class="pre">DemandResponseType.DIRECT_LOAD_CONTROL</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.distribution.enums.DemandResponseType.INTERRUPTIBLE"><code class="docutils literal notranslate"><span class="pre">DemandResponseType.INTERRUPTIBLE</span></code></a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+
+  <div class="tocsection sourcelink">
+    <a href="../_sources/generated/gdm.distribution.enums.rst.txt">
+      <i class="fa-solid fa-file-lines"></i> Show Source
+    </a>
+  </div>
+</div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=cb8930eaaf36d9849b67"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=cb8930eaaf36d9849b67"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.21.0.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

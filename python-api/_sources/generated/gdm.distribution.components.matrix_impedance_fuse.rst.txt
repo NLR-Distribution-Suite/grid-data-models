@@ -1,0 +1,7 @@
+gdm.distribution.components.matrix\_impedance\_fuse module
+==========================================================
+
+.. automodule:: gdm.distribution.components.matrix_impedance_fuse
+   :members:
+   :show-inheritance:
+   :undoc-members:
