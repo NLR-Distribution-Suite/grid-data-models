@@ -201,9 +201,7 @@ class DistributionSystem(System):
         graph = nx.MultiGraph()
         node: DistributionBus
         for node in self.get_components(DistributionBus):
-            data = {
-                "phases": [phase.value for phase in node.phases]
-            }
+            data = {"phases": [phase.value for phase in node.phases]}
             graph.add_node(node.name, **data)
 
         edges: list[DistributionBranchBase | DistributionTransformerBase] = list(
@@ -335,7 +333,7 @@ class DistributionSystem(System):
                 )
                 for metadata in ts_metadata:
                     ts_data = self.get_time_series(
-                        comp, metadata.name, time_series_type=time_series_type
+                        comp, metadata.name, time_series_type=time_series_type, **metadata.features
                     )
                     subtree_system.add_time_series(ts_data, comp, **metadata.features)
 

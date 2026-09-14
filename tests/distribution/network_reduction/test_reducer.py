@@ -10,7 +10,17 @@ from gdm.distribution.sys_functools import (
     get_aggregated_load_time_series,
     get_aggregated_solar_time_series,
 )
-from gdm.distribution.components import DistributionLoad, DistributionBus, DistributionSolar
+from gdm.distribution.components import (
+    DistributionLoad,
+    DistributionBus,
+    DistributionSolar,
+    DistributionVoltageSource,
+)
+from gdm.distribution.components.matrix_impedance_branch import MatrixImpedanceBranch
+from gdm.distribution.enums import Phase, VoltageTypes
+from gdm.distribution.equipment.matrix_impedance_branch_equipment import (
+    MatrixImpedanceBranchEquipment,
+)
 from gdm.distribution import DistributionSystem
 
 from gdm.exceptions import (
@@ -18,7 +28,16 @@ from gdm.exceptions import (
     UnsupportedVariableError,
     InconsistentTimeSeriesAggregation,
 )
-from gdm.quantities import ActivePower, Irradiance
+from gdm.quantities import (
+    ActivePower,
+    CapacitancePULength,
+    Current,
+    Distance,
+    Irradiance,
+    ReactancePULength,
+    ResistancePULength,
+    Voltage,
+)
 
 
 class CustomTimeSeries:
@@ -341,3 +360,120 @@ def test_reduce_to_primary_system_does_not_repeat_graph_logs(simple_distribution
         "Reducer should not repeatedly emit identical graph-construction warnings in a single "
         f"reduction run. Repeated messages: {repeated_graph_messages}"
     )
+
+
+def _make_bus(name: str, phases: list[Phase], kv: float = 12.47) -> DistributionBus:
+    return DistributionBus(
+        name=name,
+        rated_voltage=Voltage(kv, "kilovolt"),
+        phases=phases,
+        voltage_type=VoltageTypes.LINE_TO_LINE,
+    )
+
+
+def _three_phase_equipment() -> MatrixImpedanceBranchEquipment:
+    return MatrixImpedanceBranchEquipment.example()
+
+
+def _single_phase_equipment(name: str) -> MatrixImpedanceBranchEquipment:
+    return MatrixImpedanceBranchEquipment(
+        name=name,
+        r_matrix=ResistancePULength([[0.0882]], "ohm/mi"),
+        x_matrix=ReactancePULength([[0.2074]], "ohm/mi"),
+        c_matrix=CapacitancePULength([[2.9]], "nanofarad/mi"),
+        ampacity=Current(90, "ampere"),
+    )
+
+
+def _make_branch(
+    name: str,
+    bus_a: DistributionBus,
+    bus_b: DistributionBus,
+    phases: list[Phase],
+    equipment: MatrixImpedanceBranchEquipment,
+) -> MatrixImpedanceBranch:
+    return MatrixImpedanceBranch(
+        name=name,
+        buses=[bus_a, bus_b],
+        length=Distance(50, "meter"),
+        phases=phases,
+        equipment=equipment,
+    )
+
+
+def _build_phase_split_system() -> tuple[DistributionSystem, dict[str, DistributionBus]]:
+    """Build a system where a 3ph corridor is split into three parallel 1ph buses."""
+    sys = DistributionSystem(auto_add_composed_components=True)
+
+    src = _make_bus("src_bus", [Phase.A, Phase.B, Phase.C])
+    bus_x = _make_bus("bus_X", [Phase.A, Phase.B, Phase.C])
+    bus_y = _make_bus("bus_Y", [Phase.A, Phase.B, Phase.C])
+    imed_a = _make_bus("imed_A", [Phase.A])
+    imed_b = _make_bus("imed_B", [Phase.B])
+    imed_c = _make_bus("imed_C", [Phase.C])
+    lat_bus = _make_bus("lat_bus", [Phase.A])
+
+    for bus in (src, bus_x, bus_y, imed_a, imed_b, imed_c, lat_bus):
+        sys.add_component(bus)
+
+    three_ph_eq = _three_phase_equipment()
+    sys.add_component(
+        _make_branch("br_src_x", src, bus_x, [Phase.A, Phase.B, Phase.C], three_ph_eq)
+    )
+
+    for phase, imed in ((Phase.A, imed_a), (Phase.B, imed_b), (Phase.C, imed_c)):
+        eq_up = _single_phase_equipment(f"eq_up_{phase.value}")
+        eq_dn = _single_phase_equipment(f"eq_dn_{phase.value}")
+        sys.add_component(_make_branch(f"br_x_{phase.value}", bus_x, imed, [phase], eq_up))
+        sys.add_component(_make_branch(f"br_{phase.value}_y", imed, bus_y, [phase], eq_dn))
+
+    sys.add_component(
+        _make_branch(
+            "br_lateral",
+            bus_x,
+            lat_bus,
+            [Phase.A],
+            _single_phase_equipment("eq_lateral"),
+        )
+    )
+
+    sys.add_component(
+        DistributionVoltageSource.example().model_copy(update={"bus": src, "name": "vsource"})
+    )
+
+    return sys, {
+        "src": src,
+        "bus_x": bus_x,
+        "bus_y": bus_y,
+        "imed_a": imed_a,
+        "imed_b": imed_b,
+        "imed_c": imed_c,
+        "lat_bus": lat_bus,
+    }
+
+
+def test_three_phase_reduction_excludes_intermediates_by_default():
+    sys, buses = _build_phase_split_system()
+
+    reduced = reduce_to_three_phase_system(sys, name="reduced")
+
+    reduced_bus_names = {b.name for b in reduced.get_components(DistributionBus)}
+    assert reduced_bus_names == {buses["src"].name, buses["bus_x"].name, buses["bus_y"].name}
+
+
+def test_three_phase_reduction_keeps_phase_split_intermediates():
+    sys, buses = _build_phase_split_system()
+
+    reduced = reduce_to_three_phase_system(sys, name="reduced", include_intermediate_buses=True)
+
+    reduced_bus_names = {b.name for b in reduced.get_components(DistributionBus)}
+    expected_kept = {
+        buses["src"].name,
+        buses["bus_x"].name,
+        buses["bus_y"].name,
+        buses["imed_a"].name,
+        buses["imed_b"].name,
+        buses["imed_c"].name,
+    }
+    assert reduced_bus_names == expected_kept
+    assert buses["lat_bus"].name not in reduced_bus_names
