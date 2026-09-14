@@ -582,7 +582,7 @@ class DistributionSystem(System):
 
             if not ((x1 == 0 and y1 == 0) or (x2 == 0 and y2 == 0)):
                 component = self.get_component(data["type"], data["name"])
-                if isinstance(component, DistributionTransformer):
+                if isinstance(component, DistributionTransformerBase):
                     phases = [",".join([phs.value for phs in w]) for w in component.winding_phases]
                     phases = "\n".join(phases)
                     length = 15.0
