@@ -6,6 +6,7 @@ from gdm.distribution import DistributionSystem, CatalogSystem
 from pydantic import Field
 from rich.console import Console
 from infrasys import Component
+from infrasys.exceptions import ISNotStored
 from rich.table import Table
 from uuid import UUID
 
@@ -164,6 +165,39 @@ def _get_bus_names(component):
     return bus_names
 
 
+def _rebind_composed_components(component: Component, system: DistributionSystem) -> None:
+    for field_name in type(component).model_fields:
+        value = getattr(component, field_name)
+        if isinstance(value, Component):
+            canonical = (
+                system.get_component_by_uuid(value.uuid) if system.has_component(value) else value
+            )
+            if canonical is not value:
+                setattr(component, field_name, canonical)
+            else:
+                _rebind_composed_components(value, system)
+        elif isinstance(value, list):
+            for item in value:
+                if isinstance(item, Component):
+                    _rebind_composed_components(item, system)
+
+
+def _remove_component_with_unique_cascade(
+    system: DistributionSystem, component: Component
+) -> None:
+    child_uuids = list(
+        dict.fromkeys(child.uuid for child in system.list_child_components(component))
+    )
+    system.remove_component(component, cascade_down=False)
+    for child_uuid in child_uuids:
+        try:
+            child = system.get_component_by_uuid(child_uuid)
+        except ISNotStored:
+            continue
+        if not system.list_parent_components(child):
+            _remove_component_with_unique_cascade(system, child)
+
+
 def apply_updates_to_system(
     tracked_changes: list[TrackedChange],
     system: DistributionSystem,
@@ -264,6 +298,8 @@ def _apply_tracked_changes(
     for model_uuid in tracked_change.additions:
         component = catalog.get_component_by_uuid(model_uuid)
         if not system.has_component(component):
+            component = component.model_copy(deep=True)
+            _rebind_composed_components(component, system)
             system.add_component(component)
             bus_names = _get_bus_names(component)
             _update_temporal_table(
@@ -279,7 +315,7 @@ def _apply_tracked_changes(
     for model_uuid in tracked_change.deletions:
         component = system.get_component_by_uuid(model_uuid)
         if system.has_component(component):
-            system.remove_component(component)
+            _remove_component_with_unique_cascade(system, component)
             bus_names = _get_bus_names(component)
             _update_temporal_table(
                 log,

@@ -311,3 +311,42 @@ def test_migrate_component_count_preserved():
     original_count = len(data["components"])
     result = from__2_3_2__to__2_3_3(data, "2.3.2", "2.3.3")
     assert len(result["components"]) == original_count
+
+
+def test_migrate_with_empty_list_fields():
+    """Components with empty list fields must not break metadata migration."""
+    bus = _make_component(
+        "DistributionBus",
+        "gdm.distribution.components.distribution_bus",
+        {
+            "name": "bus1",
+            "voltage_type": "line-to-ground",
+            "phases": ["A", "B", "C"],
+            "voltagelimits": [],
+        },
+    )
+    data = {"data_format_version": "2.3.2", "components": [bus]}
+    result = from__2_3_2__to__2_3_3(data, "2.3.2", "2.3.3")
+
+    assert result["components"][0]["voltagelimits"] == []
+    assert result["components"][0]["__metadata__"]["type"] == "DistributionBus"
+
+
+def test_migrate_flat_metadata_with_empty_list_fields():
+    """Flat (already migrated) metadata with empty list fields passes through unchanged."""
+    bus = {
+        "name": "bus1",
+        "voltage_type": "line-to-ground",
+        "phases": ["A", "B", "C"],
+        "voltagelimits": [],
+        "__metadata__": {
+            "module": "gdm.distribution.components.distribution_bus",
+            "type": "DistributionBus",
+            "serialized_type": "base",
+        },
+    }
+    data = {"data_format_version": "2.3.2", "components": [bus]}
+    result = from__2_3_2__to__2_3_3(data, "2.3.2", "2.3.3")
+
+    assert result["components"][0]["voltagelimits"] == []
+    assert result["data_format_version"] == "2.3.3"

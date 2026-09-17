@@ -2,8 +2,8 @@ from datetime import datetime
 from uuid import UUID
 import pytest
 
-from gdm.distribution.components import DistributionLoad
-from gdm.quantities import ReactivePower
+from gdm.distribution.components import DistributionLoad, DistributionSolar
+from gdm.quantities import ReactivePower, Voltage
 from gdm.distribution import DistributionSystem
 from gdm.distribution.equipment import (
     PhaseCapacitorEquipment,
@@ -133,3 +133,53 @@ def test_scenario_update_filter_by_scenario_name_and_date(
     )
     capacitor = updated_system.get_component_by_uuid(cap_uuid)
     assert capacitor.rated_reactive_power.to("kilovar").magnitude == 200.0
+
+
+def test_scenario_update_deletion_cascades_without_duplicate_child_failure():
+    system = DistributionSystem(auto_add_composed_components=True)
+    load = DistributionLoad.example()
+    system.add_component(load)
+    catalog = DistributionSystem(auto_add_composed_components=True)
+
+    updated_system = apply_updates_to_system(
+        [TrackedChange(scenario_name="scenario_1", deletions=[load.uuid])],
+        system,
+        catalog,
+    )
+
+    assert not updated_system.has_component(load)
+
+
+def test_scenario_update_addition_rebinds_nested_component_to_system_instance():
+    system = DistributionSystem(auto_add_composed_components=True)
+    load = DistributionLoad.example()
+    system.add_component(load)
+    bus = load.bus
+
+    catalog = DistributionSystem(auto_add_composed_components=True)
+    solar = DistributionSolar.example()
+    solar.bus = bus.model_copy(deep=True)
+    catalog.add_component(solar)
+
+    updated_system = apply_updates_to_system(
+        [
+            TrackedChange(
+                scenario_name="scenario_1",
+                additions=[solar.uuid],
+                edits=[
+                    PropertyEdit(
+                        component_uuid=bus.uuid,
+                        name="rated_voltage",
+                        value=Voltage(999, "volt"),
+                    )
+                ],
+            )
+        ],
+        system,
+        catalog,
+    )
+
+    canonical_bus = updated_system.get_component_by_uuid(bus.uuid)
+    new_solar = updated_system.get_component_by_uuid(solar.uuid)
+    assert new_solar.bus is canonical_bus
+    assert new_solar.bus.rated_voltage == Voltage(999, "volt")

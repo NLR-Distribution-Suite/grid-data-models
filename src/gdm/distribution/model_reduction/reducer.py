@@ -3,24 +3,29 @@ from collections import defaultdict
 from typing import Type, Union, Callable
 
 from infrasys.time_series_models import SingleTimeSeries, TimeSeriesData
+from infrasys import Component
 import networkx as nx
 import numpy as np
 
+from gdm.distribution.components.base.distribution_branch_base import DistributionBranchBase
+from gdm.distribution.components.base.distribution_switch_base import DistributionSwitchBase
 from gdm.distribution.components.distribution_bus import DistributionBus
 from gdm.distribution.components.distribution_load import DistributionLoad
 from gdm.distribution.components.distribution_solar import DistributionSolar
 from gdm.distribution.components.distribution_battery import DistributionBattery
+from gdm.distribution.components.geometry_branch import GeometryBranch
 from gdm.distribution.components.matrix_impedance_branch import MatrixImpedanceBranch
+from gdm.distribution.components.matrix_impedance_switch import MatrixImpedanceSwitch
 from gdm.distribution.distribution_system import (
     DistributionSystem,
     UserAttributes,
 )
-
-from gdm.distribution.components.base.distribution_branch_base import DistributionBranchBase
 from gdm.distribution.components.base.distribution_transformer_base import (
     DistributionTransformerBase,
 )
-
+from gdm.distribution.equipment.matrix_impedance_switch_equipment import (
+    MatrixImpedanceSwitchEquipment,
+)
 from gdm.distribution.enums import Phase
 from gdm.distribution.sys_functools import (
     get_aggregated_load_time_series,
@@ -137,14 +142,75 @@ def _get_aggregated_bus_component(
     bus: DistributionBus,
     model_type: DistributionLoad | DistributionSolar,
     split_phase_mapping: dict[str, set[Phase]],
+    model_components: list[DistributionLoad | DistributionSolar] | None = None,
 ) -> DistributionLoad | DistributionSolar:
-    model_components = subtree_system.get_components(model_type)
+    if model_components is None:
+        model_components = subtree_system.get_components(model_type)
     return model_type.aggregate(
         instances=list(model_components),
         bus=bus,
         name=str(uuid.uuid4()),
         split_phase_mapping=split_phase_mapping,
     )
+
+
+def _aggregate_subtree_components(
+    subtree_system: DistributionSystem,
+    dist_system: DistributionSystem,
+    reduced_system: DistributionSystem,
+    model_types: list[Type[Component]],
+    source_bus_names: list[str],
+    aggregated_component_uuids: set[uuid.UUID],
+    target_bus: DistributionBus,
+    split_phase_mapping: dict[str, set[Phase]],
+    agg_time_series: bool,
+    time_series_type: Type[TimeSeriesData],
+    ts_agg_func_mapper: dict[Type[Component], Callable],
+) -> None:
+    for model_type in model_types:
+        model_components = [
+            component
+            for component in subtree_system.get_components(model_type)
+            if component.uuid not in aggregated_component_uuids
+            and getattr(component, "bus", None).name in source_bus_names
+        ]
+        aggregated_component_uuids.update(component.uuid for component in model_components)
+        if not model_components:
+            continue
+        agg_component = _get_aggregated_bus_component(
+            subtree_system,
+            target_bus,
+            model_type=model_type,
+            split_phase_mapping=split_phase_mapping,
+            model_components=model_components,
+        )
+        reduced_system.add_component(agg_component)
+        if not agg_time_series:
+            continue
+        agg_comp = reduced_system.get_component(model_type, agg_component.name)
+        ts_metadata = dist_system.list_time_series_metadata(
+            model_components[0], time_series_type=time_series_type
+        )
+        for metadata in ts_metadata:
+            ts_aggregate = ts_agg_func_mapper[model_type](
+                dist_system,
+                model_components,
+                metadata.name,
+                time_series_type,
+                **metadata.features,
+            )
+            user_attr = UserAttributes.model_validate(metadata.features)
+            user_attr.use_actual = True
+            reduced_system.add_time_series(
+                ts_aggregate,
+                agg_comp,
+                **user_attr.model_dump(),
+                **{
+                    k: v
+                    for k, v in metadata.features.items()
+                    if k not in user_attr.model_dump()
+                },
+            )
 
 
 def _reduce_system(
@@ -154,9 +220,14 @@ def _reduce_system(
     agg_time_series: bool = False,
     agg_timeseries: bool | None = None,
     time_series_type: Type[TimeSeriesData] = SingleTimeSeries,
+    allow_cycles: bool = False,
 ) -> DistributionSystem:
     if agg_timeseries is not None:
         agg_time_series = agg_timeseries
+
+    closed_graph = _closed_edge_graph(dist_system)
+    if not allow_cycles and nx.cycle_basis(nx.Graph(closed_graph)):
+        raise ValueError("The system contains closed loops; run reduce_to_radial_network first.")
 
     original_tree = dist_system.get_directed_graph()
     reduced_system = dist_system.get_subsystem(
@@ -169,6 +240,9 @@ def _reduce_system(
 
     split_phase_mapping = dist_system.get_split_phase_mapping(directed_graph=original_tree)
     reduced_network_tree = original_tree.subgraph(bus_subset)
+    retained_bus_names = set(bus_subset)
+    aggregated_bus_names: set[str] = set()
+    aggregated_component_uuids: set[uuid.UUID] = set()
     ts_agg_func_mapper: dict[Union[Type[DistributionLoad], Type[DistributionSolar]], Callable] = {
         DistributionLoad: get_aggregated_load_time_series,
         DistributionSolar: get_aggregated_solar_time_series,
@@ -184,6 +258,12 @@ def _reduce_system(
                 for successor in sucessors_diff
                 for snode in nx.descendants(original_tree, successor)
             ] + list(sucessors_diff)
+            successors_descendants = list(
+                set(successors_descendants) - retained_bus_names - aggregated_bus_names
+            )
+            aggregated_bus_names.update(successors_descendants)
+            if not successors_descendants:
+                continue
             subtree = original_tree.subgraph(successors_descendants)
             subtree_system = dist_system.get_subsystem(
                 list(subtree.nodes),
@@ -191,40 +271,20 @@ def _reduce_system(
                 directed_graph=original_tree,
             )
             model_types = subtree_system.get_model_types_with_field_type(DistributionBus)
-            for model_type in model_types:
-                agg_component = _get_aggregated_bus_component(
-                    subtree_system,
-                    reduced_system.get_component(DistributionBus, node),
-                    model_type=model_type,
-                    split_phase_mapping=split_phase_mapping,
-                )
-                reduced_system.add_component(agg_component)
-                agg_comp = reduced_system.get_component(model_type, agg_component.name)
-                if agg_time_series:
-                    comps = list(subtree_system.get_components(model_type))
-                    ts_metadata = dist_system.list_time_series_metadata(
-                        comps[0], time_series_type=time_series_type
-                    )
-                    for metadata in ts_metadata:
-                        ts_aggregate = ts_agg_func_mapper[model_type](
-                            dist_system,
-                            comps,
-                            metadata.name,
-                            time_series_type,
-                            **metadata.features,
-                        )
-                        user_attr = UserAttributes.model_validate(metadata.features)
-                        user_attr.use_actual = True
-                        reduced_system.add_time_series(
-                            ts_aggregate,
-                            agg_comp,
-                            **user_attr.model_dump(),
-                            **{
-                                k: v
-                                for k, v in metadata.features.items()
-                                if k not in user_attr.model_dump()
-                            },
-                        )
+            _aggregate_subtree_components(
+                subtree_system,
+                dist_system,
+                reduced_system,
+                model_types,
+                successors_descendants,
+                aggregated_component_uuids,
+                reduced_system.get_component(DistributionBus, node),
+                split_phase_mapping,
+                agg_time_series,
+                time_series_type,
+                ts_agg_func_mapper,
+            )
+
     return reduced_system
 
 
@@ -246,6 +306,7 @@ def reduce_to_three_phase_system(
         agg_time_series,
         agg_timeseries,
         time_series_type,
+        allow_cycles=include_intermediate_buses,
     )
 
 
@@ -265,3 +326,389 @@ def reduce_to_primary_system(
         agg_timeseries,
         time_series_type,
     )
+
+
+def _normalize_cycle(cycle: list[str]) -> tuple[str, ...]:
+    """Rotate a cycle so that it starts at its lexicographically smallest bus."""
+    start = min(range(len(cycle)), key=cycle.__getitem__)
+    return tuple(cycle[start:] + cycle[:start])
+
+
+def _closed_edge_graph(system: DistributionSystem) -> nx.MultiGraph:
+    """Build an undirected graph containing only electrically closed edges.
+
+    Mirrors the edge filtering performed by ``get_directed_graph``: open switch
+    edges (any phase open) are excluded, while all other branches and
+    transformers count as closed.
+    """
+    graph = system.get_undirected_graph()
+    closed_graph = nx.MultiGraph()
+    for node in graph.nodes():
+        closed_graph.add_node(node)
+    for u, v, key, data in graph.edges(data=True, keys=True):
+        if data.get("is_closed"):
+            closed_graph.add_edge(u, v, key=key, **data)
+    return closed_graph
+
+
+def _cycle_components(
+    system: DistributionSystem,
+    cycle: tuple[str, ...],
+    graph: nx.MultiGraph,
+    is_candidate: Callable[[type], bool],
+) -> list[DistributionBranchBase]:
+    """Resolve the branch components on a cycle that match ``is_candidate``.
+
+    Components are deduplicated and returned sorted by name so that any
+    downstream selection is deterministic.
+    """
+    seen: dict[uuid.UUID, DistributionBranchBase] = {}
+    for i in range(len(cycle)):
+        bus_1, bus_2 = cycle[i], cycle[(i + 1) % len(cycle)]
+        if not graph.has_edge(bus_1, bus_2):
+            continue
+        for data in graph[bus_1][bus_2].values():
+            component_type = data["type"]
+            if is_candidate(component_type):
+                component = system.get_component(component_type, data["name"])
+                seen.setdefault(component.uuid, component)
+    return sorted(seen.values(), key=lambda component: component.name)
+
+
+def _switch_equipment_from_branch(
+    line: DistributionBranchBase,
+) -> MatrixImpedanceSwitchEquipment:
+    """Build switch equipment from a branch's impedance data."""
+    if isinstance(line, GeometryBranch):
+        line = line.to_matrix_representation(frequency_hz=60)
+    if not isinstance(line, MatrixImpedanceBranch):
+        msg = (
+            f"Cannot convert {line.__class__.__name__} to a switch. Only "
+            "MatrixImpedanceBranch and GeometryBranch lines are supported."
+        )
+        raise ValueError(msg)
+    return MatrixImpedanceSwitchEquipment(**line.equipment.model_dump(exclude_none=True))
+
+
+def _convert_line_to_open_switch(
+    system: DistributionSystem, line: DistributionBranchBase
+) -> MatrixImpedanceSwitch:
+    """Replace ``line`` with an open switch between the same buses."""
+    name = f"{line.name}_switch"
+    existing_names = {switch.name for switch in system.get_components(MatrixImpedanceSwitch)}
+    suffix = 1
+    while name in existing_names:
+        suffix += 1
+        name = f"{line.name}_switch_{suffix}"
+
+    switch = MatrixImpedanceSwitch(
+        buses=line.buses,
+        length=line.length,
+        phases=list(line.phases),
+        substation=line.substation,
+        feeder=line.feeder,
+        name=name,
+        is_closed=[False] * len(line.phases),
+        equipment=_switch_equipment_from_branch(line),
+        uuid=uuid.uuid5(uuid.NAMESPACE_URL, f"gdm.radial_switch.{name}"),
+    )
+    system.remove_component(line)
+    system.add_component(switch)
+    return switch
+
+
+def reduce_to_radial_network(dist_system: DistributionSystem, name: str) -> DistributionSystem:
+    """Reduce a looped distribution system to a radial network.
+
+    Every electrical loop in the input is broken deterministically: if a loop
+    contains a closed switch, that switch is opened; otherwise the shortest
+    line on the loop (ties broken by component name) is replaced with an open
+    ``MatrixImpedanceSwitch`` between the same buses. The input system is not
+    modified; a reduced copy is returned.
+
+    Parameters
+    ----------
+    dist_system : DistributionSystem
+        Source distribution system, possibly containing loops. Must be a single
+        connected component fed from one voltage source (the same requirement
+        as ``get_source_bus``).
+    name : str
+        Name of the reduced system.
+
+    Returns
+    -------
+    DistributionSystem
+        A radial copy of the input system in which no closed loop remains, so
+        that ``get_directed_graph`` prunes no edges and emits no "pruned from
+        DFS tree" warnings.
+
+    Notes
+    -----
+    - Geometry-based lines are converted to their matrix representation at
+      60 Hz when they are selected for conversion.
+    - Only cycle edges are touched, so the reduced network stays connected.
+    """
+    system = dist_system.deepcopy()
+    system.name = name
+    closed_graph = _closed_edge_graph(system)
+
+    while True:
+        cycles = sorted(
+            _normalize_cycle(cycle) for cycle in DistributionSystem.get_cycles(closed_graph)
+        )
+        if not cycles:
+            break
+        cycle = cycles[0]
+
+        switches = _cycle_components(
+            system, cycle, closed_graph, lambda t: issubclass(t, DistributionSwitchBase)
+        )
+        if switches:
+            switch = switches[0]
+            switch.is_closed = [False] * len(switch.phases)
+            bus_1, bus_2 = switch.buses[0].name, switch.buses[1].name
+            for key in [
+                k for k, data in closed_graph[bus_1][bus_2].items() if data["name"] == switch.name
+            ]:
+                closed_graph.remove_edge(bus_1, bus_2, key=key)
+            continue
+
+        lines = _cycle_components(
+            system,
+            cycle,
+            closed_graph,
+            lambda t: (
+                issubclass(t, DistributionBranchBase) and not issubclass(t, DistributionSwitchBase)
+            ),
+        )
+        if not lines:
+            msg = (
+                f"Cycle {list(cycle)} contains no branches or switches that can be "
+                "opened to break the loop; cannot reduce the system to a radial network."
+            )
+            raise ValueError(msg)
+
+        line = min(lines, key=lambda b: (b.length.to("meter").magnitude, b.name))
+        _convert_line_to_open_switch(system, line)
+        bus_1, bus_2 = line.buses[0].name, line.buses[1].name
+        for key in [
+            k for k, data in closed_graph[bus_1][bus_2].items() if data["name"] == line.name
+        ]:
+            closed_graph.remove_edge(bus_1, bus_2, key=key)
+
+    return system
+
+
+
+def _branches_are_compatible(
+    branch_a: MatrixImpedanceBranch,
+    branch_b: MatrixImpedanceBranch,
+) -> bool:
+    """Check if two MatrixImpedanceBranch components can be merged.
+
+    Branches are compatible if they have identical phases, construction type,
+    ampacity, and per-unit-length impedance/capacitance matrices.
+    """
+    if sorted(branch_a.phases, key=lambda p: p.value) != sorted(
+        branch_b.phases, key=lambda p: p.value
+    ):
+        return False
+
+    eq_a = branch_a.equipment
+    eq_b = branch_b.equipment
+
+    if eq_a.construction != eq_b.construction:
+        return False
+
+    if not np.isclose(
+        eq_a.ampacity.to("ampere").magnitude,
+        eq_b.ampacity.to("ampere").magnitude,
+        rtol=1e-6,
+    ):
+        return False
+
+    for mat_attr in ("r_matrix", "x_matrix", "c_matrix"):
+        mat_a = getattr(eq_a, mat_attr)
+        mat_b = getattr(eq_b, mat_attr).to(mat_a.units)
+        if not np.allclose(mat_a.magnitude, mat_b.magnitude, rtol=1e-6, atol=0):
+            return False
+
+    return True
+
+
+def _merge_branches(
+    dist_system: DistributionSystem,
+    branch_a: MatrixImpedanceBranch,
+    branch_b: MatrixImpedanceBranch,
+    middle_bus: DistributionBus,
+) -> MatrixImpedanceBranch:
+    """Create a merged branch replacing two series branches through a trivial bus."""
+    outer_bus_a = (
+        branch_a.buses[0] if branch_a.buses[1].name == middle_bus.name else branch_a.buses[1]
+    )
+    outer_bus_b = (
+        branch_b.buses[0] if branch_b.buses[1].name == middle_bus.name else branch_b.buses[1]
+    )
+
+    new_length = branch_a.length.to("meter").magnitude + branch_b.length.to("meter").magnitude
+
+    return MatrixImpedanceBranch(
+        buses=[outer_bus_a, outer_bus_b],
+        length=Distance(new_length, "meter"),
+        phases=list(branch_a.phases),
+        equipment=branch_a.equipment,
+        name=f"{branch_a.name}__{branch_b.name}",
+        in_service=branch_a.in_service and branch_b.in_service,
+        substation=branch_a.substation,
+        feeder=branch_a.feeder,
+    )
+
+
+def _find_buses_with_non_branch_components(dist_system: DistributionSystem) -> set[str]:
+    buses_with_components: set[str] = set()
+    branch_types = (DistributionBranchBase, DistributionTransformerBase)
+    for model_type in dist_system.get_model_types_with_field_type(DistributionBus):
+        if issubclass(model_type, branch_types):
+            continue
+        for comp in dist_system.get_components(model_type):
+            bus_field = getattr(comp, "bus", None)
+            if bus_field is not None:
+                buses_with_components.add(bus_field.name)
+    return buses_with_components
+
+
+def _build_bus_to_branches_map(
+    dist_system: DistributionSystem,
+) -> dict[str, list[MatrixImpedanceBranch]]:
+    bus_to_branches: dict[str, list[MatrixImpedanceBranch]] = {}
+    for branch in dist_system.get_components(MatrixImpedanceBranch):
+        for bus in branch.buses:
+            bus_to_branches.setdefault(bus.name, []).append(branch)
+    return bus_to_branches
+
+
+def _find_trivial_buses(
+    dist_system: DistributionSystem,
+    graph: nx.MultiGraph,
+    buses_with_components: set[str],
+    bus_to_branches: dict[str, list[MatrixImpedanceBranch]],
+) -> set[str]:
+    trivial_buses: set[str] = set()
+    source_bus_name = dist_system.get_source_bus().name
+    for bus in dist_system.get_components(DistributionBus):
+        if bus.name == source_bus_name or bus.name in buses_with_components:
+            continue
+        if graph.degree(bus.name) != 2:
+            continue
+        branches = bus_to_branches.get(bus.name, [])
+        if len(branches) != 2:
+            continue
+        if _branches_are_compatible(branches[0], branches[1]):
+            trivial_buses.add(bus.name)
+    return trivial_buses
+
+
+def _extend_merge_chain(
+    dist_system: DistributionSystem,
+    merged: MatrixImpedanceBranch,
+    trivial_buses: set[str],
+    bus_to_branches: dict[str, list[MatrixImpedanceBranch]],
+    consumed_branches: set[str],
+    consumed_buses: set[str],
+) -> MatrixImpedanceBranch:
+    while True:
+        extended = False
+        for ob in (merged.buses[0].name, merged.buses[1].name):
+            if ob not in trivial_buses or ob in consumed_buses:
+                continue
+            next_branch = next(
+                (nb for nb in bus_to_branches[ob] if nb.name not in consumed_branches),
+                None,
+            )
+            if next_branch is None or not _branches_are_compatible(merged, next_branch):
+                continue
+            ob_bus = dist_system.get_component(DistributionBus, ob)
+            merged = _merge_branches(dist_system, merged, next_branch, ob_bus)
+            consumed_branches.add(next_branch.name)
+            consumed_buses.add(ob)
+            extended = True
+        if not extended:
+            return merged
+
+
+def reduce_trivial_nodes(
+    dist_system: DistributionSystem,
+    name: str | None = None,
+) -> DistributionSystem:
+    """Remove trivial pass-through nodes from the distribution system.
+
+    A bus is trivial if it connects exactly two MatrixImpedanceBranch components
+    with identical per-unit-length electrical characteristics (impedance matrices,
+    construction type, ampacity) and has no other components attached. The two
+    branches are merged into a single branch whose length is the sum of the
+    originals.
+
+    Parameters
+    ----------
+    dist_system : DistributionSystem
+        The system to reduce.
+    name : str | None
+        Name for the reduced system. Defaults to the original name.
+
+    Returns
+    -------
+    DistributionSystem
+        A new reduced system with trivial nodes removed.
+    """
+
+    dist_system = dist_system.deepcopy()
+
+    if name is None:
+        name = dist_system.name
+
+    graph = dist_system.get_undirected_graph()
+
+    buses_with_components = _find_buses_with_non_branch_components(dist_system)
+    bus_to_branches = _build_bus_to_branches_map(dist_system)
+    trivial_buses = _find_trivial_buses(dist_system, graph, buses_with_components, bus_to_branches)
+
+    if not trivial_buses:
+        return dist_system
+
+    merged_branches: list[MatrixImpedanceBranch] = []
+    consumed_branches: set[str] = set()
+    consumed_buses: set[str] = set()
+
+    for bus_name in list(trivial_buses):
+        if bus_name in consumed_buses:
+            continue
+        branch_a, branch_b = bus_to_branches[bus_name]
+        if branch_a.name in consumed_branches or branch_b.name in consumed_branches:
+            continue
+
+        bus = dist_system.get_component(DistributionBus, bus_name)
+        merged = _merge_branches(dist_system, branch_a, branch_b, bus)
+        consumed_branches.add(branch_a.name)
+        consumed_branches.add(branch_b.name)
+        consumed_buses.add(bus_name)
+
+        merged = _extend_merge_chain(
+            dist_system,
+            merged,
+            trivial_buses,
+            bus_to_branches,
+            consumed_branches,
+            consumed_buses,
+        )
+        merged_branches.append(merged)
+
+    for comp_type in [MatrixImpedanceBranch, DistributionBus]:
+        for comp in dist_system.get_components(comp_type):
+            if comp.name in consumed_buses or comp.name in consumed_branches:
+                dist_system.remove_component(comp)
+
+    dist_system.auto_add_composed_components = True
+    for merged in merged_branches:
+        dist_system.add_component(merged)
+
+    return dist_system

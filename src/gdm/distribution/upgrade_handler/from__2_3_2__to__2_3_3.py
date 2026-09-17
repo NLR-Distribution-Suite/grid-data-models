@@ -1,5 +1,8 @@
 from loguru import logger
-from infrasys.migrations.metadata_migration import migrate_component_metadata
+from infrasys.migrations.metadata_migration import (
+    component_needs_metadata_migration,
+    migrate_component_metadata,
+)
 
 
 SEASON_TO_MONTHS = {
@@ -68,7 +71,8 @@ def from__2_3_2__to__2_3_3(data: dict, from_version: str, to_version: str) -> di
     for component in data["components"]:
         _migrate_tariff_components(component)
 
-    data["components"] = migrate_component_metadata(data["components"])
+    if any(component_needs_metadata_migration(c) for c in data["components"]):
+        data["components"] = migrate_component_metadata(data["components"])
     number_of_components_after = len(data["components"])
     assert (
         number_of_components_before == number_of_components_after

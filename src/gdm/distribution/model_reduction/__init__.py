@@ -1,3 +1,4 @@
 from gdm.distribution.model_reduction.reducer import reduce_to_primary_system
+from gdm.distribution.model_reduction.reducer import reduce_to_radial_network
 from gdm.distribution.model_reduction.reducer import reduce_to_three_phase_system
 from gdm.distribution.model_reduction.reducer import reduce_trivial_nodes
