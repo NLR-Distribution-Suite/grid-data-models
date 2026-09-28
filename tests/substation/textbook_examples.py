@@ -7,7 +7,7 @@ yet expose an explicit grounding-grid terminal.
 """
 
 from gdm.quantities import Voltage
-from gdm.systems.substation import CircuitDirection, EquipmentState, SubstationSystem, Terminal
+from gdm.systems.substation import CircuitDirection, EquipmentState, SubstationSystem
 
 from tests.substation.examples import _SubstationExampleBuilder
 
@@ -20,10 +20,7 @@ _V400 = "voltage-level-400v"
 
 
 def _pin(builder: _SubstationExampleBuilder, coordinates: dict[str, tuple[float, float]]) -> None:
-    """Persist source-diagram coordinates for the visible one-line objects."""
-
-    for target_id, (x, y) in coordinates.items():
-        builder.add_diagram_position(target_id, x, y)
+    """Compatibility no-op for source transcriptions without drawing metadata."""
 
 
 def _position_terminals(
@@ -31,20 +28,7 @@ def _position_terminals(
     equipment_id: str,
     positions: list[tuple[float, float]],
 ) -> None:
-    """Assign authored terminal coordinates in the equipment terminal order."""
-
-    terminals = sorted(
-        (
-            terminal
-            for terminal in builder.system.get_components(Terminal)
-            if terminal.equipment_id == equipment_id
-        ),
-        key=lambda terminal: terminal.name,
-    )
-    if len(terminals) != len(positions):
-        raise ValueError(f"Expected {len(positions)} terminals for {equipment_id}.")
-    for terminal, position in zip(terminals, positions):
-        terminal.diagram_position = position
+    """Compatibility no-op for source transcriptions without drawing metadata."""
 
 
 def _add_incoming_line_bay(
@@ -615,8 +599,8 @@ def comprehensive_substation_single_line() -> SubstationSystem:
         Voltage(66, "kilovolt"),
     )
     builder.add_voltage_level(_V11, Voltage(11, "kilovolt"))
-    builder.add_bus("66kv-main-bus", _V66, diagram_start=(-9, 5), diagram_end=(9, 5))
-    builder.add_bus("11kv-main-bus", _V11, diagram_start=(-9, -2), diagram_end=(9, -2))
+    builder.add_bus("66kv-main-bus", _V66)
+    builder.add_bus("11kv-main-bus", _V11)
     _add_incoming_line_bay(
         builder,
         "incoming-line",

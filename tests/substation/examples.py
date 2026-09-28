@@ -31,7 +31,6 @@ from gdm.systems.substation import (
     CircuitDirection,
     CircuitBreaker,
     ConnectivityNode,
-    DiagramPosition,
     Disconnector,
     EarthingSwitch,
     EquipmentState,
@@ -114,8 +113,6 @@ class _SubstationExampleBuilder:
         self,
         bus_id: str,
         voltage_level_id: str = _VOLTAGE_LEVEL_ID,
-        diagram_start: tuple[float, float] | None = None,
-        diagram_end: tuple[float, float] | None = None,
     ) -> str:
         """Add a busbar section and return its connectivity-node ID."""
 
@@ -127,8 +124,6 @@ class _SubstationExampleBuilder:
                 voltage_level_id=voltage_level_id,
                 connectivity_node_id=node_id,
                 phases=_PHASES,
-                diagram_start=diagram_start,
-                diagram_end=diagram_end,
             )
         )
         self.nodes[bus_id] = node_id
@@ -171,10 +166,6 @@ class _SubstationExampleBuilder:
         normal_state: EquipmentState = EquipmentState.CLOSED,
         bay_voltage_level_id: str = _VOLTAGE_LEVEL_ID,
         voltage_level_id: str = _VOLTAGE_LEVEL_ID,
-        terminal_positions: tuple[tuple[float, float] | None, tuple[float, float] | None] = (
-            None,
-            None,
-        ),
     ) -> tuple[str, str]:
         """Add switching equipment and its two terminal components."""
 
@@ -188,7 +179,6 @@ class _SubstationExampleBuilder:
                 phases=_PHASES,
                 role=TerminalRole.BUS_SIDE,
                 equipment_id=equipment_id,
-                diagram_position=terminal_positions[0],
             ),
             Terminal(
                 name=terminal_ids[1],
@@ -196,7 +186,6 @@ class _SubstationExampleBuilder:
                 phases=_PHASES,
                 role=TerminalRole.FEEDER_SIDE,
                 equipment_id=equipment_id,
-                diagram_position=terminal_positions[1],
             ),
         )
         equipment_definitions = {
@@ -226,10 +215,6 @@ class _SubstationExampleBuilder:
         state: EquipmentState = EquipmentState.CLOSED,
         normal_state: EquipmentState = EquipmentState.CLOSED,
         voltage_level_id: str = _VOLTAGE_LEVEL_ID,
-        terminal_positions: tuple[tuple[float, float] | None, tuple[float, float] | None] = (
-            None,
-            None,
-        ),
     ) -> tuple[str, str]:
         return self.add_two_terminal_equipment(
             breaker_id,
@@ -241,7 +226,6 @@ class _SubstationExampleBuilder:
             normal_state,
             bay_voltage_level_id=voltage_level_id,
             voltage_level_id=voltage_level_id,
-            terminal_positions=terminal_positions,
         )
 
     def add_disconnector(
@@ -253,10 +237,6 @@ class _SubstationExampleBuilder:
         state: EquipmentState = EquipmentState.CLOSED,
         normal_state: EquipmentState = EquipmentState.CLOSED,
         voltage_level_id: str = _VOLTAGE_LEVEL_ID,
-        terminal_positions: tuple[tuple[float, float] | None, tuple[float, float] | None] = (
-            None,
-            None,
-        ),
     ) -> tuple[str, str]:
         return self.add_two_terminal_equipment(
             disconnector_id,
@@ -268,7 +248,6 @@ class _SubstationExampleBuilder:
             normal_state,
             bay_voltage_level_id=voltage_level_id,
             voltage_level_id=voltage_level_id,
-            terminal_positions=terminal_positions,
         )
 
     def add_line_trap(
@@ -471,18 +450,6 @@ class _SubstationExampleBuilder:
             )
         )
 
-    def add_diagram_position(self, target_id: str, x: float, y: float) -> None:
-        """Pin a component or connectivity node to a schematic coordinate."""
-
-        self.system.add_component(
-            DiagramPosition(
-                name=f"{target_id}-position",
-                target_id=target_id,
-                x=x,
-                y=y,
-            )
-        )
-
     def add_power_transformer(
         self,
         transformer_id: str,
@@ -573,9 +540,6 @@ class _SubstationExampleBuilder:
         with_disconnector: bool = False,
         terminal_id: str | None = None,
         distribution_model_reference_id: str | None = None,
-        disconnector_terminal_positions: tuple[
-            tuple[float, float] | None, tuple[float, float] | None
-        ] = (None, None),
     ) -> None:
         """Add a feeder boundary, optionally through a line disconnector."""
 
@@ -585,7 +549,6 @@ class _SubstationExampleBuilder:
                 bay_id,
                 station_endpoint,
                 f"{feeder_id}-node",
-                terminal_positions=disconnector_terminal_positions,
             )
             terminal_id = terminal_ids[1]
         elif terminal_id is None:
@@ -903,8 +866,8 @@ def breaker_and_a_half_substation() -> SubstationSystem:
         "breaker-and-a-half-substation",
         "Distribution substation with two buses and two parallel three-breaker diameters.",
     )
-    builder.add_bus("bus-a", diagram_start=(-7, 4), diagram_end=(7, 4))
-    builder.add_bus("bus-b", diagram_start=(-7, -4), diagram_end=(7, -4))
+    builder.add_bus("bus-a")
+    builder.add_bus("bus-b")
     for diameter_number, x_position, direction in ((1, -3, -1), (2, 3, 1)):
         bay_id = f"diameter-{diameter_number}-bay"
         circuit_node_a = f"diameter-{diameter_number}-circuit-node-a"
@@ -914,37 +877,29 @@ def breaker_and_a_half_substation() -> SubstationSystem:
             bay_id,
             "bus-a",
             circuit_node_a,
-            terminal_positions=((x_position, 4), (x_position, 1.5)),
         )
         builder.add_breaker(
             f"diameter-{diameter_number}-breaker-middle",
             bay_id,
             circuit_node_a,
             circuit_node_b,
-            terminal_positions=((x_position, 1.5), (x_position, -1.5)),
         )
         builder.add_breaker(
             f"diameter-{diameter_number}-breaker-b",
             bay_id,
             circuit_node_b,
             "bus-b",
-            terminal_positions=((x_position, -1.5), (x_position, -4)),
         )
-        for circuit_number, circuit_node, y_position in (
-            (1, circuit_node_a, 1.5),
-            (2, circuit_node_b, -1.5),
+        for circuit_number, circuit_node in (
+            (1, circuit_node_a),
+            (2, circuit_node_b),
         ):
             feeder_number = (diameter_number - 1) * 2 + circuit_number
-            feeder_position = x_position + direction * 3
             builder.add_feeder(
                 f"feeder-{feeder_number}",
                 f"feeder-{feeder_number}-bay",
                 circuit_node,
                 with_disconnector=True,
-                disconnector_terminal_positions=(
-                    (x_position, y_position),
-                    (feeder_position, y_position),
-                ),
             )
     return builder.build()
 

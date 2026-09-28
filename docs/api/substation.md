@@ -43,38 +43,6 @@ SCL, relay-settings, SCADA, and study files are represented by metadata and
 hash/URI references only. File parsing and external utility integrations are
 outside the current scope.
 
-## Plotting
-
-`SubstationSystem.plot()` creates an interactive Plotly schematic from terminal
-references. It is intentionally a schematic rather than a geographic map,
-because station topology components do not carry geographic coordinates.
-
-```python
-from gdm.systems.substation import SubstationSystem
-
-system = SubstationSystem.example()
-figure = system.plot(show=False)
-system.plot("./plots", show=False)
-```
-
-The schematic includes connectivity nodes, busbar sections, primary equipment,
-and feeder boundaries. Open equipment connections are drawn with dashed lines.
-`export_path` follows the same existing-directory behavior as
-`DistributionSystem.plot()` and writes `<system-name>_plot.html`.
-
-The executable examples include `hv_mv_single_bus_substation()`, which models a
-69 kV bus, a 69/12.47 kV `PowerTransformer`, a 12.47 kV bus, and MV feeder
-bays. This is the common distribution-station pattern where the station model
-contains more than one voltage level and the transformer is the explicit
-electrical bridge between their busbars.
-
-`hv_mv_substation_with_distribution_feeders()` returns this station together
-with a separate `DistributionSystem` containing three radial feeder models.
-Each station `FeederBoundary.feeder_id` matches a `DistributionFeeder.name`,
-and `distribution_model_reference_id` identifies the downstream model. This
-keeps the transformer and station switching equipment in `SubstationSystem`
-while the distribution feeder model owns the feeder buses and line segments.
-
 ## Single-Line Examples
 
 The executable fixtures in `tests/substation/textbook_examples.py` transcribe
@@ -90,9 +58,7 @@ the following Desktop single-line diagrams into `SubstationSystem` objects:
 
 They model busbars, circuit breakers, disconnectors, grounding switches,
 current and voltage instrument transformers, surge arresters, line traps,
-incoming/outgoing circuits, and power transformers. `DiagramPosition` stores
-authored schematic coordinates so `SubstationSystem.plot()` preserves the
-source diagram's arrangement after serialization.
+incoming/outgoing circuits, and power transformers.
 
 ## Standards Profiles
 

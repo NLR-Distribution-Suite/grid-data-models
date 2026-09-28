@@ -123,26 +123,3 @@ def test_comprehensive_single_line_covers_every_supported_station_symbol():
     assert len(list(system.get_components(LineTrap))) == 1
     assert len(list(system.get_components(PowerTransformer))) == 1
     assert len(list(system.get_components(SurgeArrester))) == 2
-
-
-@pytest.mark.parametrize(
-    "builder",
-    [
-        fig_25_5_11kv_400v_single_bus,
-        fig_25_6_33kv_sectionalized_bus,
-        fig_25_7_double_main_bus_with_spare_bus,
-        fig_25_8_11kv_400v_line_trap,
-        fig_25_9_66kv_through_bus,
-        fig_25_10_dual_66kv_11kv_bus_sections,
-    ],
-)
-def test_textbook_fixture_serializes_and_plots(builder, tmp_path):
-    system = builder()
-    filename = tmp_path / f"{system.name}.json"
-
-    system.to_json(filename, overwrite=True)
-    restored = SubstationSystem.from_json(filename)
-    figure = restored.plot(tmp_path, show=False, width=1200, height=900)
-
-    assert figure.data
-    assert (tmp_path / f"{system.name}_plot.html").exists()

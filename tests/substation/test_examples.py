@@ -8,10 +8,8 @@ from gdm.systems.substation import (
     Bay,
     BusbarSection,
     CircuitBreaker,
-    DiagramPosition,
     FeederBoundary,
     PowerTransformer,
-    SubstationSystem,
     Terminal,
     VoltageLevel,
 )
@@ -123,30 +121,6 @@ def test_hv_mv_example_has_buses_and_station_transformer_between_them():
         if terminal.equipment_id == transformer.name
     } == {"hv-bus-node", "mv-bus-node"}
     assert len(list(system.get_components(FeederBoundary))) == 3
-
-
-def test_busbar_section_renders_authored_diagram_segment():
-    system = SubstationSystem.example()
-
-    figure = system.plot(show=False)
-    busbar_trace = next(trace for trace in figure.data if trace.name == "Busbar")
-
-    assert list(busbar_trace.x) == [-3, 3, None]
-    assert list(busbar_trace.y) == [0, 0, None]
-    assert next(system.get_components(BusbarSection)).length.to("meter").magnitude == 12
-
-
-def test_authored_diagram_positions_pin_each_target_independently():
-    system = build_layout_example(SubstationLayout.DOUBLE_BUS_SINGLE_BREAKER)
-    system.add_components(
-        DiagramPosition(name="bus-a-position", target_id="bus-a-node", x=-8, y=4),
-        DiagramPosition(name="bus-b-position", target_id="bus-b-node", x=8, y=4),
-    )
-
-    positions = system._build_plot_positions(system._build_plot_graph())
-
-    assert positions["connectivity:bus-a-node"] == (-8, 4)
-    assert positions["connectivity:bus-b-node"] == (8, 4)
 
 
 def test_hv_mv_example_links_to_real_distribution_feeder_system():
