@@ -234,6 +234,7 @@ def get_aggregated_solar_time_series(
     solars: list[DistributionSolar],
     var_name: str,
     time_series_type: Type[TimeSeriesData] = SingleTimeSeries,
+    **features
 ) -> TimeSeriesData:
     """Method to return aggregated solar time series data.
 
@@ -261,7 +262,7 @@ def get_aggregated_solar_time_series(
         raise UnsupportedVariableError(msg)
 
     ts_components: list[TimeSeriesData] = [
-        sys.get_time_series(solar, var_name, time_series_type=time_series_type) for solar in solars
+        sys.get_time_series(solar, var_name, time_series_type=time_series_type, **features) for solar in solars
     ]
     times_series_sample = ts_components[0]
     _check_for_time_series_consistency(times_series_sample, ts_components)
@@ -336,6 +337,7 @@ def get_aggregated_load_time_series(
     loads: list[DistributionLoad],
     var_name: str,
     time_series_type: Type[TimeSeriesData] = SingleTimeSeries,
+    **features,
 ) -> TimeSeriesData:
     """Method to return aggregated load time series data.
 
@@ -359,7 +361,8 @@ def get_aggregated_load_time_series(
         raise IncompatibleTimeSeries(msg)
 
     ts_components: list[TimeSeriesData] = [
-        sys.get_time_series(load, var_name, time_series_type=time_series_type) for load in loads
+        sys.get_time_series(load, var_name, time_series_type=time_series_type, **features)
+        for load in loads
     ]
 
     times_series_sample = ts_components[0]
