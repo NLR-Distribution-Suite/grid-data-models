@@ -2,7 +2,7 @@
 
 [![](../../models/InverterController.svg)](../../models/InverterController.svg)
 
-**API model:** `gdm.distribution.controllers.InverterController`
+**API model:** `gdm.systems.distribution.controllers.InverterController`
 - Documented members: `__init__`
 - Inherited members: `Component`
 - Excluded members: `example, validate_fields`
@@ -12,7 +12,7 @@
 
 [![](../../models/PowerfactorControlSetting.svg)](../../models/PowerfactorControlSetting.svg)
 
-**API model:** `gdm.distribution.controllers.PowerfactorControlSetting`
+**API model:** `gdm.systems.distribution.controllers.PowerfactorControlSetting`
 - Documented members: `__init__`
 - Inherited members: `Component`
 - Excluded members: `example, validate_fields`
@@ -20,7 +20,7 @@
 
 [![](../../models/VoltVarControlSetting.svg)](../../models/VoltVarControlSetting.svg)
 
-**API model:** `gdm.distribution.controllers.VoltVarControlSetting`
+**API model:** `gdm.systems.distribution.controllers.VoltVarControlSetting`
 - Documented members: `__init__`
 - Inherited members: `Component`
 - Excluded members: `example, validate_fields`
@@ -30,7 +30,7 @@
 
 [![](../../models/VoltWattControlSetting.svg)](../../models/VoltWattControlSetting.svg)
 
-**API model:** `gdm.distribution.controllers.VoltWattControlSetting`
+**API model:** `gdm.systems.distribution.controllers.VoltWattControlSetting`
 - Documented members: `__init__`
 - Inherited members: `Component`
 - Excluded members: `example, validate_fields`
@@ -38,7 +38,7 @@
 
 [![](../../models/PeakShavingBaseLoadingControlSetting.svg)](../../models/PeakShavingBaseLoadingControlSetting.svg)
 
-**API model:** `gdm.distribution.controllers.PeakShavingBaseLoadingControlSetting`
+**API model:** `gdm.systems.distribution.controllers.PeakShavingBaseLoadingControlSetting`
 - Documented members: `__init__`
 - Inherited members: `Component`
 - Excluded members: `example, validate_fields`
@@ -46,7 +46,7 @@
 
 [![](../../models/CapacityFirmingControlSetting.svg)](../../models/CapacityFirmingControlSetting.svg)
 
-**API model:** `gdm.distribution.controllers.CapacityFirmingControlSetting`
+**API model:** `gdm.systems.distribution.controllers.CapacityFirmingControlSetting`
 - Documented members: `__init__`
 - Inherited members: `Component`
 - Excluded members: `example, validate_fields`
@@ -54,7 +54,7 @@
 
 [![](../../models/TimeBasedControlSetting.svg)](../../models/TimeBasedControlSetting.svg)
 
-**API model:** `gdm.distribution.controllers.TimeBasedControlSetting`
+**API model:** `gdm.systems.distribution.controllers.TimeBasedControlSetting`
 - Documented members: `__init__`
 - Inherited members: `Component`
 - Excluded members: `example, validate_fields`
@@ -62,7 +62,7 @@
 
 [![](../../models/SelfConsumptionControlSetting.svg)](../../models/SelfConsumptionControlSetting.svg)
 
-**API model:** `gdm.distribution.controllers.SelfConsumptionControlSetting`
+**API model:** `gdm.systems.distribution.controllers.SelfConsumptionControlSetting`
 - Documented members: `__init__`
 - Inherited members: `Component`
 - Excluded members: `example, validate_fields`
@@ -70,7 +70,7 @@
 
 [![](../../models/TimeOfUseControlSetting.svg)](../../models/TimeOfUseControlSetting.svg)
 
-**API model:** `gdm.distribution.controllers.TimeOfUseControlSetting`
+**API model:** `gdm.systems.distribution.controllers.TimeOfUseControlSetting`
 - Documented members: `__init__`
 - Inherited members: `Component`
 - Excluded members: `example, validate_fields`
@@ -78,7 +78,7 @@
 
 [![](../../models/DemandChargeControlSetting.svg)](../../models/DemandChargeControlSetting.svg)
 
-**API model:** `gdm.distribution.controllers.DemandChargeControlSetting`
+**API model:** `gdm.systems.distribution.controllers.DemandChargeControlSetting`
 - Documented members: `__init__`
 - Inherited members: `Component`
 - Excluded members: `example, validate_fields`

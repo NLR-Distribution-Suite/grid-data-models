@@ -10,10 +10,10 @@
 <title>Entity Relationship Diagram created by erdantic</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-292.5 270.5,-292.5 270.5,4 -4,4"/>
 <text text-anchor="middle" x="133.25" y="-5.95" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="9.00" fill="#a8a8a8">Created by erdantic v1.0.5 &lt;https://github.com/drivendataorg/erdantic&gt;</text>
-<!-- gdm.distribution.equipment.phase_load_equipment.PhaseLoadEquipment -->
+<!-- gdm.systems.distribution.equipment.phase_load_equipment.PhaseLoadEquipment -->
 <g id="node1" class="node">
-<title>gdm.distribution.equipment.phase_load_equipment.PhaseLoadEquipment</title>
-<g id="a_node1"><a xlink:title="gdm.distribution.equipment.phase_load_equipment.PhaseLoadEquipment&#10;&#10;Data model for single phase load equipment.&#10;">
+<title>gdm.systems.distribution.equipment.phase_load_equipment.PhaseLoadEquipment</title>
+<g id="a_node1"><a xlink:title="gdm.systems.distribution.equipment.phase_load_equipment.PhaseLoadEquipment&#10;&#10;Data model for single phase load equipment.&#10;">
 <polygon fill="none" stroke="black" points="42.88,-266 42.88,-288.5 223.62,-288.5 223.62,-266 42.88,-266"/>
 <text text-anchor="start" x="68.75" y="-273.2" font-family="Times New Roman,Times,Liberation Serif,serif" font-weight="bold" font-size="14.00">PhaseLoadEquipment</text>
 <polygon fill="none" stroke="black" points="42.88,-243.5 42.88,-266 135.88,-266 135.88,-243.5 42.88,-243.5"/>

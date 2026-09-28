@@ -5,7 +5,7 @@ import traceback
 from typing import Any
 from uuid import UUID
 
-from gdm.distribution import DistributionSystem
+from gdm.systems.distribution import DistributionSystem
 from pydantic import ValidationError as PydanticValidationError
 
 from gdm.mcp.schemas import (

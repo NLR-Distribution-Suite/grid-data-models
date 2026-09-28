@@ -10,10 +10,10 @@
 <title>Entity Relationship Diagram created by erdantic</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-359.75 538.75,-359.75 538.75,4 -4,4"/>
 <text text-anchor="middle" x="267.38" y="-5.95" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="9.00" fill="#a8a8a8">Created by erdantic v1.0.5 &lt;https://github.com/drivendataorg/erdantic&gt;</text>
-<!-- gdm.distribution.equipment.load_equipment.LoadEquipment -->
+<!-- gdm.systems.distribution.equipment.load_equipment.LoadEquipment -->
 <g id="node1" class="node">
-<title>gdm.distribution.equipment.load_equipment.LoadEquipment</title>
-<g id="a_node1"><a xlink:title="gdm.distribution.equipment.load_equipment.LoadEquipment&#10;&#10;Data model for load model.&#10;">
+<title>gdm.systems.distribution.equipment.load_equipment.LoadEquipment</title>
+<g id="a_node1"><a xlink:title="gdm.systems.distribution.equipment.load_equipment.LoadEquipment&#10;&#10;Data model for load model.&#10;">
 <polygon fill="none" stroke="black" points="0,-333.25 0,-355.75 246,-355.75 246,-333.25 0,-333.25"/>
 <text text-anchor="start" x="75.38" y="-340.45" font-family="Times New Roman,Times,Liberation Serif,serif" font-weight="bold" font-size="14.00">LoadEquipment</text>
 <polygon fill="none" stroke="black" points="0,-310.75 0,-333.25 95.25,-333.25 95.25,-310.75 0,-310.75"/>
@@ -35,10 +35,10 @@
 </a>
 </g>
 </g>
-<!-- gdm.distribution.equipment.phase_load_equipment.PhaseLoadEquipment -->
+<!-- gdm.systems.distribution.equipment.phase_load_equipment.PhaseLoadEquipment -->
 <g id="node2" class="node">
-<title>gdm.distribution.equipment.phase_load_equipment.PhaseLoadEquipment</title>
-<g id="a_node2"><a xlink:title="gdm.distribution.equipment.phase_load_equipment.PhaseLoadEquipment&#10;&#10;Data model for single phase load equipment.&#10;">
+<title>gdm.systems.distribution.equipment.phase_load_equipment.PhaseLoadEquipment</title>
+<g id="a_node2"><a xlink:title="gdm.systems.distribution.equipment.phase_load_equipment.PhaseLoadEquipment&#10;&#10;Data model for single phase load equipment.&#10;">
 <polygon fill="none" stroke="black" points="354,-266 354,-288.5 534.75,-288.5 534.75,-266 354,-266"/>
 <text text-anchor="start" x="379.88" y="-273.2" font-family="Times New Roman,Times,Liberation Serif,serif" font-weight="bold" font-size="14.00">PhaseLoadEquipment</text>
 <polygon fill="none" stroke="black" points="354,-243.5 354,-266 447,-266 447,-243.5 354,-243.5"/>
@@ -88,9 +88,9 @@
 </a>
 </g>
 </g>
-<!-- gdm.distribution.equipment.load_equipment.LoadEquipment&#45;&gt;gdm.distribution.equipment.phase_load_equipment.PhaseLoadEquipment -->
+<!-- gdm.systems.distribution.equipment.load_equipment.LoadEquipment&#45;&gt;gdm.systems.distribution.equipment.phase_load_equipment.PhaseLoadEquipment -->
 <g id="edge1" class="edge">
-<title>gdm.distribution.equipment.load_equipment.LoadEquipment:e&#45;&gt;gdm.distribution.equipment.phase_load_equipment.PhaseLoadEquipment:w</title>
+<title>gdm.systems.distribution.equipment.load_equipment.LoadEquipment:e&#45;&gt;gdm.systems.distribution.equipment.phase_load_equipment.PhaseLoadEquipment:w</title>
 <path fill="none" stroke="black" d="M255.87,-277C290.92,-277.03 305.67,-277.2 338.64,-277.24"/>
 <polyline fill="none" stroke="black" points="246,-277 251,-277"/>
 <polyline fill="none" stroke="black" points="251,-277 256,-277"/>

@@ -10,10 +10,10 @@
 <title>Entity Relationship Diagram created by erdantic</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-202.5 270.5,-202.5 270.5,4 -4,4"/>
 <text text-anchor="middle" x="133.25" y="-5.95" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="9.00" fill="#a8a8a8">Created by erdantic v1.0.5 &lt;https://github.com/drivendataorg/erdantic&gt;</text>
-<!-- gdm.distribution.controllers.distribution_capacitor_controller.ReactivePowerCapacitorController -->
+<!-- gdm.systems.distribution.controllers.distribution_capacitor_controller.ReactivePowerCapacitorController -->
 <g id="node1" class="node">
-<title>gdm.distribution.controllers.distribution_capacitor_controller.ReactivePowerCapacitorController</title>
-<g id="a_node1"><a xlink:title="gdm.distribution.controllers.distribution_capacitor_controller.ReactivePowerCapacitorController&#10;&#10;Data model for a Capacitor Controller which uses reactive power.&#10;">
+<title>gdm.systems.distribution.controllers.distribution_capacitor_controller.ReactivePowerCapacitorController</title>
+<g id="a_node1"><a xlink:title="gdm.systems.distribution.controllers.distribution_capacitor_controller.ReactivePowerCapacitorController&#10;&#10;Data model for a Capacitor Controller which uses reactive power.&#10;">
 <polygon fill="none" stroke="black" points="27.88,-176 27.88,-198.5 238.62,-198.5 238.62,-176 27.88,-176"/>
 <text text-anchor="start" x="30.88" y="-183.2" font-family="Times New Roman,Times,Liberation Serif,serif" font-weight="bold" font-size="14.00">ReactivePowerCapacitorController</text>
 <polygon fill="none" stroke="black" points="27.88,-153.5 27.88,-176 99.12,-176 99.12,-153.5 27.88,-153.5"/>

@@ -10,10 +10,10 @@
 <title>Entity Relationship Diagram created by erdantic</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-291.75 548.5,-291.75 548.5,4 -4,4"/>
 <text text-anchor="middle" x="272.25" y="-5.95" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="9.00" fill="#a8a8a8">Created by erdantic v1.0.5 &lt;https://github.com/drivendataorg/erdantic&gt;</text>
-<!-- gdm.distribution.equipment.phase_voltagesource_equipment.PhaseVoltageSourceEquipment -->
+<!-- gdm.systems.distribution.equipment.phase_voltagesource_equipment.PhaseVoltageSourceEquipment -->
 <g id="node1" class="node">
-<title>gdm.distribution.equipment.phase_voltagesource_equipment.PhaseVoltageSourceEquipment</title>
-<g id="a_node1"><a xlink:title="gdm.distribution.equipment.phase_voltagesource_equipment.PhaseVoltageSourceEquipment&#10;&#10;Data model for phase voltage source.&#10;">
+<title>gdm.systems.distribution.equipment.phase_voltagesource_equipment.PhaseVoltageSourceEquipment</title>
+<g id="a_node1"><a xlink:title="gdm.systems.distribution.equipment.phase_voltagesource_equipment.PhaseVoltageSourceEquipment&#10;&#10;Data model for phase voltage source.&#10;">
 <polygon fill="none" stroke="black" points="356.25,-198.5 356.25,-221 544.5,-221 544.5,-198.5 356.25,-198.5"/>
 <text text-anchor="start" x="359.25" y="-205.7" font-family="Times New Roman,Times,Liberation Serif,serif" font-weight="bold" font-size="14.00">PhaseVoltageSourceEquipment</text>
 <polygon fill="none" stroke="black" points="356.25,-176 356.25,-198.5 441.38,-198.5 441.38,-176 356.25,-176"/>
@@ -51,10 +51,10 @@
 </a>
 </g>
 </g>
-<!-- gdm.distribution.equipment.voltagesource_equipment.VoltageSourceEquipment -->
+<!-- gdm.systems.distribution.equipment.voltagesource_equipment.VoltageSourceEquipment -->
 <g id="node2" class="node">
-<title>gdm.distribution.equipment.voltagesource_equipment.VoltageSourceEquipment</title>
-<g id="a_node2"><a xlink:title="gdm.distribution.equipment.voltagesource_equipment.VoltageSourceEquipment&#10;&#10;Data model for voltage source model.&#10;">
+<title>gdm.systems.distribution.equipment.voltagesource_equipment.VoltageSourceEquipment</title>
+<g id="a_node2"><a xlink:title="gdm.systems.distribution.equipment.voltagesource_equipment.VoltageSourceEquipment&#10;&#10;Data model for voltage source model.&#10;">
 <polygon fill="none" stroke="black" points="0,-265.25 0,-287.75 248.25,-287.75 248.25,-265.25 0,-265.25"/>
 <text text-anchor="start" x="49.88" y="-272.45" font-family="Times New Roman,Times,Liberation Serif,serif" font-weight="bold" font-size="14.00">VoltageSourceEquipment</text>
 <polygon fill="none" stroke="black" points="0,-242.75 0,-265.25 46.5,-265.25 46.5,-242.75 0,-242.75"/>
@@ -72,9 +72,9 @@
 </a>
 </g>
 </g>
-<!-- gdm.distribution.equipment.voltagesource_equipment.VoltageSourceEquipment&#45;&gt;gdm.distribution.equipment.phase_voltagesource_equipment.PhaseVoltageSourceEquipment -->
+<!-- gdm.systems.distribution.equipment.voltagesource_equipment.VoltageSourceEquipment&#45;&gt;gdm.systems.distribution.equipment.phase_voltagesource_equipment.PhaseVoltageSourceEquipment -->
 <g id="edge1" class="edge">
-<title>gdm.distribution.equipment.voltagesource_equipment.VoltageSourceEquipment:e&#45;&gt;gdm.distribution.equipment.phase_voltagesource_equipment.PhaseVoltageSourceEquipment:w</title>
+<title>gdm.systems.distribution.equipment.voltagesource_equipment.VoltageSourceEquipment:e&#45;&gt;gdm.systems.distribution.equipment.phase_voltagesource_equipment.PhaseVoltageSourceEquipment:w</title>
 <path fill="none" stroke="black" d="M258.12,-209.01C293.17,-209.09 307.92,-209.6 340.89,-209.72"/>
 <polyline fill="none" stroke="black" points="248.25,-209 253.25,-209.01"/>
 <polyline fill="none" stroke="black" points="253.25,-209.01 258.25,-209.01"/>

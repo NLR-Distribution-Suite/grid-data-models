@@ -12,7 +12,7 @@ import sqlite3
 from typing import Annotated, Any
 
 import typer
-from gdm.distribution import DistributionSystem
+from gdm.systems.distribution import DistributionSystem
 from mcp.server import Server, ServerRequestContext
 from mcp.server.stdio import stdio_server
 from mcp.types import CallToolResult, ListToolsResult, TextContent, Tool
@@ -42,7 +42,7 @@ from gdm.mcp.knowledge.documentation import (
     list_available_components as list_components_doc,
     get_component_fields as get_fields_doc,
 )
-from gdm.distribution.model_reduction.reducer import (
+from gdm.systems.distribution.model_reduction.reducer import (
     reduce_to_primary_system,
     reduce_to_three_phase_system,
 )

@@ -10,10 +10,10 @@
 <title>Entity Relationship Diagram created by erdantic</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-247.5 391.75,-247.5 391.75,4 -4,4"/>
 <text text-anchor="middle" x="193.88" y="-5.95" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="9.00" fill="#a8a8a8">Created by erdantic v1.0.5 &lt;https://github.com/drivendataorg/erdantic&gt;</text>
-<!-- gdm.distribution.controllers.distribution_inverter_controller.TimeBasedControlSetting -->
+<!-- gdm.systems.distribution.controllers.distribution_inverter_controller.TimeBasedControlSetting -->
 <g id="node1" class="node">
-<title>gdm.distribution.controllers.distribution_inverter_controller.TimeBasedControlSetting</title>
-<g id="a_node1"><a xlink:title="gdm.distribution.controllers.distribution_inverter_controller.TimeBasedControlSetting&#10;&#10;Control settings for the Inverter Controller to represent time based charge / discharge&#10;control settings. Works with battery systems only. Controls active power output of the&#10;connected inverter&#10;">
+<title>gdm.systems.distribution.controllers.distribution_inverter_controller.TimeBasedControlSetting</title>
+<g id="a_node1"><a xlink:title="gdm.systems.distribution.controllers.distribution_inverter_controller.TimeBasedControlSetting&#10;&#10;Control settings for the Inverter Controller to represent time based charge / discharge&#10;control settings. Works with battery systems only. Controls active power output of the&#10;connected inverter&#10;">
 <polygon fill="none" stroke="black" points="0,-221 0,-243.5 387.75,-243.5 387.75,-221 0,-221"/>
 <text text-anchor="start" x="118.5" y="-228.2" font-family="Times New Roman,Times,Liberation Serif,serif" font-weight="bold" font-size="14.00">TimeBasedControlSetting</text>
 <polygon fill="none" stroke="black" points="0,-198.5 0,-221 130.5,-221 130.5,-198.5 0,-198.5"/>

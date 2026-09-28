@@ -21,6 +21,10 @@ For full auto-generated Python API documentation, see the dedicated Sphinx API s
 - [Distribution Voltage Source](components/distribution_vsource.md)
 - [Distribution Solar](components/distribution_solar.md)
 
+## Substation System
+
+- [Substation System](substation.md)
+
 ## Distribution Equipment
 
 - [Battery Equipment](equipment/battery_equipment.md)

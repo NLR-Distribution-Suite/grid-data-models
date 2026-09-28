@@ -10,10 +10,10 @@
 <title>Entity Relationship Diagram created by erdantic</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-225 532.75,-225 532.75,4 -4,4"/>
 <text text-anchor="middle" x="264.38" y="-5.95" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="9.00" fill="#a8a8a8">Created by erdantic v1.0.5 &lt;https://github.com/drivendataorg/erdantic&gt;</text>
-<!-- gdm.distribution.common.curve.Curve -->
+<!-- gdm.systems.distribution.common.curve.Curve -->
 <g id="node1" class="node">
-<title>gdm.distribution.common.curve.Curve</title>
-<g id="a_node1"><a xlink:title="gdm.distribution.common.curve.Curve&#10;&#10;An interface for representing a curve using x and y points. e.g for volt&#45;var and volt&#45;watt curves.&#10;&#10;Examples&#10;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#10;&#10;Example of a Curve (Volt&#45;Var IEEE&#45;1547 standard).&#10;&#10;&gt;&gt;&gt; Curve(&#10; &#160;&#160;&#160;&#160;&#160;&#160;&#160;curve_x=[0.5, 0.92, 0.98, 1.02, 1.08, 1.5], curve_y=[1.0, 1.0, 0.0, 0.0, &#45;1.0, &#45;1.0]&#10; &#160;&#160;&#160;)&#10;&#10;Example of a Curve (Volt&#45;Var Volt&#45;Watt IEEE&#45;1547 standard)&#10;&#10;&gt;&gt;&gt; Curve(curve_x=[0.5, 1.06, 1.1, 1.5], curve_y=[1.0, 1.0, 0.0, 0.0])&#10;">
+<title>gdm.systems.distribution.common.curve.Curve</title>
+<g id="a_node1"><a xlink:title="gdm.systems.distribution.common.curve.Curve&#10;&#10;An interface for representing a curve using x and y points. e.g for volt&#45;var and volt&#45;watt curves.&#10;&#10;Examples&#10;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#10;&#10;Example of a Curve (Volt&#45;Var IEEE&#45;1547 standard).&#10;&#10;&gt;&gt;&gt; Curve(&#10; &#160;&#160;&#160;&#160;&#160;&#160;&#160;curve_x=[0.5, 0.92, 0.98, 1.02, 1.08, 1.5], curve_y=[1.0, 1.0, 0.0, 0.0, &#45;1.0, &#45;1.0]&#10; &#160;&#160;&#160;)&#10;&#10;Example of a Curve (Volt&#45;Var Volt&#45;Watt IEEE&#45;1547 standard)&#10;&#10;&gt;&gt;&gt; Curve(curve_x=[0.5, 1.06, 1.1, 1.5], curve_y=[1.0, 1.0, 0.0, 0.0])&#10;">
 <polygon fill="none" stroke="black" points="339,-108.5 339,-131 528.75,-131 528.75,-108.5 339,-108.5"/>
 <text text-anchor="start" x="415.88" y="-115.7" font-family="Times New Roman,Times,Liberation Serif,serif" font-weight="bold" font-size="14.00">Curve</text>
 <polygon fill="none" stroke="black" points="339,-86 339,-108.5 388.5,-108.5 388.5,-86 339,-86"/>
@@ -35,10 +35,10 @@
 </a>
 </g>
 </g>
-<!-- gdm.distribution.equipment.solar_equipment.SolarEquipment -->
+<!-- gdm.systems.distribution.equipment.solar_equipment.SolarEquipment -->
 <g id="node2" class="node">
-<title>gdm.distribution.equipment.solar_equipment.SolarEquipment</title>
-<g id="a_node2"><a xlink:title="gdm.distribution.equipment.solar_equipment.SolarEquipment&#10;&#10;Data model for Solar Model.&#10;">
+<title>gdm.systems.distribution.equipment.solar_equipment.SolarEquipment</title>
+<g id="a_node2"><a xlink:title="gdm.systems.distribution.equipment.solar_equipment.SolarEquipment&#10;&#10;Data model for Solar Model.&#10;">
 <polygon fill="none" stroke="black" points="0,-198.5 0,-221 231,-221 231,-198.5 0,-198.5"/>
 <text text-anchor="start" x="67.5" y="-205.7" font-family="Times New Roman,Times,Liberation Serif,serif" font-weight="bold" font-size="14.00">SolarEquipment</text>
 <polygon fill="none" stroke="black" points="0,-176 0,-198.5 111,-198.5 111,-176 0,-176"/>
@@ -76,9 +76,9 @@
 </a>
 </g>
 </g>
-<!-- gdm.distribution.equipment.solar_equipment.SolarEquipment&#45;&gt;gdm.distribution.common.curve.Curve -->
+<!-- gdm.systems.distribution.equipment.solar_equipment.SolarEquipment&#45;&gt;gdm.systems.distribution.common.curve.Curve -->
 <g id="edge1" class="edge">
-<title>gdm.distribution.equipment.solar_equipment.SolarEquipment:e&#45;&gt;gdm.distribution.common.curve.Curve:w</title>
+<title>gdm.systems.distribution.equipment.solar_equipment.SolarEquipment:e&#45;&gt;gdm.systems.distribution.common.curve.Curve:w</title>
 <path fill="none" stroke="black" d="M240.87,-119.75C276.07,-119.75 290.8,-119.75 324.08,-119.75"/>
 <polyline fill="none" stroke="black" points="231,-119.75 236,-119.75"/>
 <polyline fill="none" stroke="black" points="236,-119.75 241,-119.75"/>

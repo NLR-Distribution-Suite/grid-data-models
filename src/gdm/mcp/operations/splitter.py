@@ -3,8 +3,8 @@
 from collections import defaultdict
 from typing import Optional
 
-from gdm.distribution import DistributionSystem
-from gdm.distribution.components import DistributionBus
+from gdm.systems.distribution import DistributionSystem
+from gdm.systems.distribution.components import DistributionBus
 
 from gdm.mcp.schemas import SplitReport
 

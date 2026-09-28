@@ -6,7 +6,7 @@ from pathlib import Path
 from typing import List, Optional, Dict, Any
 import inspect
 
-from gdm.distribution.components import (
+from gdm.systems.distribution.components import (
     DistributionBus,
     DistributionSubstation,
     DistributionFeeder,

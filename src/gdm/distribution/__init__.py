@@ -1,13 +1,44 @@
-from gdm.version import VERSION
+"""Compatibility namespace for the former ``gdm.distribution`` package.
 
-__version__ = VERSION
+The implementation now lives under :mod:`gdm.systems.distribution`. Legacy imports and
+serialized component module paths are mapped to the canonical modules so
+classes are not duplicated during a migration.
+"""
 
-# from gdm.tracked_changes import apply_tracked_changes, apply_update_scenario, get_distribution_system_on_date
-from gdm.distribution.model_reduction.reducer import (
-    reduce_to_primary_system,
-    reduce_to_radial_network,
-    reduce_to_three_phase_system,
+from __future__ import annotations
+
+import importlib
+import pkgutil
+import sys
+import warnings
+
+
+_CANONICAL_PACKAGE = "gdm.systems.distribution"
+warnings.warn(
+    "gdm.distribution is deprecated and will be removed in a future release; "
+    "use gdm.systems.distribution instead.",
+    DeprecationWarning,
+    stacklevel=2,
 )
-from gdm.distribution.distribution_graph import build_graph_from_system
-from gdm.distribution.distribution_system import DistributionSystem
-from gdm.distribution.catalog_system import CatalogSystem
+_canonical_package = importlib.import_module(_CANONICAL_PACKAGE)
+
+for name, value in vars(_canonical_package).items():
+    if not name.startswith("__") or name in {"__version__"}:
+        globals()[name] = value
+
+_module_names = [
+    module_info.name
+    for module_info in pkgutil.walk_packages(
+        _canonical_package.__path__, prefix=f"{_CANONICAL_PACKAGE}."
+    )
+]
+
+for canonical_name in sorted(_module_names, key=lambda name: (name.count("."), name)):
+    legacy_name = f"{__name__}{canonical_name[len(_CANONICAL_PACKAGE) :]}"
+    module = importlib.import_module(canonical_name)
+    sys.modules[legacy_name] = module
+
+    parent_name, child_name = legacy_name.rsplit(".", 1)
+    parent = sys.modules.get(parent_name)
+    if parent is not None:
+        setattr(parent, child_name, module)

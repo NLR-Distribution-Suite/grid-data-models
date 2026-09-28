@@ -4,7 +4,7 @@ import copy
 from datetime import datetime
 from typing import Any
 
-from gdm.distribution import DistributionSystem
+from gdm.systems.distribution import DistributionSystem
 
 from gdm.mcp.schemas import (
     ChangeLogEntry,
