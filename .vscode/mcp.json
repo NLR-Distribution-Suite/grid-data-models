@@ -2,9 +2,11 @@
   "servers": {
     "gridDataModels": {
       "type": "stdio",
-      "command": "/opt/homebrew/Caskroom/miniconda/base/envs/gdm/bin/gdm-mcp-server",
+      "command": "/Users/alatif/Documents/GitHub/gdm-ecosystem/dist-stack/dist-stack-ui/.venv/bin/python",
+      "args": ["-m", "dist_stack_ui.mcp_entry", "gdm"],
       "env": {
-        "GDM_REPO_PATH": "/Users/alatif/Documents/GitHub/grid-data-models"
+        "GDM_REPO_PATH": "/Users/alatif/Documents/GitHub/gdm-ecosystem/grid-data-models",
+        "DIST_STACK_ECOSYSTEM_ROOT": "/Users/alatif/Documents/GitHub/gdm-ecosystem"
       }
     }
   }

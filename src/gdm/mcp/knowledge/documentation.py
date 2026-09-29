@@ -56,11 +56,10 @@ def find_gdm_repo() -> Optional[Path]:
     possible_paths = [
         Path.cwd().parent / "grid-data-models",  # Sibling directory
         Path.cwd() / ".." / "grid-data-models",  # Relative sibling
-        Path(__file__).parent.parent.parent.parent.parent / "grid-data-models",  # From this file
+        Path(__file__).resolve().parents[4],  # This checkout's repository root
         Path.home() / "Documents" / "GitHub" / "grid-data-models",
         Path.home() / "Documents" / "grid-data-models",
         Path.home() / "grid-data-models",
-        Path("/Users/alatif/Documents/GitHub/grid-data-models"),  # Known location
     ]
 
     # Also check GDM_REPO_PATH environment variable
