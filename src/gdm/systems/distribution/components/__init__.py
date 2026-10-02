@@ -13,6 +13,7 @@ from gdm.systems.distribution.components.matrix_impedance_fuse import MatrixImpe
 from gdm.systems.distribution.components.matrix_impedance_recloser import MatrixImpedanceRecloser
 from gdm.systems.distribution.components.matrix_impedance_switch import MatrixImpedanceSwitch
 from gdm.systems.distribution.components.sequence_impedance_branch import SequenceImpedanceBranch
+from gdm.systems.distribution.components.distribution_reactor import DistributionReactor
 from gdm.systems.distribution.components.distribution_feeder import DistributionFeeder
 
 from gdm.systems.distribution.components.base.distribution_branch_base import (
