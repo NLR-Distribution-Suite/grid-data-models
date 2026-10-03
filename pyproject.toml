@@ -36,7 +36,7 @@ dependencies = [
 mcp = ["mcp>=2.2.0"]
 dev = ["pre-commit", "pytest", "pytest-cov", "pytest-doctestplus", "pytest-asyncio", "ruff", "docutils"]
 doc = [
-  "jupyter-book>=2.1.6,<3",
+  "jupyter-book>=2.1.7,<3",
   "sphinx",
   "pydata-sphinx-theme",
   "myst-parser",
