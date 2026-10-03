@@ -1,0 +1,17 @@
+gdm.distribution.common package
+===============================
+
+.. automodule:: gdm.distribution.common
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   gdm.distribution.common.curve
+   gdm.distribution.common.limitset
+   gdm.distribution.common.sequence_pair

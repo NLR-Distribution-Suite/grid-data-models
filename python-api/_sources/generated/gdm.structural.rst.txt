@@ -1,0 +1,23 @@
+gdm.structural package
+======================
+
+.. automodule:: gdm.structural
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   gdm.structural.components
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   gdm.structural.structural_system

@@ -1,0 +1,7 @@
+gdm.distribution.controllers.distribution\_inverter\_controller module
+======================================================================
+
+.. automodule:: gdm.distribution.controllers.distribution_inverter_controller
+   :members:
+   :show-inheritance:
+   :undoc-members:

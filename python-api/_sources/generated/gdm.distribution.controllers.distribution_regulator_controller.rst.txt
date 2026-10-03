@@ -1,0 +1,7 @@
+gdm.distribution.controllers.distribution\_regulator\_controller module
+=======================================================================
+
+.. automodule:: gdm.distribution.controllers.distribution_regulator_controller
+   :members:
+   :show-inheritance:
+   :undoc-members:

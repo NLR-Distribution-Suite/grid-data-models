@@ -1,0 +1,7 @@
+gdm.distribution.market.aggregator module
+=========================================
+
+.. automodule:: gdm.distribution.market.aggregator
+   :members:
+   :show-inheritance:
+   :undoc-members:

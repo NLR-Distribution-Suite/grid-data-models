@@ -1,0 +1,7 @@
+gdm.structural.components.pvsystem module
+=========================================
+
+.. automodule:: gdm.structural.components.pvsystem
+   :members:
+   :show-inheritance:
+   :undoc-members:

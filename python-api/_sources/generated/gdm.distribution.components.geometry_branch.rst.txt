@@ -1,0 +1,7 @@
+gdm.distribution.components.geometry\_branch module
+===================================================
+
+.. automodule:: gdm.distribution.components.geometry_branch
+   :members:
+   :show-inheritance:
+   :undoc-members:

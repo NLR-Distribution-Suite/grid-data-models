@@ -1,0 +1,7 @@
+gdm.mcp.inspection.relationships module
+=======================================
+
+.. automodule:: gdm.mcp.inspection.relationships
+   :members:
+   :show-inheritance:
+   :undoc-members:

@@ -1,0 +1,7 @@
+gdm.distribution.model\_reduction.reduce\_trival\_bus module
+============================================================
+
+.. automodule:: gdm.distribution.model_reduction.reduce_trival_bus
+   :members:
+   :show-inheritance:
+   :undoc-members:

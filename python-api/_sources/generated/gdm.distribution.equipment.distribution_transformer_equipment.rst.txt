@@ -1,0 +1,7 @@
+gdm.distribution.equipment.distribution\_transformer\_equipment module
+======================================================================
+
+.. automodule:: gdm.distribution.equipment.distribution_transformer_equipment
+   :members:
+   :show-inheritance:
+   :undoc-members:

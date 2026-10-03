@@ -1,0 +1,22 @@
+gdm.structural.components package
+=================================
+
+.. automodule:: gdm.structural.components
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   gdm.structural.components.base
+   gdm.structural.components.building
+   gdm.structural.components.overhead_line_segment
+   gdm.structural.components.pole
+   gdm.structural.components.pvsystem
+   gdm.structural.components.transformer
+   gdm.structural.components.underground_cable
+   gdm.structural.components.underground_junction

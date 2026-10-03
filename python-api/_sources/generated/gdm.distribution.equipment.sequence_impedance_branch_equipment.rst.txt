@@ -1,0 +1,7 @@
+gdm.distribution.equipment.sequence\_impedance\_branch\_equipment module
+========================================================================
+
+.. automodule:: gdm.distribution.equipment.sequence_impedance_branch_equipment
+   :members:
+   :show-inheritance:
+   :undoc-members:

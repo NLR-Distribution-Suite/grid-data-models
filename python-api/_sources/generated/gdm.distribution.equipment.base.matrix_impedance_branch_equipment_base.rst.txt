@@ -1,0 +1,7 @@
+gdm.distribution.equipment.base.matrix\_impedance\_branch\_equipment\_base module
+=================================================================================
+
+.. automodule:: gdm.distribution.equipment.base.matrix_impedance_branch_equipment_base
+   :members:
+   :show-inheritance:
+   :undoc-members:

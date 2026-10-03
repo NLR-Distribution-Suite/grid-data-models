@@ -1,0 +1,7 @@
+gdm.distribution.equipment.matrix\_impedance\_switch\_equipment module
+======================================================================
+
+.. automodule:: gdm.distribution.equipment.matrix_impedance_switch_equipment
+   :members:
+   :show-inheritance:
+   :undoc-members:

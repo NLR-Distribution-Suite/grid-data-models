@@ -1,0 +1,7 @@
+gdm.distribution.enums module
+=============================
+
+.. automodule:: gdm.distribution.enums
+   :members:
+   :show-inheritance:
+   :undoc-members:

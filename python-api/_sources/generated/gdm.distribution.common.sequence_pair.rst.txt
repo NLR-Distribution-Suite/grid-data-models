@@ -1,0 +1,7 @@
+gdm.distribution.common.sequence\_pair module
+=============================================
+
+.. automodule:: gdm.distribution.common.sequence_pair
+   :members:
+   :show-inheritance:
+   :undoc-members:

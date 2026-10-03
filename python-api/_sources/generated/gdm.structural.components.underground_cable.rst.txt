@@ -1,0 +1,7 @@
+gdm.structural.components.underground\_cable module
+===================================================
+
+.. automodule:: gdm.structural.components.underground_cable
+   :members:
+   :show-inheritance:
+   :undoc-members:

@@ -1,0 +1,7 @@
+gdm.structural.structural\_system module
+========================================
+
+.. automodule:: gdm.structural.structural_system
+   :members:
+   :show-inheritance:
+   :undoc-members:

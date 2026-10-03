@@ -1,0 +1,7 @@
+gdm.distribution.equipment.capacitor\_equipment module
+======================================================
+
+.. automodule:: gdm.distribution.equipment.capacitor_equipment
+   :members:
+   :show-inheritance:
+   :undoc-members:

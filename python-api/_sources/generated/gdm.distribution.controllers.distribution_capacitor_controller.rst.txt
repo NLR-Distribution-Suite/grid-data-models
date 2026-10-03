@@ -1,0 +1,7 @@
+gdm.distribution.controllers.distribution\_capacitor\_controller module
+=======================================================================
+
+.. automodule:: gdm.distribution.controllers.distribution_capacitor_controller
+   :members:
+   :show-inheritance:
+   :undoc-members:

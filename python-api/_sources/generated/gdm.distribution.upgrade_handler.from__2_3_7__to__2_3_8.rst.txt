@@ -1,0 +1,7 @@
+gdm.distribution.upgrade\_handler.from\_\_2\_3\_7\_\_to\_\_2\_3\_8 module
+=========================================================================
+
+.. automodule:: gdm.distribution.upgrade_handler.from__2_3_7__to__2_3_8
+   :members:
+   :show-inheritance:
+   :undoc-members:

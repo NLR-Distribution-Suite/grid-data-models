@@ -1,0 +1,7 @@
+gdm.distribution.model\_reduction.reducer module
+================================================
+
+.. automodule:: gdm.distribution.model_reduction.reducer
+   :members:
+   :show-inheritance:
+   :undoc-members:

@@ -1,0 +1,7 @@
+gdm.structural.components.overhead\_line\_segment module
+========================================================
+
+.. automodule:: gdm.structural.components.overhead_line_segment
+   :members:
+   :show-inheritance:
+   :undoc-members:

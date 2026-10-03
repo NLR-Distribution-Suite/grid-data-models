@@ -1,0 +1,7 @@
+gdm.distribution.components.distribution\_feeder module
+=======================================================
+
+.. automodule:: gdm.distribution.components.distribution_feeder
+   :members:
+   :show-inheritance:
+   :undoc-members:

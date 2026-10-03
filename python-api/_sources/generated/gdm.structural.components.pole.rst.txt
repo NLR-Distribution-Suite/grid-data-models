@@ -1,0 +1,7 @@
+gdm.structural.components.pole module
+=====================================
+
+.. automodule:: gdm.structural.components.pole
+   :members:
+   :show-inheritance:
+   :undoc-members:
