@@ -1,8 +1,9 @@
 """Distribution substation bus-arrangement examples.
 
-These examples intentionally live with the tests.  They are compact, executable
-reference topologies for exercising the generic substation models and are not
-intended to prescribe a utility's normal operating configuration.
+These examples live with the tests and exercise the public
+:class:`gdm.systems.substation.builder.SubstationBuilder`. They are compact,
+executable reference topologies and are not intended to prescribe a utility's
+normal operating configuration.
 """
 
 from enum import Enum
@@ -15,39 +16,17 @@ from gdm.systems.distribution.components import (
     DistributionSubstation,
     MatrixImpedanceBranch,
 )
-from gdm.systems.distribution.common.sequence_pair import SequencePair
-from gdm.systems.distribution.enums import ConnectionType, Phase, VoltageTypes
-from gdm.systems.distribution.equipment import (
-    CircuitBreakerEquipment,
-    DisconnectorEquipment,
-    EarthingSwitchEquipment,
-    MatrixImpedanceBranchEquipment,
-    PowerTransformerEquipment,
-    WindingEquipment,
+from gdm.systems.distribution.enums import Phase, VoltageTypes
+from gdm.systems.distribution.equipment import MatrixImpedanceBranchEquipment
+from gdm.systems.substation import EquipmentState, SubstationSystem
+from gdm.systems.substation.builder import (
+    DEFAULT_HV_VOLTAGE_LEVEL_ID as _VOLTAGE_LEVEL_HV_ID,
 )
-from gdm.systems.substation import (
-    Bay,
-    BusbarSection,
-    CircuitDirection,
-    CircuitBreaker,
-    ConnectivityNode,
-    Disconnector,
-    EarthingSwitch,
-    EquipmentState,
-    ExternalCircuit,
-    FeederBoundary,
-    InstrumentTransformer,
-    LineTrap,
-    PowerTransformer,
-    Substation,
-    SubstationSystem,
-    SubstationType,
-    SurgeArrester,
-    Terminal,
-    TerminalRole,
-    VoltageLevel,
+from gdm.systems.substation.builder import (
+    DEFAULT_VOLTAGE_LEVEL_ID as _VOLTAGE_LEVEL_ID,
 )
-from gdm.quantities import ApparentPower, Distance, Frequency, Voltage
+from gdm.systems.substation.builder import SubstationBuilder
+from gdm.quantities import Distance, Voltage
 from infrasys import Location
 
 
@@ -65,519 +44,6 @@ class SubstationLayout(str, Enum):
 
 
 _PHASES = [Phase.A, Phase.B, Phase.C]
-_VOLTAGE_LEVEL_HV_ID = "voltage-level-hv"
-_VOLTAGE_LEVEL_ID = "voltage-level-mv"
-_SUBSTATION_ID = "substation"
-
-
-class _SubstationExampleBuilder:
-    """Build a station while keeping cross-component IDs consistent."""
-
-    def __init__(
-        self,
-        name: str,
-        description: str,
-        initial_voltage_level_id: str = _VOLTAGE_LEVEL_ID,
-        initial_nominal_voltage: Voltage = Voltage(12.47, "kilovolt"),
-    ):
-        self.system = SubstationSystem(
-            auto_add_composed_components=True,
-            name=name,
-            description=description,
-        )
-        self.nodes: dict[str, str] = {}
-        self.bays: dict[str, Bay] = {}
-        self.substation = Substation(
-            name=_SUBSTATION_ID,
-            substation_type=SubstationType.DISTRIBUTION,
-            voltage_level_ids=[],
-        )
-        self.system.add_components(
-            self.substation,
-        )
-        self.add_voltage_level(initial_voltage_level_id, initial_nominal_voltage)
-
-    def add_voltage_level(self, voltage_level_id: str, nominal_voltage: Voltage) -> None:
-        """Add a voltage level and register it on the substation."""
-
-        self.system.add_component(
-            VoltageLevel(
-                name=voltage_level_id,
-                nominal_voltage=nominal_voltage,
-                voltage_type=VoltageTypes.LINE_TO_LINE,
-            )
-        )
-        self.substation.voltage_level_ids.append(voltage_level_id)
-
-    def add_bus(
-        self,
-        bus_id: str,
-        voltage_level_id: str = _VOLTAGE_LEVEL_ID,
-    ) -> str:
-        """Add a busbar section and return its connectivity-node ID."""
-
-        node_id = f"{bus_id}-node"
-        self.add_node(node_id, voltage_level_id)
-        self.system.add_component(
-            BusbarSection(
-                name=bus_id,
-                voltage_level_id=voltage_level_id,
-                connectivity_node_id=node_id,
-                phases=_PHASES,
-            )
-        )
-        self.nodes[bus_id] = node_id
-        return node_id
-
-    def add_node(self, node_id: str, voltage_level_id: str = _VOLTAGE_LEVEL_ID) -> str:
-        if node_id not in self.nodes.values():
-            self.system.add_component(
-                ConnectivityNode(
-                    name=node_id,
-                    voltage_level_id=voltage_level_id,
-                    phases=_PHASES,
-                )
-            )
-            self.nodes[node_id] = node_id
-        return node_id
-
-    def add_bay(self, bay_id: str, voltage_level_id: str = _VOLTAGE_LEVEL_ID) -> Bay:
-        bay = self.bays.get(bay_id)
-        if bay is None:
-            bay = Bay(name=bay_id, voltage_level_id=voltage_level_id)
-            self.bays[bay_id] = bay
-            self.substation.bay_ids.append(bay_id)
-            self.system.add_component(bay)
-        return bay
-
-    def endpoint_node(self, endpoint: str, voltage_level_id: str = _VOLTAGE_LEVEL_ID) -> str:
-        if endpoint in self.nodes:
-            return self.nodes[endpoint]
-        return self.add_node(endpoint, voltage_level_id)
-
-    def add_two_terminal_equipment(
-        self,
-        equipment_id: str,
-        bay_id: str,
-        from_endpoint: str,
-        to_endpoint: str,
-        equipment_type: type[CircuitBreaker] | type[Disconnector],
-        state: EquipmentState = EquipmentState.CLOSED,
-        normal_state: EquipmentState = EquipmentState.CLOSED,
-        bay_voltage_level_id: str = _VOLTAGE_LEVEL_ID,
-        voltage_level_id: str = _VOLTAGE_LEVEL_ID,
-    ) -> tuple[str, str]:
-        """Add switching equipment and its two terminal components."""
-
-        from_node = self.endpoint_node(from_endpoint, voltage_level_id)
-        to_node = self.endpoint_node(to_endpoint, voltage_level_id)
-        terminal_ids = [f"{equipment_id}-terminal-1", f"{equipment_id}-terminal-2"]
-        self.system.add_components(
-            Terminal(
-                name=terminal_ids[0],
-                connectivity_node_id=from_node,
-                phases=_PHASES,
-                role=TerminalRole.BUS_SIDE,
-                equipment_id=equipment_id,
-            ),
-            Terminal(
-                name=terminal_ids[1],
-                connectivity_node_id=to_node,
-                phases=_PHASES,
-                role=TerminalRole.FEEDER_SIDE,
-                equipment_id=equipment_id,
-            ),
-        )
-        equipment_definitions = {
-            CircuitBreaker: CircuitBreakerEquipment,
-            Disconnector: DisconnectorEquipment,
-        }
-        equipment = equipment_type(
-            name=equipment_id,
-            bay_id=bay_id,
-            terminal_ids=terminal_ids,
-            equipment=equipment_definitions[equipment_type].example(),
-            state=state,
-            normal_state=normal_state,
-        )
-        bay = self.add_bay(bay_id, bay_voltage_level_id)
-        bay.equipment_ids.append(equipment_id)
-        bay.terminal_ids.extend(terminal_ids)
-        self.system.add_component(equipment)
-        return tuple(terminal_ids)
-
-    def add_breaker(
-        self,
-        breaker_id: str,
-        bay_id: str,
-        from_endpoint: str,
-        to_endpoint: str,
-        state: EquipmentState = EquipmentState.CLOSED,
-        normal_state: EquipmentState = EquipmentState.CLOSED,
-        voltage_level_id: str = _VOLTAGE_LEVEL_ID,
-    ) -> tuple[str, str]:
-        return self.add_two_terminal_equipment(
-            breaker_id,
-            bay_id,
-            from_endpoint,
-            to_endpoint,
-            CircuitBreaker,
-            state,
-            normal_state,
-            bay_voltage_level_id=voltage_level_id,
-            voltage_level_id=voltage_level_id,
-        )
-
-    def add_disconnector(
-        self,
-        disconnector_id: str,
-        bay_id: str,
-        from_endpoint: str,
-        to_endpoint: str,
-        state: EquipmentState = EquipmentState.CLOSED,
-        normal_state: EquipmentState = EquipmentState.CLOSED,
-        voltage_level_id: str = _VOLTAGE_LEVEL_ID,
-    ) -> tuple[str, str]:
-        return self.add_two_terminal_equipment(
-            disconnector_id,
-            bay_id,
-            from_endpoint,
-            to_endpoint,
-            Disconnector,
-            state,
-            normal_state,
-            bay_voltage_level_id=voltage_level_id,
-            voltage_level_id=voltage_level_id,
-        )
-
-    def add_line_trap(
-        self,
-        line_trap_id: str,
-        bay_id: str,
-        from_endpoint: str,
-        to_endpoint: str,
-        voltage_level_id: str = _VOLTAGE_LEVEL_ID,
-    ) -> tuple[str, str]:
-        """Add a carrier-wave line trap in series with an external circuit."""
-
-        terminal_ids = [f"{line_trap_id}-terminal-1", f"{line_trap_id}-terminal-2"]
-        self.system.add_components(
-            Terminal(
-                name=terminal_ids[0],
-                connectivity_node_id=self.endpoint_node(from_endpoint, voltage_level_id),
-                phases=_PHASES,
-                role=TerminalRole.PRIMARY,
-                equipment_id=line_trap_id,
-            ),
-            Terminal(
-                name=terminal_ids[1],
-                connectivity_node_id=self.endpoint_node(to_endpoint, voltage_level_id),
-                phases=_PHASES,
-                role=TerminalRole.SECONDARY,
-                equipment_id=line_trap_id,
-            ),
-        )
-        bay = self.add_bay(bay_id, voltage_level_id)
-        bay.equipment_ids.append(line_trap_id)
-        bay.terminal_ids.extend(terminal_ids)
-        self.system.add_component(
-            LineTrap(
-                name=line_trap_id,
-                bay_id=bay_id,
-                terminal_ids=terminal_ids,
-                tuning_frequency_hz=Frequency(100_000, "hertz"),
-            )
-        )
-        return tuple(terminal_ids)
-
-    def add_instrument_transformer(
-        self,
-        transformer_id: str,
-        bay_id: str,
-        from_endpoint: str,
-        to_endpoint: str,
-        instrument_type: str,
-        voltage_level_id: str = _VOLTAGE_LEVEL_ID,
-    ) -> tuple[str, str]:
-        """Add a CT, PT, or CVT represented by an instrument transformer."""
-
-        terminal_ids = [f"{transformer_id}-terminal-1", f"{transformer_id}-terminal-2"]
-        self.system.add_components(
-            Terminal(
-                name=terminal_ids[0],
-                connectivity_node_id=self.endpoint_node(from_endpoint, voltage_level_id),
-                phases=_PHASES,
-                role=TerminalRole.PRIMARY,
-                equipment_id=transformer_id,
-            ),
-            Terminal(
-                name=terminal_ids[1],
-                connectivity_node_id=self.endpoint_node(to_endpoint, voltage_level_id),
-                phases=_PHASES,
-                role=TerminalRole.SECONDARY,
-                equipment_id=transformer_id,
-            ),
-        )
-        bay = self.add_bay(bay_id, voltage_level_id)
-        bay.equipment_ids.append(transformer_id)
-        bay.terminal_ids.extend(terminal_ids)
-        self.system.add_component(
-            InstrumentTransformer(
-                name=transformer_id,
-                bay_id=bay_id,
-                terminal_ids=terminal_ids,
-                instrument_type=instrument_type,
-                primary_rating=600,
-                secondary_rating=5,
-                ratio_unit="ampere" if instrument_type == "current_transformer" else "volt",
-            )
-        )
-        return tuple(terminal_ids)
-
-    def add_shunt_instrument_transformer(
-        self,
-        transformer_id: str,
-        bay_id: str,
-        endpoint: str,
-        instrument_type: str,
-        voltage_level_id: str = _VOLTAGE_LEVEL_ID,
-    ) -> str:
-        """Add a PT or CVT shunt-connected to a single circuit node."""
-
-        terminal_id = f"{transformer_id}-terminal"
-        self.system.add_component(
-            Terminal(
-                name=terminal_id,
-                connectivity_node_id=self.endpoint_node(endpoint, voltage_level_id),
-                phases=_PHASES,
-                role=TerminalRole.PRIMARY,
-                equipment_id=transformer_id,
-            )
-        )
-        bay = self.add_bay(bay_id, voltage_level_id)
-        bay.equipment_ids.append(transformer_id)
-        bay.terminal_ids.append(terminal_id)
-        self.system.add_component(
-            InstrumentTransformer(
-                name=transformer_id,
-                bay_id=bay_id,
-                terminal_ids=[terminal_id],
-                instrument_type=instrument_type,
-                primary_rating=11_000,
-                secondary_rating=110,
-                ratio_unit="volt",
-            )
-        )
-        return terminal_id
-
-    def add_surge_arrester(
-        self,
-        arrester_id: str,
-        bay_id: str,
-        endpoint: str,
-        voltage_level_id: str = _VOLTAGE_LEVEL_ID,
-    ) -> None:
-        """Add a shunt surge arrester at a bus or circuit node."""
-
-        terminal_id = f"{arrester_id}-terminal"
-        self.system.add_component(
-            Terminal(
-                name=terminal_id,
-                connectivity_node_id=self.endpoint_node(endpoint, voltage_level_id),
-                phases=_PHASES,
-                role=TerminalRole.PRIMARY,
-                equipment_id=arrester_id,
-            )
-        )
-        bay = self.add_bay(bay_id, voltage_level_id)
-        bay.equipment_ids.append(arrester_id)
-        bay.terminal_ids.append(terminal_id)
-        self.system.add_component(
-            SurgeArrester(
-                name=arrester_id,
-                bay_id=bay_id,
-                terminal_ids=[terminal_id],
-                mcov=Voltage(9, "kilovolt"),
-                terminal_id=terminal_id,
-                ground_terminal_id=f"{arrester_id}-ground",
-            )
-        )
-
-    def add_earthing_switch(self, switch_id: str, bay_id: str, target_terminal_id: str) -> None:
-        """Add an open safety ground switch to the indicated station terminal."""
-
-        bay = self.add_bay(bay_id)
-        bay.equipment_ids.append(switch_id)
-        self.system.add_component(
-            EarthingSwitch(
-                name=switch_id,
-                bay_id=bay_id,
-                target_terminal_id=target_terminal_id,
-                equipment=EarthingSwitchEquipment.example(),
-            )
-        )
-
-    def add_external_circuit(
-        self,
-        circuit_id: str,
-        bay_id: str,
-        endpoint: str,
-        direction: CircuitDirection,
-        voltage_level_id: str,
-    ) -> None:
-        """Add an incoming or outgoing line at an explicit station terminal."""
-
-        terminal_id = f"{circuit_id}-terminal"
-        self.system.add_component(
-            Terminal(
-                name=terminal_id,
-                connectivity_node_id=self.endpoint_node(endpoint, voltage_level_id),
-                phases=_PHASES,
-                role=TerminalRole.FEEDER_SIDE,
-                equipment_id=circuit_id,
-            )
-        )
-        bay = self.add_bay(bay_id, voltage_level_id)
-        bay.terminal_ids.append(terminal_id)
-        self.system.add_component(
-            ExternalCircuit(
-                name=circuit_id,
-                circuit_id=circuit_id,
-                terminal_id=terminal_id,
-                direction=direction,
-                voltage_level_id=voltage_level_id,
-                bay_id=bay_id,
-            )
-        )
-
-    def add_power_transformer(
-        self,
-        transformer_id: str,
-        bay_id: str,
-        high_voltage_endpoint: str,
-        medium_voltage_endpoint: str,
-        high_voltage_level_id: str = _VOLTAGE_LEVEL_HV_ID,
-        medium_voltage_level_id: str = _VOLTAGE_LEVEL_ID,
-        high_voltage: Voltage = Voltage(69, "kilovolt"),
-        medium_voltage: Voltage = Voltage(12.47, "kilovolt"),
-    ) -> tuple[str, str]:
-        """Add a station transformer between the HV and MV busbars."""
-
-        high_voltage_terminal_id = f"{transformer_id}-hv-terminal"
-        medium_voltage_terminal_id = f"{transformer_id}-mv-terminal"
-        self.system.add_components(
-            Terminal(
-                name=high_voltage_terminal_id,
-                connectivity_node_id=self.endpoint_node(
-                    high_voltage_endpoint, high_voltage_level_id
-                ),
-                phases=_PHASES,
-                role=TerminalRole.HIGH_VOLTAGE,
-                equipment_id=transformer_id,
-            ),
-            Terminal(
-                name=medium_voltage_terminal_id,
-                connectivity_node_id=self.endpoint_node(
-                    medium_voltage_endpoint, medium_voltage_level_id
-                ),
-                phases=_PHASES,
-                role=TerminalRole.LOW_VOLTAGE,
-                equipment_id=transformer_id,
-            ),
-        )
-        transformer = PowerTransformer(
-            name=transformer_id,
-            bay_id=bay_id,
-            terminal_ids=[high_voltage_terminal_id, medium_voltage_terminal_id],
-            winding_terminal_ids=[high_voltage_terminal_id, medium_voltage_terminal_id],
-            equipment=PowerTransformerEquipment(
-                name=f"{transformer_id}-equipment",
-                pct_no_load_loss=0.1,
-                pct_full_load_loss=1,
-                is_center_tapped=False,
-                windings=[
-                    WindingEquipment(
-                        name=f"{transformer_id}-hv-winding",
-                        resistance=1,
-                        is_grounded=False,
-                        rated_voltage=high_voltage,
-                        voltage_type=VoltageTypes.LINE_TO_LINE,
-                        rated_power=ApparentPower(30, "megavolt_ampere"),
-                        num_phases=3,
-                        connection_type=ConnectionType.DELTA,
-                        tap_positions=[1.0, 1.0, 1.0],
-                    ),
-                    WindingEquipment(
-                        name=f"{transformer_id}-mv-winding",
-                        resistance=1,
-                        is_grounded=True,
-                        rated_voltage=medium_voltage,
-                        voltage_type=VoltageTypes.LINE_TO_LINE,
-                        rated_power=ApparentPower(30, "megavolt_ampere"),
-                        num_phases=3,
-                        connection_type=ConnectionType.STAR,
-                        tap_positions=[1.0, 1.0, 1.0],
-                    ),
-                ],
-                coupling_sequences=[SequencePair(0, 1)],
-                winding_reactances=[8.5],
-                vector_group="Dyn1",
-                cooling_class="ONAN",
-                fluid_type="mineral_oil",
-            ),
-        )
-        bay = self.add_bay(bay_id, high_voltage_level_id)
-        bay.equipment_ids.append(transformer_id)
-        bay.terminal_ids.extend([high_voltage_terminal_id, medium_voltage_terminal_id])
-        self.system.add_component(transformer)
-        return high_voltage_terminal_id, medium_voltage_terminal_id
-
-    def add_feeder(
-        self,
-        feeder_id: str,
-        bay_id: str,
-        station_endpoint: str,
-        with_disconnector: bool = False,
-        terminal_id: str | None = None,
-        distribution_model_reference_id: str | None = None,
-    ) -> None:
-        """Add a feeder boundary, optionally through a line disconnector."""
-
-        if with_disconnector:
-            terminal_ids = self.add_disconnector(
-                f"{feeder_id}-disconnector",
-                bay_id,
-                station_endpoint,
-                f"{feeder_id}-node",
-            )
-            terminal_id = terminal_ids[1]
-        elif terminal_id is None:
-            terminal_id = f"{feeder_id}-boundary-terminal"
-            self.system.add_component(
-                Terminal(
-                    name=terminal_id,
-                    connectivity_node_id=self.endpoint_node(station_endpoint),
-                    phases=_PHASES,
-                    role=TerminalRole.FEEDER_SIDE,
-                    equipment_id=feeder_id,
-                )
-            )
-            self.add_bay(bay_id).terminal_ids.append(terminal_id)
-        self.system.add_component(
-            FeederBoundary(
-                name=f"{feeder_id}-boundary",
-                feeder_id=feeder_id,
-                substation_id=_SUBSTATION_ID,
-                voltage_level_id=_VOLTAGE_LEVEL_ID,
-                bay_id=bay_id,
-                terminal_id=terminal_id,
-                distribution_model_reference_id=distribution_model_reference_id,
-            )
-        )
-        self.substation.feeder_boundary_ids.append(f"{feeder_id}-boundary")
-
-    def build(self) -> SubstationSystem:
-        return self.system
 
 
 def build_parameterized_substation(  # noqa: C901
@@ -588,7 +54,7 @@ def build_parameterized_substation(  # noqa: C901
     """Build an example layout with caller-provided feeder IDs."""
 
     selected_layout = SubstationLayout(layout)
-    builder = _SubstationExampleBuilder(
+    builder = SubstationBuilder(
         name,
         f"Parameterized {selected_layout.value} distribution substation example.",
     )
@@ -596,10 +62,10 @@ def build_parameterized_substation(  # noqa: C901
 
     if selected_layout == SubstationLayout.HV_MV_SINGLE_BUS:
         builder.add_voltage_level(_VOLTAGE_LEVEL_HV_ID, Voltage(69, "kilovolt"))
-        builder.add_bus("hv-bus", _VOLTAGE_LEVEL_HV_ID)
-        builder.add_bus("mv-bus")
-        builder.add_power_transformer(
-            "station-transformer", "station-transformer-bay", "hv-bus", "mv-bus"
+        hv_bus = builder.add_bus("hv-bus", _VOLTAGE_LEVEL_HV_ID)
+        mv_bus = builder.add_bus("mv-bus")
+        builder.add_two_winding_transformer(
+            "station-transformer", "station-transformer-bay", hv_bus, mv_bus
         )
         bus_ids = ["mv-bus"]
     elif selected_layout in {
@@ -630,12 +96,13 @@ def build_parameterized_substation(  # noqa: C901
                 state=EquipmentState.OPEN,
                 normal_state=EquipmentState.OPEN,
             )
-        elif selected_layout == SubstationLayout.BREAKER_AND_A_HALF:
-            bus_ids = ["bus-a", "bus-b"]
     elif selected_layout == SubstationLayout.RING_BUS:
         bus_ids = [f"ring-node-{number}" for number in range(max(2, len(feeder_ids)))]
         for bus_id in bus_ids:
             builder.add_bus(bus_id)
+    else:
+        builder.add_bus("bus-a")
+        bus_ids = ["bus-a"]
     for index, feeder_id in enumerate(feeder_ids):
         bay_id = f"{feeder_id}-bay"
         feeder_node = f"{feeder_id}-node"
@@ -643,7 +110,7 @@ def build_parameterized_substation(  # noqa: C901
         if selected_layout == SubstationLayout.RING_BUS:
             builder.add_feeder(feeder_id, bay_id, bus_id, with_disconnector=True)
         elif selected_layout == SubstationLayout.MAIN_AND_TRANSFER:
-            breaker_terminals = builder.add_breaker(
+            _, breaker_to = builder.add_breaker(
                 f"{feeder_id}-breaker", bay_id, "bus-a", feeder_node
             )
             builder.add_disconnector(
@@ -654,10 +121,10 @@ def build_parameterized_substation(  # noqa: C901
                 state=EquipmentState.OPEN,
                 normal_state=EquipmentState.OPEN,
             )
-            builder.add_feeder(feeder_id, bay_id, feeder_node, terminal_id=breaker_terminals[1])
+            builder.add_feeder(feeder_id, bay_id, feeder_node, bus=breaker_to)
         elif selected_layout == SubstationLayout.DOUBLE_BUS_SINGLE_BREAKER:
             breaker_node = f"{feeder_id}-breaker-node"
-            breaker_terminals = builder.add_breaker(
+            _, breaker_to = builder.add_breaker(
                 f"{feeder_id}-breaker", bay_id, breaker_node, feeder_node
             )
             builder.add_disconnector(
@@ -671,7 +138,7 @@ def build_parameterized_substation(  # noqa: C901
                 state=EquipmentState.OPEN,
                 normal_state=EquipmentState.OPEN,
             )
-            builder.add_feeder(feeder_id, bay_id, feeder_node, terminal_id=breaker_terminals[1])
+            builder.add_feeder(feeder_id, bay_id, feeder_node, bus=breaker_to)
         elif selected_layout == SubstationLayout.BREAKER_AND_A_HALF:
             circuit_node_a = f"{feeder_id}-circuit-node-a"
             circuit_node_b = f"{feeder_id}-circuit-node-b"
@@ -687,24 +154,24 @@ def build_parameterized_substation(  # noqa: C901
             builder.add_breaker(f"{feeder_id}-bus-b-breaker", bay_id, circuit_node, "bus-b")
             builder.add_feeder(feeder_id, bay_id, feeder_node, with_disconnector=True)
         else:
-            breaker_terminals = builder.add_breaker(
+            _, breaker_to = builder.add_breaker(
                 f"{feeder_id}-breaker", bay_id, bus_id, feeder_node
             )
-            builder.add_feeder(feeder_id, bay_id, feeder_node, terminal_id=breaker_terminals[1])
+            builder.add_feeder(feeder_id, bay_id, feeder_node, bus=breaker_to)
     return builder.build()
 
 
 def single_bus_substation() -> SubstationSystem:
     """One common bus with three feeder breakers."""
 
-    builder = _SubstationExampleBuilder(
+    builder = SubstationBuilder(
         "single-bus-substation",
         "Distribution substation with one common bus and three feeder bays.",
     )
     builder.add_bus("bus-a")
     for feeder_number in range(1, 4):
         feeder_id = f"feeder-{feeder_number}"
-        breaker_terminals = builder.add_breaker(
+        _, breaker_to = builder.add_breaker(
             f"{feeder_id}-breaker",
             f"{feeder_id}-bay",
             "bus-a",
@@ -714,7 +181,7 @@ def single_bus_substation() -> SubstationSystem:
             feeder_id,
             f"{feeder_id}-bay",
             f"{feeder_id}-node",
-            terminal_id=breaker_terminals[1],
+            bus=breaker_to,
         )
     return builder.build()
 
@@ -722,7 +189,7 @@ def single_bus_substation() -> SubstationSystem:
 def sectionalized_single_bus_substation() -> SubstationSystem:
     """Two bus sections connected by a normally open bus-tie breaker."""
 
-    builder = _SubstationExampleBuilder(
+    builder = SubstationBuilder(
         "sectionalized-single-bus-substation",
         "Distribution substation with two bus sections and a bus-tie breaker.",
     )
@@ -738,7 +205,7 @@ def sectionalized_single_bus_substation() -> SubstationSystem:
     )
     for feeder_number, bus_id in ((1, "bus-a"), (2, "bus-a"), (3, "bus-b"), (4, "bus-b")):
         feeder_id = f"feeder-{feeder_number}"
-        breaker_terminals = builder.add_breaker(
+        _, breaker_to = builder.add_breaker(
             f"{feeder_id}-breaker",
             f"{feeder_id}-bay",
             bus_id,
@@ -748,7 +215,7 @@ def sectionalized_single_bus_substation() -> SubstationSystem:
             feeder_id,
             f"{feeder_id}-bay",
             f"{feeder_id}-node",
-            terminal_id=breaker_terminals[1],
+            bus=breaker_to,
         )
     return builder.build()
 
@@ -756,7 +223,7 @@ def sectionalized_single_bus_substation() -> SubstationSystem:
 def main_and_transfer_substation() -> SubstationSystem:
     """Main bus with a transfer bus and a normally open transfer breaker."""
 
-    builder = _SubstationExampleBuilder(
+    builder = SubstationBuilder(
         "main-and-transfer-substation",
         "Distribution substation with a main bus, transfer bus, and transfer breaker.",
     )
@@ -774,7 +241,7 @@ def main_and_transfer_substation() -> SubstationSystem:
         feeder_id = f"feeder-{feeder_number}"
         bay_id = f"{feeder_id}-bay"
         feeder_node = f"{feeder_id}-node"
-        breaker_terminals = builder.add_breaker(
+        _, breaker_to = builder.add_breaker(
             f"{feeder_id}-breaker", bay_id, "main-bus", feeder_node
         )
         builder.add_disconnector(
@@ -785,14 +252,14 @@ def main_and_transfer_substation() -> SubstationSystem:
             state=EquipmentState.OPEN,
             normal_state=EquipmentState.OPEN,
         )
-        builder.add_feeder(feeder_id, bay_id, feeder_node, terminal_id=breaker_terminals[1])
+        builder.add_feeder(feeder_id, bay_id, feeder_node, bus=breaker_to)
     return builder.build()
 
 
 def double_bus_single_breaker_substation() -> SubstationSystem:
     """Two selectable buses with one breaker and two bus disconnectors per feeder."""
 
-    builder = _SubstationExampleBuilder(
+    builder = SubstationBuilder(
         "double-bus-single-breaker-substation",
         "Distribution substation with two selectable buses and one breaker per feeder.",
     )
@@ -802,7 +269,7 @@ def double_bus_single_breaker_substation() -> SubstationSystem:
         feeder_id = f"feeder-{feeder_number}"
         bay_id = f"{feeder_id}-bay"
         breaker_node = f"{feeder_id}-breaker-node"
-        breaker_terminals = builder.add_breaker(
+        _, breaker_to = builder.add_breaker(
             f"{feeder_id}-breaker",
             bay_id,
             breaker_node,
@@ -826,7 +293,7 @@ def double_bus_single_breaker_substation() -> SubstationSystem:
             feeder_id,
             bay_id,
             f"{feeder_id}-node",
-            terminal_id=breaker_terminals[1],
+            bus=breaker_to,
         )
     return builder.build()
 
@@ -834,7 +301,7 @@ def double_bus_single_breaker_substation() -> SubstationSystem:
 def ring_bus_substation() -> SubstationSystem:
     """Four-breaker ring bus with one feeder circuit at each ring position."""
 
-    builder = _SubstationExampleBuilder(
+    builder = SubstationBuilder(
         "ring-bus-substation",
         "Distribution substation with four breakers arranged in a ring bus.",
     )
@@ -862,13 +329,13 @@ def ring_bus_substation() -> SubstationSystem:
 def breaker_and_a_half_substation() -> SubstationSystem:
     """Two parallel three-breaker diameters serving four circuits."""
 
-    builder = _SubstationExampleBuilder(
+    builder = SubstationBuilder(
         "breaker-and-a-half-substation",
         "Distribution substation with two buses and two parallel three-breaker diameters.",
     )
     builder.add_bus("bus-a")
     builder.add_bus("bus-b")
-    for diameter_number, x_position, direction in ((1, -3, -1), (2, 3, 1)):
+    for diameter_number in (1, 2):
         bay_id = f"diameter-{diameter_number}-bay"
         circuit_node_a = f"diameter-{diameter_number}-circuit-node-a"
         circuit_node_b = f"diameter-{diameter_number}-circuit-node-b"
@@ -907,7 +374,7 @@ def breaker_and_a_half_substation() -> SubstationSystem:
 def double_breaker_double_bus_substation() -> SubstationSystem:
     """Two buses with two breakers assigned to each feeder circuit."""
 
-    builder = _SubstationExampleBuilder(
+    builder = SubstationBuilder(
         "double-breaker-double-bus-substation",
         "Distribution substation with two buses and two breakers per feeder.",
     )
@@ -936,24 +403,24 @@ def double_breaker_double_bus_substation() -> SubstationSystem:
 def hv_mv_single_bus_substation() -> SubstationSystem:
     """69 kV source bus feeding a 12.47 kV bus through a station transformer."""
 
-    builder = _SubstationExampleBuilder(
+    builder = SubstationBuilder(
         "hv-mv-single-bus-substation",
-        "Distribution substation with 69 kV and 12.47 kV buses joined by a station transformer.",
+        "Distribution substation with 69 kV and 12.47 kV buses joined by a transformer.",
     )
     builder.add_voltage_level(_VOLTAGE_LEVEL_HV_ID, Voltage(69, "kilovolt"))
-    builder.add_bus("hv-bus", _VOLTAGE_LEVEL_HV_ID)
-    builder.add_bus("mv-bus", _VOLTAGE_LEVEL_ID)
-    builder.add_power_transformer(
+    hv_bus = builder.add_bus("hv-bus", _VOLTAGE_LEVEL_HV_ID)
+    mv_bus = builder.add_bus("mv-bus", _VOLTAGE_LEVEL_ID)
+    builder.add_two_winding_transformer(
         "station-transformer",
         "station-transformer-bay",
-        "hv-bus",
-        "mv-bus",
+        hv_bus,
+        mv_bus,
     )
 
     for feeder_number in range(1, 4):
         feeder_id = f"feeder-{feeder_number}"
         bay_id = f"{feeder_id}-bay"
-        breaker_terminals = builder.add_breaker(
+        _, breaker_to = builder.add_breaker(
             f"{feeder_id}-breaker",
             bay_id,
             "mv-bus",
@@ -963,7 +430,7 @@ def hv_mv_single_bus_substation() -> SubstationSystem:
             feeder_id,
             bay_id,
             f"{feeder_id}-node",
-            terminal_id=breaker_terminals[1],
+            bus=breaker_to,
             distribution_model_reference_id="hv-mv-distribution-feeders",
         )
     return builder.build()

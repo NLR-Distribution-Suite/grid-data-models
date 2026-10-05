@@ -8,6 +8,8 @@ from gdm.systems.substation.automation import (
     SCLConfiguration,
     SemanticSignal,
 )
+from gdm.systems.substation.builder import SubstationBuilder
+from gdm.systems.substation.examples import build_detailed_distribution_substation
 from gdm.systems.substation.enums import (
     AssetRole,
     CircuitDirection,
@@ -27,6 +29,7 @@ from gdm.systems.substation.components import (
     EarthingSwitch,
     PowerTransformer,
     PrimaryEquipmentComponent,
+    TwoTerminalEquipment,
 )
 from gdm.systems.substation.equipment import (
     InstrumentTransformer,
@@ -74,13 +77,10 @@ from gdm.systems.substation.renewable import (
 from gdm.systems.substation.topology import (
     Bay,
     BusbarSection,
-    ConnectivityNode,
     ExternalCircuit,
     FeederBoundary,
     Substation,
     SubstationSystem,
-    Terminal,
-    TopologicalNode,
     VoltageLevel,
 )
 
@@ -93,7 +93,6 @@ __all__ = [
     "CircuitBreaker",
     "CollectorFeeder",
     "ConfigurationBaseline",
-    "ConnectivityNode",
     "DocumentReference",
     "DocumentType",
     "Disconnector",
@@ -140,12 +139,13 @@ __all__ = [
     "StateObservation",
     "StorageUnit",
     "Substation",
+    "SubstationBuilder",
     "SubstationSystem",
     "SubstationType",
+    "build_detailed_distribution_substation",
     "SurgeArrester",
-    "Terminal",
     "TerminalRole",
-    "TopologicalNode",
+    "TwoTerminalEquipment",
     "VoltageLevel",
     "WindPlant",
     "WindTurbine",

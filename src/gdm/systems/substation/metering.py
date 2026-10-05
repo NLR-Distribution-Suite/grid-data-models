@@ -1,11 +1,14 @@
 """Substation metering and power-quality models."""
 
+from __future__ import annotations
+
 from datetime import datetime
 
-from pydantic import Field
 from infrasys import Component
+from pydantic import Field
 
 from gdm.systems.substation.enums import MeasurementPurpose
+from gdm.systems.substation.topology import BusbarSection
 
 
 class InstrumentTransformerCore(Component):
@@ -15,7 +18,6 @@ class InstrumentTransformerCore(Component):
     purpose: MeasurementPurpose
     accuracy_class: str | None = None
     burden_va: float | None = Field(None, ge=0)
-    instrument_transformer_id: str
 
     @classmethod
     def example(cls) -> "InstrumentTransformerCore":
@@ -24,7 +26,6 @@ class InstrumentTransformerCore(Component):
             core_type="metering",
             purpose=MeasurementPurpose.REVENUE,
             accuracy_class="0.3B0.1",
-            instrument_transformer_id="feeder-ct-001",
         )
 
 
@@ -32,9 +33,9 @@ class MeteringPoint(Component):
     """Metering point at a station or interconnection boundary."""
 
     purpose: MeasurementPurpose
-    terminal_id: str
+    bus: BusbarSection
     meter_id: str
-    instrument_core_ids: list[str] = Field(default_factory=list)
+    cores: list[InstrumentTransformerCore] = Field(default_factory=list)
     multiplier: float = Field(1, gt=0)
     interval_seconds: int | None = Field(None, gt=0)
     owner: str | None = None
@@ -44,9 +45,9 @@ class MeteringPoint(Component):
         return cls(
             name="feeder-metering-point",
             purpose=MeasurementPurpose.OPERATIONAL,
-            terminal_id="feeder-breaker-feeder-terminal",
+            bus=BusbarSection.example(),
             meter_id="feeder-meter-001",
-            instrument_core_ids=["feeder-ct-metering-core"],
+            cores=[InstrumentTransformerCore.example()],
         )
 
 
@@ -72,7 +73,7 @@ class MeterTest(Component):
 class PowerQualityMonitor(Component):
     """Power-quality monitoring point and method metadata."""
 
-    terminal_id: str
+    bus: BusbarSection
     measurement_method: str
     monitored_phenomena: list[str] = Field(default_factory=list)
     sample_rate_hz: float | None = Field(None, gt=0)
@@ -83,7 +84,7 @@ class PowerQualityMonitor(Component):
     def example(cls) -> "PowerQualityMonitor":
         return cls(
             name="feeder-pq-monitor",
-            terminal_id="feeder-breaker-feeder-terminal",
+            bus=BusbarSection.example(),
             measurement_method="IEEE 1159",
             monitored_phenomena=["voltage_sag", "harmonics", "flicker"],
         )

@@ -1,12 +1,17 @@
 """Substation protection, settings, and test records."""
 
+from __future__ import annotations
+
 from datetime import datetime
 
-from pydantic import Field
 from infrasys import Component
+from pydantic import Field
 
+from gdm.systems.substation.components import PrimaryEquipmentComponent
 from gdm.systems.substation.enums import ProtectionFunctionType
+from gdm.systems.substation.metering import InstrumentTransformerCore
 from gdm.systems.substation.models import DocumentReference, StateObservation
+from gdm.systems.substation.topology import Bay
 
 
 class ProtectionIED(Component):
@@ -17,8 +22,8 @@ class ProtectionIED(Component):
     firmware_version: str | None = None
     hardware_revision: str | None = None
     ied_name: str | None = None
-    bay_id: str | None = None
-    document_reference_ids: list[str] = Field(default_factory=list)
+    bay: Bay | None = None
+    documents: list[DocumentReference] = Field(default_factory=list)
     active_setting_group_id: str | None = None
 
     @classmethod
@@ -29,7 +34,6 @@ class ProtectionIED(Component):
             model="feeder-relay",
             firmware_version="1.0",
             ied_name="IED_FEEDER_001",
-            bay_id="feeder-bay-001",
         )
 
 
@@ -39,7 +43,6 @@ class ProtectionSetting(Component):
     parameter: str
     value: float | str | bool
     unit: str | None = None
-    setting_group_id: str
     phase_scope: str | None = None
 
     @classmethod
@@ -49,7 +52,6 @@ class ProtectionSetting(Component):
             parameter="pickup_current",
             value=480,
             unit="ampere",
-            setting_group_id="feeder-relay-group-1",
             phase_scope="ABC",
         )
 
@@ -61,7 +63,6 @@ class ProtectionSettingGroup(Component):
     settings: list[ProtectionSetting] = Field(default_factory=list)
     approved: bool = False
     loaded_at: datetime | None = None
-    supersedes_group_id: str | None = None
 
     @classmethod
     def example(cls) -> "ProtectionSettingGroup":
@@ -79,11 +80,11 @@ class ProtectionFunction(Component):
     function_type: ProtectionFunctionType
     ansi_function_number: str | None = None
     instance: str | None = None
-    ied_id: str
-    protects_equipment_ids: list[str] = Field(default_factory=list)
-    input_core_ids: list[str] = Field(default_factory=list)
-    output_equipment_ids: list[str] = Field(default_factory=list)
-    setting_group_ids: list[str] = Field(default_factory=list)
+    ied: ProtectionIED
+    protects_equipment: list[PrimaryEquipmentComponent] = Field(default_factory=list)
+    input_cores: list[InstrumentTransformerCore] = Field(default_factory=list)
+    output_equipment: list[PrimaryEquipmentComponent] = Field(default_factory=list)
+    setting_groups: list[ProtectionSettingGroup] = Field(default_factory=list)
     state_observations: list[StateObservation] = Field(default_factory=list)
 
     @classmethod
@@ -92,11 +93,9 @@ class ProtectionFunction(Component):
             name="feeder-overcurrent-001",
             function_type=ProtectionFunctionType.OVERCURRENT,
             ansi_function_number="50/51",
-            ied_id="feeder-relay-001",
-            protects_equipment_ids=["feeder-breaker-001"],
-            input_core_ids=["feeder-ct-protection-core"],
-            output_equipment_ids=["feeder-breaker-001"],
-            setting_group_ids=["feeder-relay-group-1"],
+            ied=ProtectionIED.example(),
+            input_cores=[InstrumentTransformerCore.example()],
+            setting_groups=[ProtectionSettingGroup.example()],
         )
 
 
@@ -104,17 +103,16 @@ class ProtectionScheme(Component):
     """Coordinated protection functions for a zone or bay."""
 
     zone: str
-    function_ids: list[str] = Field(default_factory=list)
-    equipment_ids: list[str] = Field(default_factory=list)
-    document_reference_ids: list[str] = Field(default_factory=list)
+    functions: list[ProtectionFunction] = Field(default_factory=list)
+    equipment: list[PrimaryEquipmentComponent] = Field(default_factory=list)
+    documents: list[DocumentReference] = Field(default_factory=list)
 
     @classmethod
     def example(cls) -> "ProtectionScheme":
         return cls(
             name="feeder-protection-scheme-001",
             zone="feeder-001",
-            function_ids=["feeder-overcurrent-001"],
-            equipment_ids=["feeder-breaker-001"],
+            functions=[ProtectionFunction.example()],
         )
 
 
@@ -122,7 +120,7 @@ class ProtectionTest(Component):
     """Evidence record for a protection or control test."""
 
     test_type: str
-    tested_object_id: str
+    tested_object: Component
     procedure: str | None = None
     result: str
     performed_at: datetime
@@ -134,7 +132,7 @@ class ProtectionTest(Component):
         return cls(
             name="feeder-relay-commissioning-test",
             test_type="commissioning",
-            tested_object_id="feeder-relay-001",
+            tested_object=ProtectionIED.example(),
             result="pass",
             performed_at=datetime(2025, 1, 1),
         )

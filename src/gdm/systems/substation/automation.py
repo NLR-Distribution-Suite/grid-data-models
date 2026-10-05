@@ -1,9 +1,33 @@
 """Station automation and SCADA protocol mappings."""
 
-from pydantic import Field
-from infrasys import Component
+from __future__ import annotations
 
+from infrasys import Component
+from pydantic import Field
+
+from gdm.systems.substation.components import PrimaryEquipmentComponent
 from gdm.systems.substation.enums import ProtocolType
+from gdm.systems.substation.topology import Bay
+
+
+class ProtocolEndpoint(Component):
+    """Protocol endpoint such as a DNP3 outstation or IEC 60870 link."""
+
+    protocol: ProtocolType
+    address: str
+    host: str | None = None
+    port: int | None = Field(None, ge=0, le=65535)
+    secure: bool = False
+
+    @classmethod
+    def example(cls) -> "ProtocolEndpoint":
+        return cls(
+            name="station-dnp3-endpoint",
+            protocol=ProtocolType.DNP3,
+            address="outstation-1",
+            host="station-rtu",
+            port=20000,
+        )
 
 
 class IED(Component):
@@ -13,9 +37,9 @@ class IED(Component):
     manufacturer: str | None = None
     model: str | None = None
     firmware_version: str | None = None
-    bay_id: str | None = None
+    bay: Bay | None = None
     logical_device_ids: list[str] = Field(default_factory=list)
-    protocol_endpoint_ids: list[str] = Field(default_factory=list)
+    protocol_endpoints: list[ProtocolEndpoint] = Field(default_factory=list)
 
     @classmethod
     def example(cls) -> "IED":
@@ -24,29 +48,28 @@ class IED(Component):
             device_type="bay_controller",
             manufacturer="example",
             model="station-controller",
-            bay_id="feeder-bay-001",
+            protocol_endpoints=[ProtocolEndpoint.example()],
         )
 
 
 class LogicalNode(Component):
     """IEC 61850 logical-node instance hosted by an IED."""
 
-    ied_id: str
+    ied: IED
     logical_device: str
     logical_node_class: str
     instance: str
-    primary_equipment_id: str | None = None
+    primary_equipment: PrimaryEquipmentComponent | None = None
     function_id: str | None = None
 
     @classmethod
     def example(cls) -> "LogicalNode":
         return cls(
             name="x-circuit-breaker-001",
-            ied_id="station-ied-001",
+            ied=IED.example(),
             logical_device="LD_FEEDER_001",
             logical_node_class="XCBR",
             instance="1",
-            primary_equipment_id="feeder-breaker-001",
         )
 
 
@@ -60,7 +83,7 @@ class SCLConfiguration(Component):
     schema_version: str | None = None
     tool_name: str | None = None
     approved: bool = False
-    ied_ids: list[str] = Field(default_factory=list)
+    ieds: list[IED] = Field(default_factory=list)
 
     @classmethod
     def example(cls) -> "SCLConfiguration":
@@ -70,29 +93,7 @@ class SCLConfiguration(Component):
             uri="urn:example:station:001:scd",
             revision="A",
             schema_version="2007B",
-            ied_ids=["station-ied-001"],
-        )
-
-
-class ProtocolEndpoint(Component):
-    """Protocol endpoint such as a DNP3 outstation or IEC 60870 link."""
-
-    protocol: ProtocolType
-    address: str
-    host: str | None = None
-    port: int | None = Field(None, ge=0, le=65535)
-    secure: bool = False
-    ied_id: str | None = None
-
-    @classmethod
-    def example(cls) -> "ProtocolEndpoint":
-        return cls(
-            name="station-dnp3-endpoint",
-            protocol=ProtocolType.DNP3,
-            address="outstation-1",
-            host="station-rtu",
-            port=20000,
-            ied_id="station-ied-001",
+            ieds=[IED.example()],
         )
 
 
@@ -100,7 +101,7 @@ class SemanticSignal(Component):
     """Protocol-independent meaning for a status, measurement, or command."""
 
     signal_type: str
-    source_object_id: str
+    source_object: Component
     unit: str | None = None
     engineering_description: str | None = None
     command_authority: str | None = None
@@ -110,7 +111,7 @@ class SemanticSignal(Component):
         return cls(
             name="feeder-breaker-position",
             signal_type="status",
-            source_object_id="feeder-breaker-001",
+            source_object=PrimaryEquipmentComponent(name="feeder-breaker-001"),
             engineering_description="Current breaker position",
         )
 
@@ -118,8 +119,8 @@ class SemanticSignal(Component):
 class ProtocolMapping(Component):
     """Mapping from a semantic signal to a protocol-local address."""
 
-    signal_id: str
-    endpoint_id: str
+    signal: SemanticSignal
+    endpoint: ProtocolEndpoint
     protocol: ProtocolType
     point_type: str
     point_address: str
@@ -131,8 +132,8 @@ class ProtocolMapping(Component):
     def example(cls) -> "ProtocolMapping":
         return cls(
             name="feeder-breaker-dnp3-position",
-            signal_id="feeder-breaker-position",
-            endpoint_id="station-dnp3-endpoint",
+            signal=SemanticSignal.example(),
+            endpoint=ProtocolEndpoint.example(),
             protocol=ProtocolType.DNP3,
             point_type="binary_input",
             point_address="0",

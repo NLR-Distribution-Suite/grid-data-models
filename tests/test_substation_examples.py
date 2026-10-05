@@ -13,7 +13,6 @@ from gdm.systems.substation import (
     CircuitBreaker,
     CollectorFeeder,
     ConfigurationBaseline,
-    ConnectivityNode,
     DocumentReference,
     Disconnector,
     EarthingSwitch,
@@ -53,8 +52,6 @@ from gdm.systems.substation import (
     Substation,
     SubstationSystem,
     SurgeArrester,
-    Terminal,
-    TopologicalNode,
     VoltageLevel,
     PVBlock,
     WindPlant,
@@ -70,7 +67,6 @@ SUBSTATION_MODELS = [
     CircuitBreaker,
     CollectorFeeder,
     ConfigurationBaseline,
-    ConnectivityNode,
     DocumentReference,
     Disconnector,
     EarthingSwitch,
@@ -108,8 +104,6 @@ SUBSTATION_MODELS = [
     StorageUnit,
     Substation,
     SurgeArrester,
-    Terminal,
-    TopologicalNode,
     VoltageLevel,
     PVBlock,
     WindPlant,
@@ -133,16 +127,18 @@ def test_substation_system_example_serializes(tmp_path):
     assert len(list(restored.iter_all_components())) == len(list(system.iter_all_components()))
 
 
-def test_circuit_breaker_requires_two_terminals():
+def test_circuit_breaker_requires_two_buses():
+    bus = BusbarSection.example()
+
     with pytest.raises(ValidationError):
         CircuitBreaker(
             name="invalid-breaker",
-            terminal_ids=["one-terminal"],
+            buses=[bus],
             equipment=CircuitBreakerEquipment.example(),
         )
 
 
-def test_power_transformer_requires_two_windings():
+def test_power_transformer_requires_one_bus_per_winding():
     equipment = PowerTransformerEquipment.example().model_copy(
         update={"windings": [PowerTransformerEquipment.example().windings[0]]}
     )
@@ -150,7 +146,6 @@ def test_power_transformer_requires_two_windings():
     with pytest.raises(ValidationError):
         PowerTransformer(
             name="invalid-transformer",
-            terminal_ids=["transformer-terminal"],
-            winding_terminal_ids=["transformer-terminal"],
+            buses=[BusbarSection.example()],
             equipment=equipment,
         )

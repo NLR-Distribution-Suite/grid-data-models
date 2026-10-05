@@ -1,11 +1,19 @@
-"""Renewable, storage, collector, and interconnection profiles."""
+"""Renewable, storage, collector, and interconnection profiles.
 
-from pydantic import Field
+Plant-level identifiers (``plant_id``, ``point_of_interconnection_id``) refer to
+objects outside the station system and remain strings. Station-owned objects
+such as bays and buses use real component references.
+"""
+
+from __future__ import annotations
+
 from infrasys import Component
+from pydantic import Field
 
 from gdm.quantities import ApparentPower, Voltage
 from gdm.systems.distribution.enums import VoltageTypes
 from gdm.systems.substation.enums import SubstationType
+from gdm.systems.substation.topology import Bay, BusbarSection
 
 
 class InterconnectionProfile(Component):
@@ -60,21 +68,20 @@ class CollectorFeeder(Component):
     """MV collector feeder connecting a renewable plant block to the station."""
 
     plant_id: str
-    station_bay_id: str
+    station_bay: Bay | None = None
+    bus: BusbarSection | None = None
     collector_voltage: Voltage
     collector_voltage_type: VoltageTypes
     generation_block_ids: list[str] = Field(default_factory=list)
-    terminal_id: str
 
     @classmethod
     def example(cls) -> "CollectorFeeder":
         return cls(
             name="solar-collector-feeder-001",
             plant_id="solar-plant-001",
-            station_bay_id="collector-bay-001",
+            station_bay=Bay.example(),
             collector_voltage=Voltage(34.5, "kilovolt"),
             collector_voltage_type=VoltageTypes.LINE_TO_LINE,
-            terminal_id="collector-feeder-terminal",
         )
 
 

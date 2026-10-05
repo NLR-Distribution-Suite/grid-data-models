@@ -8,9 +8,9 @@ from gdm.systems.substation import (
     Bay,
     BusbarSection,
     CircuitBreaker,
+    Disconnector,
     FeederBoundary,
     PowerTransformer,
-    Terminal,
     VoltageLevel,
 )
 from gdm.systems.distribution.components import (
@@ -26,12 +26,25 @@ from tests.substation import (
 )
 
 
+def _physical_buses(system):
+    """Return busbar sections that are physical busbars rather than junctions."""
+
+    return [bus for bus in system.get_components(BusbarSection) if bus.length is not None]
+
+
+def _equipment_buses(system):
+    for component in system.iter_all_components():
+        buses = getattr(component, "buses", None)
+        if buses:
+            yield component, buses
+
+
 @pytest.mark.parametrize("layout", SubstationLayout)
 def test_each_layout_builds_a_substation_system(layout):
     system = build_layout_example(layout)
 
     assert system.name == f"{layout.value.replace('_', '-')}-substation"
-    assert len(list(system.get_components(BusbarSection))) >= 1
+    assert len(_physical_buses(system)) >= 1
     assert len(list(system.get_components(Bay))) >= 1
     assert len(list(system.get_components(FeederBoundary))) >= 1
 
@@ -45,50 +58,47 @@ def test_layout_cross_references_resolve(layout):
     system = build_layout_example(layout)
     names = {component.name for component in system.iter_all_components()}
 
+    for component, buses in _equipment_buses(system):
+        assert all(isinstance(bus, BusbarSection) for bus in buses)
+        for bus in buses:
+            assert bus.name in names
     for bay in system.get_components(Bay):
-        assert set(bay.equipment_ids) <= names
-        assert set(bay.terminal_ids) <= names
+        assert bay.voltage_level is None or bay.voltage_level.name in names
     for boundary in system.get_components(FeederBoundary):
-        assert boundary.bay_id in names
-        assert boundary.terminal_id in names
+        assert isinstance(boundary.bus, BusbarSection)
+        assert boundary.bay is None or boundary.bay.name in names
 
 
 def test_single_bus_has_one_bus_and_three_feeders():
     system = build_layout_example("single_bus")
 
-    assert len(list(system.get_components(BusbarSection))) == 1
+    assert len(_physical_buses(system)) == 1
+    assert len(list(system.get_components(BusbarSection))) == 4
     assert len(list(system.get_components(CircuitBreaker))) == 3
     assert len(list(system.get_components(FeederBoundary))) == 3
-    assert len(list(system.get_components(Terminal))) == 6
 
 
 def test_sectionalized_single_bus_has_normally_open_tie():
     system = build_layout_example(SubstationLayout.SECTIONALIZED_SINGLE_BUS)
     breakers = {breaker.name: breaker for breaker in system.get_components(CircuitBreaker)}
 
-    assert len(list(system.get_components(BusbarSection))) == 2
+    assert len(_physical_buses(system)) == 2
     assert breakers["bus-tie-breaker"].state.value == "open"
     assert len(list(system.get_components(FeederBoundary))) == 4
 
 
 def test_ring_bus_forms_a_closed_cycle_of_bus_nodes():
     system = build_layout_example(SubstationLayout.RING_BUS)
-    ring_breakers = list(system.get_components(CircuitBreaker))
-    terminals = list(system.get_components(Terminal))
-    endpoints = {
-        frozenset(
-            terminal.connectivity_node_id
-            for terminal in terminals
-            if terminal.equipment_id == breaker.name
-        )
-        for breaker in ring_breakers
-    }
-    node_degrees = Counter(node for edge in endpoints for node in edge)
+    ring_breakers = [
+        breaker
+        for breaker in system.get_components(CircuitBreaker)
+        if breaker.name.startswith("ring-breaker")
+    ]
+    node_degrees = Counter(node.name for breaker in ring_breakers for node in breaker.buses)
 
-    assert len(list(system.get_components(BusbarSection))) == 4
+    assert len(_physical_buses(system)) == 4
     assert len(ring_breakers) == 4
     assert len(list(system.get_components(FeederBoundary))) == 4
-    assert len(endpoints) == 4
     assert set(node_degrees.values()) == {2}
 
 
@@ -97,7 +107,7 @@ def test_breaker_and_a_half_has_two_parallel_three_breaker_diameters():
     diameter_breakers = [
         breaker
         for breaker in system.get_components(CircuitBreaker)
-        if breaker.bay_id and breaker.bay_id.startswith("diameter-")
+        if breaker.bay and breaker.bay.name.startswith("diameter-")
     ]
 
     assert len(diameter_breakers) == 6
@@ -115,11 +125,7 @@ def test_hv_mv_example_has_buses_and_station_transformer_between_them():
         12.47,
         69,
     }
-    assert {
-        terminal.connectivity_node_id
-        for terminal in system.get_components(Terminal)
-        if terminal.equipment_id == transformer.name
-    } == {"hv-bus-node", "mv-bus-node"}
+    assert {bus.name for bus in transformer.buses} == {"hv-bus", "mv-bus"}
     assert len(list(system.get_components(FeederBoundary))) == 3
 
 
@@ -154,3 +160,28 @@ def test_layout_round_trips_with_stable_component_names(tmp_path, layout):
     assert {component.name for component in restored.iter_all_components()} == {
         component.name for component in system.iter_all_components()
     }
+
+
+@pytest.mark.parametrize("layout", SubstationLayout)
+def test_connectivity_graph_matches_bus_and_equipment_counts(layout):
+    system = build_layout_example(layout)
+    graph = system.get_undirected_graph()
+    physical_buses = _physical_buses(system)
+
+    assert set(graph.nodes()) == {bus.name for bus in system.get_components(BusbarSection)}
+    assert all(graph.nodes[bus.name]["is_busbar"] for bus in physical_buses)
+
+
+def test_sectionalized_tie_breaker_is_open_in_graph():
+    system = build_layout_example(SubstationLayout.SECTIONALIZED_SINGLE_BUS)
+    graph = system.get_undirected_graph()
+    tie = next(data for _, _, data in graph.edges(data=True) if data["name"] == "bus-tie-breaker")
+
+    assert tie["is_closed"] is False
+    assert tie["state"] == "open"
+
+
+def test_disconnectors_are_present_in_double_bus_layout():
+    system = build_layout_example(SubstationLayout.DOUBLE_BUS_SINGLE_BREAKER)
+
+    assert len(list(system.get_components(Disconnector))) == 4
