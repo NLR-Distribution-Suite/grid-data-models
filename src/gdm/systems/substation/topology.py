@@ -69,12 +69,18 @@ class BusbarSection(DistributionBus):
 
     A busbar section may be a physical busbar (``length`` set, drawn as a thick
     segment) or an electrical junction between series equipment. Geographic
-    placement uses the inherited ``coordinate``.
+    placement uses the inherited ``coordinate``. Schematic single-line-diagram
+    placement uses ``schematic_coordinate`` and never reuses the geographic
+    coordinate.
     """
 
     voltage_type: VoltageTypes = VoltageTypes.LINE_TO_LINE
     phases: list[Phase] = Field(default_factory=lambda: list(_PHASES))
     voltage_level: VoltageLevel | None = None
+    schematic_coordinate: Annotated[
+        Location | None,
+        Field(None, description="Schematic single-line-diagram position of this node."),
+    ]
     length: Annotated[Distance | None, PINT_SCHEMA, Field(None, gt=0)]
     state: EquipmentState = EquipmentState.CLOSED
 
@@ -88,6 +94,7 @@ class BusbarSection(DistributionBus):
             phases=list(_PHASES),
             length=Distance(12, "meter"),
             coordinate=Location(x=0.0, y=0.0),
+            schematic_coordinate=Location(x=0.0, y=3.0),
         )
 
 
@@ -173,7 +180,7 @@ class SubstationSystem(System):
         that connect two or more nodes in series. Shunt devices (surge
         arresters, earthing switches, shunt instrument transformers) are not
         edges. Edge metadata carries the device name, type, and switch state so
-        downstream SCADA consumers can filter on state.
+        downstream single-line-diagram and SCADA consumers can filter on state.
         """
 
         import networkx as nx
@@ -236,6 +243,44 @@ class SubstationSystem(System):
             **kwargs,
         )
 
+    def to_sld(
+        self,
+        output_path: str | None = None,
+        title: str | None = None,
+        width: int = 1400,
+        height: int = 900,
+    ) -> str:
+        """Render an interactive single-line-diagram HTML document.
+
+        Uses each node's ``schematic_coordinate`` when present and a computed
+        voltage-level band layout otherwise. Returns the HTML string and, when
+        ``output_path`` is given, writes the file.
+        """
+
+        from gdm.systems.substation.sld import render_sld_html
+
+        return render_sld_html(
+            self,
+            output_path=output_path,
+            title=title,
+            width=width,
+            height=height,
+        )
+
+    def export_sld_layout(self) -> dict:
+        """Return the schematic layout (coordinates and busbar lengths) as data."""
+
+        from gdm.systems.substation.sld import sld_layout
+
+        return sld_layout(self)
+
+    def apply_sld_layout(self, layout: dict) -> None:
+        """Apply an edited schematic layout returned by ``to_sld``/``export_sld_layout``."""
+
+        from gdm.systems.substation.sld import apply_sld_layout
+
+        apply_sld_layout(self, layout)
+
     @classmethod
     def example(cls) -> "SubstationSystem":
         from gdm.systems.substation.components import CircuitBreaker
@@ -251,6 +296,7 @@ class SubstationSystem(System):
             phases=list(_PHASES),
             length=Distance(12, "meter"),
             coordinate=Location(x=0.0, y=0.0),
+            schematic_coordinate=Location(x=0.0, y=3.0),
         )
         bay = Bay(name="feeder-bay-001", voltage_level=voltage_level)
         feeder_node = BusbarSection(

@@ -25,16 +25,16 @@ mappings, and renewable plant interconnection profiles.
 
 Station topology uses the same bus-branch design as `DistributionSystem`.
 Electrical nodes are `BusbarSection` instances, which subclass `DistributionBus`
-and use the inherited geographic `coordinate` for mapping. Installed equipment
-references the nodes it connects directly through typed `buses` (series) or
-`bus` (shunt) fields; there
+and add a schematic single-line-diagram `schematic_coordinate` (separate from the
+inherited geographic `coordinate`). Installed equipment references the nodes it
+connects directly through typed `buses` (series) or `bus` (shunt) fields; there
 are no string terminal or connectivity-node IDs inside the station. Cross-system
 references (distribution feeder IDs, plant IDs, protocol addresses) remain
 strings.
 
 `SubstationSystem.get_undirected_graph()` returns a NetworkX bus-branch graph
 whose nodes are busbar sections and whose edges are state-aware primary
-equipment, ready for SCADA binding.
+equipment, ready for single-line-diagram rendering and SCADA binding.
 
 ## Scope
 
@@ -73,12 +73,35 @@ A complete 69 kV / 12.47 kV reference design with two transformers, four
 feeders, protection, metering, and SCADA mappings is available as
 `build_detailed_distribution_substation()`.
 
-## Plotting
+## Plotting and Single-Line Diagrams
 
 - `SubstationSystem.plot()` renders an interactive geographic map using each
   busbar section's geographic `coordinate`, coloring nodes by voltage level and
   equipment by switching state. It returns the Plotly figure and can export an
   HTML file.
+- `SubstationSystem.to_sld()` renders an interactive single-line diagram to a
+  standalone HTML document. It uses each node's `schematic_coordinate` when
+  present and otherwise computes a deterministic voltage-level band layout. It
+  returns the HTML string and optionally writes it to a path.
+
+In the SLD you can drag nodes and equipment (wires stay connected), drag the
+busbar end handles to change busbar length, snap to a grid or to other nodes,
+and hover to highlight connections. Edits are remembered per diagram in the
+browser, and **save layout** downloads a JSON layout.
+
+To persist an edited layout into the model:
+
+```python
+import json
+from gdm.systems.substation import build_detailed_distribution_substation
+
+system = build_detailed_distribution_substation()
+system.apply_sld_layout(json.load(open("my-sld.layout.json")))
+system.to_json("station.json", overwrite=True)   # coordinates and busbar lengths are stored
+```
+
+`SubstationSystem.export_sld_layout()` returns the current layout as data,
+which is the same format accepted by `apply_sld_layout()`.
 
 ## Standards Profiles
 

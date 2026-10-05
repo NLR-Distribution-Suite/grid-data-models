@@ -147,6 +147,7 @@ class SubstationBuilder:
         *,
         length: Distance | None = Distance(12, "meter"),
         coordinate: Location | None = None,
+        schematic_coordinate: Location | None = None,
     ) -> BusbarSection:
         """Add a physical busbar section node and return it."""
 
@@ -155,6 +156,7 @@ class SubstationBuilder:
             voltage_level_id,
             length=length,
             coordinate=coordinate,
+            schematic_coordinate=schematic_coordinate,
         )
         self.nodes[bus_id] = bus
         return bus
@@ -165,6 +167,7 @@ class SubstationBuilder:
         voltage_level_id: str,
         length: Distance | None = None,
         coordinate: Location | None = None,
+        schematic_coordinate: Location | None = None,
     ) -> BusbarSection:
         if coordinate is None and self._coordinate_provider is not None:
             coordinate = self._coordinate_provider(self._node_index)
@@ -178,6 +181,7 @@ class SubstationBuilder:
             phases=list(_PHASES),
             length=length,
             coordinate=coordinate,
+            schematic_coordinate=schematic_coordinate,
         )
         self.system.add_component(node)
         return node
@@ -188,6 +192,7 @@ class SubstationBuilder:
         voltage_level_id: str = DEFAULT_VOLTAGE_LEVEL_ID,
         *,
         coordinate: Location | None = None,
+        schematic_coordinate: Location | None = None,
     ) -> BusbarSection:
         """Add an electrical junction node (no busbar length)."""
 
@@ -196,6 +201,7 @@ class SubstationBuilder:
                 node_id,
                 voltage_level_id,
                 coordinate=coordinate,
+                schematic_coordinate=schematic_coordinate,
             )
         return self.nodes[node_id]
 
