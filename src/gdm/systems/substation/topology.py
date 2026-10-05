@@ -6,7 +6,7 @@ from infrasys import Component, Location, System
 from pydantic import Field
 
 from gdm.constants import PINT_SCHEMA
-from gdm.quantities import Distance, Voltage
+from gdm.quantities import Distance, Frequency, Voltage
 from gdm.systems.distribution.enums import Phase, VoltageTypes
 from gdm.systems.substation.enums import (
     CircuitDirection,
@@ -32,7 +32,7 @@ class VoltageLevel(Component):
 
     nominal_voltage: Annotated[Voltage, PINT_SCHEMA, Field(..., gt=0)]
     voltage_type: VoltageTypes
-    frequency_hz: float = Field(60, gt=0)
+    frequency_hz: Annotated[Frequency, PINT_SCHEMA, Field(Frequency(60, "hertz"), gt=0)]
     phases: list[Phase] = Field(default_factory=lambda: [Phase.A, Phase.B, Phase.C])
     standard_profile_id: str | None = None
 

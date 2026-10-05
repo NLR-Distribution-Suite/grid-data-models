@@ -1,8 +1,11 @@
 """Substation primary equipment models."""
 
+from typing import Annotated
+
 from pydantic import Field
 
-from gdm.quantities import Voltage
+from gdm.constants import PINT_SCHEMA
+from gdm.quantities import Frequency, Voltage
 from gdm.systems.substation.components import PrimaryEquipmentComponent
 
 
@@ -53,7 +56,7 @@ class LineTrap(PrimaryEquipmentComponent):
     """Carrier-wave line trap connected in series with an external circuit."""
 
     terminal_ids: list[str] = Field(min_length=2, max_length=2)
-    tuning_frequency_hz: float | None = Field(None, gt=0)
+    tuning_frequency_hz: Annotated[Frequency | None, PINT_SCHEMA, Field(None, gt=0)]
 
     @classmethod
     def example(cls) -> "LineTrap":
@@ -61,5 +64,5 @@ class LineTrap(PrimaryEquipmentComponent):
             name="incoming-line-trap-001",
             bay_id="incoming-line-bay-001",
             terminal_ids=["line-trap-station-terminal", "line-trap-line-terminal"],
-            tuning_frequency_hz=100_000,
+            tuning_frequency_hz=Frequency(100_000, "hertz"),
         )

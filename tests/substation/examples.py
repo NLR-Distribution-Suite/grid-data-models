@@ -47,7 +47,7 @@ from gdm.systems.substation import (
     TerminalRole,
     VoltageLevel,
 )
-from gdm.quantities import ApparentPower, Distance, Voltage
+from gdm.quantities import ApparentPower, Distance, Frequency, Voltage
 from infrasys import Location
 
 
@@ -285,7 +285,7 @@ class _SubstationExampleBuilder:
                 name=line_trap_id,
                 bay_id=bay_id,
                 terminal_ids=terminal_ids,
-                tuning_frequency_hz=100_000,
+                tuning_frequency_hz=Frequency(100_000, "hertz"),
             )
         )
         return tuple(terminal_ids)

@@ -2,6 +2,7 @@
 
 import pytest
 
+from gdm.quantities import Frequency
 from gdm.systems.substation import (
     BusbarSection,
     CircuitBreaker,
@@ -79,7 +80,7 @@ def test_fig_25_8_models_the_carrier_wave_line_trap():
     )
 
     assert line_trap.name == "incoming-line-line-trap"
-    assert line_trap.tuning_frequency_hz == 100_000
+    assert line_trap.tuning_frequency_hz == Frequency(100_000, "hertz")
     assert cvt.instrument_type == "capacitive_voltage_transformer"
     assert len(cvt.terminal_ids) == 1
 
