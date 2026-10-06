@@ -8,6 +8,7 @@ instead of using string IDs and terminal/connectivity-node indirection.
 
 from __future__ import annotations
 
+from pathlib import Path
 from typing import Annotated
 
 from infrasys import Component, Location, System
@@ -16,7 +17,14 @@ from pydantic import Field
 from gdm.constants import PINT_SCHEMA
 from gdm.quantities import Distance, Frequency, Voltage
 from gdm.systems.distribution.components.distribution_bus import DistributionBus
-from gdm.systems.distribution.enums import Phase, VoltageTypes
+from gdm.systems.distribution.enums import (
+    ColorLineBy,
+    ColorNodeBy,
+    MapType,
+    Phase,
+    PlotingStyle,
+    VoltageTypes,
+)
 from gdm.systems.substation.enums import (
     CircuitDirection,
     EquipmentState,
@@ -211,14 +219,30 @@ class SubstationSystem(System):
                     graph.add_edge(names[0], other, **data)
         return graph
 
+    def to_gdf(self, export_file: Path | None = None):
+        """Convert the station nodes and equipment edges to a GeoDataFrame."""
+
+        from gdm.systems.substation.plot import build_substation_geodataframe
+
+        return build_substation_geodataframe(self, export_file=export_file)
+
+    def to_geojson(self, export_file: Path | str) -> None:
+        """Export the station topology to a GeoJSON file."""
+
+        from gdm.systems.substation.plot import export_substation_geojson
+
+        export_substation_geojson(self, export_file)
+
     def plot(
         self,
-        export_path: str | None = None,
+        export_path: Path | None = None,
         show: bool = True,
-        color_node_by: str = "voltage_level",
-        zoom_level: int = 13,
-        height: int = 700,
-        title: str | None = None,
+        color_node_by: ColorNodeBy = ColorNodeBy.PHASE,
+        color_line_by: ColorLineBy = ColorLineBy.EQUIPMENT_TYPE,
+        show_legend: bool = True,
+        map_type: MapType = MapType.SCATTER_GEO,
+        style: PlotingStyle = PlotingStyle.CARTO_POSITRON,
+        zoom_level: int = 11,
         **kwargs,
     ):
         """Plot the station on a geographic map using node ``coordinate`` values."""
@@ -230,9 +254,11 @@ class SubstationSystem(System):
             export_path=export_path,
             show=show,
             color_node_by=color_node_by,
+            color_line_by=color_line_by,
+            show_legend=show_legend,
+            map_type=map_type,
+            style=style,
             zoom_level=zoom_level,
-            height=height,
-            title=title,
             **kwargs,
         )
 

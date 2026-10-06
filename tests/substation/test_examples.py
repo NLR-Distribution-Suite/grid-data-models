@@ -12,6 +12,7 @@ from gdm.systems.substation import (
     FeederBoundary,
     PowerTransformer,
     VoltageLevel,
+    build_detailed_distribution_substation,
 )
 from gdm.systems.distribution.components import (
     DistributionBus,
@@ -185,3 +186,16 @@ def test_disconnectors_are_present_in_double_bus_layout():
     system = build_layout_example(SubstationLayout.DOUBLE_BUS_SINGLE_BREAKER)
 
     assert len(list(system.get_components(Disconnector))) == 4
+
+
+def test_detailed_transformer_hv_path_reaches_the_winding():
+    system = build_detailed_distribution_substation()
+    graph = system.get_undirected_graph()
+
+    for number in (1, 2):
+        hv_node = f"transformer-{number}-hv-node"
+        winding_node = f"transformer-{number}-hv-winding-node"
+        edge = graph.get_edge_data(hv_node, winding_node)
+
+        assert edge is not None
+        assert next(iter(edge.values()))["name"] == f"transformer-{number}-hv-ct"

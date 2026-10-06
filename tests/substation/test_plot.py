@@ -1,7 +1,10 @@
 """Tests for geographic substation plotting."""
 
+import json
+
 import pytest
 
+from gdm.systems.distribution.enums import ColorLineBy, ColorNodeBy, MapType
 from gdm.systems.substation import SubstationBuilder, build_detailed_distribution_substation
 from tests.substation import build_layout_example
 
@@ -11,7 +14,31 @@ def test_plot_returns_plotly_figure_with_traces():
     figure = system.plot(show=False)
 
     assert len(figure.data) >= 2
-    assert any(trace.type == "scattergeo" for trace in figure.data)
+    assert any(trace.type in {"scattergeo", "scattermap"} for trace in figure.data)
+
+
+def test_to_gdf_contains_nodes_and_equipment_edges(tmp_path):
+    system = build_detailed_distribution_substation()
+
+    geodataframe = system.to_gdf(tmp_path / "station.csv")
+
+    assert (tmp_path / "station.csv").exists()
+    assert {"Name", "Type", "Phases", "kV", "geometry"}.issubset(geodataframe.columns)
+    assert "BusbarSection" in set(geodataframe.Type)
+    assert any(geometry.geom_type == "Point" for geometry in geodataframe.geometry)
+    assert any(geometry.geom_type == "LineString" for geometry in geodataframe.geometry)
+    assert geodataframe.crs.to_string() == "EPSG:4326"
+
+
+def test_to_geojson_exports_topology(tmp_path):
+    system = build_detailed_distribution_substation()
+    output = tmp_path / "station.geojson"
+
+    system.to_geojson(output)
+
+    document = json.loads(output.read_text(encoding="utf-8"))
+    assert document["type"] == "FeatureCollection"
+    assert document["features"]
 
 
 def test_plot_requires_geographic_coordinates():
@@ -21,21 +48,28 @@ def test_plot_requires_geographic_coordinates():
         system.plot(show=False)
 
 
-def test_plot_marks_open_equipment():
+def test_plot_aligns_with_distribution_plot_options():
     system = build_detailed_distribution_substation()
-    figure = system.plot(show=False)
+    figure = system.plot(
+        show=False,
+        color_node_by=ColorNodeBy.VOLTAGE_LEVEL,
+        color_line_by=ColorLineBy.EQUIPMENT_TYPE,
+        show_legend=False,
+        map_type=MapType.SCATTER_GEO,
+    )
     names = {trace.name for trace in figure.data}
 
-    assert "open equipment" in names
-    assert "closed equipment" in names
+    assert any(name.startswith("Nodes - kV -") for name in names)
+    assert any(name.startswith("Edges - Type -") for name in names)
+    assert figure.layout.showlegend is False
 
 
 def test_plot_exports_html(tmp_path):
     system = build_detailed_distribution_substation()
-    output = tmp_path / "station.html"
 
-    system.plot(export_path=str(output), show=False)
+    system.plot(export_path=tmp_path, show=False)
 
+    output = tmp_path / f"{system.name}_plot.html"
     assert output.exists()
     assert "<html" in output.read_text(encoding="utf-8").lower()
 

@@ -29,15 +29,49 @@ _MV_LEVEL = "voltage-level-12kv"
 _LON = -105.2000
 _LAT = 39.7400
 
+_FOOTPRINT_OFFSETS = (
+    (-1.0, 2.5),
+    (1.0, 2.5),
+    (-1.0, -1.5),
+    (1.0, -1.5),
+    (-4.5, 3.3),
+    (-3.6, 3.3),
+    (-2.7, 3.3),
+    (-1.8, 3.3),
+    (4.5, 3.3),
+    (3.6, 3.3),
+    (2.7, 3.3),
+    (1.8, 3.3),
+    (-1.0, 2.0),
+    (-1.0, 1.3),
+    (-1.0, -0.6),
+    (1.0, 2.0),
+    (1.0, 1.3),
+    (1.0, -0.6),
+    (-2.0, -2.0),
+    (-2.5, -2.8),
+    (-3.2, -3.6),
+    (-0.2, -2.0),
+    (-0.2, -2.8),
+    (-0.2, -3.6),
+    (2.0, -2.0),
+    (2.5, -2.8),
+    (3.2, -3.6),
+    (0.2, -2.0),
+    (0.2, -2.8),
+    (0.2, -3.6),
+)
+
 
 def _footprint(index: int) -> Location:
-    """Deterministic geographic footprint coordinate for a station node."""
+    """Return a deterministic physical station layout in creation order."""
 
-    column = index % 6
-    row = index // 6
+    if index >= len(_FOOTPRINT_OFFSETS):
+        raise ValueError(f"No sample footprint coordinate is defined for node index {index}")
+    offset_x, offset_y = _FOOTPRINT_OFFSETS[index]
     return Location(
-        x=_LON + (column - 2.5) * 0.0007,
-        y=_LAT + (2.5 - row) * 0.0005,
+        x=_LON + offset_x * 0.0007,
+        y=_LAT + offset_y * 0.0005,
         crs="EPSG:4326",
     )
 
@@ -122,14 +156,14 @@ def build_detailed_distribution_substation() -> SubstationSystem:
         xfmr_id = f"transformer-{number}"
         bay = f"{xfmr_id}-bay"
         _, hv_to = builder.add_breaker(f"{xfmr_id}-hv-breaker", bay, hv_bus, f"{xfmr_id}-hv-node")
+        hv_winding_bus = builder.add_node(f"{xfmr_id}-hv-winding-node", _HV_LEVEL)
         hv_ct = builder.add_instrument_transformer(
             f"{xfmr_id}-hv-ct",
             bay,
             f"{xfmr_id}-hv-node",
-            f"{xfmr_id}-hv-ct-node",
+            f"{xfmr_id}-hv-winding-node",
             cores=[builder.add_instrument_core(f"{xfmr_id}-hv-ct-core", accuracy_class="5P20")],
         )
-        hv_winding_bus = builder.add_node(f"{xfmr_id}-hv-winding-node", _HV_LEVEL)
         lv_winding_bus = builder.add_node(f"{xfmr_id}-lv-winding-node", _MV_LEVEL)
         transformer = builder.add_two_winding_transformer(
             xfmr_id, bay, hv_winding_bus, lv_winding_bus

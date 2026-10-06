@@ -75,10 +75,14 @@ feeders, protection, metering, and SCADA mappings is available as
 
 ## Plotting
 
-- `SubstationSystem.plot()` renders an interactive geographic map using each
-  busbar section's geographic `coordinate`, coloring nodes by voltage level and
-  equipment by switching state. It returns the Plotly figure and can export an
-  HTML file.
+- `SubstationSystem.to_gdf()` returns a combined GeoDataFrame containing point
+  records for positioned busbar sections and line records for connected primary
+  equipment. It can also export the table as CSV.
+- `SubstationSystem.to_geojson(path)` exports the same topology as GeoJSON.
+- `SubstationSystem.plot()` renders the GeoDataFrame as an interactive map. Its
+  node and edge color choices, map type, map style, legend control, zoom level,
+  and directory-based HTML export follow `DistributionSystem.plot()`; coordinate
+  flipping is not supported for substation maps.
 
 ## Standards Profiles
 
