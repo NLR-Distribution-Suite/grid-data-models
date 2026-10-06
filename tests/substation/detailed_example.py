@@ -1,4 +1,4 @@
-"""A fully detailed distribution substation reference design.
+"""Test support for a detailed distribution substation example.
 
 ``build_detailed_distribution_substation`` returns a 69 kV / 12.47 kV
 distribution substation that exercises the complete station model: two
@@ -12,7 +12,6 @@ from __future__ import annotations
 from infrasys import Location
 
 from gdm.quantities import Voltage
-from gdm.systems.substation.builder import SubstationBuilder
 from gdm.systems.substation.components import CircuitBreaker
 from gdm.systems.substation.enums import (
     CircuitDirection,
@@ -21,7 +20,8 @@ from gdm.systems.substation.enums import (
     ProtocolType,
     ProtectionFunctionType,
 )
-from gdm.systems.substation.topology import SubstationSystem
+from gdm.systems.substation.substation_system import SubstationSystem
+from tests.substation.builder import SubstationBuilder
 
 _HV_LEVEL = "voltage-level-69kv"
 _MV_LEVEL = "voltage-level-12kv"

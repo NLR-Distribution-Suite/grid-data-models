@@ -1,7 +1,7 @@
 """Distribution substation bus-arrangement examples.
 
-These examples live with the tests and exercise the public
-:class:`gdm.systems.substation.builder.SubstationBuilder`. They are compact,
+These examples live with the tests and exercise the test-support
+:class:`tests.substation.builder.SubstationBuilder`. They are compact,
 executable reference topologies and are not intended to prescribe a utility's
 normal operating configuration.
 """
@@ -19,13 +19,13 @@ from gdm.systems.distribution.components import (
 from gdm.systems.distribution.enums import Phase, VoltageTypes
 from gdm.systems.distribution.equipment import MatrixImpedanceBranchEquipment
 from gdm.systems.substation import EquipmentState, SubstationSystem
-from gdm.systems.substation.builder import (
+from tests.substation.builder import (
     DEFAULT_HV_VOLTAGE_LEVEL_ID as _VOLTAGE_LEVEL_HV_ID,
 )
-from gdm.systems.substation.builder import (
+from tests.substation.builder import (
     DEFAULT_VOLTAGE_LEVEL_ID as _VOLTAGE_LEVEL_ID,
 )
-from gdm.systems.substation.builder import SubstationBuilder
+from tests.substation.builder import SubstationBuilder
 from gdm.quantities import Distance, Voltage
 from infrasys import Location
 

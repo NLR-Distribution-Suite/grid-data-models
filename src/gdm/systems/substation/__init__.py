@@ -8,8 +8,6 @@ from gdm.systems.substation.automation import (
     SCLConfiguration,
     SemanticSignal,
 )
-from gdm.systems.substation.builder import SubstationBuilder
-from gdm.systems.substation.examples import build_detailed_distribution_substation
 from gdm.systems.substation.enums import (
     AssetRole,
     CircuitDirection,
@@ -80,9 +78,9 @@ from gdm.systems.substation.topology import (
     ExternalCircuit,
     FeederBoundary,
     Substation,
-    SubstationSystem,
     VoltageLevel,
 )
+from gdm.systems.substation.substation_system import SubstationSystem
 
 __all__ = [
     "AssetReference",
@@ -139,10 +137,8 @@ __all__ = [
     "StateObservation",
     "StorageUnit",
     "Substation",
-    "SubstationBuilder",
     "SubstationSystem",
     "SubstationType",
-    "build_detailed_distribution_substation",
     "SurgeArrester",
     "TerminalRole",
     "TwoTerminalEquipment",

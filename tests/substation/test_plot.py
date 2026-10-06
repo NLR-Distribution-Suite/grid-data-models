@@ -5,8 +5,9 @@ import json
 import pytest
 
 from gdm.systems.distribution.enums import ColorLineBy, ColorNodeBy, MapType
-from gdm.systems.substation import SubstationBuilder, build_detailed_distribution_substation
 from tests.substation import build_layout_example
+from tests.substation.builder import SubstationBuilder
+from tests.substation.detailed_example import build_detailed_distribution_substation
 
 
 def test_plot_returns_plotly_figure_with_traces():

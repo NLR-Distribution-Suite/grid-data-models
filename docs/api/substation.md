@@ -10,10 +10,10 @@ from gdm.systems.substation import (
 )
 ```
 
-`SubstationSystem` is the authoritative model for utility substation design and
-station data. It covers distribution substations, wind collector substations,
-solar collector substations, hybrid renewable substations, and colocated energy
-storage interfaces.
+`SubstationSystem` is the authoritative data model for utility station topology
+and station data. It covers distribution substations, wind collector
+substations, solar collector substations, hybrid renewable substations, and
+colocated energy storage interfaces.
 
 ## Ownership Boundary
 
@@ -36,6 +36,15 @@ strings.
 whose nodes are busbar sections and whose edges are state-aware primary
 equipment, ready for SCADA binding.
 
+## Model Relationships
+
+The diagram separates system registration from the typed object references that
+carry facility structure and electrical connectivity. It presents the core
+models plus representative protection, metering, and automation links; the
+corresponding reference models are shown as a grouped boundary.
+
+![Substation model relationships](../models/substation-model-relationships.svg)
+
 ## Scope
 
 The current datamodels include:
@@ -51,27 +60,6 @@ The current datamodels include:
 SCL, relay-settings, SCADA, and study files are represented by metadata and
 hash/URI references only. File parsing and external utility integrations are
 outside the current scope.
-
-## Building a Station
-
-`SubstationBuilder` is the supported way to assemble a detailed station:
-
-```python
-from gdm.systems.substation import SubstationBuilder
-from gdm.quantities import Voltage
-
-builder = SubstationBuilder("riverside", initial_voltage_level_id="hv", initial_nominal_voltage=Voltage(69, "kilovolt"))
-builder.add_voltage_level("mv", Voltage(12.47, "kilovolt"))
-hv = builder.add_bus("hv-bus", "hv")
-mv = builder.add_bus("mv-bus", "mv")
-builder.add_two_winding_transformer("t1", "t1-bay", hv, mv)
-builder.add_feeder("feeder-1", "feeder-1-bay", "mv-bus")
-system = builder.build()
-```
-
-A complete 69 kV / 12.47 kV reference design with two transformers, four
-feeders, protection, metering, and SCADA mappings is available as
-`build_detailed_distribution_substation()`.
 
 ## Plotting
 

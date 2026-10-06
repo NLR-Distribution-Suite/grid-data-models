@@ -7,13 +7,13 @@ from gdm.systems.substation import (
     MeteringPoint,
     ProtectionFunction,
     ProtectionIED,
-    SubstationBuilder,
     SubstationSystem,
-    build_detailed_distribution_substation,
 )
 from gdm.systems.substation.automation import ProtocolEndpoint, SemanticSignal
 from gdm.systems.substation.components import CircuitBreaker
 from gdm.systems.substation.topology import BusbarSection, FeederBoundary, VoltageLevel
+from tests.substation.builder import SubstationBuilder
+from tests.substation.detailed_example import build_detailed_distribution_substation
 
 
 def _physical_buses(system):

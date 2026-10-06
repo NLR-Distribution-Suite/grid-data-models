@@ -12,7 +12,6 @@ from gdm.systems.substation import (
     FeederBoundary,
     PowerTransformer,
     VoltageLevel,
-    build_detailed_distribution_substation,
 )
 from gdm.systems.distribution.components import (
     DistributionBus,
@@ -25,6 +24,7 @@ from tests.substation import (
     build_layout_example,
     hv_mv_substation_with_distribution_feeders,
 )
+from tests.substation.detailed_example import build_detailed_distribution_substation
 
 
 def _physical_buses(system):

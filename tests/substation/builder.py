@@ -1,9 +1,10 @@
-"""Programmatic builder for detailed distribution substations.
+"""Test support for constructing detailed distribution substations.
 
 ``SubstationBuilder`` assembles a :class:`SubstationSystem` while keeping the
 bus-branch component references, bays, and administrative objects consistent.
 It is the supported way to construct a detailed station instead of wiring
-components together by hand.
+components together by hand. This helper is intentionally kept outside the
+production package.
 """
 
 from __future__ import annotations
@@ -57,13 +58,13 @@ from gdm.systems.substation.protection import (
     ProtectionSetting,
     ProtectionSettingGroup,
 )
+from gdm.systems.substation.substation_system import SubstationSystem
 from gdm.systems.substation.topology import (
     Bay,
     BusbarSection,
     ExternalCircuit,
     FeederBoundary,
     Substation,
-    SubstationSystem,
     VoltageLevel,
 )
 
