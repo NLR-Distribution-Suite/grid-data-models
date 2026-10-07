@@ -2,17 +2,17 @@
 
 [![](../../models/SequenceImpedanceBranchEquipment.svg)](../../models/SequenceImpedanceBranchEquipment.svg) 
 
-**API model:** `gdm.distribution.equipment.SequenceImpedanceBranchEquipment`
+**API model:** `gdm.systems.distribution.equipment.SequenceImpedanceBranchEquipment`
 - Excluded members: `example, validate_fields`
 
 
 [![](../../models/MatrixImpedanceBranchEquipment.svg)](../../models/MatrixImpedanceBranchEquipment.svg) 
 
-**API model:** `gdm.distribution.equipment.MatrixImpedanceBranchEquipment`
+**API model:** `gdm.systems.distribution.equipment.MatrixImpedanceBranchEquipment`
 - Excluded members: `example, validate_fields`
 
 
 [![](../../models/GeometryBranchEquipment.svg)](../../models/GeometryBranchEquipment.svg) 
 
-**API model:** `gdm.distribution.equipment.GeometryBranchEquipment`
+**API model:** `gdm.systems.distribution.equipment.GeometryBranchEquipment`
 - Excluded members: `example, validate_fields`

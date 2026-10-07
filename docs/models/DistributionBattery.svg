@@ -10,10 +10,10 @@
 <title>Entity Relationship Diagram created by erdantic</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-1163 1333,-1163 1333,4 -4,4"/>
 <text text-anchor="middle" x="664.5" y="-5.95" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="9.00" fill="#a8a8a8">Created by erdantic v1.0.5 &lt;https://github.com/drivendataorg/erdantic&gt;</text>
-<!-- gdm.distribution.common.curve.Curve -->
+<!-- gdm.systems.distribution.common.curve.Curve -->
 <g id="node1" class="node">
-<title>gdm.distribution.common.curve.Curve</title>
-<g id="a_node1"><a xlink:title="gdm.distribution.common.curve.Curve&#10;&#10;An interface for representing a curve using x and y points. e.g for volt&#45;var and volt&#45;watt curves.&#10;&#10;Examples&#10;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#10;&#10;Example of a Curve (Volt&#45;Var IEEE&#45;1547 standard).&#10;&#10;&gt;&gt;&gt; Curve(&#10; &#160;&#160;&#160;&#160;&#160;&#160;&#160;curve_x=[0.5, 0.92, 0.98, 1.02, 1.08, 1.5], curve_y=[1.0, 1.0, 0.0, 0.0, &#45;1.0, &#45;1.0]&#10; &#160;&#160;&#160;)&#10;&#10;Example of a Curve (Volt&#45;Var Volt&#45;Watt IEEE&#45;1547 standard)&#10;&#10;&gt;&gt;&gt; Curve(curve_x=[0.5, 1.06, 1.1, 1.5], curve_y=[1.0, 1.0, 0.0, 0.0])&#10;">
+<title>gdm.systems.distribution.common.curve.Curve</title>
+<g id="a_node1"><a xlink:title="gdm.systems.distribution.common.curve.Curve&#10;&#10;An interface for representing a curve using x and y points. e.g for volt&#45;var and volt&#45;watt curves.&#10;&#10;Examples&#10;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#10;&#10;Example of a Curve (Volt&#45;Var IEEE&#45;1547 standard).&#10;&#10;&gt;&gt;&gt; Curve(&#10; &#160;&#160;&#160;&#160;&#160;&#160;&#160;curve_x=[0.5, 0.92, 0.98, 1.02, 1.08, 1.5], curve_y=[1.0, 1.0, 0.0, 0.0, &#45;1.0, &#45;1.0]&#10; &#160;&#160;&#160;)&#10;&#10;Example of a Curve (Volt&#45;Var Volt&#45;Watt IEEE&#45;1547 standard)&#10;&#10;&gt;&gt;&gt; Curve(curve_x=[0.5, 1.06, 1.1, 1.5], curve_y=[1.0, 1.0, 0.0, 0.0])&#10;">
 <polygon fill="none" stroke="black" points="895.88,-279.75 895.88,-302.25 1085.62,-302.25 1085.62,-279.75 895.88,-279.75"/>
 <text text-anchor="start" x="972.75" y="-286.95" font-family="Times New Roman,Times,Liberation Serif,serif" font-weight="bold" font-size="14.00">Curve</text>
 <polygon fill="none" stroke="black" points="895.88,-257.25 895.88,-279.75 945.38,-279.75 945.38,-257.25 895.88,-257.25"/>
@@ -35,10 +35,10 @@
 </a>
 </g>
 </g>
-<!-- gdm.distribution.common.limitset.VoltageLimitSet -->
+<!-- gdm.systems.distribution.common.limitset.VoltageLimitSet -->
 <g id="node2" class="node">
-<title>gdm.distribution.common.limitset.VoltageLimitSet</title>
-<g id="a_node2"><a xlink:title="gdm.distribution.common.limitset.VoltageLimitSet&#10;&#10;Data model for voltage limit set.&#10;">
+<title>gdm.systems.distribution.common.limitset.VoltageLimitSet</title>
+<g id="a_node2"><a xlink:title="gdm.systems.distribution.common.limitset.VoltageLimitSet&#10;&#10;Data model for voltage limit set.&#10;">
 <polygon fill="none" stroke="black" points="914.25,-862.75 914.25,-885.25 1067.25,-885.25 1067.25,-862.75 914.25,-862.75"/>
 <text text-anchor="start" x="943.5" y="-869.95" font-family="Times New Roman,Times,Liberation Serif,serif" font-weight="bold" font-size="14.00">VoltageLimitSet</text>
 <polygon fill="none" stroke="black" points="914.25,-840.25 914.25,-862.75 976.5,-862.75 976.5,-840.25 914.25,-840.25"/>
@@ -60,10 +60,10 @@
 </a>
 </g>
 </g>
-<!-- gdm.distribution.components.distribution_battery.DistributionBattery -->
+<!-- gdm.systems.distribution.components.distribution_battery.DistributionBattery -->
 <g id="node3" class="node">
-<title>gdm.distribution.components.distribution_battery.DistributionBattery</title>
-<g id="a_node3"><a xlink:title="gdm.distribution.components.distribution_battery.DistributionBattery&#10;&#10;Data model for battery system in distribution system models.&#10;">
+<title>gdm.systems.distribution.components.distribution_battery.DistributionBattery</title>
+<g id="a_node3"><a xlink:title="gdm.systems.distribution.components.distribution_battery.DistributionBattery&#10;&#10;Data model for battery system in distribution system models.&#10;">
 <polygon fill="none" stroke="black" points="0,-984.75 0,-1007.25 273.75,-1007.25 273.75,-984.75 0,-984.75"/>
 <text text-anchor="start" x="79.88" y="-991.95" font-family="Times New Roman,Times,Liberation Serif,serif" font-weight="bold" font-size="14.00">DistributionBattery</text>
 <polygon fill="none" stroke="black" points="0,-962.25 0,-984.75 89.25,-984.75 89.25,-962.25 0,-962.25"/>
@@ -117,10 +117,10 @@
 </a>
 </g>
 </g>
-<!-- gdm.distribution.components.distribution_bus.DistributionBus -->
+<!-- gdm.systems.distribution.components.distribution_bus.DistributionBus -->
 <g id="node4" class="node">
-<title>gdm.distribution.components.distribution_bus.DistributionBus</title>
-<g id="a_node4"><a xlink:title="gdm.distribution.components.distribution_bus.DistributionBus&#10;&#10;Data model for distribution bus.&#10;&#10;Examples:&#10; &#160;&#160;&#160;&gt;&gt;&gt; from gdm import DistributionBus&#10; &#160;&#160;&#160;&gt;&gt;&gt; DistributionBus.example()&#10;">
+<title>gdm.systems.distribution.components.distribution_bus.DistributionBus</title>
+<g id="a_node4"><a xlink:title="gdm.systems.distribution.components.distribution_bus.DistributionBus&#10;&#10;Data model for distribution bus.&#10;&#10;Examples:&#10; &#160;&#160;&#160;&gt;&gt;&gt; from gdm import DistributionBus&#10; &#160;&#160;&#160;&gt;&gt;&gt; DistributionBus.example()&#10;">
 <polygon fill="none" stroke="black" points="443.25,-936 443.25,-958.5 707.25,-958.5 707.25,-936 443.25,-936"/>
 <text text-anchor="start" x="529.12" y="-943.2" font-family="Times New Roman,Times,Liberation Serif,serif" font-weight="bold" font-size="14.00">DistributionBus</text>
 <polygon fill="none" stroke="black" points="443.25,-913.5 443.25,-936 522.75,-936 522.75,-913.5 443.25,-913.5"/>
@@ -162,9 +162,9 @@
 </a>
 </g>
 </g>
-<!-- gdm.distribution.components.distribution_battery.DistributionBattery&#45;&gt;gdm.distribution.components.distribution_bus.DistributionBus -->
+<!-- gdm.systems.distribution.components.distribution_battery.DistributionBattery&#45;&gt;gdm.systems.distribution.components.distribution_bus.DistributionBus -->
 <g id="edge1" class="edge">
-<title>gdm.distribution.components.distribution_battery.DistributionBattery:e&#45;&gt;gdm.distribution.components.distribution_bus.DistributionBus:w</title>
+<title>gdm.systems.distribution.components.distribution_battery.DistributionBattery:e&#45;&gt;gdm.systems.distribution.components.distribution_bus.DistributionBus:w</title>
 <path fill="none" stroke="black" d="M283.69,-861.42C353.25,-867.51 360.82,-937.33 427.57,-946.3"/>
 <polyline fill="none" stroke="black" points="273.75,-861 278.75,-861.21"/>
 <polyline fill="none" stroke="black" points="278.75,-861.21 283.74,-861.43"/>
@@ -174,10 +174,10 @@
 <polygon fill="black" stroke="black" points="431.6,-941.55 430.95,-951.53 428.95,-951.4 429.6,-941.42 431.6,-941.55"/>
 <polyline fill="none" stroke="black" points="432.27,-946.61 427.28,-946.28"/>
 </g>
-<!-- gdm.distribution.components.distribution_feeder.DistributionFeeder -->
+<!-- gdm.systems.distribution.components.distribution_feeder.DistributionFeeder -->
 <g id="node5" class="node">
-<title>gdm.distribution.components.distribution_feeder.DistributionFeeder</title>
-<g id="a_node5"><a xlink:title="gdm.distribution.components.distribution_feeder.DistributionFeeder&#10;&#10;Class interface for distribution feeder.&#10;">
+<title>gdm.systems.distribution.components.distribution_feeder.DistributionFeeder</title>
+<g id="a_node5"><a xlink:title="gdm.systems.distribution.components.distribution_feeder.DistributionFeeder&#10;&#10;Class interface for distribution feeder.&#10;">
 <polygon fill="none" stroke="black" points="1212.75,-1003.25 1212.75,-1025.75 1329,-1025.75 1329,-1003.25 1212.75,-1003.25"/>
 <text text-anchor="start" x="1215.75" y="-1010.45" font-family="Times New Roman,Times,Liberation Serif,serif" font-weight="bold" font-size="14.00">DistributionFeeder</text>
 <polygon fill="none" stroke="black" points="1212.75,-980.75 1212.75,-1003.25 1269,-1003.25 1269,-980.75 1212.75,-980.75"/>
@@ -191,9 +191,9 @@
 </a>
 </g>
 </g>
-<!-- gdm.distribution.components.distribution_battery.DistributionBattery&#45;&gt;gdm.distribution.components.distribution_feeder.DistributionFeeder -->
+<!-- gdm.systems.distribution.components.distribution_battery.DistributionBattery&#45;&gt;gdm.systems.distribution.components.distribution_feeder.DistributionFeeder -->
 <g id="edge2" class="edge">
-<title>gdm.distribution.components.distribution_battery.DistributionBattery:e&#45;&gt;gdm.distribution.components.distribution_feeder.DistributionFeeder:w</title>
+<title>gdm.systems.distribution.components.distribution_battery.DistributionBattery:e&#45;&gt;gdm.systems.distribution.components.distribution_feeder.DistributionFeeder:w</title>
 <path fill="none" stroke="black" d="M283.53,-906.57C330.91,-912.32 330.41,-960.37 381.75,-977 551.94,-1032.14 997.89,-1015.68 1194.01,-1014.56"/>
 <polyline fill="none" stroke="black" points="273.75,-906 278.74,-906.29"/>
 <polyline fill="none" stroke="black" points="278.74,-906.29 283.73,-906.58"/>
@@ -202,10 +202,10 @@
 <polyline fill="none" stroke="black" points="1207.75,-1014.52 1202.75,-1014.53"/>
 <ellipse fill="none" stroke="black" cx="1198.25" cy="-1014.54" rx="4" ry="4"/>
 </g>
-<!-- gdm.distribution.components.distribution_substation.DistributionSubstation -->
+<!-- gdm.systems.distribution.components.distribution_substation.DistributionSubstation -->
 <g id="node6" class="node">
-<title>gdm.distribution.components.distribution_substation.DistributionSubstation</title>
-<g id="a_node6"><a xlink:title="gdm.distribution.components.distribution_substation.DistributionSubstation&#10;&#10;Class interface for distribution feeder.&#10;">
+<title>gdm.systems.distribution.components.distribution_substation.DistributionSubstation</title>
+<g id="a_node6"><a xlink:title="gdm.systems.distribution.components.distribution_substation.DistributionSubstation&#10;&#10;Class interface for distribution feeder.&#10;">
 <polygon fill="none" stroke="black" points="901.5,-1136.5 901.5,-1159 1080,-1159 1080,-1136.5 901.5,-1136.5"/>
 <text text-anchor="start" x="924.75" y="-1143.7" font-family="Times New Roman,Times,Liberation Serif,serif" font-weight="bold" font-size="14.00">DistributionSubstation</text>
 <polygon fill="none" stroke="black" points="901.5,-1114 901.5,-1136.5 946.5,-1136.5 946.5,-1114 901.5,-1114"/>
@@ -223,9 +223,9 @@
 </a>
 </g>
 </g>
-<!-- gdm.distribution.components.distribution_battery.DistributionBattery&#45;&gt;gdm.distribution.components.distribution_substation.DistributionSubstation -->
+<!-- gdm.systems.distribution.components.distribution_battery.DistributionBattery&#45;&gt;gdm.systems.distribution.components.distribution_substation.DistributionSubstation -->
 <g id="edge3" class="edge">
-<title>gdm.distribution.components.distribution_battery.DistributionBattery:e&#45;&gt;gdm.distribution.components.distribution_substation.DistributionSubstation:w</title>
+<title>gdm.systems.distribution.components.distribution_battery.DistributionBattery:e&#45;&gt;gdm.systems.distribution.components.distribution_substation.DistributionSubstation:w</title>
 <path fill="none" stroke="black" d="M283.67,-929.1C341.31,-936.48 323.93,-1009.98 381.75,-1042 581.97,-1152.86 660.86,-1148.11 881.55,-1147.77"/>
 <polyline fill="none" stroke="black" points="273.75,-928.5 278.74,-928.8"/>
 <polyline fill="none" stroke="black" points="278.74,-928.8 283.73,-929.1"/>
@@ -234,10 +234,10 @@
 <polyline fill="none" stroke="black" points="895.5,-1147.75 890.5,-1147.76"/>
 <ellipse fill="none" stroke="black" cx="886" cy="-1147.76" rx="4" ry="4"/>
 </g>
-<!-- gdm.distribution.controllers.distribution_inverter_controller.InverterController -->
+<!-- gdm.systems.distribution.controllers.distribution_inverter_controller.InverterController -->
 <g id="node7" class="node">
-<title>gdm.distribution.controllers.distribution_inverter_controller.InverterController</title>
-<g id="a_node7"><a xlink:title="gdm.distribution.controllers.distribution_inverter_controller.InverterController&#10;&#10;Inverter contoller represent the complete control settings for a given&#10;InverterEquipment. This model may be used with an instance of DistributionSolar,&#10;DistributionBattery or any other model that has an inverter.&#10;">
+<title>gdm.systems.distribution.controllers.distribution_inverter_controller.InverterController</title>
+<g id="a_node7"><a xlink:title="gdm.systems.distribution.controllers.distribution_inverter_controller.InverterController&#10;&#10;Inverter contoller represent the complete control settings for a given&#10;InverterEquipment. This model may be used with an instance of DistributionSolar,&#10;DistributionBattery or any other model that has an inverter.&#10;">
 <polygon fill="none" stroke="black" points="381.75,-675.25 381.75,-697.75 768.75,-697.75 768.75,-675.25 381.75,-675.25"/>
 <text text-anchor="start" x="520.88" y="-682.45" font-family="Times New Roman,Times,Liberation Serif,serif" font-weight="bold" font-size="14.00">InverterController</text>
 <polygon fill="none" stroke="black" points="381.75,-652.75 381.75,-675.25 516.75,-675.25 516.75,-652.75 381.75,-652.75"/>
@@ -267,9 +267,9 @@
 </a>
 </g>
 </g>
-<!-- gdm.distribution.components.distribution_battery.DistributionBattery&#45;&gt;gdm.distribution.controllers.distribution_inverter_controller.InverterController -->
+<!-- gdm.systems.distribution.components.distribution_battery.DistributionBattery&#45;&gt;gdm.systems.distribution.controllers.distribution_inverter_controller.InverterController -->
 <g id="edge4" class="edge">
-<title>gdm.distribution.components.distribution_battery.DistributionBattery:e&#45;&gt;gdm.distribution.controllers.distribution_inverter_controller.InverterController:w</title>
+<title>gdm.systems.distribution.components.distribution_battery.DistributionBattery:e&#45;&gt;gdm.systems.distribution.controllers.distribution_inverter_controller.InverterController:w</title>
 <path fill="none" stroke="black" d="M283.41,-770.22C328.58,-762.51 325.46,-700.28 366.96,-688.44"/>
 <polyline fill="none" stroke="black" points="273.75,-771 278.73,-770.6"/>
 <polyline fill="none" stroke="black" points="278.73,-770.6 283.72,-770.19"/>
@@ -279,10 +279,10 @@
 <polygon fill="black" stroke="black" points="370.19,-682.97 371.49,-692.89 369.51,-693.15 368.21,-683.24 370.19,-682.97"/>
 <polyline fill="none" stroke="black" points="371.84,-687.8 366.88,-688.45"/>
 </g>
-<!-- gdm.distribution.equipment.battery_equipment.BatteryEquipment -->
+<!-- gdm.systems.distribution.equipment.battery_equipment.BatteryEquipment -->
 <g id="node8" class="node">
-<title>gdm.distribution.equipment.battery_equipment.BatteryEquipment</title>
-<g id="a_node8"><a xlink:title="gdm.distribution.equipment.battery_equipment.BatteryEquipment&#10;&#10;Data model for Solar Model.&#10;">
+<title>gdm.systems.distribution.equipment.battery_equipment.BatteryEquipment</title>
+<g id="a_node8"><a xlink:title="gdm.systems.distribution.equipment.battery_equipment.BatteryEquipment&#10;&#10;Data model for Solar Model.&#10;">
 <polygon fill="none" stroke="black" points="450.38,-221 450.38,-243.5 700.12,-243.5 700.12,-221 450.38,-221"/>
 <text text-anchor="start" x="520.88" y="-228.2" font-family="Times New Roman,Times,Liberation Serif,serif" font-weight="bold" font-size="14.00">BatteryEquipment</text>
 <polygon fill="none" stroke="black" points="450.38,-198.5 450.38,-221 580.12,-221 580.12,-198.5 450.38,-198.5"/>
@@ -324,9 +324,9 @@
 </a>
 </g>
 </g>
-<!-- gdm.distribution.components.distribution_battery.DistributionBattery&#45;&gt;gdm.distribution.equipment.battery_equipment.BatteryEquipment -->
+<!-- gdm.systems.distribution.components.distribution_battery.DistributionBattery&#45;&gt;gdm.systems.distribution.equipment.battery_equipment.BatteryEquipment -->
 <g id="edge5" class="edge">
-<title>gdm.distribution.components.distribution_battery.DistributionBattery:e&#45;&gt;gdm.distribution.equipment.battery_equipment.BatteryEquipment:w</title>
+<title>gdm.systems.distribution.components.distribution_battery.DistributionBattery:e&#45;&gt;gdm.systems.distribution.equipment.battery_equipment.BatteryEquipment:w</title>
 <path fill="none" stroke="black" d="M283.65,-725.69C493.45,-711.96 232.13,-253.55 434.67,-232.96"/>
 <polyline fill="none" stroke="black" points="273.75,-726 278.75,-725.84"/>
 <polyline fill="none" stroke="black" points="278.75,-725.84 283.74,-725.68"/>
@@ -336,10 +336,10 @@
 <polygon fill="black" stroke="black" points="438.15,-227.79 438.63,-237.78 436.63,-237.88 436.15,-227.89 438.15,-227.79"/>
 <polyline fill="none" stroke="black" points="439.39,-232.74 434.39,-232.98"/>
 </g>
-<!-- gdm.distribution.equipment.inverter_equipment.InverterEquipment -->
+<!-- gdm.systems.distribution.equipment.inverter_equipment.InverterEquipment -->
 <g id="node9" class="node">
-<title>gdm.distribution.equipment.inverter_equipment.InverterEquipment</title>
-<g id="a_node9"><a xlink:title="gdm.distribution.equipment.inverter_equipment.InverterEquipment&#10;&#10;Data model for inverter equipment.&#10;">
+<title>gdm.systems.distribution.equipment.inverter_equipment.InverterEquipment</title>
+<g id="a_node9"><a xlink:title="gdm.systems.distribution.equipment.inverter_equipment.InverterEquipment&#10;&#10;Data model for inverter equipment.&#10;">
 <polygon fill="none" stroke="black" points="417.38,-482 417.38,-504.5 733.12,-504.5 733.12,-482 417.38,-482"/>
 <text text-anchor="start" x="518.62" y="-489.2" font-family="Times New Roman,Times,Liberation Serif,serif" font-weight="bold" font-size="14.00">InverterEquipment</text>
 <polygon fill="none" stroke="black" points="417.38,-459.5 417.38,-482 544.12,-482 544.12,-459.5 417.38,-459.5"/>
@@ -381,9 +381,9 @@
 </a>
 </g>
 </g>
-<!-- gdm.distribution.components.distribution_battery.DistributionBattery&#45;&gt;gdm.distribution.equipment.inverter_equipment.InverterEquipment -->
+<!-- gdm.systems.distribution.components.distribution_battery.DistributionBattery&#45;&gt;gdm.systems.distribution.equipment.inverter_equipment.InverterEquipment -->
 <g id="edge6" class="edge">
-<title>gdm.distribution.components.distribution_battery.DistributionBattery:e&#45;&gt;gdm.distribution.equipment.inverter_equipment.InverterEquipment:w</title>
+<title>gdm.systems.distribution.components.distribution_battery.DistributionBattery:e&#45;&gt;gdm.systems.distribution.equipment.inverter_equipment.InverterEquipment:w</title>
 <path fill="none" stroke="black" d="M283.52,-747.98C392.9,-735.75 298.51,-513.17 401.64,-494.5"/>
 <polyline fill="none" stroke="black" points="273.75,-748.5 278.74,-748.23"/>
 <polyline fill="none" stroke="black" points="278.74,-748.23 283.74,-747.97"/>
@@ -393,18 +393,18 @@
 <polygon fill="black" stroke="black" points="404.99,-489.19 405.84,-499.16 403.84,-499.33 403,-489.36 404.99,-489.19"/>
 <polyline fill="none" stroke="black" points="406.41,-494.09 401.43,-494.51"/>
 </g>
-<!-- gdm.distribution.components.distribution_bus.DistributionBus&#45;&gt;gdm.distribution.common.limitset.VoltageLimitSet -->
+<!-- gdm.systems.distribution.components.distribution_bus.DistributionBus&#45;&gt;gdm.systems.distribution.common.limitset.VoltageLimitSet -->
 <g id="edge7" class="edge">
-<title>gdm.distribution.components.distribution_bus.DistributionBus:e&#45;&gt;gdm.distribution.common.limitset.VoltageLimitSet:w</title>
+<title>gdm.systems.distribution.components.distribution_bus.DistributionBus:e&#45;&gt;gdm.systems.distribution.common.limitset.VoltageLimitSet:w</title>
 <path fill="none" stroke="black" d="M718.04,-790.04C802.35,-795.11 816.65,-865.33 897.87,-873.27"/>
 <polyline fill="none" stroke="black" points="708.25,-789.75 713.25,-789.9"/>
 <polyline fill="none" stroke="black" points="713.25,-789.9 718.25,-790.04"/>
 <polygon fill="black" stroke="black" points="902.93,-873.51 912.7,-878.48 908.26,-873.76 912.58,-873.97 912.58,-873.97 912.58,-873.97 908.26,-873.76 913.13,-869.49 902.93,-873.51"/>
 <polyline fill="none" stroke="black" points="901.71,-873.45 896.72,-873.22"/>
 </g>
-<!-- gdm.distribution.components.distribution_bus.DistributionBus&#45;&gt;gdm.distribution.components.distribution_feeder.DistributionFeeder -->
+<!-- gdm.systems.distribution.components.distribution_bus.DistributionBus&#45;&gt;gdm.systems.distribution.components.distribution_feeder.DistributionFeeder -->
 <g id="edge8" class="edge">
-<title>gdm.distribution.components.distribution_bus.DistributionBus:e&#45;&gt;gdm.distribution.components.distribution_feeder.DistributionFeeder:w</title>
+<title>gdm.systems.distribution.components.distribution_bus.DistributionBus:e&#45;&gt;gdm.systems.distribution.components.distribution_feeder.DistributionFeeder:w</title>
 <path fill="none" stroke="black" d="M718.09,-858.17C794.51,-870.04 1102.12,-992.62 1194.1,-1011.94"/>
 <polyline fill="none" stroke="black" points="708.25,-857.25 713.23,-857.72"/>
 <polyline fill="none" stroke="black" points="713.23,-857.72 718.21,-858.18"/>
@@ -413,9 +413,9 @@
 <polyline fill="none" stroke="black" points="1207.8,-1013.82 1202.84,-1013.14"/>
 <ellipse fill="none" stroke="black" cx="1198.38" cy="-1012.53" rx="4" ry="4"/>
 </g>
-<!-- gdm.distribution.components.distribution_bus.DistributionBus&#45;&gt;gdm.distribution.components.distribution_substation.DistributionSubstation -->
+<!-- gdm.systems.distribution.components.distribution_bus.DistributionBus&#45;&gt;gdm.systems.distribution.components.distribution_substation.DistributionSubstation -->
 <g id="edge9" class="edge">
-<title>gdm.distribution.components.distribution_bus.DistributionBus:e&#45;&gt;gdm.distribution.components.distribution_substation.DistributionSubstation:w</title>
+<title>gdm.systems.distribution.components.distribution_bus.DistributionBus:e&#45;&gt;gdm.systems.distribution.components.distribution_substation.DistributionSubstation:w</title>
 <path fill="none" stroke="black" d="M718.16,-880.18C844.05,-891.6 765.56,-1124.32 881.88,-1146.12"/>
 <polyline fill="none" stroke="black" points="708.25,-879.75 713.25,-879.97"/>
 <polyline fill="none" stroke="black" points="713.25,-879.97 718.24,-880.19"/>
@@ -453,9 +453,9 @@
 </a>
 </g>
 </g>
-<!-- gdm.distribution.components.distribution_bus.DistributionBus&#45;&gt;infrasys.location.Location -->
+<!-- gdm.systems.distribution.components.distribution_bus.DistributionBus&#45;&gt;infrasys.location.Location -->
 <g id="edge10" class="edge">
-<title>gdm.distribution.components.distribution_bus.DistributionBus:e&#45;&gt;infrasys.location.Location:w</title>
+<title>gdm.systems.distribution.components.distribution_bus.DistributionBus:e&#45;&gt;infrasys.location.Location:w</title>
 <path fill="none" stroke="black" d="M718.09,-744.69C807.97,-743.59 837.36,-727.57 923.22,-725.47"/>
 <polyline fill="none" stroke="black" points="708.25,-744.75 713.25,-744.72"/>
 <polyline fill="none" stroke="black" points="713.25,-744.72 718.25,-744.69"/>
@@ -464,19 +464,19 @@
 <polyline fill="none" stroke="black" points="937.13,-725.31 932.13,-725.37"/>
 <ellipse fill="none" stroke="black" cx="927.63" cy="-725.42" rx="4" ry="4"/>
 </g>
-<!-- gdm.distribution.components.distribution_substation.DistributionSubstation&#45;&gt;gdm.distribution.components.distribution_feeder.DistributionFeeder -->
+<!-- gdm.systems.distribution.components.distribution_substation.DistributionSubstation&#45;&gt;gdm.systems.distribution.components.distribution_feeder.DistributionFeeder -->
 <g id="edge11" class="edge">
-<title>gdm.distribution.components.distribution_substation.DistributionSubstation:e&#45;&gt;gdm.distribution.components.distribution_feeder.DistributionFeeder:w</title>
+<title>gdm.systems.distribution.components.distribution_substation.DistributionSubstation:e&#45;&gt;gdm.systems.distribution.components.distribution_feeder.DistributionFeeder:w</title>
 <path fill="none" stroke="black" d="M1090.83,-1079.72C1141.8,-1074.05 1149.65,-1024.46 1197.67,-1015.79"/>
 <polyline fill="none" stroke="black" points="1081,-1080.25 1085.99,-1079.98"/>
 <polyline fill="none" stroke="black" points="1085.99,-1079.98 1090.99,-1079.71"/>
 <polygon fill="black" stroke="black" points="1202.45,-1015.38 1212.8,-1019.01 1207.77,-1014.93 1212.08,-1014.56 1212.08,-1014.56 1212.08,-1014.56 1207.77,-1014.93 1212.03,-1010.04 1202.45,-1015.38"/>
 <polyline fill="none" stroke="black" points="1201.24,-1015.49 1196.26,-1015.91"/>
 </g>
-<!-- gdm.distribution.controllers.base.inverter_controller_base.ActivePowerInverterControllerBase -->
+<!-- gdm.systems.distribution.controllers.base.inverter_controller_base.ActivePowerInverterControllerBase -->
 <g id="node11" class="node">
-<title>gdm.distribution.controllers.base.inverter_controller_base.ActivePowerInverterControllerBase</title>
-<g id="a_node11"><a xlink:title="gdm.distribution.controllers.base.inverter_controller_base.ActivePowerInverterControllerBase&#10;&#10;Data model for Inverter controllers that control active power.&#10;">
+<title>gdm.systems.distribution.controllers.base.inverter_controller_base.ActivePowerInverterControllerBase</title>
+<g id="a_node11"><a xlink:title="gdm.systems.distribution.controllers.base.inverter_controller_base.ActivePowerInverterControllerBase&#10;&#10;Data model for Inverter controllers that control active power.&#10;">
 <polygon fill="none" stroke="black" points="883.12,-543.25 883.12,-565.75 1098.38,-565.75 1098.38,-543.25 883.12,-543.25"/>
 <text text-anchor="start" x="886.12" y="-550.45" font-family="Times New Roman,Times,Liberation Serif,serif" font-weight="bold" font-size="14.00">ActivePowerInverterControllerBase</text>
 <polygon fill="none" stroke="black" points="883.12,-520.75 883.12,-543.25 988.88,-543.25 988.88,-520.75 883.12,-520.75"/>
@@ -490,9 +490,9 @@
 </a>
 </g>
 </g>
-<!-- gdm.distribution.controllers.distribution_inverter_controller.InverterController&#45;&gt;gdm.distribution.controllers.base.inverter_controller_base.ActivePowerInverterControllerBase -->
+<!-- gdm.systems.distribution.controllers.distribution_inverter_controller.InverterController&#45;&gt;gdm.systems.distribution.controllers.base.inverter_controller_base.ActivePowerInverterControllerBase -->
 <g id="edge12" class="edge">
-<title>gdm.distribution.controllers.distribution_inverter_controller.InverterController:e&#45;&gt;gdm.distribution.controllers.base.inverter_controller_base.ActivePowerInverterControllerBase:w</title>
+<title>gdm.systems.distribution.controllers.distribution_inverter_controller.InverterController:e&#45;&gt;gdm.systems.distribution.controllers.base.inverter_controller_base.ActivePowerInverterControllerBase:w</title>
 <path fill="none" stroke="black" d="M778.64,-618.32C821.85,-612.11 826.99,-565.34 867.34,-556.09"/>
 <polyline fill="none" stroke="black" points="768.75,-619 773.74,-618.66"/>
 <polyline fill="none" stroke="black" points="773.74,-618.66 778.73,-618.31"/>
@@ -502,10 +502,10 @@
 <polygon fill="black" stroke="black" points="870.65,-550.7 871.72,-560.65 869.73,-560.86 868.67,-550.92 870.65,-550.7"/>
 <polyline fill="none" stroke="black" points="872.18,-555.57 867.21,-556.1"/>
 </g>
-<!-- gdm.distribution.controllers.base.inverter_controller_base.ReactivePowerInverterControllerBase -->
+<!-- gdm.systems.distribution.controllers.base.inverter_controller_base.ReactivePowerInverterControllerBase -->
 <g id="node12" class="node">
-<title>gdm.distribution.controllers.base.inverter_controller_base.ReactivePowerInverterControllerBase</title>
-<g id="a_node12"><a xlink:title="gdm.distribution.controllers.base.inverter_controller_base.ReactivePowerInverterControllerBase&#10;&#10;Data model for Inverter controllers that control reactive power.&#10;">
+<title>gdm.systems.distribution.controllers.base.inverter_controller_base.ReactivePowerInverterControllerBase</title>
+<g id="a_node12"><a xlink:title="gdm.systems.distribution.controllers.base.inverter_controller_base.ReactivePowerInverterControllerBase&#10;&#10;Data model for Inverter controllers that control reactive power.&#10;">
 <polygon fill="none" stroke="black" points="876.75,-439.25 876.75,-461.75 1104.75,-461.75 1104.75,-439.25 876.75,-439.25"/>
 <text text-anchor="start" x="879.75" y="-446.45" font-family="Times New Roman,Times,Liberation Serif,serif" font-weight="bold" font-size="14.00">ReactivePowerInverterControllerBase</text>
 <polygon fill="none" stroke="black" points="876.75,-416.75 876.75,-439.25 988.88,-439.25 988.88,-416.75 876.75,-416.75"/>
@@ -519,9 +519,9 @@
 </a>
 </g>
 </g>
-<!-- gdm.distribution.controllers.distribution_inverter_controller.InverterController&#45;&gt;gdm.distribution.controllers.base.inverter_controller_base.ReactivePowerInverterControllerBase -->
+<!-- gdm.systems.distribution.controllers.distribution_inverter_controller.InverterController&#45;&gt;gdm.systems.distribution.controllers.base.inverter_controller_base.ReactivePowerInverterControllerBase -->
 <g id="edge13" class="edge">
-<title>gdm.distribution.controllers.distribution_inverter_controller.InverterController:e&#45;&gt;gdm.distribution.controllers.base.inverter_controller_base.ReactivePowerInverterControllerBase:w</title>
+<title>gdm.systems.distribution.controllers.distribution_inverter_controller.InverterController:e&#45;&gt;gdm.systems.distribution.controllers.base.inverter_controller_base.ReactivePowerInverterControllerBase:w</title>
 <path fill="none" stroke="black" d="M778.43,-595.71C840.43,-585.03 805.36,-468.7 862.2,-452.39"/>
 <polyline fill="none" stroke="black" points="768.75,-596.5 773.73,-596.1"/>
 <polyline fill="none" stroke="black" points="773.73,-596.1 778.72,-595.69"/>
@@ -531,9 +531,9 @@
 <polygon fill="black" stroke="black" points="865.2,-446.96 866.49,-456.88 864.5,-457.14 863.21,-447.22 865.2,-446.96"/>
 <polyline fill="none" stroke="black" points="866.83,-451.79 861.88,-452.44"/>
 </g>
-<!-- gdm.distribution.equipment.inverter_equipment.InverterEquipment&#45;&gt;gdm.distribution.common.curve.Curve -->
+<!-- gdm.systems.distribution.equipment.inverter_equipment.InverterEquipment&#45;&gt;gdm.systems.distribution.common.curve.Curve -->
 <g id="edge14" class="edge">
-<title>gdm.distribution.equipment.inverter_equipment.InverterEquipment:e&#45;&gt;gdm.distribution.common.curve.Curve:w</title>
+<title>gdm.systems.distribution.equipment.inverter_equipment.InverterEquipment:e&#45;&gt;gdm.systems.distribution.common.curve.Curve:w</title>
 <path fill="none" stroke="black" d="M743.83,-290.75C801.03,-290.77 822.47,-290.96 875.88,-290.99"/>
 <polyline fill="none" stroke="black" points="734.12,-290.75 739.12,-290.75"/>
 <polyline fill="none" stroke="black" points="739.12,-290.75 744.12,-290.75"/>

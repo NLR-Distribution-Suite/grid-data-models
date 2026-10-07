@@ -10,10 +10,10 @@
 <title>Entity Relationship Diagram created by erdantic</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-90 270.5,-90 270.5,4 -4,4"/>
 <text text-anchor="middle" x="133.25" y="-5.95" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="9.00" fill="#a8a8a8">Created by erdantic v1.0.5 &lt;https://github.com/drivendataorg/erdantic&gt;</text>
-<!-- gdm.distribution.controllers.base.inverter_controller_base.ReactivePowerInverterControllerBase -->
+<!-- gdm.systems.distribution.controllers.base.inverter_controller_base.ReactivePowerInverterControllerBase -->
 <g id="node1" class="node">
-<title>gdm.distribution.controllers.base.inverter_controller_base.ReactivePowerInverterControllerBase</title>
-<g id="a_node1"><a xlink:title="gdm.distribution.controllers.base.inverter_controller_base.ReactivePowerInverterControllerBase&#10;&#10;Data model for Inverter controllers that control reactive power.&#10;">
+<title>gdm.systems.distribution.controllers.base.inverter_controller_base.ReactivePowerInverterControllerBase</title>
+<g id="a_node1"><a xlink:title="gdm.systems.distribution.controllers.base.inverter_controller_base.ReactivePowerInverterControllerBase&#10;&#10;Data model for Inverter controllers that control reactive power.&#10;">
 <polygon fill="none" stroke="black" points="19.25,-63.5 19.25,-86 247.25,-86 247.25,-63.5 19.25,-63.5"/>
 <text text-anchor="start" x="22.25" y="-70.7" font-family="Times New Roman,Times,Liberation Serif,serif" font-weight="bold" font-size="14.00">ReactivePowerInverterControllerBase</text>
 <polygon fill="none" stroke="black" points="19.25,-41 19.25,-63.5 131.38,-63.5 131.38,-41 19.25,-41"/>

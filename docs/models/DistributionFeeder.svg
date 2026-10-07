@@ -10,10 +10,10 @@
 <title>Entity Relationship Diagram created by erdantic</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-90 270.5,-90 270.5,4 -4,4"/>
 <text text-anchor="middle" x="133.25" y="-5.95" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="9.00" fill="#a8a8a8">Created by erdantic v1.0.5 &lt;https://github.com/drivendataorg/erdantic&gt;</text>
-<!-- gdm.distribution.components.distribution_feeder.DistributionFeeder -->
+<!-- gdm.systems.distribution.components.distribution_feeder.DistributionFeeder -->
 <g id="node1" class="node">
-<title>gdm.distribution.components.distribution_feeder.DistributionFeeder</title>
-<g id="a_node1"><a xlink:title="gdm.distribution.components.distribution_feeder.DistributionFeeder&#10;&#10;Class interface for distribution feeder.&#10;">
+<title>gdm.systems.distribution.components.distribution_feeder.DistributionFeeder</title>
+<g id="a_node1"><a xlink:title="gdm.systems.distribution.components.distribution_feeder.DistributionFeeder&#10;&#10;Class interface for distribution feeder.&#10;">
 <polygon fill="none" stroke="black" points="75.12,-63.5 75.12,-86 191.38,-86 191.38,-63.5 75.12,-63.5"/>
 <text text-anchor="start" x="78.12" y="-70.7" font-family="Times New Roman,Times,Liberation Serif,serif" font-weight="bold" font-size="14.00">DistributionFeeder</text>
 <polygon fill="none" stroke="black" points="75.12,-41 75.12,-63.5 131.38,-63.5 131.38,-41 75.12,-41"/>

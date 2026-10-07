@@ -10,10 +10,10 @@
 <title>Entity Relationship Diagram created by erdantic</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-449.25 595,-449.25 595,4 -4,4"/>
 <text text-anchor="middle" x="295.5" y="-5.95" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="9.00" fill="#a8a8a8">Created by erdantic v1.0.5 &lt;https://github.com/drivendataorg/erdantic&gt;</text>
-<!-- gdm.distribution.equipment.distribution_transformer_equipment.DistributionTransformerEquipment -->
+<!-- gdm.systems.distribution.equipment.distribution_transformer_equipment.DistributionTransformerEquipment -->
 <g id="node1" class="node">
-<title>gdm.distribution.equipment.distribution_transformer_equipment.DistributionTransformerEquipment</title>
-<g id="a_node1"><a xlink:title="gdm.distribution.equipment.distribution_transformer_equipment.DistributionTransformerEquipment&#10;&#10;Data model for distribution transformer info.&#10;">
+<title>gdm.systems.distribution.equipment.distribution_transformer_equipment.DistributionTransformerEquipment</title>
+<g id="a_node1"><a xlink:title="gdm.systems.distribution.equipment.distribution_transformer_equipment.DistributionTransformerEquipment&#10;&#10;Data model for distribution transformer info.&#10;">
 <polygon fill="none" stroke="black" points="0,-422.75 0,-445.25 253.5,-445.25 253.5,-422.75 0,-422.75"/>
 <text text-anchor="start" x="21" y="-429.95" font-family="Times New Roman,Times,Liberation Serif,serif" font-weight="bold" font-size="14.00">DistributionTransformerEquipment</text>
 <polygon fill="none" stroke="black" points="0,-400.25 0,-422.75 114.75,-422.75 114.75,-400.25 0,-400.25"/>
@@ -51,10 +51,10 @@
 </a>
 </g>
 </g>
-<!-- gdm.distribution.equipment.distribution_transformer_equipment.WindingEquipment -->
+<!-- gdm.systems.distribution.equipment.distribution_transformer_equipment.WindingEquipment -->
 <g id="node2" class="node">
-<title>gdm.distribution.equipment.distribution_transformer_equipment.WindingEquipment</title>
-<g id="a_node2"><a xlink:title="gdm.distribution.equipment.distribution_transformer_equipment.WindingEquipment&#10;&#10;Data model for winding.&#10;">
+<title>gdm.systems.distribution.equipment.distribution_transformer_equipment.WindingEquipment</title>
+<g id="a_node2"><a xlink:title="gdm.systems.distribution.equipment.distribution_transformer_equipment.WindingEquipment&#10;&#10;Data model for winding.&#10;">
 <polygon fill="none" stroke="black" points="361.5,-311 361.5,-333.5 591,-333.5 591,-311 361.5,-311"/>
 <text text-anchor="start" x="418.5" y="-318.2" font-family="Times New Roman,Times,Liberation Serif,serif" font-weight="bold" font-size="14.00">WindingEquipment</text>
 <polygon fill="none" stroke="black" points="361.5,-288.5 361.5,-311 456.75,-311 456.75,-288.5 361.5,-288.5"/>
@@ -112,9 +112,9 @@
 </a>
 </g>
 </g>
-<!-- gdm.distribution.equipment.distribution_transformer_equipment.DistributionTransformerEquipment&#45;&gt;gdm.distribution.equipment.distribution_transformer_equipment.WindingEquipment -->
+<!-- gdm.systems.distribution.equipment.distribution_transformer_equipment.DistributionTransformerEquipment&#45;&gt;gdm.systems.distribution.equipment.distribution_transformer_equipment.WindingEquipment -->
 <g id="edge1" class="edge">
-<title>gdm.distribution.equipment.distribution_transformer_equipment.DistributionTransformerEquipment:e&#45;&gt;gdm.distribution.equipment.distribution_transformer_equipment.WindingEquipment:w</title>
+<title>gdm.systems.distribution.equipment.distribution_transformer_equipment.DistributionTransformerEquipment:e&#45;&gt;gdm.systems.distribution.equipment.distribution_transformer_equipment.WindingEquipment:w</title>
 <path fill="none" stroke="black" d="M263.37,-321.51C298.42,-321.59 313.17,-322.1 346.14,-322.22"/>
 <polyline fill="none" stroke="black" points="253.5,-321.5 258.5,-321.51"/>
 <polyline fill="none" stroke="black" points="258.5,-321.51 263.5,-321.51"/>

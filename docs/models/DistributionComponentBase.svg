@@ -10,10 +10,10 @@
 <title>Entity Relationship Diagram created by erdantic</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-201.5 760,-201.5 760,4 -4,4"/>
 <text text-anchor="middle" x="378" y="-5.95" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="9.00" fill="#a8a8a8">Created by erdantic v1.0.5 &lt;https://github.com/drivendataorg/erdantic&gt;</text>
-<!-- gdm.distribution.components.base.distribution_component_base.DistributionComponentBase -->
+<!-- gdm.systems.distribution.components.base.distribution_component_base.DistributionComponentBase -->
 <g id="node1" class="node">
-<title>gdm.distribution.components.base.distribution_component_base.DistributionComponentBase</title>
-<g id="a_node1"><a xlink:title="gdm.distribution.components.base.distribution_component_base.DistributionComponentBase&#10;&#10;Data model for simple distribution component.&#10;">
+<title>gdm.systems.distribution.components.base.distribution_component_base.DistributionComponentBase</title>
+<g id="a_node1"><a xlink:title="gdm.systems.distribution.components.base.distribution_component_base.DistributionComponentBase&#10;&#10;Data model for simple distribution component.&#10;">
 <polygon fill="none" stroke="black" points="0,-175 0,-197.5 245.25,-197.5 245.25,-175 0,-175"/>
 <text text-anchor="start" x="39.75" y="-182.2" font-family="Times New Roman,Times,Liberation Serif,serif" font-weight="bold" font-size="14.00">DistributionComponentBase</text>
 <polygon fill="none" stroke="black" points="0,-152.5 0,-175 60.75,-175 60.75,-152.5 0,-152.5"/>
@@ -35,10 +35,10 @@
 </a>
 </g>
 </g>
-<!-- gdm.distribution.components.distribution_feeder.DistributionFeeder -->
+<!-- gdm.systems.distribution.components.distribution_feeder.DistributionFeeder -->
 <g id="node2" class="node">
-<title>gdm.distribution.components.distribution_feeder.DistributionFeeder</title>
-<g id="a_node2"><a xlink:title="gdm.distribution.components.distribution_feeder.DistributionFeeder&#10;&#10;Class interface for distribution feeder.&#10;">
+<title>gdm.systems.distribution.components.distribution_feeder.DistributionFeeder</title>
+<g id="a_node2"><a xlink:title="gdm.systems.distribution.components.distribution_feeder.DistributionFeeder&#10;&#10;Class interface for distribution feeder.&#10;">
 <polygon fill="none" stroke="black" points="639.75,-63.5 639.75,-86 756,-86 756,-63.5 639.75,-63.5"/>
 <text text-anchor="start" x="642.75" y="-70.7" font-family="Times New Roman,Times,Liberation Serif,serif" font-weight="bold" font-size="14.00">DistributionFeeder</text>
 <polygon fill="none" stroke="black" points="639.75,-41 639.75,-63.5 696,-63.5 696,-41 639.75,-41"/>
@@ -52,9 +52,9 @@
 </a>
 </g>
 </g>
-<!-- gdm.distribution.components.base.distribution_component_base.DistributionComponentBase&#45;&gt;gdm.distribution.components.distribution_feeder.DistributionFeeder -->
+<!-- gdm.systems.distribution.components.base.distribution_component_base.DistributionComponentBase&#45;&gt;gdm.systems.distribution.components.distribution_feeder.DistributionFeeder -->
 <g id="edge1" class="edge">
-<title>gdm.distribution.components.base.distribution_component_base.DistributionComponentBase:e&#45;&gt;gdm.distribution.components.distribution_feeder.DistributionFeeder:w</title>
+<title>gdm.systems.distribution.components.base.distribution_component_base.DistributionComponentBase:e&#45;&gt;gdm.systems.distribution.components.distribution_feeder.DistributionFeeder:w</title>
 <path fill="none" stroke="black" d="M255.24,-96.04C295.68,-94.32 308.28,-82.25 353.25,-78.25 473.65,-67.54 508.88,-74.01 621.06,-74.69"/>
 <polyline fill="none" stroke="black" points="245.25,-96.25 250.25,-96.15"/>
 <polyline fill="none" stroke="black" points="250.25,-96.15 255.25,-96.04"/>
@@ -63,10 +63,10 @@
 <polyline fill="none" stroke="black" points="634.75,-74.73 629.75,-74.72"/>
 <ellipse fill="none" stroke="black" cx="625.25" cy="-74.71" rx="4" ry="4"/>
 </g>
-<!-- gdm.distribution.components.distribution_substation.DistributionSubstation -->
+<!-- gdm.systems.distribution.components.distribution_substation.DistributionSubstation -->
 <g id="node3" class="node">
-<title>gdm.distribution.components.distribution_substation.DistributionSubstation</title>
-<g id="a_node3"><a xlink:title="gdm.distribution.components.distribution_substation.DistributionSubstation&#10;&#10;Class interface for distribution feeder.&#10;">
+<title>gdm.systems.distribution.components.distribution_substation.DistributionSubstation</title>
+<g id="a_node3"><a xlink:title="gdm.systems.distribution.components.distribution_substation.DistributionSubstation&#10;&#10;Class interface for distribution feeder.&#10;">
 <polygon fill="none" stroke="black" points="353.25,-163.75 353.25,-186.25 531.75,-186.25 531.75,-163.75 353.25,-163.75"/>
 <text text-anchor="start" x="376.5" y="-170.95" font-family="Times New Roman,Times,Liberation Serif,serif" font-weight="bold" font-size="14.00">DistributionSubstation</text>
 <polygon fill="none" stroke="black" points="353.25,-141.25 353.25,-163.75 398.25,-163.75 398.25,-141.25 353.25,-141.25"/>
@@ -84,9 +84,9 @@
 </a>
 </g>
 </g>
-<!-- gdm.distribution.components.base.distribution_component_base.DistributionComponentBase&#45;&gt;gdm.distribution.components.distribution_substation.DistributionSubstation -->
+<!-- gdm.systems.distribution.components.base.distribution_component_base.DistributionComponentBase&#45;&gt;gdm.systems.distribution.components.distribution_substation.DistributionSubstation -->
 <g id="edge2" class="edge">
-<title>gdm.distribution.components.base.distribution_component_base.DistributionComponentBase:e&#45;&gt;gdm.distribution.components.distribution_substation.DistributionSubstation:w</title>
+<title>gdm.systems.distribution.components.base.distribution_component_base.DistributionComponentBase:e&#45;&gt;gdm.systems.distribution.components.distribution_substation.DistributionSubstation:w</title>
 <path fill="none" stroke="black" d="M255.07,-119.42C293.31,-124.87 300.94,-162 334.46,-172.34"/>
 <polyline fill="none" stroke="black" points="245.25,-118.75 250.24,-119.09"/>
 <polyline fill="none" stroke="black" points="250.24,-119.09 255.23,-119.43"/>
@@ -95,9 +95,9 @@
 <polyline fill="none" stroke="black" points="348.3,-174.3 343.35,-173.6"/>
 <ellipse fill="none" stroke="black" cx="338.89" cy="-172.96" rx="4" ry="4"/>
 </g>
-<!-- gdm.distribution.components.distribution_substation.DistributionSubstation&#45;&gt;gdm.distribution.components.distribution_feeder.DistributionFeeder -->
+<!-- gdm.systems.distribution.components.distribution_substation.DistributionSubstation&#45;&gt;gdm.systems.distribution.components.distribution_feeder.DistributionFeeder -->
 <g id="edge3" class="edge">
-<title>gdm.distribution.components.distribution_substation.DistributionSubstation:e&#45;&gt;gdm.distribution.components.distribution_feeder.DistributionFeeder:w</title>
+<title>gdm.systems.distribution.components.distribution_substation.DistributionSubstation:e&#45;&gt;gdm.systems.distribution.components.distribution_feeder.DistributionFeeder:w</title>
 <path fill="none" stroke="black" d="M541.73,-107.04C578.34,-103.52 590.36,-81.05 624.76,-75.83"/>
 <polyline fill="none" stroke="black" points="531.75,-107.5 536.74,-107.27"/>
 <polyline fill="none" stroke="black" points="536.74,-107.27 541.74,-107.04"/>

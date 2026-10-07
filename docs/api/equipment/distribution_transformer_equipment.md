@@ -3,7 +3,7 @@
 
 [![](../../models/WindingEquipment.svg)](../../models/WindingEquipment.svg) 
 
-**API model:** `gdm.distribution.equipment.WindingEquipment`
+**API model:** `gdm.systems.distribution.equipment.WindingEquipment`
 - Documented members: `__init__`
 - Inherited members: `Component`
 - Excluded members: `example, validate_fields`
@@ -12,7 +12,7 @@
 
 [![](../../models/DistributionTransformerEquipment.svg)](../../models/DistributionTransformerEquipment.svg) 
 
-**API model:** `gdm.distribution.equipment.DistributionTransformerEquipment`
+**API model:** `gdm.systems.distribution.equipment.DistributionTransformerEquipment`
 - Documented members: `__init__`
 - Inherited members: `Component`
 - Excluded members: `example, validate_fields`

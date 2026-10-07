@@ -5,8 +5,8 @@ from typing import Annotated
 
 import typer
 
-from gdm.distribution.model_reduction.reducer import reduce_to_three_phase_system
-from gdm.distribution.distribution_system import DistributionSystem
+from gdm.systems.distribution.model_reduction.reducer import reduce_to_three_phase_system
+from gdm.systems.distribution.distribution_system import DistributionSystem
 from gdm.exceptions import FolderAlreadyExistsError
 
 

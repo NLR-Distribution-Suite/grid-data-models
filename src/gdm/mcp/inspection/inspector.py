@@ -4,7 +4,7 @@ import contextlib
 from collections import defaultdict
 from uuid import UUID
 
-from gdm.distribution import DistributionSystem
+from gdm.systems.distribution import DistributionSystem
 
 from gdm.mcp.exceptions import ComponentNotFoundError
 from gdm.mcp.schemas import (

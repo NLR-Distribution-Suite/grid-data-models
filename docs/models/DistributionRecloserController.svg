@@ -10,10 +10,10 @@
 <title>Entity Relationship Diagram created by erdantic</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-359.5 559.75,-359.5 559.75,4 -4,4"/>
 <text text-anchor="middle" x="277.88" y="-5.95" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="9.00" fill="#a8a8a8">Created by erdantic v1.0.5 &lt;https://github.com/drivendataorg/erdantic&gt;</text>
-<!-- gdm.distribution.common.curve.TimeCurrentCurve -->
+<!-- gdm.systems.distribution.common.curve.TimeCurrentCurve -->
 <g id="node1" class="node">
-<title>gdm.distribution.common.curve.TimeCurrentCurve</title>
-<g id="a_node1"><a xlink:title="gdm.distribution.common.curve.TimeCurrentCurve&#10;&#10;An interface for time current curve.&#10;">
+<title>gdm.systems.distribution.common.curve.TimeCurrentCurve</title>
+<g id="a_node1"><a xlink:title="gdm.systems.distribution.common.curve.TimeCurrentCurve&#10;&#10;An interface for time current curve.&#10;">
 <polygon fill="none" stroke="black" points="405,-216 405,-238.5 525,-238.5 525,-216 405,-216"/>
 <text text-anchor="start" x="408" y="-223.2" font-family="Times New Roman,Times,Liberation Serif,serif" font-weight="bold" font-size="14.00">TimeCurrentCurve</text>
 <polygon fill="none" stroke="black" points="405,-193.5 405,-216 466.12,-216 466.12,-193.5 405,-193.5"/>
@@ -35,10 +35,10 @@
 </a>
 </g>
 </g>
-<!-- gdm.distribution.controllers.distribution_recloser_controller.DistributionRecloserController -->
+<!-- gdm.systems.distribution.controllers.distribution_recloser_controller.DistributionRecloserController -->
 <g id="node2" class="node">
-<title>gdm.distribution.controllers.distribution_recloser_controller.DistributionRecloserController</title>
-<g id="a_node2"><a xlink:title="gdm.distribution.controllers.distribution_recloser_controller.DistributionRecloserController&#10;&#10;Data model for distribution recloser controller.&#10;">
+<title>gdm.systems.distribution.controllers.distribution_recloser_controller.DistributionRecloserController</title>
+<g id="a_node2"><a xlink:title="gdm.systems.distribution.controllers.distribution_recloser_controller.DistributionRecloserController&#10;&#10;Data model for distribution recloser controller.&#10;">
 <polygon fill="none" stroke="black" points="0,-333 0,-355.5 266.25,-355.5 266.25,-333 0,-333"/>
 <text text-anchor="start" x="42.75" y="-340.2" font-family="Times New Roman,Times,Liberation Serif,serif" font-weight="bold" font-size="14.00">DistributionRecloserController</text>
 <polygon fill="none" stroke="black" points="0,-310.5 0,-333 97.5,-333 97.5,-310.5 0,-310.5"/>
@@ -92,9 +92,9 @@
 </a>
 </g>
 </g>
-<!-- gdm.distribution.controllers.distribution_recloser_controller.DistributionRecloserController&#45;&gt;gdm.distribution.common.curve.TimeCurrentCurve -->
+<!-- gdm.systems.distribution.controllers.distribution_recloser_controller.DistributionRecloserController&#45;&gt;gdm.systems.distribution.common.curve.TimeCurrentCurve -->
 <g id="edge1" class="edge">
-<title>gdm.distribution.controllers.distribution_recloser_controller.DistributionRecloserController:e&#45;&gt;gdm.distribution.common.curve.TimeCurrentCurve:w</title>
+<title>gdm.systems.distribution.controllers.distribution_recloser_controller.DistributionRecloserController:e&#45;&gt;gdm.systems.distribution.common.curve.TimeCurrentCurve:w</title>
 <path fill="none" stroke="black" d="M276.06,-254.02C325.34,-251.61 342.04,-231.41 389.11,-227.8"/>
 <polyline fill="none" stroke="black" points="266.25,-254.25 271.25,-254.13"/>
 <polyline fill="none" stroke="black" points="271.25,-254.13 276.25,-254.01"/>
@@ -104,9 +104,9 @@
 <polygon fill="black" stroke="black" points="392.82,-222.66 393.19,-232.65 391.19,-232.73 390.82,-222.73 392.82,-222.66"/>
 <polyline fill="none" stroke="black" points="394.01,-227.62 389.01,-227.81"/>
 </g>
-<!-- gdm.distribution.controllers.distribution_recloser_controller.DistributionRecloserController&#45;&gt;gdm.distribution.common.curve.TimeCurrentCurve -->
+<!-- gdm.systems.distribution.controllers.distribution_recloser_controller.DistributionRecloserController&#45;&gt;gdm.systems.distribution.common.curve.TimeCurrentCurve -->
 <g id="edge2" class="edge">
-<title>gdm.distribution.controllers.distribution_recloser_controller.DistributionRecloserController:e&#45;&gt;gdm.distribution.common.curve.TimeCurrentCurve:w</title>
+<title>gdm.systems.distribution.controllers.distribution_recloser_controller.DistributionRecloserController:e&#45;&gt;gdm.systems.distribution.common.curve.TimeCurrentCurve:w</title>
 <path fill="none" stroke="black" d="M276.23,-231.71C324.5,-231.3 342.82,-227.96 389.06,-227.35"/>
 <polyline fill="none" stroke="black" points="266.25,-231.75 271.25,-231.73"/>
 <polyline fill="none" stroke="black" points="271.25,-231.73 276.25,-231.71"/>
@@ -116,9 +116,9 @@
 <polygon fill="black" stroke="black" points="392.97,-222.32 393.03,-232.32 391.03,-232.33 390.97,-222.33 392.97,-222.32"/>
 <polyline fill="none" stroke="black" points="394,-227.31 389,-227.35"/>
 </g>
-<!-- gdm.distribution.controllers.distribution_recloser_controller.DistributionRecloserController&#45;&gt;gdm.distribution.common.curve.TimeCurrentCurve -->
+<!-- gdm.systems.distribution.controllers.distribution_recloser_controller.DistributionRecloserController&#45;&gt;gdm.systems.distribution.common.curve.TimeCurrentCurve -->
 <g id="edge3" class="edge">
-<title>gdm.distribution.controllers.distribution_recloser_controller.DistributionRecloserController:e&#45;&gt;gdm.distribution.common.curve.TimeCurrentCurve:w</title>
+<title>gdm.systems.distribution.controllers.distribution_recloser_controller.DistributionRecloserController:e&#45;&gt;gdm.systems.distribution.common.curve.TimeCurrentCurve:w</title>
 <path fill="none" stroke="black" d="M275.97,-209.41C324.87,-211.01 342.46,-224.48 389.24,-226.88"/>
 <polyline fill="none" stroke="black" points="266.25,-209.25 271.25,-209.33"/>
 <polyline fill="none" stroke="black" points="271.25,-209.33 276.25,-209.41"/>
@@ -128,9 +128,9 @@
 <polygon fill="black" stroke="black" points="393.13,-221.98 392.88,-231.97 390.88,-231.92 391.13,-221.93 393.13,-221.98"/>
 <polyline fill="none" stroke="black" points="394,-227 389,-226.88"/>
 </g>
-<!-- gdm.distribution.controllers.distribution_recloser_controller.DistributionRecloserController&#45;&gt;gdm.distribution.common.curve.TimeCurrentCurve -->
+<!-- gdm.systems.distribution.controllers.distribution_recloser_controller.DistributionRecloserController&#45;&gt;gdm.systems.distribution.common.curve.TimeCurrentCurve -->
 <g id="edge4" class="edge">
-<title>gdm.distribution.controllers.distribution_recloser_controller.DistributionRecloserController:e&#45;&gt;gdm.distribution.common.curve.TimeCurrentCurve:w</title>
+<title>gdm.systems.distribution.controllers.distribution_recloser_controller.DistributionRecloserController:e&#45;&gt;gdm.systems.distribution.common.curve.TimeCurrentCurve:w</title>
 <path fill="none" stroke="black" d="M275.91,-187.08C326.41,-190.57 341.06,-221.11 389.12,-226.45"/>
 <polyline fill="none" stroke="black" points="266.25,-186.75 271.25,-186.92"/>
 <polyline fill="none" stroke="black" points="271.25,-186.92 276.24,-187.09"/>
@@ -140,10 +140,10 @@
 <polygon fill="black" stroke="black" points="393.28,-221.67 392.75,-231.66 390.75,-231.55 391.29,-221.56 393.28,-221.67"/>
 <polyline fill="none" stroke="black" points="394.01,-226.72 389.02,-226.45"/>
 </g>
-<!-- gdm.distribution.equipment.recloser_controller_equipment.RecloserControllerEquipment -->
+<!-- gdm.systems.distribution.equipment.recloser_controller_equipment.RecloserControllerEquipment -->
 <g id="node3" class="node">
-<title>gdm.distribution.equipment.recloser_controller_equipment.RecloserControllerEquipment</title>
-<g id="a_node3"><a xlink:title="gdm.distribution.equipment.recloser_controller_equipment.RecloserControllerEquipment&#10;&#10;Class interface for recloser controller equipment.&#10;">
+<title>gdm.systems.distribution.equipment.recloser_controller_equipment.RecloserControllerEquipment</title>
+<g id="a_node3"><a xlink:title="gdm.systems.distribution.equipment.recloser_controller_equipment.RecloserControllerEquipment&#10;&#10;Class interface for recloser controller equipment.&#10;">
 <polygon fill="none" stroke="black" points="374.25,-63.5 374.25,-86 555.75,-86 555.75,-63.5 374.25,-63.5"/>
 <text text-anchor="start" x="377.25" y="-70.7" font-family="Times New Roman,Times,Liberation Serif,serif" font-weight="bold" font-size="14.00">RecloserControllerEquipment</text>
 <polygon fill="none" stroke="black" points="374.25,-41 374.25,-63.5 463.12,-63.5 463.12,-41 374.25,-41"/>
@@ -157,9 +157,9 @@
 </a>
 </g>
 </g>
-<!-- gdm.distribution.controllers.distribution_recloser_controller.DistributionRecloserController&#45;&gt;gdm.distribution.equipment.recloser_controller_equipment.RecloserControllerEquipment -->
+<!-- gdm.systems.distribution.controllers.distribution_recloser_controller.DistributionRecloserController&#45;&gt;gdm.systems.distribution.equipment.recloser_controller_equipment.RecloserControllerEquipment -->
 <g id="edge5" class="edge">
-<title>gdm.distribution.controllers.distribution_recloser_controller.DistributionRecloserController:e&#45;&gt;gdm.distribution.equipment.recloser_controller_equipment.RecloserControllerEquipment:w</title>
+<title>gdm.systems.distribution.controllers.distribution_recloser_controller.DistributionRecloserController:e&#45;&gt;gdm.systems.distribution.equipment.recloser_controller_equipment.RecloserControllerEquipment:w</title>
 <path fill="none" stroke="black" d="M276.12,-74.26C311.32,-74.31 326.05,-74.65 359.33,-74.73"/>
 <polyline fill="none" stroke="black" points="266.25,-74.25 271.25,-74.25"/>
 <polyline fill="none" stroke="black" points="271.25,-74.25 276.25,-74.26"/>

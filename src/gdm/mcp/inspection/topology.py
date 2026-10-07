@@ -3,7 +3,7 @@
 from typing import Optional
 
 import networkx as nx
-from gdm.distribution import DistributionSystem
+from gdm.systems.distribution import DistributionSystem
 from gdm.exceptions import MultipleOrEmptyVsourceFound
 
 from gdm.mcp.exceptions import TopologyError

@@ -2,7 +2,7 @@
 
 [![](../../models/DistributionCapacitor.svg)](../../models/DistributionCapacitor.svg)
 
-**API model:** `gdm.distribution.components.DistributionCapacitor`
+**API model:** `gdm.systems.distribution.components.DistributionCapacitor`
 - Documented members: `:inherited-members: Component`
 - Excluded members: `example, validate_fields`
 

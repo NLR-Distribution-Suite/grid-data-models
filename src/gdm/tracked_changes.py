@@ -1,7 +1,7 @@
 from typing import Any, Annotated
 from datetime import datetime
 
-from gdm.distribution import DistributionSystem, CatalogSystem
+from gdm.systems.distribution import DistributionSystem, CatalogSystem
 
 from pydantic import Field
 from rich.console import Console

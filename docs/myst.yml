@@ -13,6 +13,12 @@ project:
   toc:
     - file: intro.md
     - file: new_features.ipynb
+    - title: System Models
+      children:
+        - file: systems/index.md
+        - file: systems/distribution.md
+        - file: api/substation.md
+        - file: systems/connecting-systems.md
     - title: Installation
       children:
         - file: installation.ipynb
@@ -24,6 +30,7 @@ project:
         - file: gdm_intro/time_series.ipynb
         - file: dist_system/import_export.ipynb
         - file: dist_system/plotting.ipynb
+        - file: reference_designs/index.ipynb
     - title: Advanced Usage
       children:
         - file: dist_system/graphs.ipynb

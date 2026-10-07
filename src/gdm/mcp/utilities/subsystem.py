@@ -1,7 +1,7 @@
 """Subsystem extraction utilities."""
 
-from gdm.distribution import DistributionSystem
-from gdm.distribution.components import DistributionBus
+from gdm.systems.distribution import DistributionSystem
+from gdm.systems.distribution.components import DistributionBus
 from infrasys import SingleTimeSeries
 
 
