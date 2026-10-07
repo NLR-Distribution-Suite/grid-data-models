@@ -13,6 +13,12 @@ project:
   toc:
     - file: intro.md
     - file: new_features.ipynb
+    - title: System Models
+      children:
+        - file: systems/index.md
+        - file: systems/distribution.md
+        - file: api/substation.md
+        - file: systems/connecting-systems.md
     - title: Installation
       children:
         - file: installation.ipynb
@@ -78,6 +84,7 @@ project:
         - file: cli/index.md
           children:
             - file: cli/reduce.md
+        - file: reference_designs/index.md
 site:
   options:
     logo: gdm_logo.jpeg

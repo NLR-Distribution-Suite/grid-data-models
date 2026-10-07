@@ -15,6 +15,26 @@ and station data. It covers distribution substations, wind collector
 substations, solar collector substations, hybrid renewable substations, and
 colocated energy storage interfaces.
 
+For the distinction between system models and guidance on choosing or joining
+them, start with the [System Models overview](../systems/index.md). This page
+documents the station model itself.
+
+## Quick Start
+
+Build a complete reusable example with the public substation namespace:
+
+```python
+from gdm.systems.substation import build_reference_design
+
+station = build_reference_design("detailed_distribution")
+```
+
+The result is a `SubstationSystem`, not a `DistributionSystem`. It includes the
+station's incoming circuits, transformers, feeder boundaries, protection,
+metering, and automation. Use the [reference-design gallery](../reference_designs/index.md)
+to choose a topology, or use `SubstationBuilder` when constructing a custom
+station.
+
 ## Ownership Boundary
 
 `DistributionSystem` owns feeder-level analysis: distribution buses, lines,
@@ -32,9 +52,43 @@ are no string terminal or connectivity-node IDs inside the station. Cross-system
 references (distribution feeder IDs, plant IDs, protocol addresses) remain
 strings.
 
+For an operational feeder model, `DistributionSystem` can replace one stored
+`DistributionTransformer` with a `SubstationSystem` via
+`replace_transformer_with_substation()`. The station system must expose exactly
+one `FeederBoundary` whose `feeder_id` matches the transformer's
+`DistributionFeeder.name`; it supplies the `PowerTransformer`, `BusbarSection`
+nodes, and two-terminal equipment such as breakers or disconnectors. The
+original transformer is removed, while its high-side voltage source and
+terminal buses remain in the distribution system. Breaker and disconnector
+state then participates in directed-topology reachability.
+
+`DistributionSystem.get_substation_feeder_subsystem()` returns a new
+distribution model containing only components whose `DistributionFeeder.name`
+matches a `FeederBoundary.feeder_id` in a supplied `SubstationSystem`. This
+supports selecting one or more station outfeeds without modifying the original
+distribution model.
+
+`SubstationSystem.to_distribution_system()` assembles a complete distribution
+model from the station topology and a list of single-feeder distribution models.
+Each `FeederBoundary.source_equivalent_id` identifies the feeder root bus by
+name. The root bus is merged into the boundary bus, feeder-local voltage sources
+are removed, and one source is created at the highest-voltage station
+transformer bus.
+
 `SubstationSystem.get_undirected_graph()` returns a NetworkX bus-branch graph
 whose nodes are busbar sections and whose edges are state-aware primary
 equipment, ready for SCADA binding.
+
+## Reference Designs
+
+`build_reference_design()` exposes reusable single-bus, sectionalized,
+main-and-transfer, double-bus, ring-bus, breaker-and-a-half,
+double-breaker/double-bus, and HV/MV layouts. The same API also exposes the
+`"detailed_distribution"` design, a complete 69/12.47 kV station with two
+infeeds, two transformers, four outfeeds, protection, metering, and station
+automation. Canonical layouts accept an `outfeed_count` and a
+`coordinate_provider`; callers can supply geographic `Location` values or a
+deterministic schematic placement.
 
 ## Model Relationships
 

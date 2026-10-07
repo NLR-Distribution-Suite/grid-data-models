@@ -11,7 +11,11 @@ from infrasys import Component
 from pydantic import Field, model_validator
 
 from gdm.quantities import Voltage
+from gdm.systems.distribution.components.distribution_bus import DistributionBus
 from gdm.systems.distribution.enums import Phase
+from gdm.systems.distribution.components.base.distribution_transformer_base import (
+    DistributionTransformerBase,
+)
 from gdm.systems.distribution.equipment import (
     CircuitBreakerEquipment,
     DisconnectorEquipment,
@@ -41,7 +45,7 @@ class PrimaryEquipmentComponent(Component):
 class TwoTerminalEquipment(PrimaryEquipmentComponent):
     """Equipment connected in series between exactly two busbar nodes."""
 
-    buses: list[BusbarSection]
+    buses: list[DistributionBus]
 
     @model_validator(mode="after")
     def validate_buses(self) -> "TwoTerminalEquipment":
@@ -116,12 +120,10 @@ class EarthingSwitch(PrimaryEquipmentComponent):
         )
 
 
-class PowerTransformer(PrimaryEquipmentComponent):
+class PowerTransformer(DistributionTransformerBase, PrimaryEquipmentComponent):
     """Installed station transformer referencing reusable electrical equipment."""
 
     equipment: PowerTransformerEquipment
-    buses: list[BusbarSection]
-    tap_positions: list[list[float]] | None = None
 
     @model_validator(mode="after")
     def validate_windings(self) -> "PowerTransformer":
@@ -150,8 +152,22 @@ class PowerTransformer(PrimaryEquipmentComponent):
             voltage_level=lv_level,
             rated_voltage=Voltage(12.47, "kilovolt"),
         )
+        equipment = PowerTransformerEquipment.example()
+        equipment = equipment.model_copy(
+            update={
+                "windings": [
+                    equipment.windings[0].model_copy(
+                        update={"rated_voltage": hv_bus.rated_voltage}
+                    ),
+                    equipment.windings[1].model_copy(
+                        update={"rated_voltage": lv_bus.rated_voltage}
+                    ),
+                ]
+            }
+        )
         return cls(
             name="main-transformer-001",
             buses=[hv_bus, lv_bus],
-            equipment=PowerTransformerEquipment.example(),
+            winding_phases=[list(_PHASES), list(_PHASES)],
+            equipment=equipment,
         )

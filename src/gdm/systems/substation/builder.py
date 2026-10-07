@@ -482,6 +482,7 @@ class SubstationBuilder:
                 else DEFAULT_VOLTAGE_LEVEL_ID,
             ),
             buses=buses,
+            winding_phases=[list(bus.phases) for bus in buses],
             equipment=PowerTransformerEquipment(
                 name=f"{transformer_id}-equipment",
                 pct_no_load_loss=pct_no_load_loss,
@@ -558,11 +559,14 @@ class SubstationBuilder:
         """Add a feeder boundary, optionally through a line disconnector."""
 
         if with_disconnector:
+            line_endpoint = f"{feeder_id}-node"
+            if station_endpoint == line_endpoint:
+                line_endpoint = f"{feeder_id}-line-node"
             _, bus = self.add_disconnector(
                 f"{feeder_id}-disconnector",
                 bay_id,
                 station_endpoint,
-                f"{feeder_id}-node",
+                line_endpoint,
             )
         elif bus is None:
             bus = self.endpoint_node(station_endpoint)

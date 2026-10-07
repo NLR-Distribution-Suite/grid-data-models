@@ -1,7 +1,9 @@
 """This module contains distribution system."""
 
+from __future__ import annotations
+
 from collections import defaultdict
-from typing import Annotated, Type
+from typing import TYPE_CHECKING, Annotated, Type
 import importlib.metadata
 from pathlib import Path
 import tempfile
@@ -29,7 +31,6 @@ from gdm.systems.distribution.components import (
     DistributionBus,
     GeometryBranch,
     MatrixImpedanceBranch,
-    MatrixImpedanceSwitch,
 )
 from gdm.systems.distribution.components.base.distribution_switch_base import (
     DistributionSwitchBase,
@@ -48,6 +49,9 @@ from gdm.exceptions import (
     MultipleOrEmptyVsourceFound,
 )
 from infrasys.exceptions import ISNotStored
+
+if TYPE_CHECKING:
+    from gdm.systems.substation.substation_system import SubstationSystem
 
 
 class UserAttributes(BaseModel):
@@ -180,6 +184,126 @@ class DistributionSystem(System):
             raise MultipleOrEmptyVsourceFound(msg)
         return buses[0]
 
+    def replace_transformer_with_substation(
+        self,
+        transformer: DistributionTransformerBase,
+        substation_system: SubstationSystem,
+    ):
+        """Replace a stored distribution transformer with detailed station topology.
+
+        The station system must contain exactly one power transformer and one
+        feeder boundary whose feeder ID matches the transformer's feeder name.
+        Its detailed buses and switching equipment must preserve both original
+        transformer terminal buses.
+        """
+
+        from gdm.systems.substation.components import PowerTransformer, TwoTerminalEquipment
+        from gdm.systems.substation.topology import FeederBoundary
+
+        if isinstance(transformer, PowerTransformer):
+            raise ValueError("Only abstract DistributionTransformer instances can be expanded.")
+        if not self.has_component(transformer):
+            raise ValueError(f"Transformer '{transformer.name}' is not stored in this system.")
+        if transformer.feeder is None:
+            raise ValueError("Transformer expansion requires a DistributionFeeder.")
+
+        matching_boundaries = [
+            boundary
+            for boundary in substation_system.get_components(FeederBoundary)
+            if boundary.feeder_id == transformer.feeder.name
+        ]
+        if len(matching_boundaries) != 1:
+            raise ValueError(
+                "SubstationSystem requires exactly one FeederBoundary matching feeder "
+                f"'{transformer.feeder.name}'."
+            )
+
+        station_components = [
+            component
+            for component in substation_system.iter_all_components()
+            if type(component).__module__.startswith("gdm.systems.substation")
+        ]
+
+        power_transformers = [
+            component
+            for component in station_components
+            if isinstance(component, PowerTransformer)
+        ]
+        if len(power_transformers) != 1:
+            raise ValueError("Replacement topology requires exactly one PowerTransformer.")
+
+        topology_components = [
+            component
+            for component in station_components
+            if isinstance(component, (DistributionTransformerBase, TwoTerminalEquipment))
+        ]
+        replacement_bus_names = {
+            bus.name for component in topology_components for bus in component.buses
+        }
+        original_bus_names = {bus.name for bus in transformer.buses}
+        if not original_bus_names.issubset(replacement_bus_names):
+            raise ValueError(
+                "Replacement topology must connect both original transformer terminal buses."
+            )
+
+        replacement_components = [
+            component for component in station_components if not self.has_component(component)
+        ]
+
+        existing_component_keys = {
+            (type(component), component.name)
+            for component in self.iter_all_components()
+            if component != transformer
+        }
+        replacement_keys = [
+            (type(component), component.name) for component in replacement_components
+        ]
+        if len(replacement_keys) != len(set(replacement_keys)):
+            raise ValueError("Replacement topology contains duplicate component names and types.")
+        if any(component_key in existing_component_keys for component_key in replacement_keys):
+            raise ValueError("Replacement topology conflicts with an existing component.")
+
+        self.add_components(*replacement_components)
+        self.remove_component(transformer, cascade_down=False)
+        return power_transformers[0]
+
+    def get_substation_feeder_subsystem(
+        self,
+        substation_system: SubstationSystem,
+        keep_time_series: bool = True,
+    ) -> "DistributionSystem":
+        """Return a system containing components for the station's feeder outfeeds.
+
+        Each :class:`FeederBoundary` identifies an outfeed by ``feeder_id``.
+        Components are retained when their ``DistributionFeeder.name`` matches
+        one of those IDs. The source system is not modified.
+        """
+
+        from gdm.systems.substation.topology import FeederBoundary
+
+        feeder_ids = {
+            boundary.feeder_id for boundary in substation_system.get_components(FeederBoundary)
+        }
+        if not feeder_ids:
+            raise ValueError("SubstationSystem must contain at least one FeederBoundary.")
+
+        subsystem = DistributionSystem(
+            name=f"{self.name}-substation-feeders",
+            auto_add_composed_components=True,
+        )
+        for component in self.iter_all_components():
+            feeder = getattr(component, "feeder", None)
+            if feeder is None or feeder.name not in feeder_ids:
+                continue
+            if not subsystem.has_component(component):
+                subsystem.add_component(component)
+            if keep_time_series and self.has_time_series(component):
+                for metadata in self.list_time_series_metadata(component):
+                    time_series = self.get_time_series(component, metadata.name, type(metadata))
+                    subsystem.add_time_series(time_series, component, **metadata.features)
+
+        return subsystem
+
     def get_undirected_graph(self) -> nx.MultiGraph:
         """Constructs an undirected graph representation of the distribution system.
 
@@ -198,27 +322,36 @@ class DistributionSystem(System):
         - The graph is useful for analyzing the connectivity and topology of the distribution network.
         - Each edge in the graph includes metadata such as the component's name and type.
         """
+        from gdm.systems.substation.components import TwoTerminalEquipment
+
         graph = nx.MultiGraph()
         node: DistributionBus
         for node in self.get_components(DistributionBus):
             graph.add_node(node.name)
 
-        edges: list[DistributionBranchBase | DistributionTransformerBase] = list(
-            self.get_components(DistributionBranchBase)
-        ) + list(self.get_components(DistributionTransformerBase))
+        edges: list[DistributionBranchBase | DistributionTransformerBase] = (
+            list(self.get_components(DistributionBranchBase))
+            + list(self.get_components(DistributionTransformerBase))
+            + list(self.get_components(TwoTerminalEquipment))
+        )
 
         for edge in edges:
+            is_transformer = isinstance(edge, DistributionTransformerBase)
+            is_station_switch = isinstance(edge, TwoTerminalEquipment)
             data = {
                 "name": edge.name,
                 "type": edge.__class__,
                 "is_closed": True,
-                "in_service": edge.in_service,
+                "in_service": getattr(edge, "in_service", True),
                 "phases": [phase.value for phase in edge.winding_phases[0]]
-                if isinstance(edge, DistributionTransformerBase)
+                if is_transformer
                 else [phase.value for phase in edge.phases],
+                "is_switch": isinstance(edge, DistributionSwitchBase) or is_station_switch,
             }
             if isinstance(edge, DistributionSwitchBase):
                 data["is_closed"] = True if len(edge.is_closed) == sum(edge.is_closed) else False
+            elif is_station_switch:
+                data["is_closed"] = edge.state.value in {"closed", "racked_in"}
             graph.add_edge(
                 edge.buses[0].name,
                 edge.buses[1].name,
@@ -230,11 +363,13 @@ class DistributionSystem(System):
 
         return graph
 
-    def _warn_uncovered_bus_phases(
+    def _warn_uncovered_bus_phases(  # noqa: C901
         self,
         edges: list,
     ) -> None:
         """Log a warning if any bus has phases not connected to any component."""
+        from gdm.systems.substation.components import TwoTerminalEquipment
+
         bus_covered_phases: dict[str, set] = {
             node.name: set() for node in self.get_components(DistributionBus)
         }
@@ -246,6 +381,10 @@ class DistributionSystem(System):
             elif isinstance(edge, DistributionTransformerBase):
                 for bus, winding_phases in zip(edge.buses, edge.winding_phases):
                     bus_covered_phases[bus.name] |= set(winding_phases)
+            elif isinstance(edge, TwoTerminalEquipment):
+                edge_phase_set = set(edge.phases)
+                for bus in edge.buses:
+                    bus_covered_phases[bus.name] |= edge_phase_set
 
         uncovered: dict[str, list] = {}
         for bus in self.get_components(DistributionBus):
@@ -265,10 +404,12 @@ class DistributionSystem(System):
         parent_components: list[Component],
         bus_names: list[DistributionBus],
     ):
+        from gdm.systems.substation.components import TwoTerminalEquipment
+
         for component in parent_components:
             if isinstance(
                 component,
-                (DistributionBranchBase, DistributionTransformerBase),
+                (DistributionBranchBase, DistributionTransformerBase, TwoTerminalEquipment),
             ):
                 nodes = {bus.name for bus in component.buses}
                 if not nodes.issubset(set(bus_names)):
@@ -494,7 +635,7 @@ class DistributionSystem(System):
             edge_data = ugraph.get_edge_data(bus_1, bus_2)
             if edge_data:
                 for _, data in edge_data.items():
-                    if issubclass(data.get("type"), MatrixImpedanceSwitch):
+                    if data.get("is_switch"):
                         switch_edges.append((bus_1, bus_2))
                         logger.info(f"Switch found between {bus_1} and {bus_2}")
                         break
@@ -582,13 +723,14 @@ class DistributionSystem(System):
 
             if not ((x1 == 0 and y1 == 0) or (x2 == 0 and y2 == 0)):
                 component = self.get_component(data["type"], data["name"])
-                if isinstance(component, DistributionTransformer):
+                if isinstance(component, DistributionTransformerBase):
                     phases = [",".join([phs.value for phs in w]) for w in component.winding_phases]
                     phases = "\n".join(phases)
                     length = 15.0
                 else:
                     phases = ",".join([phs.value for phs in component.phases])
-                    length = component.length.to("foot").magnitude
+                    component_length = getattr(component, "length", None)
+                    length = component_length.to("foot").magnitude if component_length else 0.0
                 edge_data["Phases"].append(phases)
                 edge_data["Name"].append(data["name"])
                 edge_data["Length"].append(length)

@@ -81,6 +81,16 @@ from gdm.systems.substation.topology import (
     VoltageLevel,
 )
 from gdm.systems.substation.substation_system import SubstationSystem
+from gdm.systems.substation.builder import SubstationBuilder
+from gdm.systems.substation.detailed_reference import build_detailed_distribution_substation
+from gdm.systems.substation.reference_designs import (
+    LAYOUT_EXAMPLES,
+    SubstationLayout,
+    build_reference_design,
+    build_layout_example,
+    build_parameterized_substation,
+    list_reference_designs,
+)
 
 __all__ = [
     "AssetReference",
@@ -137,7 +147,9 @@ __all__ = [
     "StateObservation",
     "StorageUnit",
     "Substation",
+    "SubstationBuilder",
     "SubstationSystem",
+    "SubstationLayout",
     "SubstationType",
     "SurgeArrester",
     "TerminalRole",
@@ -146,4 +158,10 @@ __all__ = [
     "WindPlant",
     "WindTurbine",
     "SolarPlant",
+    "LAYOUT_EXAMPLES",
+    "build_detailed_distribution_substation",
+    "build_layout_example",
+    "build_parameterized_substation",
+    "build_reference_design",
+    "list_reference_designs",
 ]

@@ -36,6 +36,9 @@ jobs:
           jupyter-book clean --html --temp --logs -y
           jupyter-book build --html
 
+      - name: Generate substation reference schematics
+        run: python docs/generate_reference_design_schematics.py
+
       - name: Build dedicated Sphinx API docs
         run: |
           python -m sphinx.ext.apidoc -o docs/api_sphinx/generated src/gdm --force --separate --module-first

@@ -61,6 +61,7 @@ class Bay(Component):
     """Functional substation equipment grouping."""
 
     voltage_level: VoltageLevel | None = None
+    footprint: list[Location] = Field(default_factory=list)
 
     @classmethod
     def example(cls) -> "Bay":
@@ -138,6 +139,7 @@ class Substation(Component):
 
     substation_type: SubstationType
     location: Location | None = None
+    footprint: list[Location] = Field(default_factory=list)
     lifecycle_status: LifecycleStatus = LifecycleStatus.DESIGNED
     voltage_levels: list[VoltageLevel] = Field(default_factory=list)
     bays: list[Bay] = Field(default_factory=list)

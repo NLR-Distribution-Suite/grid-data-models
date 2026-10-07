@@ -1,6 +1,6 @@
-"""Reusable substation layout examples used by the test suite."""
+"""Compatibility imports for public substation reference designs."""
 
-from tests.substation.examples import (
+from gdm.systems.substation.reference_designs import (
     LAYOUT_EXAMPLES,
     SubstationLayout,
     breaker_and_a_half_substation,
