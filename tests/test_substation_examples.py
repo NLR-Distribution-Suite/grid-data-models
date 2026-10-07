@@ -1,6 +1,7 @@
 import pytest
 from pydantic import ValidationError
 
+from gdm.systems.distribution.enums import ConnectionType
 from gdm.systems.distribution.equipment import (
     CircuitBreakerEquipment,
     PowerTransformerEquipment,
@@ -153,3 +154,29 @@ def test_power_transformer_requires_one_bus_per_winding():
             buses=[BusbarSection.example()],
             equipment=equipment,
         )
+
+
+def test_power_transformer_example_vector_group_matches_winding_connections():
+    equipment = PowerTransformerEquipment.example()
+
+    assert equipment.vector_group == "Dyn1"
+    assert [winding.connection_type for winding in equipment.windings] == [
+        ConnectionType.DELTA,
+        ConnectionType.STAR,
+    ]
+
+
+def test_power_transformer_rejects_mismatched_vector_group_connections():
+    equipment_data = PowerTransformerEquipment.example().model_dump()
+    equipment_data["vector_group"] = "Yd1"
+
+    with pytest.raises(ValidationError, match="winding 1"):
+        PowerTransformerEquipment.model_validate(equipment_data)
+
+
+def test_power_transformer_rejects_vector_group_winding_count_mismatch():
+    equipment_data = PowerTransformerEquipment.example().model_dump()
+    equipment_data["vector_group"] = "Dyn1d11"
+
+    with pytest.raises(ValidationError, match="specifies 3 windings"):
+        PowerTransformerEquipment.model_validate(equipment_data)

@@ -31,7 +31,7 @@ station = build_reference_design("detailed_distribution")
 
 The result is a `SubstationSystem`, not a `DistributionSystem`. It includes the
 station's incoming circuits, transformers, feeder boundaries, protection,
-metering, and automation. Use the [reference-design gallery](../reference_designs/index.md)
+metering, and automation. Use the [reference-design tutorial](../reference_designs/index.ipynb)
 to choose a topology, or use `SubstationBuilder` when constructing a custom
 station.
 
