@@ -8,7 +8,7 @@ import math
 from pydantic import model_validator, Field
 
 from gdm.systems.distribution.components.distribution_bus import DistributionBus
-from gdm.systems.distribution.enums import Phase
+from gdm.systems.distribution.enums import Phase, VoltageTypes
 from gdm.systems.distribution.components.base.distribution_component_base import (
     InServiceDistributionComponentBase,
 )
@@ -48,14 +48,25 @@ class DistributionBranchBase(InServiceDistributionComponentBase, ABC):
             )
             raise ValueError(msg)
 
+        rated_voltage_LN_from = (
+            self.buses[0].rated_voltage
+            if self.buses[0].voltage_type == VoltageTypes.LINE_TO_GROUND
+            else self.buses[0].rated_voltage / math.sqrt(3)
+        )
+        rated_voltage_LN_to = (
+            self.buses[1].rated_voltage
+            if self.buses[1].voltage_type == VoltageTypes.LINE_TO_GROUND
+            else self.buses[1].rated_voltage / math.sqrt(3)
+        )
+
         if not math.isclose(
-            self.buses[0].rated_voltage.magnitude,
-            self.buses[1].rated_voltage.magnitude,
+            rated_voltage_LN_from.magnitude,
+            rated_voltage_LN_to.magnitude,
             rel_tol=0.001,  # 10^-3
         ):
             msg = (
-                f"From bus {self.buses[0].rated_voltage=}"
-                f"and to bus voltage {self.buses[1].rated_voltage=} rating should be same."
+                f"From bus line to ground voltage {rated_voltage_LN_from=}"
+                f"and to bus line to ground voltage {rated_voltage_LN_to=} rating should be same."
             )
             raise ValueError(msg)
 
