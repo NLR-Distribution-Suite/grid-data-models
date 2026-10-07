@@ -8,22 +8,50 @@ from gdm.systems.substation import (
     Bay,
     BusbarSection,
     CircuitBreaker,
+    Disconnector,
+    EarthingSwitch,
     FeederBoundary,
     PowerTransformer,
-    Terminal,
+    build_reference_design,
+    list_reference_designs,
     VoltageLevel,
 )
 from gdm.systems.distribution.components import (
     DistributionBus,
     DistributionFeeder,
+    DistributionVoltageSource,
     MatrixImpedanceBranch,
 )
+from gdm.systems.distribution.distribution_system import DistributionSystem
+from gdm.systems.substation.automation import ProtocolEndpoint, ProtocolMapping, SCLConfiguration
+from gdm.systems.substation.equipment import InstrumentTransformer, SurgeArrester
+from gdm.systems.substation.metering import MeteringPoint, PowerQualityMonitor
+from gdm.systems.substation.protection import ProtectionIED, ProtectionScheme
+from gdm.systems.substation.topology import ExternalCircuit
 from tests.substation import (
     LAYOUT_EXAMPLES,
     SubstationLayout,
     build_layout_example,
     hv_mv_substation_with_distribution_feeders,
 )
+from gdm.systems.substation.detailed_reference import build_detailed_distribution_substation
+
+
+def _physical_buses(system):
+    """Return busbar sections that are physical busbars rather than junctions."""
+
+    return [
+        bus
+        for bus in system.get_components(BusbarSection)
+        if bus.length is not None and bus.voltage_level.name != "voltage-level-hv"
+    ]
+
+
+def _equipment_buses(system):
+    for component in system.iter_all_components():
+        buses = getattr(component, "buses", None)
+        if buses:
+            yield component, buses
 
 
 @pytest.mark.parametrize("layout", SubstationLayout)
@@ -31,13 +59,64 @@ def test_each_layout_builds_a_substation_system(layout):
     system = build_layout_example(layout)
 
     assert system.name == f"{layout.value.replace('_', '-')}-substation"
-    assert len(list(system.get_components(BusbarSection))) >= 1
+    assert len(_physical_buses(system)) >= 1
     assert len(list(system.get_components(Bay))) >= 1
     assert len(list(system.get_components(FeederBoundary))) >= 1
 
 
+@pytest.mark.parametrize("layout", SubstationLayout)
+def test_each_layout_includes_complete_distribution_station_equipment(layout):
+    system = build_layout_example(layout)
+
+    assert len(list(system.get_components(PowerTransformer))) >= 1
+    assert len(list(system.get_components(ExternalCircuit))) == 2
+    assert len(list(system.get_components(InstrumentTransformer))) >= 2
+    assert list(system.get_components(SurgeArrester))
+    assert list(system.get_components(EarthingSwitch))
+    assert len(list(system.get_components(MeteringPoint))) == len(
+        list(system.get_components(FeederBoundary))
+    )
+    assert len(list(system.get_components(PowerQualityMonitor))) == len(
+        list(system.get_components(FeederBoundary))
+    )
+    assert list(system.get_components(ProtectionIED))
+    assert list(system.get_components(ProtectionScheme))
+    assert len(list(system.get_components(ProtocolEndpoint))) == 1
+    assert list(system.get_components(ProtocolMapping))
+    assert len(list(system.get_components(SCLConfiguration))) == 1
+
+
 def test_layout_registry_covers_every_layout():
     assert set(LAYOUT_EXAMPLES) == set(SubstationLayout)
+
+
+def test_public_reference_design_factory_supports_outfeeds_and_coordinates():
+    from infrasys import Location
+
+    system = build_reference_design(
+        SubstationLayout.SINGLE_BUS,
+        name="configured-reference",
+        outfeed_count=2,
+        coordinate_provider=lambda index: Location(
+            x=-105.2 + index * 0.0001,
+            y=39.74,
+            crs="EPSG:4326",
+        ),
+    )
+
+    assert system.name == "configured-reference"
+    assert len(list(system.get_components(FeederBoundary))) == 2
+    assert all(bus.coordinate is not None for bus in system.get_components(BusbarSection))
+    assert "detailed_distribution" in list_reference_designs()
+
+
+@pytest.mark.parametrize("layout", SubstationLayout)
+def test_parameterized_layouts_include_station_equipment(layout):
+    system = build_reference_design(layout, outfeed_count=2)
+
+    assert len(list(system.get_components(FeederBoundary))) == 2
+    assert list(system.get_components(PowerTransformer))
+    assert len(list(system.get_components(ExternalCircuit))) == 2
 
 
 @pytest.mark.parametrize("layout", SubstationLayout)
@@ -45,50 +124,52 @@ def test_layout_cross_references_resolve(layout):
     system = build_layout_example(layout)
     names = {component.name for component in system.iter_all_components()}
 
+    for component, buses in _equipment_buses(system):
+        assert all(isinstance(bus, BusbarSection) for bus in buses)
+        for bus in buses:
+            assert bus.name in names
     for bay in system.get_components(Bay):
-        assert set(bay.equipment_ids) <= names
-        assert set(bay.terminal_ids) <= names
+        assert bay.voltage_level is None or bay.voltage_level.name in names
     for boundary in system.get_components(FeederBoundary):
-        assert boundary.bay_id in names
-        assert boundary.terminal_id in names
+        assert isinstance(boundary.bus, BusbarSection)
+        assert boundary.bay is None or boundary.bay.name in names
 
 
 def test_single_bus_has_one_bus_and_three_feeders():
     system = build_layout_example("single_bus")
 
-    assert len(list(system.get_components(BusbarSection))) == 1
-    assert len(list(system.get_components(CircuitBreaker))) == 3
+    assert len(_physical_buses(system)) == 1
+    assert sum(bus.name == "bus-a" for bus in _physical_buses(system)) == 1
+    assert (
+        sum(
+            breaker.name.startswith("feeder-") for breaker in system.get_components(CircuitBreaker)
+        )
+        == 3
+    )
     assert len(list(system.get_components(FeederBoundary))) == 3
-    assert len(list(system.get_components(Terminal))) == 6
 
 
 def test_sectionalized_single_bus_has_normally_open_tie():
     system = build_layout_example(SubstationLayout.SECTIONALIZED_SINGLE_BUS)
     breakers = {breaker.name: breaker for breaker in system.get_components(CircuitBreaker)}
 
-    assert len(list(system.get_components(BusbarSection))) == 2
+    assert len(_physical_buses(system)) == 2
     assert breakers["bus-tie-breaker"].state.value == "open"
     assert len(list(system.get_components(FeederBoundary))) == 4
 
 
 def test_ring_bus_forms_a_closed_cycle_of_bus_nodes():
     system = build_layout_example(SubstationLayout.RING_BUS)
-    ring_breakers = list(system.get_components(CircuitBreaker))
-    terminals = list(system.get_components(Terminal))
-    endpoints = {
-        frozenset(
-            terminal.connectivity_node_id
-            for terminal in terminals
-            if terminal.equipment_id == breaker.name
-        )
-        for breaker in ring_breakers
-    }
-    node_degrees = Counter(node for edge in endpoints for node in edge)
+    ring_breakers = [
+        breaker
+        for breaker in system.get_components(CircuitBreaker)
+        if breaker.name.startswith("ring-breaker")
+    ]
+    node_degrees = Counter(node.name for breaker in ring_breakers for node in breaker.buses)
 
-    assert len(list(system.get_components(BusbarSection))) == 4
+    assert len(_physical_buses(system)) == 4
     assert len(ring_breakers) == 4
     assert len(list(system.get_components(FeederBoundary))) == 4
-    assert len(endpoints) == 4
     assert set(node_degrees.values()) == {2}
 
 
@@ -97,7 +178,7 @@ def test_breaker_and_a_half_has_two_parallel_three_breaker_diameters():
     diameter_breakers = [
         breaker
         for breaker in system.get_components(CircuitBreaker)
-        if breaker.bay_id and breaker.bay_id.startswith("diameter-")
+        if breaker.bay and breaker.bay.name.startswith("diameter-")
     ]
 
     assert len(diameter_breakers) == 6
@@ -115,11 +196,12 @@ def test_hv_mv_example_has_buses_and_station_transformer_between_them():
         12.47,
         69,
     }
-    assert {
-        terminal.connectivity_node_id
-        for terminal in system.get_components(Terminal)
-        if terminal.equipment_id == transformer.name
-    } == {"hv-bus-node", "mv-bus-node"}
+    graph = system.get_undirected_graph()
+    import networkx as nx
+
+    path = nx.shortest_path(graph, "hv-bus", "mv-bus")
+    assert "transformer-1-hv-winding-node" in path
+    assert "transformer-1-lv-winding-node" in path
     assert len(list(system.get_components(FeederBoundary))) == 3
 
 
@@ -140,6 +222,38 @@ def test_hv_mv_example_links_to_real_distribution_feeder_system():
     assert len(distribution_system.to_gdf()) == 9
 
 
+def test_substation_combines_separate_feeder_systems_into_one_distribution_model():
+    substation_system, distribution_system = hv_mv_substation_with_distribution_feeders()
+    boundaries = list(substation_system.get_components(FeederBoundary))
+    for boundary in boundaries:
+        boundary.source_equivalent_id = f"{boundary.feeder_id}-source-bus"
+
+    feeder_systems = []
+    for boundary in boundaries:
+        feeder_system = DistributionSystem(
+            name=f"{boundary.feeder_id}-system",
+            auto_add_composed_components=True,
+        )
+        for component in distribution_system.iter_all_components():
+            feeder = getattr(component, "feeder", None)
+            if feeder is not None and feeder.name == boundary.feeder_id:
+                if not feeder_system.has_component(component):
+                    feeder_system.add_component(component)
+        feeder_systems.append(feeder_system)
+
+    complete_system = substation_system.to_distribution_system(feeder_systems)
+
+    assert isinstance(complete_system, DistributionSystem)
+    assert len(list(complete_system.get_components(PowerTransformer))) == 1
+    assert {feeder.name for feeder in complete_system.get_components(DistributionFeeder)} == {
+        boundary.feeder_id for boundary in boundaries
+    }
+    assert len(list(complete_system.get_components(DistributionVoltageSource))) == 1
+    assert len(complete_system.get_undirected_graph().nodes) > len(
+        substation_system.get_undirected_graph().nodes
+    )
+
+
 @pytest.mark.parametrize("layout", SubstationLayout)
 def test_layout_round_trips_with_stable_component_names(tmp_path, layout):
     system = build_layout_example(layout)
@@ -154,3 +268,47 @@ def test_layout_round_trips_with_stable_component_names(tmp_path, layout):
     assert {component.name for component in restored.iter_all_components()} == {
         component.name for component in system.iter_all_components()
     }
+
+
+@pytest.mark.parametrize("layout", SubstationLayout)
+def test_connectivity_graph_matches_bus_and_equipment_counts(layout):
+    system = build_layout_example(layout)
+    graph = system.get_undirected_graph()
+    physical_buses = _physical_buses(system)
+
+    assert set(graph.nodes()) == {bus.name for bus in system.get_components(BusbarSection)}
+    assert all(graph.nodes[bus.name]["is_busbar"] for bus in physical_buses)
+
+
+def test_sectionalized_tie_breaker_is_open_in_graph():
+    system = build_layout_example(SubstationLayout.SECTIONALIZED_SINGLE_BUS)
+    graph = system.get_undirected_graph()
+    tie = next(data for _, _, data in graph.edges(data=True) if data["name"] == "bus-tie-breaker")
+
+    assert tie["is_closed"] is False
+    assert tie["state"] == "open"
+
+
+def test_disconnectors_are_present_in_double_bus_layout():
+    system = build_layout_example(SubstationLayout.DOUBLE_BUS_SINGLE_BREAKER)
+
+    names = {disconnector.name for disconnector in system.get_components(Disconnector)}
+    assert {
+        "feeder-1-bus-a-disconnector",
+        "feeder-1-bus-b-disconnector",
+        "feeder-2-bus-a-disconnector",
+        "feeder-2-bus-b-disconnector",
+    }.issubset(names)
+
+
+def test_detailed_transformer_hv_path_reaches_the_winding():
+    system = build_detailed_distribution_substation()
+    graph = system.get_undirected_graph()
+
+    for number in (1, 2):
+        hv_node = f"transformer-{number}-hv-node"
+        winding_node = f"transformer-{number}-hv-winding-node"
+        edge = graph.get_edge_data(hv_node, winding_node)
+
+        assert edge is not None
+        assert next(iter(edge.values()))["name"] == f"transformer-{number}-hv-ct"

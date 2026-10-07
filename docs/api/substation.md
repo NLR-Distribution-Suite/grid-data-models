@@ -10,28 +10,100 @@ from gdm.systems.substation import (
 )
 ```
 
-`SubstationSystem` is the authoritative model for utility substation design and
-station data. It covers distribution substations, wind collector substations,
-solar collector substations, hybrid renewable substations, and colocated energy
-storage interfaces.
+`SubstationSystem` is the authoritative data model for utility station topology
+and station data. It covers distribution substations, wind collector
+substations, solar collector substations, hybrid renewable substations, and
+colocated energy storage interfaces.
+
+For the distinction between system models and guidance on choosing or joining
+them, start with the [System Models overview](../systems/index.md). This page
+documents the station model itself.
+
+## Quick Start
+
+Build a complete reusable example with the public substation namespace:
+
+```python
+from gdm.systems.substation import build_reference_design
+
+station = build_reference_design("detailed_distribution")
+```
+
+The result is a `SubstationSystem`, not a `DistributionSystem`. It includes the
+station's incoming circuits, transformers, feeder boundaries, protection,
+metering, and automation. Use the [reference-design gallery](../reference_designs/index.md)
+to choose a topology, or use `SubstationBuilder` when constructing a custom
+station.
 
 ## Ownership Boundary
 
 `DistributionSystem` owns feeder-level analysis: distribution buses, lines,
 loads, DER, feeder topology, and distribution time series. `SubstationSystem`
-owns station topology and design: substations, voltage levels, bays, terminals,
-connectivity nodes, primary equipment, protection, metering, station automation,
-SCADA mappings, and renewable plant interconnection profiles.
+owns station topology and design: substations, voltage levels, bays, busbar
+sections, primary equipment, protection, metering, station automation, SCADA
+mappings, and renewable plant interconnection profiles.
 
-The models use stable string IDs for cross-system references. A feeder boundary
-can reference a distribution model, station bay, station terminal, and an
-optional source equivalent without duplicating the physical station equipment.
+Station topology uses the same bus-branch design as `DistributionSystem`.
+Electrical nodes are `BusbarSection` instances, which subclass `DistributionBus`
+and use the inherited geographic `coordinate` for mapping. Installed equipment
+references the nodes it connects directly through typed `buses` (series) or
+`bus` (shunt) fields; there
+are no string terminal or connectivity-node IDs inside the station. Cross-system
+references (distribution feeder IDs, plant IDs, protocol addresses) remain
+strings.
+
+For an operational feeder model, `DistributionSystem` can replace one stored
+`DistributionTransformer` with a `SubstationSystem` via
+`replace_transformer_with_substation()`. The station system must expose exactly
+one `FeederBoundary` whose `feeder_id` matches the transformer's
+`DistributionFeeder.name`; it supplies the `PowerTransformer`, `BusbarSection`
+nodes, and two-terminal equipment such as breakers or disconnectors. The
+original transformer is removed, while its high-side voltage source and
+terminal buses remain in the distribution system. Breaker and disconnector
+state then participates in directed-topology reachability.
+
+`DistributionSystem.get_substation_feeder_subsystem()` returns a new
+distribution model containing only components whose `DistributionFeeder.name`
+matches a `FeederBoundary.feeder_id` in a supplied `SubstationSystem`. This
+supports selecting one or more station outfeeds without modifying the original
+distribution model.
+
+`SubstationSystem.to_distribution_system()` assembles a complete distribution
+model from the station topology and a list of single-feeder distribution models.
+Each `FeederBoundary.source_equivalent_id` identifies the feeder root bus by
+name. The root bus is merged into the boundary bus, feeder-local voltage sources
+are removed, and one source is created at the highest-voltage station
+transformer bus.
+
+`SubstationSystem.get_undirected_graph()` returns a NetworkX bus-branch graph
+whose nodes are busbar sections and whose edges are state-aware primary
+equipment, ready for SCADA binding.
+
+## Reference Designs
+
+`build_reference_design()` exposes reusable single-bus, sectionalized,
+main-and-transfer, double-bus, ring-bus, breaker-and-a-half,
+double-breaker/double-bus, and HV/MV layouts. The same API also exposes the
+`"detailed_distribution"` design, a complete 69/12.47 kV station with two
+infeeds, two transformers, four outfeeds, protection, metering, and station
+automation. Canonical layouts accept an `outfeed_count` and a
+`coordinate_provider`; callers can supply geographic `Location` values or a
+deterministic schematic placement.
+
+## Model Relationships
+
+The diagram separates system registration from the typed object references that
+carry facility structure and electrical connectivity. It presents the core
+models plus representative protection, metering, and automation links; the
+corresponding reference models are shown as a grouped boundary.
+
+![Substation model relationships](../models/substation-model-relationships.svg)
 
 ## Scope
 
 The current datamodels include:
 
-- station topology: substations, voltage levels, bays, busbar sections, terminals, connectivity nodes, and feeder boundaries;
+- station topology: substations, voltage levels, bays, busbar sections (nodes), feeder boundaries, and bus-branch primary equipment;
 - primary equipment: breakers, disconnectors, earthing switches, power transformers, instrument transformers, and surge arresters;
 - protection: IEDs, functions, schemes, setting groups, settings, and test records;
 - automation: IEDs, IEC 61850 logical nodes, SCL metadata, semantic signals, and DNP3/IEC 60870/IEC 61850 mappings;
@@ -43,22 +115,16 @@ SCL, relay-settings, SCADA, and study files are represented by metadata and
 hash/URI references only. File parsing and external utility integrations are
 outside the current scope.
 
-## Single-Line Examples
+## Plotting
 
-The executable fixtures in `tests/substation/textbook_examples.py` transcribe
-the following Desktop single-line diagrams into `SubstationSystem` objects:
-
-- `fig_25_4_bus_section_and_transfer_bus()`
-- `fig_25_5_11kv_400v_single_bus()`
-- `fig_25_6_33kv_sectionalized_bus()`
-- `fig_25_7_double_main_bus_with_spare_bus()`
-- `fig_25_8_11kv_400v_line_trap()`
-- `fig_25_9_66kv_through_bus()`
-- `fig_25_10_dual_66kv_11kv_bus_sections()`
-
-They model busbars, circuit breakers, disconnectors, grounding switches,
-current and voltage instrument transformers, surge arresters, line traps,
-incoming/outgoing circuits, and power transformers.
+- `SubstationSystem.to_gdf()` returns a combined GeoDataFrame containing point
+  records for positioned busbar sections and line records for connected primary
+  equipment. It can also export the table as CSV.
+- `SubstationSystem.to_geojson(path)` exports the same topology as GeoJSON.
+- `SubstationSystem.plot()` renders the GeoDataFrame as an interactive map. Its
+  node and edge color choices, map type, map style, legend control, zoom level,
+  and directory-based HTML export follow `DistributionSystem.plot()`; coordinate
+  flipping is not supported for substation maps.
 
 ## Standards Profiles
 

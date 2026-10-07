@@ -27,6 +27,7 @@ from gdm.systems.substation.components import (
     EarthingSwitch,
     PowerTransformer,
     PrimaryEquipmentComponent,
+    TwoTerminalEquipment,
 )
 from gdm.systems.substation.equipment import (
     InstrumentTransformer,
@@ -74,14 +75,21 @@ from gdm.systems.substation.renewable import (
 from gdm.systems.substation.topology import (
     Bay,
     BusbarSection,
-    ConnectivityNode,
     ExternalCircuit,
     FeederBoundary,
     Substation,
-    SubstationSystem,
-    Terminal,
-    TopologicalNode,
     VoltageLevel,
+)
+from gdm.systems.substation.substation_system import SubstationSystem
+from gdm.systems.substation.builder import SubstationBuilder
+from gdm.systems.substation.detailed_reference import build_detailed_distribution_substation
+from gdm.systems.substation.reference_designs import (
+    LAYOUT_EXAMPLES,
+    SubstationLayout,
+    build_reference_design,
+    build_layout_example,
+    build_parameterized_substation,
+    list_reference_designs,
 )
 
 __all__ = [
@@ -93,7 +101,6 @@ __all__ = [
     "CircuitBreaker",
     "CollectorFeeder",
     "ConfigurationBaseline",
-    "ConnectivityNode",
     "DocumentReference",
     "DocumentType",
     "Disconnector",
@@ -140,14 +147,21 @@ __all__ = [
     "StateObservation",
     "StorageUnit",
     "Substation",
+    "SubstationBuilder",
     "SubstationSystem",
+    "SubstationLayout",
     "SubstationType",
     "SurgeArrester",
-    "Terminal",
     "TerminalRole",
-    "TopologicalNode",
+    "TwoTerminalEquipment",
     "VoltageLevel",
     "WindPlant",
     "WindTurbine",
     "SolarPlant",
+    "LAYOUT_EXAMPLES",
+    "build_detailed_distribution_substation",
+    "build_layout_example",
+    "build_parameterized_substation",
+    "build_reference_design",
+    "list_reference_designs",
 ]

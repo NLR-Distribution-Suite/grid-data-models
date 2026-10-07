@@ -40,6 +40,7 @@ from gdm.systems.distribution.equipment.recloser_controller_equipment import (
 from gdm.systems.distribution.equipment.sequence_impedance_branch_equipment import (
     SequenceImpedanceBranchEquipment,
 )
+from gdm.systems.distribution.equipment.reactor_equipment import ReactorEquipment
 from gdm.systems.distribution.equipment.solar_equipment import SolarEquipment
 from gdm.systems.distribution.equipment.voltagesource_equipment import VoltageSourceEquipment
 from gdm.systems.distribution.equipment.phase_voltagesource_equipment import (

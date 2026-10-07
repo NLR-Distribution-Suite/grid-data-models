@@ -6,6 +6,13 @@
 
 GDM is a python package containing data models for power system assets and datasets. This package is actively being developed at [National Renewable Energy Laboratory (NREL)](https://www.nrel.gov/).
 
+GDM models distribution networks and utility substations as complementary
+systems. `DistributionSystem` represents feeder and network connectivity;
+`SubstationSystem` represents station topology, primary equipment, protection,
+metering, and automation. They can remain separate or be joined at explicit
+feeder boundaries. See the [system model guide](docs/systems/index.md) and the
+[guide to connecting systems](docs/systems/connecting-systems.md).
+
 ## Installation
 
 You can install the latest version of `grid-data-models` from PyPi.
