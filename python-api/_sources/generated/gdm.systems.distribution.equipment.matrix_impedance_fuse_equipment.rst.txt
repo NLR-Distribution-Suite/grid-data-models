@@ -1,0 +1,7 @@
+gdm.systems.distribution.equipment.matrix\_impedance\_fuse\_equipment module
+============================================================================
+
+.. automodule:: gdm.systems.distribution.equipment.matrix_impedance_fuse_equipment
+   :members:
+   :show-inheritance:
+   :undoc-members:

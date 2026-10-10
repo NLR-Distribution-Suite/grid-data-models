@@ -1,0 +1,7 @@
+gdm.systems.substation.renewable module
+=======================================
+
+.. automodule:: gdm.systems.substation.renewable
+   :members:
+   :show-inheritance:
+   :undoc-members:

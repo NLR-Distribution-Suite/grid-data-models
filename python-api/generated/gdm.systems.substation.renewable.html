@@ -1,0 +1,1257 @@
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>gdm.systems.substation.renewable module &#8212; Grid-Data-Models API</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=18bd87630a240e9c25be" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=18bd87630a240e9c25be" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/autodoc_pydantic.css" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../_static/scripts/fontawesome.js?digest=18bd87630a240e9c25be"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=18bd87630a240e9c25be" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=18bd87630a240e9c25be" />
+
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'generated/gdm.systems.substation.renewable';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="gdm.systems.substation.substation_system module" href="gdm.systems.substation.substation_system.html" />
+    <link rel="prev" title="gdm.systems.substation.reference_designs module" href="gdm.systems.substation.reference_designs.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="color-scheme" content="light dark"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  
+    
+    <script src="../_static/searchtools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button type="button" class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Grid-Data-Models API</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="modules.html">
+    gdm
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button type="button" class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button type="button" class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button type="button" class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="modules.html">
+    gdm
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item pst-sidebar-collapse"><button type="button" id="pst-collapse-sidebar-button" aria-expanded="true" aria-controls="pst-primary-sidebar">
+  <svg class="pst-icon" role="img" aria-hidden="true" focusable="false" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+    <path fill="currentColor" d="M3 15.5C2.36232 15.5 1.74874 15.2564 1.28478 14.8189C0.820828 14.3815 0.541576 13.7832 0.504167 13.1467L0.5 13L0.5 3C0.499965 2.36232 0.743605 1.74874 1.18107 1.28478C1.61854 0.820828 2.21676 0.541576 2.85333 0.504167L3 0.5L13 0.5C13.6377 0.499965 14.2513 0.743605 14.7152 1.18107C15.1792 1.61854 15.4584 2.21676 15.4958 2.85333L15.5 3L15.5 13C15.5 13.6377 15.2564 14.2513 14.8189 14.7152C14.3815 15.1792 13.7832 15.4584 13.1467 15.4958L13 15.5L3 15.5ZM3 13.8333L10.5 13.8333L10.5 2.16667L3 2.16667C2.79589 2.16669 2.59889 2.24163 2.44636 2.37726C2.29383 2.5129 2.19638 2.69979 2.1725 2.9025L2.16667 3L2.16667 13C2.16669 13.2041 2.24163 13.4011 2.37726 13.5536C2.5129 13.7062 2.69979 13.8036 2.9025 13.8275L3 13.8333ZM6.65583 10.325L6.5775 10.2558L4.91083 8.58917C4.76735 8.44567 4.68116 8.25476 4.66843 8.05223C4.65569 7.84971 4.71729 7.6495 4.84167 7.48917L4.91083 7.41083L6.5775 5.74417C6.72747 5.59471 6.9287 5.50794 7.14032 5.50148C7.35194 5.49502 7.55809 5.56935 7.7169 5.70937C7.8757 5.8494 7.97525 6.04463 7.99533 6.25539C8.01541 6.46616 7.95451 6.67667 7.825 6.84417L7.75583 6.9225L6.67917 8L7.75583 9.0775C7.89931 9.22099 7.98551 9.41191 7.99824 9.61443C8.01097 9.81695 7.94938 10.0172 7.825 10.1775L7.75583 10.2558C7.61234 10.3993 7.42142 10.4855 7.2189 10.4982C7.01638 10.511 6.81617 10.4494 6.65583 10.325Z"/>
+  </svg>
+  <span class="pst-collapse-sidebar-label">Collapse Sidebar</span>
+  <span class="pst-expand-sidebar-label">Expand Sidebar</span>
+</button></div>
+        <div class="sidebar-primary-item">
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="gdm.html">gdm package</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="gdm.distribution.html">gdm.distribution package</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="gdm.mcp.html">gdm.mcp package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="gdm.mcp.inspection.html">gdm.mcp.inspection package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="gdm.mcp.inspection.inspector.html">gdm.mcp.inspection.inspector module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.mcp.inspection.relationships.html">gdm.mcp.inspection.relationships module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.mcp.inspection.topology.html">gdm.mcp.inspection.topology module</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="gdm.mcp.knowledge.html">gdm.mcp.knowledge package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="gdm.mcp.knowledge.documentation.html">gdm.mcp.knowledge.documentation module</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="gdm.mcp.operations.html">gdm.mcp.operations package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="gdm.mcp.operations.merger.html">gdm.mcp.operations.merger module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.mcp.operations.splitter.html">gdm.mcp.operations.splitter module</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="gdm.mcp.utilities.html">gdm.mcp.utilities package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="gdm.mcp.utilities.subsystem.html">gdm.mcp.utilities.subsystem module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.mcp.utilities.timeseries.html">gdm.mcp.utilities.timeseries module</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="gdm.mcp.validation.html">gdm.mcp.validation package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="gdm.mcp.validation.auto_fixer.html">gdm.mcp.validation.auto_fixer module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.mcp.validation.diagnostics.html">gdm.mcp.validation.diagnostics module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.mcp.validation.suggestions.html">gdm.mcp.validation.suggestions module</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="gdm.mcp.exceptions.html">gdm.mcp.exceptions module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gdm.mcp.schemas.html">gdm.mcp.schemas module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gdm.mcp.server.html">gdm.mcp.server module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gdm.mcp.version.html">gdm.mcp.version module</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="gdm.systems.html">gdm.systems package</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l3 has-children"><a class="reference internal" href="gdm.systems.distribution.html">gdm.systems.distribution package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="gdm.systems.distribution.common.html">gdm.systems.distribution.common package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.systems.distribution.components.html">gdm.systems.distribution.components package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.systems.distribution.controllers.html">gdm.systems.distribution.controllers package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.systems.distribution.equipment.html">gdm.systems.distribution.equipment package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.systems.distribution.market.html">gdm.systems.distribution.market package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.systems.distribution.model_reduction.html">gdm.systems.distribution.model_reduction package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.systems.distribution.upgrade_handler.html">gdm.systems.distribution.upgrade_handler package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.systems.distribution.utils.html">gdm.systems.distribution.utils package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.systems.distribution.catalog_system.html">gdm.systems.distribution.catalog_system module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.systems.distribution.distribution_graph.html">gdm.systems.distribution.distribution_graph module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.systems.distribution.distribution_system.html">gdm.systems.distribution.distribution_system module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.systems.distribution.enums.html">gdm.systems.distribution.enums module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.systems.distribution.sys_functools.html">gdm.systems.distribution.sys_functools module</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 current active has-children"><a class="reference internal" href="gdm.systems.substation.html">gdm.systems.substation package</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="gdm.systems.substation.automation.html">gdm.systems.substation.automation module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.systems.substation.builder.html">gdm.systems.substation.builder module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.systems.substation.components.html">gdm.systems.substation.components module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.systems.substation.detailed_reference.html">gdm.systems.substation.detailed_reference module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.systems.substation.enums.html">gdm.systems.substation.enums module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.systems.substation.equipment.html">gdm.systems.substation.equipment module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.systems.substation.metering.html">gdm.systems.substation.metering module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.systems.substation.models.html">gdm.systems.substation.models module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.systems.substation.protection.html">gdm.systems.substation.protection module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.systems.substation.reference_designs.html">gdm.systems.substation.reference_designs module</a></li>
+<li class="toctree-l4 current active"><a aria-current="page" class="current reference internal" href="#">gdm.systems.substation.renewable module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.systems.substation.substation_system.html">gdm.systems.substation.substation_system module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.systems.substation.topology.html">gdm.systems.substation.topology module</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="gdm.constants.html">gdm.constants module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gdm.exceptions.html">gdm.exceptions module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gdm.hashing_utils.html">gdm.hashing_utils module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gdm.quantities.html">gdm.quantities module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gdm.tracked_changes.html">gdm.tracked_changes module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gdm.version.html">gdm.version module</a></li>
+</ul>
+</details></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="modules.html" class="nav-link">gdm</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="gdm.html" class="nav-link">gdm package</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="gdm.systems.html" class="nav-link">gdm.systems package</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="gdm.systems.substation.html" class="nav-link">gdm.systems.substation package</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">gdm.systems.substation.renewable module</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="module-gdm.systems.substation.renewable">
+<span id="gdm-systems-substation-renewable-module"></span><h1>gdm.systems.substation.renewable module<a class="headerlink" href="#module-gdm.systems.substation.renewable" title="Link to this heading">#</a></h1>
+<p>Renewable, storage, collector, and interconnection profiles.</p>
+<p>Plant-level identifiers (<code class="docutils literal notranslate"><span class="pre">plant_id</span></code>, <code class="docutils literal notranslate"><span class="pre">point_of_interconnection_id</span></code>) refer to
+objects outside the station system and remain strings. Station-owned objects
+such as bays and buses use real component references.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="gdm.systems.substation.renewable.InterconnectionProfile">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">gdm.systems.substation.renewable.</span></span><span class="sig-name descname"><span class="pre">InterconnectionProfile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uuid</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">UUID</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">profile_standard</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">profile_edition</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">point_of_interconnection_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nominal_voltage</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Voltage</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">voltage_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="gdm.systems.distribution.enums.html#gdm.systems.distribution.enums.VoltageTypes" title="gdm.systems.distribution.enums.VoltageTypes"><span class="pre">VoltageTypes</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">active_power_control</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reactive_power_control</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ride_through_profile_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">power_quality_profile_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_package_reference_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gdm.systems.substation.renewable.InterconnectionProfile" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Component</span></code></p>
+<p>Utility-facing performance profile at an interconnection point.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.systems.substation.renewable.InterconnectionProfile.profile_standard">
+<span class="sig-name descname"><span class="pre">profile_standard</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#gdm.systems.substation.renewable.InterconnectionProfile.profile_standard" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.systems.substation.renewable.InterconnectionProfile.profile_edition">
+<span class="sig-name descname"><span class="pre">profile_edition</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#gdm.systems.substation.renewable.InterconnectionProfile.profile_edition" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.systems.substation.renewable.InterconnectionProfile.point_of_interconnection_id">
+<span class="sig-name descname"><span class="pre">point_of_interconnection_id</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#gdm.systems.substation.renewable.InterconnectionProfile.point_of_interconnection_id" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.systems.substation.renewable.InterconnectionProfile.nominal_voltage">
+<span class="sig-name descname"><span class="pre">nominal_voltage</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Voltage</span></span><a class="headerlink" href="#gdm.systems.substation.renewable.InterconnectionProfile.nominal_voltage" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.systems.substation.renewable.InterconnectionProfile.voltage_type">
+<span class="sig-name descname"><span class="pre">voltage_type</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="gdm.systems.distribution.enums.html#gdm.systems.distribution.enums.VoltageTypes" title="gdm.systems.distribution.enums.VoltageTypes"><span class="pre">VoltageTypes</span></a></span><a class="headerlink" href="#gdm.systems.substation.renewable.InterconnectionProfile.voltage_type" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.systems.substation.renewable.InterconnectionProfile.active_power_control">
+<span class="sig-name descname"><span class="pre">active_power_control</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#gdm.systems.substation.renewable.InterconnectionProfile.active_power_control" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.systems.substation.renewable.InterconnectionProfile.reactive_power_control">
+<span class="sig-name descname"><span class="pre">reactive_power_control</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#gdm.systems.substation.renewable.InterconnectionProfile.reactive_power_control" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.systems.substation.renewable.InterconnectionProfile.ride_through_profile_id">
+<span class="sig-name descname"><span class="pre">ride_through_profile_id</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#gdm.systems.substation.renewable.InterconnectionProfile.ride_through_profile_id" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.systems.substation.renewable.InterconnectionProfile.power_quality_profile_id">
+<span class="sig-name descname"><span class="pre">power_quality_profile_id</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#gdm.systems.substation.renewable.InterconnectionProfile.power_quality_profile_id" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.systems.substation.renewable.InterconnectionProfile.model_package_reference_id">
+<span class="sig-name descname"><span class="pre">model_package_reference_id</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#gdm.systems.substation.renewable.InterconnectionProfile.model_package_reference_id" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gdm.systems.substation.renewable.InterconnectionProfile.example">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">example</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#gdm.systems.substation.renewable.InterconnectionProfile" title="gdm.systems.substation.renewable.InterconnectionProfile"><span class="pre">InterconnectionProfile</span></a></span></span><a class="headerlink" href="#gdm.systems.substation.renewable.InterconnectionProfile.example" title="Link to this definition">#</a></dt>
+<dd><p>Return an example instance of the model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>NotImplementedError</strong> – Raised if the model does not implement this method.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.systems.substation.renewable.InterconnectionProfile.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'arbitrary_types_allowed':</span> <span class="pre">True,</span> <span class="pre">'extra':</span> <span class="pre">'forbid',</span> <span class="pre">'populate_by_name':</span> <span class="pre">True,</span> <span class="pre">'str_strip_whitespace':</span> <span class="pre">True,</span> <span class="pre">'use_enum_values':</span> <span class="pre">False,</span> <span class="pre">'validate_assignment':</span> <span class="pre">True,</span> <span class="pre">'validate_default':</span> <span class="pre">True}</span></span><a class="headerlink" href="#gdm.systems.substation.renewable.InterconnectionProfile.model_config" title="Link to this definition">#</a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="gdm.systems.substation.renewable.PlantPowerController">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">gdm.systems.substation.renewable.</span></span><span class="sig-name descname"><span class="pre">PlantPowerController</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uuid</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">UUID</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plant_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">point_of_interconnection_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">control_modes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inverter_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">collector_feeder_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interconnection_profile_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gdm.systems.substation.renewable.PlantPowerController" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Component</span></code></p>
+<p>Plant-level controller for wind, solar, or hybrid IBR assets.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.systems.substation.renewable.PlantPowerController.plant_id">
+<span class="sig-name descname"><span class="pre">plant_id</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#gdm.systems.substation.renewable.PlantPowerController.plant_id" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.systems.substation.renewable.PlantPowerController.point_of_interconnection_id">
+<span class="sig-name descname"><span class="pre">point_of_interconnection_id</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#gdm.systems.substation.renewable.PlantPowerController.point_of_interconnection_id" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.systems.substation.renewable.PlantPowerController.control_modes">
+<span class="sig-name descname"><span class="pre">control_modes</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#gdm.systems.substation.renewable.PlantPowerController.control_modes" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.systems.substation.renewable.PlantPowerController.inverter_ids">
+<span class="sig-name descname"><span class="pre">inverter_ids</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#gdm.systems.substation.renewable.PlantPowerController.inverter_ids" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.systems.substation.renewable.PlantPowerController.collector_feeder_ids">
+<span class="sig-name descname"><span class="pre">collector_feeder_ids</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#gdm.systems.substation.renewable.PlantPowerController.collector_feeder_ids" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.systems.substation.renewable.PlantPowerController.interconnection_profile_id">
+<span class="sig-name descname"><span class="pre">interconnection_profile_id</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#gdm.systems.substation.renewable.PlantPowerController.interconnection_profile_id" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gdm.systems.substation.renewable.PlantPowerController.example">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">example</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#gdm.systems.substation.renewable.PlantPowerController" title="gdm.systems.substation.renewable.PlantPowerController"><span class="pre">PlantPowerController</span></a></span></span><a class="headerlink" href="#gdm.systems.substation.renewable.PlantPowerController.example" title="Link to this definition">#</a></dt>
+<dd><p>Return an example instance of the model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>NotImplementedError</strong> – Raised if the model does not implement this method.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.systems.substation.renewable.PlantPowerController.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'arbitrary_types_allowed':</span> <span class="pre">True,</span> <span class="pre">'extra':</span> <span class="pre">'forbid',</span> <span class="pre">'populate_by_name':</span> <span class="pre">True,</span> <span class="pre">'str_strip_whitespace':</span> <span class="pre">True,</span> <span class="pre">'use_enum_values':</span> <span class="pre">False,</span> <span class="pre">'validate_assignment':</span> <span class="pre">True,</span> <span class="pre">'validate_default':</span> <span class="pre">True}</span></span><a class="headerlink" href="#gdm.systems.substation.renewable.PlantPowerController.model_config" title="Link to this definition">#</a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="gdm.systems.substation.renewable.CollectorFeeder">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">gdm.systems.substation.renewable.</span></span><span class="sig-name descname"><span class="pre">CollectorFeeder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uuid</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">UUID</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plant_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">station_bay</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="gdm.systems.substation.topology.html#gdm.systems.substation.topology.Bay" title="gdm.systems.substation.topology.Bay"><span class="pre">Bay</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bus</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="gdm.systems.substation.topology.html#gdm.systems.substation.topology.BusbarSection" title="gdm.systems.substation.topology.BusbarSection"><span class="pre">BusbarSection</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">collector_voltage</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Voltage</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">collector_voltage_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="gdm.systems.distribution.enums.html#gdm.systems.distribution.enums.VoltageTypes" title="gdm.systems.distribution.enums.VoltageTypes"><span class="pre">VoltageTypes</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">generation_block_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gdm.systems.substation.renewable.CollectorFeeder" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Component</span></code></p>
+<p>MV collector feeder connecting a renewable plant block to the station.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.systems.substation.renewable.CollectorFeeder.plant_id">
+<span class="sig-name descname"><span class="pre">plant_id</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#gdm.systems.substation.renewable.CollectorFeeder.plant_id" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.systems.substation.renewable.CollectorFeeder.station_bay">
+<span class="sig-name descname"><span class="pre">station_bay</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="gdm.systems.substation.html#gdm.systems.substation.Bay" title="gdm.systems.substation.Bay"><span class="pre">Bay</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#gdm.systems.substation.renewable.CollectorFeeder.station_bay" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.systems.substation.renewable.CollectorFeeder.bus">
+<span class="sig-name descname"><span class="pre">bus</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="gdm.systems.substation.html#gdm.systems.substation.BusbarSection" title="gdm.systems.substation.BusbarSection"><span class="pre">BusbarSection</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#gdm.systems.substation.renewable.CollectorFeeder.bus" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.systems.substation.renewable.CollectorFeeder.collector_voltage">
+<span class="sig-name descname"><span class="pre">collector_voltage</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Voltage</span></span><a class="headerlink" href="#gdm.systems.substation.renewable.CollectorFeeder.collector_voltage" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.systems.substation.renewable.CollectorFeeder.collector_voltage_type">
+<span class="sig-name descname"><span class="pre">collector_voltage_type</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="gdm.systems.distribution.enums.html#gdm.systems.distribution.enums.VoltageTypes" title="gdm.systems.distribution.enums.VoltageTypes"><span class="pre">VoltageTypes</span></a></span><a class="headerlink" href="#gdm.systems.substation.renewable.CollectorFeeder.collector_voltage_type" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.systems.substation.renewable.CollectorFeeder.generation_block_ids">
+<span class="sig-name descname"><span class="pre">generation_block_ids</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#gdm.systems.substation.renewable.CollectorFeeder.generation_block_ids" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gdm.systems.substation.renewable.CollectorFeeder.example">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">example</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#gdm.systems.substation.renewable.CollectorFeeder" title="gdm.systems.substation.renewable.CollectorFeeder"><span class="pre">CollectorFeeder</span></a></span></span><a class="headerlink" href="#gdm.systems.substation.renewable.CollectorFeeder.example" title="Link to this definition">#</a></dt>
+<dd><p>Return an example instance of the model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>NotImplementedError</strong> – Raised if the model does not implement this method.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.systems.substation.renewable.CollectorFeeder.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'arbitrary_types_allowed':</span> <span class="pre">True,</span> <span class="pre">'extra':</span> <span class="pre">'forbid',</span> <span class="pre">'populate_by_name':</span> <span class="pre">True,</span> <span class="pre">'str_strip_whitespace':</span> <span class="pre">True,</span> <span class="pre">'use_enum_values':</span> <span class="pre">False,</span> <span class="pre">'validate_assignment':</span> <span class="pre">True,</span> <span class="pre">'validate_default':</span> <span class="pre">True}</span></span><a class="headerlink" href="#gdm.systems.substation.renewable.CollectorFeeder.model_config" title="Link to this definition">#</a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="gdm.systems.substation.renewable.InverterUnit">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">gdm.systems.substation.renewable.</span></span><span class="sig-name descname"><span class="pre">InverterUnit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uuid</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">UUID</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plant_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rated_apparent_power</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="gdm.quantities.html#gdm.quantities.ApparentPower" title="gdm.quantities.ApparentPower"><span class="pre">ApparentPower</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">ac_voltage</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Voltage</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">voltage_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="gdm.systems.distribution.enums.html#gdm.systems.distribution.enums.VoltageTypes" title="gdm.systems.distribution.enums.VoltageTypes"><span class="pre">VoltageTypes</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">controller_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interconnection_profile_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gdm.systems.substation.renewable.InverterUnit" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Component</span></code></p>
+<p>Power-electronic conversion unit associated with a plant block.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.systems.substation.renewable.InverterUnit.plant_id">
+<span class="sig-name descname"><span class="pre">plant_id</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#gdm.systems.substation.renewable.InverterUnit.plant_id" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.systems.substation.renewable.InverterUnit.rated_apparent_power">
+<span class="sig-name descname"><span class="pre">rated_apparent_power</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="gdm.quantities.html#gdm.quantities.ApparentPower" title="gdm.quantities.ApparentPower"><span class="pre">ApparentPower</span></a></span><a class="headerlink" href="#gdm.systems.substation.renewable.InverterUnit.rated_apparent_power" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.systems.substation.renewable.InverterUnit.ac_voltage">
+<span class="sig-name descname"><span class="pre">ac_voltage</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Voltage</span></span><a class="headerlink" href="#gdm.systems.substation.renewable.InverterUnit.ac_voltage" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.systems.substation.renewable.InverterUnit.voltage_type">
+<span class="sig-name descname"><span class="pre">voltage_type</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="gdm.systems.distribution.enums.html#gdm.systems.distribution.enums.VoltageTypes" title="gdm.systems.distribution.enums.VoltageTypes"><span class="pre">VoltageTypes</span></a></span><a class="headerlink" href="#gdm.systems.substation.renewable.InverterUnit.voltage_type" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.systems.substation.renewable.InverterUnit.controller_id">
+<span class="sig-name descname"><span class="pre">controller_id</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#gdm.systems.substation.renewable.InverterUnit.controller_id" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.systems.substation.renewable.InverterUnit.interconnection_profile_id">
+<span class="sig-name descname"><span class="pre">interconnection_profile_id</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#gdm.systems.substation.renewable.InverterUnit.interconnection_profile_id" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gdm.systems.substation.renewable.InverterUnit.example">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">example</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#gdm.systems.substation.renewable.InverterUnit" title="gdm.systems.substation.renewable.InverterUnit"><span class="pre">InverterUnit</span></a></span></span><a class="headerlink" href="#gdm.systems.substation.renewable.InverterUnit.example" title="Link to this definition">#</a></dt>
+<dd><p>Return an example instance of the model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>NotImplementedError</strong> – Raised if the model does not implement this method.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.systems.substation.renewable.InverterUnit.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'arbitrary_types_allowed':</span> <span class="pre">True,</span> <span class="pre">'extra':</span> <span class="pre">'forbid',</span> <span class="pre">'populate_by_name':</span> <span class="pre">True,</span> <span class="pre">'str_strip_whitespace':</span> <span class="pre">True,</span> <span class="pre">'use_enum_values':</span> <span class="pre">False,</span> <span class="pre">'validate_assignment':</span> <span class="pre">True,</span> <span class="pre">'validate_default':</span> <span class="pre">True}</span></span><a class="headerlink" href="#gdm.systems.substation.renewable.InverterUnit.model_config" title="Link to this definition">#</a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="gdm.systems.substation.renewable.PVBlock">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">gdm.systems.substation.renewable.</span></span><span class="sig-name descname"><span class="pre">PVBlock</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">*,</span> <span class="pre">uuid:</span> <span class="pre">~uuid.UUID</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;,</span> <span class="pre">name:</span> <span class="pre">str,</span> <span class="pre">plant_id:</span> <span class="pre">str,</span> <span class="pre">dc_capacity:</span> <span class="pre">~typing.Annotated[float,</span> <span class="pre">~annotated_types.Gt(gt=0)],</span> <span class="pre">dc_capacity_unit:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">'megawatt',</span> <span class="pre">inverter_ids:</span> <span class="pre">list[str]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;,</span> <span class="pre">collector_feeder_id:</span> <span class="pre">str</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#gdm.systems.substation.renewable.PVBlock" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Component</span></code></p>
+<p>Aggregated PV array and inverter block.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.systems.substation.renewable.PVBlock.plant_id">
+<span class="sig-name descname"><span class="pre">plant_id</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#gdm.systems.substation.renewable.PVBlock.plant_id" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.systems.substation.renewable.PVBlock.dc_capacity">
+<span class="sig-name descname"><span class="pre">dc_capacity</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></span><a class="headerlink" href="#gdm.systems.substation.renewable.PVBlock.dc_capacity" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.systems.substation.renewable.PVBlock.dc_capacity_unit">
+<span class="sig-name descname"><span class="pre">dc_capacity_unit</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#gdm.systems.substation.renewable.PVBlock.dc_capacity_unit" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.systems.substation.renewable.PVBlock.inverter_ids">
+<span class="sig-name descname"><span class="pre">inverter_ids</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#gdm.systems.substation.renewable.PVBlock.inverter_ids" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.systems.substation.renewable.PVBlock.collector_feeder_id">
+<span class="sig-name descname"><span class="pre">collector_feeder_id</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#gdm.systems.substation.renewable.PVBlock.collector_feeder_id" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gdm.systems.substation.renewable.PVBlock.example">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">example</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#gdm.systems.substation.renewable.PVBlock" title="gdm.systems.substation.renewable.PVBlock"><span class="pre">PVBlock</span></a></span></span><a class="headerlink" href="#gdm.systems.substation.renewable.PVBlock.example" title="Link to this definition">#</a></dt>
+<dd><p>Return an example instance of the model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>NotImplementedError</strong> – Raised if the model does not implement this method.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.systems.substation.renewable.PVBlock.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'arbitrary_types_allowed':</span> <span class="pre">True,</span> <span class="pre">'extra':</span> <span class="pre">'forbid',</span> <span class="pre">'populate_by_name':</span> <span class="pre">True,</span> <span class="pre">'str_strip_whitespace':</span> <span class="pre">True,</span> <span class="pre">'use_enum_values':</span> <span class="pre">False,</span> <span class="pre">'validate_assignment':</span> <span class="pre">True,</span> <span class="pre">'validate_default':</span> <span class="pre">True}</span></span><a class="headerlink" href="#gdm.systems.substation.renewable.PVBlock.model_config" title="Link to this definition">#</a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="gdm.systems.substation.renewable.WindTurbine">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">gdm.systems.substation.renewable.</span></span><span class="sig-name descname"><span class="pre">WindTurbine</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">*,</span> <span class="pre">uuid:</span> <span class="pre">~uuid.UUID</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;,</span> <span class="pre">name:</span> <span class="pre">str,</span> <span class="pre">plant_id:</span> <span class="pre">str,</span> <span class="pre">rated_active_power:</span> <span class="pre">~typing.Annotated[float,</span> <span class="pre">~annotated_types.Gt(gt=0)],</span> <span class="pre">rated_power_unit:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">'megawatt',</span> <span class="pre">inverter_id:</span> <span class="pre">str</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">collector_feeder_id:</span> <span class="pre">str</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">controller_id:</span> <span class="pre">str</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#gdm.systems.substation.renewable.WindTurbine" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Component</span></code></p>
+<p>Wind turbine interface used by a collector plant model.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.systems.substation.renewable.WindTurbine.plant_id">
+<span class="sig-name descname"><span class="pre">plant_id</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#gdm.systems.substation.renewable.WindTurbine.plant_id" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.systems.substation.renewable.WindTurbine.rated_active_power">
+<span class="sig-name descname"><span class="pre">rated_active_power</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></span><a class="headerlink" href="#gdm.systems.substation.renewable.WindTurbine.rated_active_power" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.systems.substation.renewable.WindTurbine.rated_power_unit">
+<span class="sig-name descname"><span class="pre">rated_power_unit</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#gdm.systems.substation.renewable.WindTurbine.rated_power_unit" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.systems.substation.renewable.WindTurbine.inverter_id">
+<span class="sig-name descname"><span class="pre">inverter_id</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#gdm.systems.substation.renewable.WindTurbine.inverter_id" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.systems.substation.renewable.WindTurbine.collector_feeder_id">
+<span class="sig-name descname"><span class="pre">collector_feeder_id</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#gdm.systems.substation.renewable.WindTurbine.collector_feeder_id" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.systems.substation.renewable.WindTurbine.controller_id">
+<span class="sig-name descname"><span class="pre">controller_id</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#gdm.systems.substation.renewable.WindTurbine.controller_id" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gdm.systems.substation.renewable.WindTurbine.example">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">example</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#gdm.systems.substation.renewable.WindTurbine" title="gdm.systems.substation.renewable.WindTurbine"><span class="pre">WindTurbine</span></a></span></span><a class="headerlink" href="#gdm.systems.substation.renewable.WindTurbine.example" title="Link to this definition">#</a></dt>
+<dd><p>Return an example instance of the model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>NotImplementedError</strong> – Raised if the model does not implement this method.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.systems.substation.renewable.WindTurbine.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'arbitrary_types_allowed':</span> <span class="pre">True,</span> <span class="pre">'extra':</span> <span class="pre">'forbid',</span> <span class="pre">'populate_by_name':</span> <span class="pre">True,</span> <span class="pre">'str_strip_whitespace':</span> <span class="pre">True,</span> <span class="pre">'use_enum_values':</span> <span class="pre">False,</span> <span class="pre">'validate_assignment':</span> <span class="pre">True,</span> <span class="pre">'validate_default':</span> <span class="pre">True}</span></span><a class="headerlink" href="#gdm.systems.substation.renewable.WindTurbine.model_config" title="Link to this definition">#</a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="gdm.systems.substation.renewable.WindPlant">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">gdm.systems.substation.renewable.</span></span><span class="sig-name descname"><span class="pre">WindPlant</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uuid</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">UUID</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plant_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">turbine_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">collector_feeder_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plant_controller_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gdm.systems.substation.renewable.WindPlant" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Component</span></code></p>
+<p>Aggregated wind plant interface to a collector substation.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.systems.substation.renewable.WindPlant.plant_id">
+<span class="sig-name descname"><span class="pre">plant_id</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#gdm.systems.substation.renewable.WindPlant.plant_id" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.systems.substation.renewable.WindPlant.turbine_ids">
+<span class="sig-name descname"><span class="pre">turbine_ids</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#gdm.systems.substation.renewable.WindPlant.turbine_ids" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.systems.substation.renewable.WindPlant.collector_feeder_ids">
+<span class="sig-name descname"><span class="pre">collector_feeder_ids</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#gdm.systems.substation.renewable.WindPlant.collector_feeder_ids" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.systems.substation.renewable.WindPlant.plant_controller_id">
+<span class="sig-name descname"><span class="pre">plant_controller_id</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#gdm.systems.substation.renewable.WindPlant.plant_controller_id" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gdm.systems.substation.renewable.WindPlant.example">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">example</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#gdm.systems.substation.renewable.WindPlant" title="gdm.systems.substation.renewable.WindPlant"><span class="pre">WindPlant</span></a></span></span><a class="headerlink" href="#gdm.systems.substation.renewable.WindPlant.example" title="Link to this definition">#</a></dt>
+<dd><p>Return an example instance of the model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>NotImplementedError</strong> – Raised if the model does not implement this method.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.systems.substation.renewable.WindPlant.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'arbitrary_types_allowed':</span> <span class="pre">True,</span> <span class="pre">'extra':</span> <span class="pre">'forbid',</span> <span class="pre">'populate_by_name':</span> <span class="pre">True,</span> <span class="pre">'str_strip_whitespace':</span> <span class="pre">True,</span> <span class="pre">'use_enum_values':</span> <span class="pre">False,</span> <span class="pre">'validate_assignment':</span> <span class="pre">True,</span> <span class="pre">'validate_default':</span> <span class="pre">True}</span></span><a class="headerlink" href="#gdm.systems.substation.renewable.WindPlant.model_config" title="Link to this definition">#</a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="gdm.systems.substation.renewable.SolarPlant">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">gdm.systems.substation.renewable.</span></span><span class="sig-name descname"><span class="pre">SolarPlant</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uuid</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">UUID</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plant_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pv_block_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">collector_feeder_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plant_controller_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gdm.systems.substation.renewable.SolarPlant" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Component</span></code></p>
+<p>Aggregated solar plant interface to a collector substation.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.systems.substation.renewable.SolarPlant.plant_id">
+<span class="sig-name descname"><span class="pre">plant_id</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#gdm.systems.substation.renewable.SolarPlant.plant_id" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.systems.substation.renewable.SolarPlant.pv_block_ids">
+<span class="sig-name descname"><span class="pre">pv_block_ids</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#gdm.systems.substation.renewable.SolarPlant.pv_block_ids" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.systems.substation.renewable.SolarPlant.collector_feeder_ids">
+<span class="sig-name descname"><span class="pre">collector_feeder_ids</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#gdm.systems.substation.renewable.SolarPlant.collector_feeder_ids" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.systems.substation.renewable.SolarPlant.plant_controller_id">
+<span class="sig-name descname"><span class="pre">plant_controller_id</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#gdm.systems.substation.renewable.SolarPlant.plant_controller_id" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gdm.systems.substation.renewable.SolarPlant.example">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">example</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#gdm.systems.substation.renewable.SolarPlant" title="gdm.systems.substation.renewable.SolarPlant"><span class="pre">SolarPlant</span></a></span></span><a class="headerlink" href="#gdm.systems.substation.renewable.SolarPlant.example" title="Link to this definition">#</a></dt>
+<dd><p>Return an example instance of the model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>NotImplementedError</strong> – Raised if the model does not implement this method.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.systems.substation.renewable.SolarPlant.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'arbitrary_types_allowed':</span> <span class="pre">True,</span> <span class="pre">'extra':</span> <span class="pre">'forbid',</span> <span class="pre">'populate_by_name':</span> <span class="pre">True,</span> <span class="pre">'str_strip_whitespace':</span> <span class="pre">True,</span> <span class="pre">'use_enum_values':</span> <span class="pre">False,</span> <span class="pre">'validate_assignment':</span> <span class="pre">True,</span> <span class="pre">'validate_default':</span> <span class="pre">True}</span></span><a class="headerlink" href="#gdm.systems.substation.renewable.SolarPlant.model_config" title="Link to this definition">#</a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="gdm.systems.substation.renewable.RenewablePlantInterface">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">gdm.systems.substation.renewable.</span></span><span class="sig-name descname"><span class="pre">RenewablePlantInterface</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uuid</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">UUID</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plant_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plant_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="gdm.systems.substation.enums.html#gdm.systems.substation.enums.SubstationType" title="gdm.systems.substation.enums.SubstationType"><span class="pre">SubstationType</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">rated_apparent_power</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="gdm.quantities.html#gdm.quantities.ApparentPower" title="gdm.quantities.ApparentPower"><span class="pre">ApparentPower</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">point_of_interconnection_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">collector_feeder_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plant_controller_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interconnection_profile_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">energy_storage_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gdm.systems.substation.renewable.RenewablePlantInterface" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Component</span></code></p>
+<p>Substation-facing reference to a renewable or storage plant.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.systems.substation.renewable.RenewablePlantInterface.plant_id">
+<span class="sig-name descname"><span class="pre">plant_id</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#gdm.systems.substation.renewable.RenewablePlantInterface.plant_id" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.systems.substation.renewable.RenewablePlantInterface.plant_type">
+<span class="sig-name descname"><span class="pre">plant_type</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="gdm.systems.substation.html#gdm.systems.substation.SubstationType" title="gdm.systems.substation.SubstationType"><span class="pre">SubstationType</span></a></span><a class="headerlink" href="#gdm.systems.substation.renewable.RenewablePlantInterface.plant_type" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.systems.substation.renewable.RenewablePlantInterface.rated_apparent_power">
+<span class="sig-name descname"><span class="pre">rated_apparent_power</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="gdm.quantities.html#gdm.quantities.ApparentPower" title="gdm.quantities.ApparentPower"><span class="pre">ApparentPower</span></a></span><a class="headerlink" href="#gdm.systems.substation.renewable.RenewablePlantInterface.rated_apparent_power" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.systems.substation.renewable.RenewablePlantInterface.point_of_interconnection_id">
+<span class="sig-name descname"><span class="pre">point_of_interconnection_id</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#gdm.systems.substation.renewable.RenewablePlantInterface.point_of_interconnection_id" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.systems.substation.renewable.RenewablePlantInterface.collector_feeder_ids">
+<span class="sig-name descname"><span class="pre">collector_feeder_ids</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#gdm.systems.substation.renewable.RenewablePlantInterface.collector_feeder_ids" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.systems.substation.renewable.RenewablePlantInterface.plant_controller_id">
+<span class="sig-name descname"><span class="pre">plant_controller_id</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#gdm.systems.substation.renewable.RenewablePlantInterface.plant_controller_id" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.systems.substation.renewable.RenewablePlantInterface.interconnection_profile_id">
+<span class="sig-name descname"><span class="pre">interconnection_profile_id</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#gdm.systems.substation.renewable.RenewablePlantInterface.interconnection_profile_id" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.systems.substation.renewable.RenewablePlantInterface.energy_storage_ids">
+<span class="sig-name descname"><span class="pre">energy_storage_ids</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#gdm.systems.substation.renewable.RenewablePlantInterface.energy_storage_ids" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gdm.systems.substation.renewable.RenewablePlantInterface.example">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">example</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#gdm.systems.substation.renewable.RenewablePlantInterface" title="gdm.systems.substation.renewable.RenewablePlantInterface"><span class="pre">RenewablePlantInterface</span></a></span></span><a class="headerlink" href="#gdm.systems.substation.renewable.RenewablePlantInterface.example" title="Link to this definition">#</a></dt>
+<dd><p>Return an example instance of the model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>NotImplementedError</strong> – Raised if the model does not implement this method.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.systems.substation.renewable.RenewablePlantInterface.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'arbitrary_types_allowed':</span> <span class="pre">True,</span> <span class="pre">'extra':</span> <span class="pre">'forbid',</span> <span class="pre">'populate_by_name':</span> <span class="pre">True,</span> <span class="pre">'str_strip_whitespace':</span> <span class="pre">True,</span> <span class="pre">'use_enum_values':</span> <span class="pre">False,</span> <span class="pre">'validate_assignment':</span> <span class="pre">True,</span> <span class="pre">'validate_default':</span> <span class="pre">True}</span></span><a class="headerlink" href="#gdm.systems.substation.renewable.RenewablePlantInterface.model_config" title="Link to this definition">#</a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="gdm.systems.substation.renewable.EnergyStorageInterface">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">gdm.systems.substation.renewable.</span></span><span class="sig-name descname"><span class="pre">EnergyStorageInterface</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">*,</span> <span class="pre">uuid:</span> <span class="pre">~uuid.UUID</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;,</span> <span class="pre">name:</span> <span class="pre">str,</span> <span class="pre">plant_id:</span> <span class="pre">str,</span> <span class="pre">point_of_interconnection_id:</span> <span class="pre">str,</span> <span class="pre">rated_apparent_power:</span> <span class="pre">~gdm.quantities.ApparentPower,</span> <span class="pre">energy_capacity:</span> <span class="pre">~typing.Annotated[float,</span> <span class="pre">~annotated_types.Gt(gt=0)],</span> <span class="pre">energy_capacity_unit:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">'megawatt_hour',</span> <span class="pre">inverter_ids:</span> <span class="pre">list[str]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;,</span> <span class="pre">fire_safety_profile_id:</span> <span class="pre">str</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#gdm.systems.substation.renewable.EnergyStorageInterface" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Component</span></code></p>
+<p>Substation-facing interface for a colocated energy-storage plant.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.systems.substation.renewable.EnergyStorageInterface.plant_id">
+<span class="sig-name descname"><span class="pre">plant_id</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#gdm.systems.substation.renewable.EnergyStorageInterface.plant_id" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.systems.substation.renewable.EnergyStorageInterface.point_of_interconnection_id">
+<span class="sig-name descname"><span class="pre">point_of_interconnection_id</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#gdm.systems.substation.renewable.EnergyStorageInterface.point_of_interconnection_id" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.systems.substation.renewable.EnergyStorageInterface.rated_apparent_power">
+<span class="sig-name descname"><span class="pre">rated_apparent_power</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="gdm.quantities.html#gdm.quantities.ApparentPower" title="gdm.quantities.ApparentPower"><span class="pre">ApparentPower</span></a></span><a class="headerlink" href="#gdm.systems.substation.renewable.EnergyStorageInterface.rated_apparent_power" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.systems.substation.renewable.EnergyStorageInterface.energy_capacity">
+<span class="sig-name descname"><span class="pre">energy_capacity</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></span><a class="headerlink" href="#gdm.systems.substation.renewable.EnergyStorageInterface.energy_capacity" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.systems.substation.renewable.EnergyStorageInterface.energy_capacity_unit">
+<span class="sig-name descname"><span class="pre">energy_capacity_unit</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#gdm.systems.substation.renewable.EnergyStorageInterface.energy_capacity_unit" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.systems.substation.renewable.EnergyStorageInterface.inverter_ids">
+<span class="sig-name descname"><span class="pre">inverter_ids</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#gdm.systems.substation.renewable.EnergyStorageInterface.inverter_ids" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.systems.substation.renewable.EnergyStorageInterface.fire_safety_profile_id">
+<span class="sig-name descname"><span class="pre">fire_safety_profile_id</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#gdm.systems.substation.renewable.EnergyStorageInterface.fire_safety_profile_id" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gdm.systems.substation.renewable.EnergyStorageInterface.example">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">example</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#gdm.systems.substation.renewable.EnergyStorageInterface" title="gdm.systems.substation.renewable.EnergyStorageInterface"><span class="pre">EnergyStorageInterface</span></a></span></span><a class="headerlink" href="#gdm.systems.substation.renewable.EnergyStorageInterface.example" title="Link to this definition">#</a></dt>
+<dd><p>Return an example instance of the model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>NotImplementedError</strong> – Raised if the model does not implement this method.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.systems.substation.renewable.EnergyStorageInterface.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'arbitrary_types_allowed':</span> <span class="pre">True,</span> <span class="pre">'extra':</span> <span class="pre">'forbid',</span> <span class="pre">'populate_by_name':</span> <span class="pre">True,</span> <span class="pre">'str_strip_whitespace':</span> <span class="pre">True,</span> <span class="pre">'use_enum_values':</span> <span class="pre">False,</span> <span class="pre">'validate_assignment':</span> <span class="pre">True,</span> <span class="pre">'validate_default':</span> <span class="pre">True}</span></span><a class="headerlink" href="#gdm.systems.substation.renewable.EnergyStorageInterface.model_config" title="Link to this definition">#</a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="gdm.systems.substation.renewable.StorageUnit">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">gdm.systems.substation.renewable.</span></span><span class="sig-name descname"><span class="pre">StorageUnit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">*,</span> <span class="pre">uuid:</span> <span class="pre">~uuid.UUID</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;,</span> <span class="pre">name:</span> <span class="pre">str,</span> <span class="pre">plant_id:</span> <span class="pre">str,</span> <span class="pre">rated_apparent_power:</span> <span class="pre">~gdm.quantities.ApparentPower,</span> <span class="pre">energy_capacity:</span> <span class="pre">~typing.Annotated[float,</span> <span class="pre">~annotated_types.Gt(gt=0)],</span> <span class="pre">energy_capacity_unit:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">'megawatt_hour',</span> <span class="pre">inverter_id:</span> <span class="pre">str</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">controller_id:</span> <span class="pre">str</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#gdm.systems.substation.renewable.StorageUnit" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Component</span></code></p>
+<p>Battery or other storage unit behind a plant interface.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.systems.substation.renewable.StorageUnit.plant_id">
+<span class="sig-name descname"><span class="pre">plant_id</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#gdm.systems.substation.renewable.StorageUnit.plant_id" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.systems.substation.renewable.StorageUnit.rated_apparent_power">
+<span class="sig-name descname"><span class="pre">rated_apparent_power</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="gdm.quantities.html#gdm.quantities.ApparentPower" title="gdm.quantities.ApparentPower"><span class="pre">ApparentPower</span></a></span><a class="headerlink" href="#gdm.systems.substation.renewable.StorageUnit.rated_apparent_power" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.systems.substation.renewable.StorageUnit.energy_capacity">
+<span class="sig-name descname"><span class="pre">energy_capacity</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></span><a class="headerlink" href="#gdm.systems.substation.renewable.StorageUnit.energy_capacity" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.systems.substation.renewable.StorageUnit.energy_capacity_unit">
+<span class="sig-name descname"><span class="pre">energy_capacity_unit</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#gdm.systems.substation.renewable.StorageUnit.energy_capacity_unit" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.systems.substation.renewable.StorageUnit.inverter_id">
+<span class="sig-name descname"><span class="pre">inverter_id</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#gdm.systems.substation.renewable.StorageUnit.inverter_id" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.systems.substation.renewable.StorageUnit.controller_id">
+<span class="sig-name descname"><span class="pre">controller_id</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#gdm.systems.substation.renewable.StorageUnit.controller_id" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gdm.systems.substation.renewable.StorageUnit.example">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">example</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#gdm.systems.substation.renewable.StorageUnit" title="gdm.systems.substation.renewable.StorageUnit"><span class="pre">StorageUnit</span></a></span></span><a class="headerlink" href="#gdm.systems.substation.renewable.StorageUnit.example" title="Link to this definition">#</a></dt>
+<dd><p>Return an example instance of the model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>NotImplementedError</strong> – Raised if the model does not implement this method.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gdm.systems.substation.renewable.StorageUnit.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'arbitrary_types_allowed':</span> <span class="pre">True,</span> <span class="pre">'extra':</span> <span class="pre">'forbid',</span> <span class="pre">'populate_by_name':</span> <span class="pre">True,</span> <span class="pre">'str_strip_whitespace':</span> <span class="pre">True,</span> <span class="pre">'use_enum_values':</span> <span class="pre">False,</span> <span class="pre">'validate_assignment':</span> <span class="pre">True,</span> <span class="pre">'validate_default':</span> <span class="pre">True}</span></span><a class="headerlink" href="#gdm.systems.substation.renewable.StorageUnit.model_config" title="Link to this definition">#</a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="gdm.systems.substation.reference_designs.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">gdm.systems.substation.reference_designs module</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="gdm.systems.substation.substation_system.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">gdm.systems.substation.substation_system module</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.renewable.InterconnectionProfile"><code class="docutils literal notranslate"><span class="pre">InterconnectionProfile</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.renewable.InterconnectionProfile.profile_standard"><code class="docutils literal notranslate"><span class="pre">InterconnectionProfile.profile_standard</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.renewable.InterconnectionProfile.profile_edition"><code class="docutils literal notranslate"><span class="pre">InterconnectionProfile.profile_edition</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.renewable.InterconnectionProfile.point_of_interconnection_id"><code class="docutils literal notranslate"><span class="pre">InterconnectionProfile.point_of_interconnection_id</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.renewable.InterconnectionProfile.nominal_voltage"><code class="docutils literal notranslate"><span class="pre">InterconnectionProfile.nominal_voltage</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.renewable.InterconnectionProfile.voltage_type"><code class="docutils literal notranslate"><span class="pre">InterconnectionProfile.voltage_type</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.renewable.InterconnectionProfile.active_power_control"><code class="docutils literal notranslate"><span class="pre">InterconnectionProfile.active_power_control</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.renewable.InterconnectionProfile.reactive_power_control"><code class="docutils literal notranslate"><span class="pre">InterconnectionProfile.reactive_power_control</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.renewable.InterconnectionProfile.ride_through_profile_id"><code class="docutils literal notranslate"><span class="pre">InterconnectionProfile.ride_through_profile_id</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.renewable.InterconnectionProfile.power_quality_profile_id"><code class="docutils literal notranslate"><span class="pre">InterconnectionProfile.power_quality_profile_id</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.renewable.InterconnectionProfile.model_package_reference_id"><code class="docutils literal notranslate"><span class="pre">InterconnectionProfile.model_package_reference_id</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.renewable.InterconnectionProfile.example"><code class="docutils literal notranslate"><span class="pre">InterconnectionProfile.example()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.renewable.InterconnectionProfile.model_config"><code class="docutils literal notranslate"><span class="pre">InterconnectionProfile.model_config</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.renewable.PlantPowerController"><code class="docutils literal notranslate"><span class="pre">PlantPowerController</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.renewable.PlantPowerController.plant_id"><code class="docutils literal notranslate"><span class="pre">PlantPowerController.plant_id</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.renewable.PlantPowerController.point_of_interconnection_id"><code class="docutils literal notranslate"><span class="pre">PlantPowerController.point_of_interconnection_id</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.renewable.PlantPowerController.control_modes"><code class="docutils literal notranslate"><span class="pre">PlantPowerController.control_modes</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.renewable.PlantPowerController.inverter_ids"><code class="docutils literal notranslate"><span class="pre">PlantPowerController.inverter_ids</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.renewable.PlantPowerController.collector_feeder_ids"><code class="docutils literal notranslate"><span class="pre">PlantPowerController.collector_feeder_ids</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.renewable.PlantPowerController.interconnection_profile_id"><code class="docutils literal notranslate"><span class="pre">PlantPowerController.interconnection_profile_id</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.renewable.PlantPowerController.example"><code class="docutils literal notranslate"><span class="pre">PlantPowerController.example()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.renewable.PlantPowerController.model_config"><code class="docutils literal notranslate"><span class="pre">PlantPowerController.model_config</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.renewable.CollectorFeeder"><code class="docutils literal notranslate"><span class="pre">CollectorFeeder</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.renewable.CollectorFeeder.plant_id"><code class="docutils literal notranslate"><span class="pre">CollectorFeeder.plant_id</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.renewable.CollectorFeeder.station_bay"><code class="docutils literal notranslate"><span class="pre">CollectorFeeder.station_bay</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.renewable.CollectorFeeder.bus"><code class="docutils literal notranslate"><span class="pre">CollectorFeeder.bus</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.renewable.CollectorFeeder.collector_voltage"><code class="docutils literal notranslate"><span class="pre">CollectorFeeder.collector_voltage</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.renewable.CollectorFeeder.collector_voltage_type"><code class="docutils literal notranslate"><span class="pre">CollectorFeeder.collector_voltage_type</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.renewable.CollectorFeeder.generation_block_ids"><code class="docutils literal notranslate"><span class="pre">CollectorFeeder.generation_block_ids</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.renewable.CollectorFeeder.example"><code class="docutils literal notranslate"><span class="pre">CollectorFeeder.example()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.renewable.CollectorFeeder.model_config"><code class="docutils literal notranslate"><span class="pre">CollectorFeeder.model_config</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.renewable.InverterUnit"><code class="docutils literal notranslate"><span class="pre">InverterUnit</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.renewable.InverterUnit.plant_id"><code class="docutils literal notranslate"><span class="pre">InverterUnit.plant_id</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.renewable.InverterUnit.rated_apparent_power"><code class="docutils literal notranslate"><span class="pre">InverterUnit.rated_apparent_power</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.renewable.InverterUnit.ac_voltage"><code class="docutils literal notranslate"><span class="pre">InverterUnit.ac_voltage</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.renewable.InverterUnit.voltage_type"><code class="docutils literal notranslate"><span class="pre">InverterUnit.voltage_type</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.renewable.InverterUnit.controller_id"><code class="docutils literal notranslate"><span class="pre">InverterUnit.controller_id</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.renewable.InverterUnit.interconnection_profile_id"><code class="docutils literal notranslate"><span class="pre">InverterUnit.interconnection_profile_id</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.renewable.InverterUnit.example"><code class="docutils literal notranslate"><span class="pre">InverterUnit.example()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.renewable.InverterUnit.model_config"><code class="docutils literal notranslate"><span class="pre">InverterUnit.model_config</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.renewable.PVBlock"><code class="docutils literal notranslate"><span class="pre">PVBlock</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.renewable.PVBlock.plant_id"><code class="docutils literal notranslate"><span class="pre">PVBlock.plant_id</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.renewable.PVBlock.dc_capacity"><code class="docutils literal notranslate"><span class="pre">PVBlock.dc_capacity</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.renewable.PVBlock.dc_capacity_unit"><code class="docutils literal notranslate"><span class="pre">PVBlock.dc_capacity_unit</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.renewable.PVBlock.inverter_ids"><code class="docutils literal notranslate"><span class="pre">PVBlock.inverter_ids</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.renewable.PVBlock.collector_feeder_id"><code class="docutils literal notranslate"><span class="pre">PVBlock.collector_feeder_id</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.renewable.PVBlock.example"><code class="docutils literal notranslate"><span class="pre">PVBlock.example()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.renewable.PVBlock.model_config"><code class="docutils literal notranslate"><span class="pre">PVBlock.model_config</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.renewable.WindTurbine"><code class="docutils literal notranslate"><span class="pre">WindTurbine</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.renewable.WindTurbine.plant_id"><code class="docutils literal notranslate"><span class="pre">WindTurbine.plant_id</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.renewable.WindTurbine.rated_active_power"><code class="docutils literal notranslate"><span class="pre">WindTurbine.rated_active_power</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.renewable.WindTurbine.rated_power_unit"><code class="docutils literal notranslate"><span class="pre">WindTurbine.rated_power_unit</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.renewable.WindTurbine.inverter_id"><code class="docutils literal notranslate"><span class="pre">WindTurbine.inverter_id</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.renewable.WindTurbine.collector_feeder_id"><code class="docutils literal notranslate"><span class="pre">WindTurbine.collector_feeder_id</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.renewable.WindTurbine.controller_id"><code class="docutils literal notranslate"><span class="pre">WindTurbine.controller_id</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.renewable.WindTurbine.example"><code class="docutils literal notranslate"><span class="pre">WindTurbine.example()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.renewable.WindTurbine.model_config"><code class="docutils literal notranslate"><span class="pre">WindTurbine.model_config</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.renewable.WindPlant"><code class="docutils literal notranslate"><span class="pre">WindPlant</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.renewable.WindPlant.plant_id"><code class="docutils literal notranslate"><span class="pre">WindPlant.plant_id</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.renewable.WindPlant.turbine_ids"><code class="docutils literal notranslate"><span class="pre">WindPlant.turbine_ids</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.renewable.WindPlant.collector_feeder_ids"><code class="docutils literal notranslate"><span class="pre">WindPlant.collector_feeder_ids</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.renewable.WindPlant.plant_controller_id"><code class="docutils literal notranslate"><span class="pre">WindPlant.plant_controller_id</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.renewable.WindPlant.example"><code class="docutils literal notranslate"><span class="pre">WindPlant.example()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.renewable.WindPlant.model_config"><code class="docutils literal notranslate"><span class="pre">WindPlant.model_config</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.renewable.SolarPlant"><code class="docutils literal notranslate"><span class="pre">SolarPlant</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.renewable.SolarPlant.plant_id"><code class="docutils literal notranslate"><span class="pre">SolarPlant.plant_id</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.renewable.SolarPlant.pv_block_ids"><code class="docutils literal notranslate"><span class="pre">SolarPlant.pv_block_ids</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.renewable.SolarPlant.collector_feeder_ids"><code class="docutils literal notranslate"><span class="pre">SolarPlant.collector_feeder_ids</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.renewable.SolarPlant.plant_controller_id"><code class="docutils literal notranslate"><span class="pre">SolarPlant.plant_controller_id</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.renewable.SolarPlant.example"><code class="docutils literal notranslate"><span class="pre">SolarPlant.example()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.renewable.SolarPlant.model_config"><code class="docutils literal notranslate"><span class="pre">SolarPlant.model_config</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.renewable.RenewablePlantInterface"><code class="docutils literal notranslate"><span class="pre">RenewablePlantInterface</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.renewable.RenewablePlantInterface.plant_id"><code class="docutils literal notranslate"><span class="pre">RenewablePlantInterface.plant_id</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.renewable.RenewablePlantInterface.plant_type"><code class="docutils literal notranslate"><span class="pre">RenewablePlantInterface.plant_type</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.renewable.RenewablePlantInterface.rated_apparent_power"><code class="docutils literal notranslate"><span class="pre">RenewablePlantInterface.rated_apparent_power</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.renewable.RenewablePlantInterface.point_of_interconnection_id"><code class="docutils literal notranslate"><span class="pre">RenewablePlantInterface.point_of_interconnection_id</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.renewable.RenewablePlantInterface.collector_feeder_ids"><code class="docutils literal notranslate"><span class="pre">RenewablePlantInterface.collector_feeder_ids</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.renewable.RenewablePlantInterface.plant_controller_id"><code class="docutils literal notranslate"><span class="pre">RenewablePlantInterface.plant_controller_id</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.renewable.RenewablePlantInterface.interconnection_profile_id"><code class="docutils literal notranslate"><span class="pre">RenewablePlantInterface.interconnection_profile_id</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.renewable.RenewablePlantInterface.energy_storage_ids"><code class="docutils literal notranslate"><span class="pre">RenewablePlantInterface.energy_storage_ids</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.renewable.RenewablePlantInterface.example"><code class="docutils literal notranslate"><span class="pre">RenewablePlantInterface.example()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.renewable.RenewablePlantInterface.model_config"><code class="docutils literal notranslate"><span class="pre">RenewablePlantInterface.model_config</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.renewable.EnergyStorageInterface"><code class="docutils literal notranslate"><span class="pre">EnergyStorageInterface</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.renewable.EnergyStorageInterface.plant_id"><code class="docutils literal notranslate"><span class="pre">EnergyStorageInterface.plant_id</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.renewable.EnergyStorageInterface.point_of_interconnection_id"><code class="docutils literal notranslate"><span class="pre">EnergyStorageInterface.point_of_interconnection_id</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.renewable.EnergyStorageInterface.rated_apparent_power"><code class="docutils literal notranslate"><span class="pre">EnergyStorageInterface.rated_apparent_power</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.renewable.EnergyStorageInterface.energy_capacity"><code class="docutils literal notranslate"><span class="pre">EnergyStorageInterface.energy_capacity</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.renewable.EnergyStorageInterface.energy_capacity_unit"><code class="docutils literal notranslate"><span class="pre">EnergyStorageInterface.energy_capacity_unit</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.renewable.EnergyStorageInterface.inverter_ids"><code class="docutils literal notranslate"><span class="pre">EnergyStorageInterface.inverter_ids</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.renewable.EnergyStorageInterface.fire_safety_profile_id"><code class="docutils literal notranslate"><span class="pre">EnergyStorageInterface.fire_safety_profile_id</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.renewable.EnergyStorageInterface.example"><code class="docutils literal notranslate"><span class="pre">EnergyStorageInterface.example()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.renewable.EnergyStorageInterface.model_config"><code class="docutils literal notranslate"><span class="pre">EnergyStorageInterface.model_config</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.renewable.StorageUnit"><code class="docutils literal notranslate"><span class="pre">StorageUnit</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.renewable.StorageUnit.plant_id"><code class="docutils literal notranslate"><span class="pre">StorageUnit.plant_id</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.renewable.StorageUnit.rated_apparent_power"><code class="docutils literal notranslate"><span class="pre">StorageUnit.rated_apparent_power</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.renewable.StorageUnit.energy_capacity"><code class="docutils literal notranslate"><span class="pre">StorageUnit.energy_capacity</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.renewable.StorageUnit.energy_capacity_unit"><code class="docutils literal notranslate"><span class="pre">StorageUnit.energy_capacity_unit</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.renewable.StorageUnit.inverter_id"><code class="docutils literal notranslate"><span class="pre">StorageUnit.inverter_id</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.renewable.StorageUnit.controller_id"><code class="docutils literal notranslate"><span class="pre">StorageUnit.controller_id</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.renewable.StorageUnit.example"><code class="docutils literal notranslate"><span class="pre">StorageUnit.example()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.renewable.StorageUnit.model_config"><code class="docutils literal notranslate"><span class="pre">StorageUnit.model_config</span></code></a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+
+  <div class="tocsection sourcelink">
+    <a href="../_sources/generated/gdm.systems.substation.renewable.rst.txt">
+      <i class="fa-solid fa-file-lines"></i> Show Source
+    </a>
+  </div>
+</div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=18bd87630a240e9c25be"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=18bd87630a240e9c25be"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.23.0.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,7 @@
+gdm.systems.substation.enums module
+===================================
+
+.. automodule:: gdm.systems.substation.enums
+   :members:
+   :show-inheritance:
+   :undoc-members:

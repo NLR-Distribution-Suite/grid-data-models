@@ -1,0 +1,7 @@
+gdm.systems.distribution.distribution\_graph module
+===================================================
+
+.. automodule:: gdm.systems.distribution.distribution_graph
+   :members:
+   :show-inheritance:
+   :undoc-members:

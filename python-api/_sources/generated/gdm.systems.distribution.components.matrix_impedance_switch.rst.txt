@@ -1,0 +1,7 @@
+gdm.systems.distribution.components.matrix\_impedance\_switch module
+====================================================================
+
+.. automodule:: gdm.systems.distribution.components.matrix_impedance_switch
+   :members:
+   :show-inheritance:
+   :undoc-members:

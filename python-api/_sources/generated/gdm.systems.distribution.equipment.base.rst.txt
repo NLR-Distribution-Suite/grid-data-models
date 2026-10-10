@@ -1,0 +1,15 @@
+gdm.systems.distribution.equipment.base package
+===============================================
+
+.. automodule:: gdm.systems.distribution.equipment.base
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   gdm.systems.distribution.equipment.base.matrix_impedance_branch_equipment_base

@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>gdm.systems.substation.builder module &#8212; Grid-Data-Models API</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=18bd87630a240e9c25be" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=18bd87630a240e9c25be" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/autodoc_pydantic.css" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../_static/scripts/fontawesome.js?digest=18bd87630a240e9c25be"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=18bd87630a240e9c25be" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=18bd87630a240e9c25be" />
+
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'generated/gdm.systems.substation.builder';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="gdm.systems.substation.components module" href="gdm.systems.substation.components.html" />
+    <link rel="prev" title="gdm.systems.substation.automation module" href="gdm.systems.substation.automation.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="color-scheme" content="light dark"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  
+    
+    <script src="../_static/searchtools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button type="button" class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Grid-Data-Models API</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="modules.html">
+    gdm
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button type="button" class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button type="button" class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button type="button" class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="modules.html">
+    gdm
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item pst-sidebar-collapse"><button type="button" id="pst-collapse-sidebar-button" aria-expanded="true" aria-controls="pst-primary-sidebar">
+  <svg class="pst-icon" role="img" aria-hidden="true" focusable="false" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+    <path fill="currentColor" d="M3 15.5C2.36232 15.5 1.74874 15.2564 1.28478 14.8189C0.820828 14.3815 0.541576 13.7832 0.504167 13.1467L0.5 13L0.5 3C0.499965 2.36232 0.743605 1.74874 1.18107 1.28478C1.61854 0.820828 2.21676 0.541576 2.85333 0.504167L3 0.5L13 0.5C13.6377 0.499965 14.2513 0.743605 14.7152 1.18107C15.1792 1.61854 15.4584 2.21676 15.4958 2.85333L15.5 3L15.5 13C15.5 13.6377 15.2564 14.2513 14.8189 14.7152C14.3815 15.1792 13.7832 15.4584 13.1467 15.4958L13 15.5L3 15.5ZM3 13.8333L10.5 13.8333L10.5 2.16667L3 2.16667C2.79589 2.16669 2.59889 2.24163 2.44636 2.37726C2.29383 2.5129 2.19638 2.69979 2.1725 2.9025L2.16667 3L2.16667 13C2.16669 13.2041 2.24163 13.4011 2.37726 13.5536C2.5129 13.7062 2.69979 13.8036 2.9025 13.8275L3 13.8333ZM6.65583 10.325L6.5775 10.2558L4.91083 8.58917C4.76735 8.44567 4.68116 8.25476 4.66843 8.05223C4.65569 7.84971 4.71729 7.6495 4.84167 7.48917L4.91083 7.41083L6.5775 5.74417C6.72747 5.59471 6.9287 5.50794 7.14032 5.50148C7.35194 5.49502 7.55809 5.56935 7.7169 5.70937C7.8757 5.8494 7.97525 6.04463 7.99533 6.25539C8.01541 6.46616 7.95451 6.67667 7.825 6.84417L7.75583 6.9225L6.67917 8L7.75583 9.0775C7.89931 9.22099 7.98551 9.41191 7.99824 9.61443C8.01097 9.81695 7.94938 10.0172 7.825 10.1775L7.75583 10.2558C7.61234 10.3993 7.42142 10.4855 7.2189 10.4982C7.01638 10.511 6.81617 10.4494 6.65583 10.325Z"/>
+  </svg>
+  <span class="pst-collapse-sidebar-label">Collapse Sidebar</span>
+  <span class="pst-expand-sidebar-label">Expand Sidebar</span>
+</button></div>
+        <div class="sidebar-primary-item">
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="gdm.html">gdm package</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="gdm.distribution.html">gdm.distribution package</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="gdm.mcp.html">gdm.mcp package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="gdm.mcp.inspection.html">gdm.mcp.inspection package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="gdm.mcp.inspection.inspector.html">gdm.mcp.inspection.inspector module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.mcp.inspection.relationships.html">gdm.mcp.inspection.relationships module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.mcp.inspection.topology.html">gdm.mcp.inspection.topology module</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="gdm.mcp.knowledge.html">gdm.mcp.knowledge package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="gdm.mcp.knowledge.documentation.html">gdm.mcp.knowledge.documentation module</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="gdm.mcp.operations.html">gdm.mcp.operations package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="gdm.mcp.operations.merger.html">gdm.mcp.operations.merger module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.mcp.operations.splitter.html">gdm.mcp.operations.splitter module</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="gdm.mcp.utilities.html">gdm.mcp.utilities package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="gdm.mcp.utilities.subsystem.html">gdm.mcp.utilities.subsystem module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.mcp.utilities.timeseries.html">gdm.mcp.utilities.timeseries module</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="gdm.mcp.validation.html">gdm.mcp.validation package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="gdm.mcp.validation.auto_fixer.html">gdm.mcp.validation.auto_fixer module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.mcp.validation.diagnostics.html">gdm.mcp.validation.diagnostics module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.mcp.validation.suggestions.html">gdm.mcp.validation.suggestions module</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="gdm.mcp.exceptions.html">gdm.mcp.exceptions module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gdm.mcp.schemas.html">gdm.mcp.schemas module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gdm.mcp.server.html">gdm.mcp.server module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gdm.mcp.version.html">gdm.mcp.version module</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="gdm.systems.html">gdm.systems package</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l3 has-children"><a class="reference internal" href="gdm.systems.distribution.html">gdm.systems.distribution package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="gdm.systems.distribution.common.html">gdm.systems.distribution.common package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.systems.distribution.components.html">gdm.systems.distribution.components package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.systems.distribution.controllers.html">gdm.systems.distribution.controllers package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.systems.distribution.equipment.html">gdm.systems.distribution.equipment package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.systems.distribution.market.html">gdm.systems.distribution.market package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.systems.distribution.model_reduction.html">gdm.systems.distribution.model_reduction package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.systems.distribution.upgrade_handler.html">gdm.systems.distribution.upgrade_handler package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.systems.distribution.utils.html">gdm.systems.distribution.utils package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.systems.distribution.catalog_system.html">gdm.systems.distribution.catalog_system module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.systems.distribution.distribution_graph.html">gdm.systems.distribution.distribution_graph module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.systems.distribution.distribution_system.html">gdm.systems.distribution.distribution_system module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.systems.distribution.enums.html">gdm.systems.distribution.enums module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.systems.distribution.sys_functools.html">gdm.systems.distribution.sys_functools module</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 current active has-children"><a class="reference internal" href="gdm.systems.substation.html">gdm.systems.substation package</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="gdm.systems.substation.automation.html">gdm.systems.substation.automation module</a></li>
+<li class="toctree-l4 current active"><a aria-current="page" class="current reference internal" href="#">gdm.systems.substation.builder module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.systems.substation.components.html">gdm.systems.substation.components module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.systems.substation.detailed_reference.html">gdm.systems.substation.detailed_reference module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.systems.substation.enums.html">gdm.systems.substation.enums module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.systems.substation.equipment.html">gdm.systems.substation.equipment module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.systems.substation.metering.html">gdm.systems.substation.metering module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.systems.substation.models.html">gdm.systems.substation.models module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.systems.substation.protection.html">gdm.systems.substation.protection module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.systems.substation.reference_designs.html">gdm.systems.substation.reference_designs module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.systems.substation.renewable.html">gdm.systems.substation.renewable module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.systems.substation.substation_system.html">gdm.systems.substation.substation_system module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gdm.systems.substation.topology.html">gdm.systems.substation.topology module</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="gdm.constants.html">gdm.constants module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gdm.exceptions.html">gdm.exceptions module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gdm.hashing_utils.html">gdm.hashing_utils module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gdm.quantities.html">gdm.quantities module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gdm.tracked_changes.html">gdm.tracked_changes module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gdm.version.html">gdm.version module</a></li>
+</ul>
+</details></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="modules.html" class="nav-link">gdm</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="gdm.html" class="nav-link">gdm package</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="gdm.systems.html" class="nav-link">gdm.systems package</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="gdm.systems.substation.html" class="nav-link">gdm.systems.substation package</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">gdm.systems.substation.builder module</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="module-gdm.systems.substation.builder">
+<span id="gdm-systems-substation-builder-module"></span><h1>gdm.systems.substation.builder module<a class="headerlink" href="#module-gdm.systems.substation.builder" title="Link to this heading">#</a></h1>
+<p>Test support for constructing detailed distribution substations.</p>
+<p><code class="docutils literal notranslate"><span class="pre">SubstationBuilder</span></code> assembles a <code class="xref py py-class docutils literal notranslate"><span class="pre">SubstationSystem</span></code> while keeping the
+bus-branch component references, bays, and administrative objects consistent.
+It is the supported way to construct a detailed station instead of wiring
+components together by hand. This helper is intentionally kept outside the
+production package.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="gdm.systems.substation.builder.SubstationBuilder">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">gdm.systems.substation.builder.</span></span><span class="sig-name descname"><span class="pre">SubstationBuilder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initial_voltage_level_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'voltage-level-mv'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initial_nominal_voltage</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Voltage</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Quantity(12.47,</span> <span class="pre">'kilovolt')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">substation_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="gdm.systems.substation.enums.html#gdm.systems.substation.enums.SubstationType" title="gdm.systems.substation.enums.SubstationType"><span class="pre">SubstationType</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">SubstationType.DISTRIBUTION</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">substation_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'substation'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coordinate_provider</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Location</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gdm.systems.substation.builder.SubstationBuilder" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Build a detailed substation with consistent component references.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em>) – Name of the resulting <code class="xref py py-class docutils literal notranslate"><span class="pre">SubstationSystem</span></code>.</p></li>
+<li><p><strong>description</strong> (<em>str</em><em> | </em><em>None</em>) – Optional system description.</p></li>
+<li><p><strong>initial_voltage_level_id</strong> (<em>str</em>) – Name of the first voltage level to create.</p></li>
+<li><p><strong>initial_nominal_voltage</strong> (<em>Voltage</em>) – Nominal voltage of the first voltage level.</p></li>
+<li><p><strong>substation_type</strong> (<a class="reference internal" href="gdm.systems.substation.html#gdm.systems.substation.SubstationType" title="gdm.systems.substation.SubstationType"><em>SubstationType</em></a>) – Facility type for the enclosing <code class="xref py py-class docutils literal notranslate"><span class="pre">Substation</span></code>.</p></li>
+<li><p><strong>substation_name</strong> (<em>str</em>) – Name of the enclosing <code class="xref py py-class docutils literal notranslate"><span class="pre">Substation</span></code>.</p></li>
+<li><p><strong>coordinate_provider</strong> (<em>Callable</em><em>[</em><em>[</em><em>int</em><em>]</em><em>, </em><em>Location</em><em>] </em><em>| </em><em>None</em>) – Optional factory assigning a geographic coordinate to each node created
+without an explicit one. Receives a monotonically increasing index.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="gdm.systems.substation.builder.SubstationBuilder.add_voltage_level">
+<span class="sig-name descname"><span class="pre">add_voltage_level</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">voltage_level_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nominal_voltage</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Voltage</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">voltage_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="gdm.systems.distribution.enums.html#gdm.systems.distribution.enums.VoltageTypes" title="gdm.systems.distribution.enums.VoltageTypes"><span class="pre">VoltageTypes</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">VoltageTypes.LINE_TO_LINE</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="gdm.systems.substation.topology.html#gdm.systems.substation.topology.VoltageLevel" title="gdm.systems.substation.topology.VoltageLevel"><span class="pre">VoltageLevel</span></a></span></span><a class="headerlink" href="#gdm.systems.substation.builder.SubstationBuilder.add_voltage_level" title="Link to this definition">#</a></dt>
+<dd><p>Add a voltage level and register it on the substation.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gdm.systems.substation.builder.SubstationBuilder.add_bus">
+<span class="sig-name descname"><span class="pre">add_bus</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bus_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">voltage_level_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'voltage-level-mv'</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">length</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Distance</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Quantity(12,</span> <span class="pre">'meter')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coordinate</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Location</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="gdm.systems.substation.topology.html#gdm.systems.substation.topology.BusbarSection" title="gdm.systems.substation.topology.BusbarSection"><span class="pre">BusbarSection</span></a></span></span><a class="headerlink" href="#gdm.systems.substation.builder.SubstationBuilder.add_bus" title="Link to this definition">#</a></dt>
+<dd><p>Add a physical busbar section node and return it.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gdm.systems.substation.builder.SubstationBuilder.add_node">
+<span class="sig-name descname"><span class="pre">add_node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">voltage_level_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'voltage-level-mv'</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">coordinate</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Location</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="gdm.systems.substation.topology.html#gdm.systems.substation.topology.BusbarSection" title="gdm.systems.substation.topology.BusbarSection"><span class="pre">BusbarSection</span></a></span></span><a class="headerlink" href="#gdm.systems.substation.builder.SubstationBuilder.add_node" title="Link to this definition">#</a></dt>
+<dd><p>Add an electrical junction node (no busbar length).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gdm.systems.substation.builder.SubstationBuilder.endpoint_node">
+<span class="sig-name descname"><span class="pre">endpoint_node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">endpoint</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">voltage_level_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'voltage-level-mv'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="gdm.systems.substation.topology.html#gdm.systems.substation.topology.BusbarSection" title="gdm.systems.substation.topology.BusbarSection"><span class="pre">BusbarSection</span></a></span></span><a class="headerlink" href="#gdm.systems.substation.builder.SubstationBuilder.endpoint_node" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gdm.systems.substation.builder.SubstationBuilder.add_bay">
+<span class="sig-name descname"><span class="pre">add_bay</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bay_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">voltage_level_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'voltage-level-mv'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="gdm.systems.substation.topology.html#gdm.systems.substation.topology.Bay" title="gdm.systems.substation.topology.Bay"><span class="pre">Bay</span></a></span></span><a class="headerlink" href="#gdm.systems.substation.builder.SubstationBuilder.add_bay" title="Link to this definition">#</a></dt>
+<dd><p>Add or return a functional bay grouping.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gdm.systems.substation.builder.SubstationBuilder.add_two_terminal_equipment">
+<span class="sig-name descname"><span class="pre">add_two_terminal_equipment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">equipment_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bay_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">from_endpoint</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">to_endpoint</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">equipment_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">type</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="gdm.systems.substation.components.html#gdm.systems.substation.components.CircuitBreaker" title="gdm.systems.substation.components.CircuitBreaker"><span class="pre">CircuitBreaker</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">type</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="gdm.systems.substation.components.html#gdm.systems.substation.components.Disconnector" title="gdm.systems.substation.components.Disconnector"><span class="pre">Disconnector</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="gdm.systems.substation.enums.html#gdm.systems.substation.enums.EquipmentState" title="gdm.systems.substation.enums.EquipmentState"><span class="pre">EquipmentState</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">EquipmentState.CLOSED</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normal_state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="gdm.systems.substation.enums.html#gdm.systems.substation.enums.EquipmentState" title="gdm.systems.substation.enums.EquipmentState"><span class="pre">EquipmentState</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">EquipmentState.CLOSED</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bay_voltage_level_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'voltage-level-mv'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">voltage_level_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'voltage-level-mv'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="gdm.systems.substation.topology.html#gdm.systems.substation.topology.BusbarSection" title="gdm.systems.substation.topology.BusbarSection"><span class="pre">BusbarSection</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="gdm.systems.substation.topology.html#gdm.systems.substation.topology.BusbarSection" title="gdm.systems.substation.topology.BusbarSection"><span class="pre">BusbarSection</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#gdm.systems.substation.builder.SubstationBuilder.add_two_terminal_equipment" title="Link to this definition">#</a></dt>
+<dd><p>Add series switching equipment and return the two nodes it connects.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gdm.systems.substation.builder.SubstationBuilder.add_breaker">
+<span class="sig-name descname"><span class="pre">add_breaker</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">breaker_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bay_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">from_endpoint</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">to_endpoint</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="gdm.systems.substation.enums.html#gdm.systems.substation.enums.EquipmentState" title="gdm.systems.substation.enums.EquipmentState"><span class="pre">EquipmentState</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">EquipmentState.CLOSED</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normal_state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="gdm.systems.substation.enums.html#gdm.systems.substation.enums.EquipmentState" title="gdm.systems.substation.enums.EquipmentState"><span class="pre">EquipmentState</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">EquipmentState.CLOSED</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">voltage_level_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'voltage-level-mv'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="gdm.systems.substation.topology.html#gdm.systems.substation.topology.BusbarSection" title="gdm.systems.substation.topology.BusbarSection"><span class="pre">BusbarSection</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="gdm.systems.substation.topology.html#gdm.systems.substation.topology.BusbarSection" title="gdm.systems.substation.topology.BusbarSection"><span class="pre">BusbarSection</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#gdm.systems.substation.builder.SubstationBuilder.add_breaker" title="Link to this definition">#</a></dt>
+<dd><p>Add a circuit breaker between two nodes.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gdm.systems.substation.builder.SubstationBuilder.add_disconnector">
+<span class="sig-name descname"><span class="pre">add_disconnector</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">disconnector_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bay_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">from_endpoint</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">to_endpoint</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="gdm.systems.substation.enums.html#gdm.systems.substation.enums.EquipmentState" title="gdm.systems.substation.enums.EquipmentState"><span class="pre">EquipmentState</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">EquipmentState.CLOSED</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normal_state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="gdm.systems.substation.enums.html#gdm.systems.substation.enums.EquipmentState" title="gdm.systems.substation.enums.EquipmentState"><span class="pre">EquipmentState</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">EquipmentState.CLOSED</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">voltage_level_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'voltage-level-mv'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="gdm.systems.substation.topology.html#gdm.systems.substation.topology.BusbarSection" title="gdm.systems.substation.topology.BusbarSection"><span class="pre">BusbarSection</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="gdm.systems.substation.topology.html#gdm.systems.substation.topology.BusbarSection" title="gdm.systems.substation.topology.BusbarSection"><span class="pre">BusbarSection</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#gdm.systems.substation.builder.SubstationBuilder.add_disconnector" title="Link to this definition">#</a></dt>
+<dd><p>Add a visible isolation switch between two nodes.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gdm.systems.substation.builder.SubstationBuilder.add_earthing_switch">
+<span class="sig-name descname"><span class="pre">add_earthing_switch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">switch_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bay_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bus</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="gdm.systems.substation.topology.html#gdm.systems.substation.topology.BusbarSection" title="gdm.systems.substation.topology.BusbarSection"><span class="pre">BusbarSection</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="gdm.systems.substation.components.html#gdm.systems.substation.components.EarthingSwitch" title="gdm.systems.substation.components.EarthingSwitch"><span class="pre">EarthingSwitch</span></a></span></span><a class="headerlink" href="#gdm.systems.substation.builder.SubstationBuilder.add_earthing_switch" title="Link to this definition">#</a></dt>
+<dd><p>Add an open safety ground switch on a node.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gdm.systems.substation.builder.SubstationBuilder.add_line_trap">
+<span class="sig-name descname"><span class="pre">add_line_trap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">line_trap_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bay_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">from_endpoint</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">to_endpoint</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tuning_frequency_hz</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="gdm.quantities.html#gdm.quantities.Frequency" title="gdm.quantities.Frequency"><span class="pre">Frequency</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Quantity(100000,</span> <span class="pre">'hertz')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">voltage_level_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'voltage-level-mv'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="gdm.systems.substation.topology.html#gdm.systems.substation.topology.BusbarSection" title="gdm.systems.substation.topology.BusbarSection"><span class="pre">BusbarSection</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="gdm.systems.substation.topology.html#gdm.systems.substation.topology.BusbarSection" title="gdm.systems.substation.topology.BusbarSection"><span class="pre">BusbarSection</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#gdm.systems.substation.builder.SubstationBuilder.add_line_trap" title="Link to this definition">#</a></dt>
+<dd><p>Add a carrier-wave line trap in series with an external circuit.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gdm.systems.substation.builder.SubstationBuilder.add_instrument_transformer">
+<span class="sig-name descname"><span class="pre">add_instrument_transformer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">transformer_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bay_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">from_endpoint</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">to_endpoint</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">instrument_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'current_transformer'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">primary_rating</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">600</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">secondary_rating</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ratio_unit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'ampere'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cores</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="gdm.systems.substation.metering.html#gdm.systems.substation.metering.InstrumentTransformerCore" title="gdm.systems.substation.metering.InstrumentTransformerCore"><span class="pre">InstrumentTransformerCore</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">voltage_level_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'voltage-level-mv'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="gdm.systems.substation.equipment.html#gdm.systems.substation.equipment.InstrumentTransformer" title="gdm.systems.substation.equipment.InstrumentTransformer"><span class="pre">InstrumentTransformer</span></a></span></span><a class="headerlink" href="#gdm.systems.substation.builder.SubstationBuilder.add_instrument_transformer" title="Link to this definition">#</a></dt>
+<dd><p>Add a series-connected CT, PT, or CVT between two nodes.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gdm.systems.substation.builder.SubstationBuilder.add_shunt_instrument_transformer">
+<span class="sig-name descname"><span class="pre">add_shunt_instrument_transformer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">transformer_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bay_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">endpoint</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">instrument_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'voltage_transformer'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">primary_rating</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">11000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">secondary_rating</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">110</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ratio_unit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'volt'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cores</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="gdm.systems.substation.metering.html#gdm.systems.substation.metering.InstrumentTransformerCore" title="gdm.systems.substation.metering.InstrumentTransformerCore"><span class="pre">InstrumentTransformerCore</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">voltage_level_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'voltage-level-mv'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="gdm.systems.substation.equipment.html#gdm.systems.substation.equipment.InstrumentTransformer" title="gdm.systems.substation.equipment.InstrumentTransformer"><span class="pre">InstrumentTransformer</span></a></span></span><a class="headerlink" href="#gdm.systems.substation.builder.SubstationBuilder.add_shunt_instrument_transformer" title="Link to this definition">#</a></dt>
+<dd><p>Add a shunt-connected PT or CVT on a single node.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gdm.systems.substation.builder.SubstationBuilder.add_surge_arrester">
+<span class="sig-name descname"><span class="pre">add_surge_arrester</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arrester_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bay_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">endpoint</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mcov</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Voltage</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Quantity(9,</span> <span class="pre">'kilovolt')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">voltage_level_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'voltage-level-mv'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="gdm.systems.substation.equipment.html#gdm.systems.substation.equipment.SurgeArrester" title="gdm.systems.substation.equipment.SurgeArrester"><span class="pre">SurgeArrester</span></a></span></span><a class="headerlink" href="#gdm.systems.substation.builder.SubstationBuilder.add_surge_arrester" title="Link to this definition">#</a></dt>
+<dd><p>Add a shunt surge arrester at a node.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gdm.systems.substation.builder.SubstationBuilder.add_external_circuit">
+<span class="sig-name descname"><span class="pre">add_external_circuit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">circuit_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bay_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">endpoint</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">direction</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="gdm.systems.substation.enums.html#gdm.systems.substation.enums.CircuitDirection" title="gdm.systems.substation.enums.CircuitDirection"><span class="pre">CircuitDirection</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">voltage_level_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="gdm.systems.substation.topology.html#gdm.systems.substation.topology.ExternalCircuit" title="gdm.systems.substation.topology.ExternalCircuit"><span class="pre">ExternalCircuit</span></a></span></span><a class="headerlink" href="#gdm.systems.substation.builder.SubstationBuilder.add_external_circuit" title="Link to this definition">#</a></dt>
+<dd><p>Add an incoming or outgoing transmission/distribution circuit.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gdm.systems.substation.builder.SubstationBuilder.add_power_transformer">
+<span class="sig-name descname"><span class="pre">add_power_transformer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">transformer_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bay_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">buses</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="gdm.systems.substation.topology.html#gdm.systems.substation.topology.BusbarSection" title="gdm.systems.substation.topology.BusbarSection"><span class="pre">BusbarSection</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">windings</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="gdm.systems.distribution.equipment.distribution_transformer_equipment.html#gdm.systems.distribution.equipment.distribution_transformer_equipment.WindingEquipment" title="gdm.systems.distribution.equipment.distribution_transformer_equipment.WindingEquipment"><span class="pre">WindingEquipment</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">pct_no_load_loss</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pct_full_load_loss</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coupling_sequences</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="gdm.systems.distribution.common.sequence_pair.html#gdm.systems.distribution.common.sequence_pair.SequencePair" title="gdm.systems.distribution.common.sequence_pair.SequencePair"><span class="pre">SequencePair</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">winding_reactances</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vector_group</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'Dyn1'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cooling_class</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'ONAN'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fluid_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'mineral_oil'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="gdm.systems.substation.components.html#gdm.systems.substation.components.PowerTransformer" title="gdm.systems.substation.components.PowerTransformer"><span class="pre">PowerTransformer</span></a></span></span><a class="headerlink" href="#gdm.systems.substation.builder.SubstationBuilder.add_power_transformer" title="Link to this definition">#</a></dt>
+<dd><p>Add a multi-winding power transformer between ordered buses.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gdm.systems.substation.builder.SubstationBuilder.add_two_winding_transformer">
+<span class="sig-name descname"><span class="pre">add_two_winding_transformer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">transformer_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bay_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">high_voltage_bus</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="gdm.systems.substation.topology.html#gdm.systems.substation.topology.BusbarSection" title="gdm.systems.substation.topology.BusbarSection"><span class="pre">BusbarSection</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">low_voltage_bus</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="gdm.systems.substation.topology.html#gdm.systems.substation.topology.BusbarSection" title="gdm.systems.substation.topology.BusbarSection"><span class="pre">BusbarSection</span></a></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">rated_power</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="gdm.quantities.html#gdm.quantities.ApparentPower" title="gdm.quantities.ApparentPower"><span class="pre">ApparentPower</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Quantity(30,</span> <span class="pre">'megavolt_ampere')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">high_voltage_connection</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="gdm.systems.distribution.enums.html#gdm.systems.distribution.enums.ConnectionType" title="gdm.systems.distribution.enums.ConnectionType"><span class="pre">ConnectionType</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">ConnectionType.DELTA</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">low_voltage_connection</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="gdm.systems.distribution.enums.html#gdm.systems.distribution.enums.ConnectionType" title="gdm.systems.distribution.enums.ConnectionType"><span class="pre">ConnectionType</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">ConnectionType.STAR</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vector_group</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'Dyn1'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">high_voltage_is_grounded</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">low_voltage_is_grounded</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="gdm.systems.substation.components.html#gdm.systems.substation.components.PowerTransformer" title="gdm.systems.substation.components.PowerTransformer"><span class="pre">PowerTransformer</span></a></span></span><a class="headerlink" href="#gdm.systems.substation.builder.SubstationBuilder.add_two_winding_transformer" title="Link to this definition">#</a></dt>
+<dd><p>Add a two-winding power transformer between two buses.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gdm.systems.substation.builder.SubstationBuilder.add_feeder">
+<span class="sig-name descname"><span class="pre">add_feeder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">feeder_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bay_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">station_endpoint</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">with_disconnector</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bus</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="gdm.systems.substation.topology.html#gdm.systems.substation.topology.BusbarSection" title="gdm.systems.substation.topology.BusbarSection"><span class="pre">BusbarSection</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">distribution_model_reference_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="gdm.systems.substation.topology.html#gdm.systems.substation.topology.FeederBoundary" title="gdm.systems.substation.topology.FeederBoundary"><span class="pre">FeederBoundary</span></a></span></span><a class="headerlink" href="#gdm.systems.substation.builder.SubstationBuilder.add_feeder" title="Link to this definition">#</a></dt>
+<dd><p>Add a feeder boundary, optionally through a line disconnector.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gdm.systems.substation.builder.SubstationBuilder.add_instrument_core">
+<span class="sig-name descname"><span class="pre">add_instrument_core</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">core_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">core_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'protection'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">purpose</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="gdm.systems.substation.enums.html#gdm.systems.substation.enums.MeasurementPurpose" title="gdm.systems.substation.enums.MeasurementPurpose"><span class="pre">MeasurementPurpose</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">MeasurementPurpose.OPERATIONAL</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">accuracy_class</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">burden_va</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="gdm.systems.substation.metering.html#gdm.systems.substation.metering.InstrumentTransformerCore" title="gdm.systems.substation.metering.InstrumentTransformerCore"><span class="pre">InstrumentTransformerCore</span></a></span></span><a class="headerlink" href="#gdm.systems.substation.builder.SubstationBuilder.add_instrument_core" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gdm.systems.substation.builder.SubstationBuilder.add_protection_ied">
+<span class="sig-name descname"><span class="pre">add_protection_ied</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ied_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bay</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="gdm.systems.substation.topology.html#gdm.systems.substation.topology.Bay" title="gdm.systems.substation.topology.Bay"><span class="pre">Bay</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">manufacturer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">firmware_version</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">documents</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="gdm.systems.substation.protection.html#gdm.systems.substation.protection.ProtectionIED" title="gdm.systems.substation.protection.ProtectionIED"><span class="pre">ProtectionIED</span></a></span></span><a class="headerlink" href="#gdm.systems.substation.builder.SubstationBuilder.add_protection_ied" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gdm.systems.substation.builder.SubstationBuilder.add_setting_group">
+<span class="sig-name descname"><span class="pre">add_setting_group</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">group_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'normal'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">settings</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="gdm.systems.substation.protection.html#gdm.systems.substation.protection.ProtectionSetting" title="gdm.systems.substation.protection.ProtectionSetting"><span class="pre">ProtectionSetting</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">approved</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="gdm.systems.substation.protection.html#gdm.systems.substation.protection.ProtectionSettingGroup" title="gdm.systems.substation.protection.ProtectionSettingGroup"><span class="pre">ProtectionSettingGroup</span></a></span></span><a class="headerlink" href="#gdm.systems.substation.builder.SubstationBuilder.add_setting_group" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gdm.systems.substation.builder.SubstationBuilder.add_setting">
+<span class="sig-name descname"><span class="pre">add_setting</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">setting_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phase_scope</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="gdm.systems.substation.protection.html#gdm.systems.substation.protection.ProtectionSetting" title="gdm.systems.substation.protection.ProtectionSetting"><span class="pre">ProtectionSetting</span></a></span></span><a class="headerlink" href="#gdm.systems.substation.builder.SubstationBuilder.add_setting" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gdm.systems.substation.builder.SubstationBuilder.add_protection_function">
+<span class="sig-name descname"><span class="pre">add_protection_function</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">function_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">function_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="gdm.systems.substation.enums.html#gdm.systems.substation.enums.ProtectionFunctionType" title="gdm.systems.substation.enums.ProtectionFunctionType"><span class="pre">ProtectionFunctionType</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">ied</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="gdm.systems.substation.protection.html#gdm.systems.substation.protection.ProtectionIED" title="gdm.systems.substation.protection.ProtectionIED"><span class="pre">ProtectionIED</span></a></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">ansi_function_number</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">instance</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">protects_equipment</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="gdm.systems.substation.components.html#gdm.systems.substation.components.PrimaryEquipmentComponent" title="gdm.systems.substation.components.PrimaryEquipmentComponent"><span class="pre">PrimaryEquipmentComponent</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_cores</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="gdm.systems.substation.metering.html#gdm.systems.substation.metering.InstrumentTransformerCore" title="gdm.systems.substation.metering.InstrumentTransformerCore"><span class="pre">InstrumentTransformerCore</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_equipment</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="gdm.systems.substation.components.html#gdm.systems.substation.components.PrimaryEquipmentComponent" title="gdm.systems.substation.components.PrimaryEquipmentComponent"><span class="pre">PrimaryEquipmentComponent</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">setting_groups</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="gdm.systems.substation.protection.html#gdm.systems.substation.protection.ProtectionSettingGroup" title="gdm.systems.substation.protection.ProtectionSettingGroup"><span class="pre">ProtectionSettingGroup</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="gdm.systems.substation.protection.html#gdm.systems.substation.protection.ProtectionFunction" title="gdm.systems.substation.protection.ProtectionFunction"><span class="pre">ProtectionFunction</span></a></span></span><a class="headerlink" href="#gdm.systems.substation.builder.SubstationBuilder.add_protection_function" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gdm.systems.substation.builder.SubstationBuilder.add_protection_scheme">
+<span class="sig-name descname"><span class="pre">add_protection_scheme</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scheme_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zone</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">functions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">equipment</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">documents</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="gdm.systems.substation.protection.html#gdm.systems.substation.protection.ProtectionScheme" title="gdm.systems.substation.protection.ProtectionScheme"><span class="pre">ProtectionScheme</span></a></span></span><a class="headerlink" href="#gdm.systems.substation.builder.SubstationBuilder.add_protection_scheme" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gdm.systems.substation.builder.SubstationBuilder.add_metering_point">
+<span class="sig-name descname"><span class="pre">add_metering_point</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">point_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">purpose</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="gdm.systems.substation.enums.html#gdm.systems.substation.enums.MeasurementPurpose" title="gdm.systems.substation.enums.MeasurementPurpose"><span class="pre">MeasurementPurpose</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">bus</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="gdm.systems.substation.topology.html#gdm.systems.substation.topology.BusbarSection" title="gdm.systems.substation.topology.BusbarSection"><span class="pre">BusbarSection</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">meter_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">cores</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">multiplier</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interval_seconds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">owner</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="gdm.systems.substation.metering.html#gdm.systems.substation.metering.MeteringPoint" title="gdm.systems.substation.metering.MeteringPoint"><span class="pre">MeteringPoint</span></a></span></span><a class="headerlink" href="#gdm.systems.substation.builder.SubstationBuilder.add_metering_point" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gdm.systems.substation.builder.SubstationBuilder.add_power_quality_monitor">
+<span class="sig-name descname"><span class="pre">add_power_quality_monitor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">monitor_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bus</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="gdm.systems.substation.topology.html#gdm.systems.substation.topology.BusbarSection" title="gdm.systems.substation.topology.BusbarSection"><span class="pre">BusbarSection</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">measurement_method</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'IEEE</span> <span class="pre">1159'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">monitored_phenomena</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pcc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="gdm.systems.substation.metering.html#gdm.systems.substation.metering.PowerQualityMonitor" title="gdm.systems.substation.metering.PowerQualityMonitor"><span class="pre">PowerQualityMonitor</span></a></span></span><a class="headerlink" href="#gdm.systems.substation.builder.SubstationBuilder.add_power_quality_monitor" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gdm.systems.substation.builder.SubstationBuilder.add_protocol_endpoint">
+<span class="sig-name descname"><span class="pre">add_protocol_endpoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">endpoint_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">protocol</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="gdm.systems.substation.enums.html#gdm.systems.substation.enums.ProtocolType" title="gdm.systems.substation.enums.ProtocolType"><span class="pre">ProtocolType</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">address</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">host</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">secure</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="gdm.systems.substation.automation.html#gdm.systems.substation.automation.ProtocolEndpoint" title="gdm.systems.substation.automation.ProtocolEndpoint"><span class="pre">ProtocolEndpoint</span></a></span></span><a class="headerlink" href="#gdm.systems.substation.builder.SubstationBuilder.add_protocol_endpoint" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gdm.systems.substation.builder.SubstationBuilder.add_automation_ied">
+<span class="sig-name descname"><span class="pre">add_automation_ied</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ied_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">bay</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="gdm.systems.substation.topology.html#gdm.systems.substation.topology.Bay" title="gdm.systems.substation.topology.Bay"><span class="pre">Bay</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">manufacturer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">firmware_version</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">protocol_endpoints</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="gdm.systems.substation.automation.html#gdm.systems.substation.automation.IED" title="gdm.systems.substation.automation.IED"><span class="pre">IED</span></a></span></span><a class="headerlink" href="#gdm.systems.substation.builder.SubstationBuilder.add_automation_ied" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gdm.systems.substation.builder.SubstationBuilder.add_semantic_signal">
+<span class="sig-name descname"><span class="pre">add_semantic_signal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">signal_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">signal_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_object</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">engineering_description</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="gdm.systems.substation.automation.html#gdm.systems.substation.automation.SemanticSignal" title="gdm.systems.substation.automation.SemanticSignal"><span class="pre">SemanticSignal</span></a></span></span><a class="headerlink" href="#gdm.systems.substation.builder.SubstationBuilder.add_semantic_signal" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gdm.systems.substation.builder.SubstationBuilder.add_protocol_mapping">
+<span class="sig-name descname"><span class="pre">add_protocol_mapping</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mapping_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">signal</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="gdm.systems.substation.automation.html#gdm.systems.substation.automation.SemanticSignal" title="gdm.systems.substation.automation.SemanticSignal"><span class="pre">SemanticSignal</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">endpoint</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="gdm.systems.substation.automation.html#gdm.systems.substation.automation.ProtocolEndpoint" title="gdm.systems.substation.automation.ProtocolEndpoint"><span class="pre">ProtocolEndpoint</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">protocol</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="gdm.systems.substation.enums.html#gdm.systems.substation.enums.ProtocolType" title="gdm.systems.substation.enums.ProtocolType"><span class="pre">ProtocolType</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">point_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">point_address</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">variation</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="gdm.systems.substation.automation.html#gdm.systems.substation.automation.ProtocolMapping" title="gdm.systems.substation.automation.ProtocolMapping"><span class="pre">ProtocolMapping</span></a></span></span><a class="headerlink" href="#gdm.systems.substation.builder.SubstationBuilder.add_protocol_mapping" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gdm.systems.substation.builder.SubstationBuilder.add_scl_configuration">
+<span class="sig-name descname"><span class="pre">add_scl_configuration</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">configuration_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">document_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uri</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">revision</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">schema_version</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ieds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="gdm.systems.substation.automation.html#gdm.systems.substation.automation.SCLConfiguration" title="gdm.systems.substation.automation.SCLConfiguration"><span class="pre">SCLConfiguration</span></a></span></span><a class="headerlink" href="#gdm.systems.substation.builder.SubstationBuilder.add_scl_configuration" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gdm.systems.substation.builder.SubstationBuilder.build">
+<span class="sig-name descname"><span class="pre">build</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="gdm.systems.substation.substation_system.html#gdm.systems.substation.substation_system.SubstationSystem" title="gdm.systems.substation.substation_system.SubstationSystem"><span class="pre">SubstationSystem</span></a></span></span><a class="headerlink" href="#gdm.systems.substation.builder.SubstationBuilder.build" title="Link to this definition">#</a></dt>
+<dd><p>Return the assembled system.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="gdm.systems.substation.automation.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">gdm.systems.substation.automation module</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="gdm.systems.substation.components.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">gdm.systems.substation.components module</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.builder.SubstationBuilder"><code class="docutils literal notranslate"><span class="pre">SubstationBuilder</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.builder.SubstationBuilder.add_voltage_level"><code class="docutils literal notranslate"><span class="pre">SubstationBuilder.add_voltage_level()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.builder.SubstationBuilder.add_bus"><code class="docutils literal notranslate"><span class="pre">SubstationBuilder.add_bus()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.builder.SubstationBuilder.add_node"><code class="docutils literal notranslate"><span class="pre">SubstationBuilder.add_node()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.builder.SubstationBuilder.endpoint_node"><code class="docutils literal notranslate"><span class="pre">SubstationBuilder.endpoint_node()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.builder.SubstationBuilder.add_bay"><code class="docutils literal notranslate"><span class="pre">SubstationBuilder.add_bay()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.builder.SubstationBuilder.add_two_terminal_equipment"><code class="docutils literal notranslate"><span class="pre">SubstationBuilder.add_two_terminal_equipment()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.builder.SubstationBuilder.add_breaker"><code class="docutils literal notranslate"><span class="pre">SubstationBuilder.add_breaker()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.builder.SubstationBuilder.add_disconnector"><code class="docutils literal notranslate"><span class="pre">SubstationBuilder.add_disconnector()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.builder.SubstationBuilder.add_earthing_switch"><code class="docutils literal notranslate"><span class="pre">SubstationBuilder.add_earthing_switch()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.builder.SubstationBuilder.add_line_trap"><code class="docutils literal notranslate"><span class="pre">SubstationBuilder.add_line_trap()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.builder.SubstationBuilder.add_instrument_transformer"><code class="docutils literal notranslate"><span class="pre">SubstationBuilder.add_instrument_transformer()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.builder.SubstationBuilder.add_shunt_instrument_transformer"><code class="docutils literal notranslate"><span class="pre">SubstationBuilder.add_shunt_instrument_transformer()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.builder.SubstationBuilder.add_surge_arrester"><code class="docutils literal notranslate"><span class="pre">SubstationBuilder.add_surge_arrester()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.builder.SubstationBuilder.add_external_circuit"><code class="docutils literal notranslate"><span class="pre">SubstationBuilder.add_external_circuit()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.builder.SubstationBuilder.add_power_transformer"><code class="docutils literal notranslate"><span class="pre">SubstationBuilder.add_power_transformer()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.builder.SubstationBuilder.add_two_winding_transformer"><code class="docutils literal notranslate"><span class="pre">SubstationBuilder.add_two_winding_transformer()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.builder.SubstationBuilder.add_feeder"><code class="docutils literal notranslate"><span class="pre">SubstationBuilder.add_feeder()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.builder.SubstationBuilder.add_instrument_core"><code class="docutils literal notranslate"><span class="pre">SubstationBuilder.add_instrument_core()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.builder.SubstationBuilder.add_protection_ied"><code class="docutils literal notranslate"><span class="pre">SubstationBuilder.add_protection_ied()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.builder.SubstationBuilder.add_setting_group"><code class="docutils literal notranslate"><span class="pre">SubstationBuilder.add_setting_group()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.builder.SubstationBuilder.add_setting"><code class="docutils literal notranslate"><span class="pre">SubstationBuilder.add_setting()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.builder.SubstationBuilder.add_protection_function"><code class="docutils literal notranslate"><span class="pre">SubstationBuilder.add_protection_function()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.builder.SubstationBuilder.add_protection_scheme"><code class="docutils literal notranslate"><span class="pre">SubstationBuilder.add_protection_scheme()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.builder.SubstationBuilder.add_metering_point"><code class="docutils literal notranslate"><span class="pre">SubstationBuilder.add_metering_point()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.builder.SubstationBuilder.add_power_quality_monitor"><code class="docutils literal notranslate"><span class="pre">SubstationBuilder.add_power_quality_monitor()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.builder.SubstationBuilder.add_protocol_endpoint"><code class="docutils literal notranslate"><span class="pre">SubstationBuilder.add_protocol_endpoint()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.builder.SubstationBuilder.add_automation_ied"><code class="docutils literal notranslate"><span class="pre">SubstationBuilder.add_automation_ied()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.builder.SubstationBuilder.add_semantic_signal"><code class="docutils literal notranslate"><span class="pre">SubstationBuilder.add_semantic_signal()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.builder.SubstationBuilder.add_protocol_mapping"><code class="docutils literal notranslate"><span class="pre">SubstationBuilder.add_protocol_mapping()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.builder.SubstationBuilder.add_scl_configuration"><code class="docutils literal notranslate"><span class="pre">SubstationBuilder.add_scl_configuration()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdm.systems.substation.builder.SubstationBuilder.build"><code class="docutils literal notranslate"><span class="pre">SubstationBuilder.build()</span></code></a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+
+  <div class="tocsection sourcelink">
+    <a href="../_sources/generated/gdm.systems.substation.builder.rst.txt">
+      <i class="fa-solid fa-file-lines"></i> Show Source
+    </a>
+  </div>
+</div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=18bd87630a240e9c25be"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=18bd87630a240e9c25be"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.23.0.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

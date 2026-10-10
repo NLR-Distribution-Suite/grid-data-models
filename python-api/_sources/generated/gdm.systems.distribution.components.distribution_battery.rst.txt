@@ -1,0 +1,7 @@
+gdm.systems.distribution.components.distribution\_battery module
+================================================================
+
+.. automodule:: gdm.systems.distribution.components.distribution_battery
+   :members:
+   :show-inheritance:
+   :undoc-members:

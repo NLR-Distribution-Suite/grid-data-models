@@ -1,0 +1,7 @@
+gdm.systems.distribution.upgrade\_handler.upgrade\_handler module
+=================================================================
+
+.. automodule:: gdm.systems.distribution.upgrade_handler.upgrade_handler
+   :members:
+   :show-inheritance:
+   :undoc-members:

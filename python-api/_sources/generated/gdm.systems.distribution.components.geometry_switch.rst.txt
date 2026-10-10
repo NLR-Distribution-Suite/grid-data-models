@@ -1,0 +1,7 @@
+gdm.systems.distribution.components.geometry\_switch module
+===========================================================
+
+.. automodule:: gdm.systems.distribution.components.geometry_switch
+   :members:
+   :show-inheritance:
+   :undoc-members:

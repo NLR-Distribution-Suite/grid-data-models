@@ -1,0 +1,34 @@
+gdm.systems.distribution package
+================================
+
+.. automodule:: gdm.systems.distribution
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   gdm.systems.distribution.common
+   gdm.systems.distribution.components
+   gdm.systems.distribution.controllers
+   gdm.systems.distribution.equipment
+   gdm.systems.distribution.market
+   gdm.systems.distribution.model_reduction
+   gdm.systems.distribution.upgrade_handler
+   gdm.systems.distribution.utils
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   gdm.systems.distribution.catalog_system
+   gdm.systems.distribution.distribution_graph
+   gdm.systems.distribution.distribution_system
+   gdm.systems.distribution.enums
+   gdm.systems.distribution.sys_functools
