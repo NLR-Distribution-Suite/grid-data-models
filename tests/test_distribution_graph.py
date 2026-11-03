@@ -77,6 +77,14 @@ def test_distribution_graph_multiple_edges(simple_distribution_system: Distribut
     assert len(cycles) == 1
 
 
+def test_get_cycles_keeps_two_node_directed_cycle():
+    graph = nx.MultiDiGraph()
+    graph.add_edge("bus-a", "bus-b", name="forward", type=MatrixImpedanceSwitch)
+    graph.add_edge("bus-b", "bus-a", name="reverse", type=MatrixImpedanceSwitch)
+
+    assert len(DistributionSystem.get_cycles(graph)) == 1
+
+
 def test_distribution_graph_directed_open_switch(
     simple_distribution_system: DistributionSystem,
 ):

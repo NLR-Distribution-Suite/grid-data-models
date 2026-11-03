@@ -2,6 +2,7 @@
 
 from collections import Counter
 
+import networkx as nx
 import pytest
 
 from gdm.systems.substation import (
@@ -249,9 +250,22 @@ def test_substation_combines_separate_feeder_systems_into_one_distribution_model
         boundary.feeder_id for boundary in boundaries
     }
     assert len(list(complete_system.get_components(DistributionVoltageSource))) == 1
-    assert len(complete_system.get_undirected_graph().nodes) > len(
-        substation_system.get_undirected_graph().nodes
+    source = next(iter(complete_system.get_components(DistributionVoltageSource)))
+    assert source.bus.name == "hv-bus"
+    assert all(
+        abs(item.voltage.to("kilovolt").magnitude - 69.0) < 1e-6
+        for item in source.equipment.sources
     )
+    graph = complete_system.get_undirected_graph()
+    assert len(graph.nodes) > len(substation_system.get_undirected_graph().nodes)
+    assert nx.is_connected(graph)
+    radial_graph = complete_system.get_directed_graph()
+    assert nx.is_directed_acyclic_graph(radial_graph)
+    assert set(radial_graph.nodes) == set(graph.nodes)
+    assert not list(complete_system.get_components(ProtectionIED))
+    assert not list(complete_system.get_components(ProtectionScheme))
+    assert not list(complete_system.get_components(ProtocolEndpoint))
+    assert not list(complete_system.get_components(MeteringPoint))
 
 
 @pytest.mark.parametrize("layout", SubstationLayout)

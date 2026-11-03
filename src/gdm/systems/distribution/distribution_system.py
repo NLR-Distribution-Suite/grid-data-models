@@ -7,7 +7,6 @@ from typing import TYPE_CHECKING, Annotated, Type
 import importlib.metadata
 from pathlib import Path
 import tempfile
-import random
 
 from gdm.systems.distribution.components.geometry_switch import GeometrySwitch
 from infrasys.time_series_models import TimeSeriesData, SingleTimeSeries
@@ -322,7 +321,10 @@ class DistributionSystem(System):
         - The graph is useful for analyzing the connectivity and topology of the distribution network.
         - Each edge in the graph includes metadata such as the component's name and type.
         """
-        from gdm.systems.substation.components import TwoTerminalEquipment
+        from gdm.systems.substation.components import (
+            PrimaryEquipmentComponent,
+            TwoTerminalEquipment,
+        )
 
         graph = nx.MultiGraph()
         node: DistributionBus
@@ -330,10 +332,18 @@ class DistributionSystem(System):
             data = {"phases": [phase.value for phase in node.phases]}
             graph.add_node(node.name, **data)
 
-        edges: list[DistributionBranchBase | DistributionTransformerBase] = (
+        edges: list[Component] = (
             list(self.get_components(DistributionBranchBase))
             + list(self.get_components(DistributionTransformerBase))
             + list(self.get_components(TwoTerminalEquipment))
+        )
+        edge_keys = {(type(edge), edge.name) for edge in edges}
+        edges.extend(
+            edge
+            for edge in self.get_components(PrimaryEquipmentComponent)
+            if getattr(edge, "buses", None)
+            and len(edge.buses) >= 2
+            and (type(edge), edge.name) not in edge_keys
         )
 
         for edge in edges:
@@ -353,11 +363,12 @@ class DistributionSystem(System):
                 data["is_closed"] = True if len(edge.is_closed) == sum(edge.is_closed) else False
             elif is_station_switch:
                 data["is_closed"] = edge.state.value in {"closed", "racked_in"}
-            graph.add_edge(
-                edge.buses[0].name,
-                edge.buses[1].name,
-                **data,
-            )
+            connected_bus_names = {edge.buses[0].name}
+            for bus in edge.buses[1:]:
+                if bus.name in connected_bus_names:
+                    continue
+                connected_bus_names.add(bus.name)
+                graph.add_edge(edge.buses[0].name, bus.name, **data)
 
         # Validate that every phase on each bus is served by at least one connected component.
         self._warn_uncovered_bus_phases(edges)
@@ -369,7 +380,10 @@ class DistributionSystem(System):
         edges: list,
     ) -> None:
         """Log a warning if any bus has phases not connected to any component."""
-        from gdm.systems.substation.components import TwoTerminalEquipment
+        from gdm.systems.substation.components import (
+            PrimaryEquipmentComponent,
+            TwoTerminalEquipment,
+        )
 
         bus_covered_phases: dict[str, set] = {
             node.name: set() for node in self.get_components(DistributionBus)
@@ -385,6 +399,10 @@ class DistributionSystem(System):
             elif isinstance(edge, TwoTerminalEquipment):
                 edge_phase_set = set(edge.phases)
                 for bus in edge.buses:
+                    bus_covered_phases[bus.name] |= edge_phase_set
+            elif isinstance(edge, PrimaryEquipmentComponent):
+                edge_phase_set = set(edge.phases)
+                for bus in getattr(edge, "buses", []):
                     bus_covered_phases[bus.name] |= edge_phase_set
 
         uncovered: dict[str, list] = {}
@@ -405,15 +423,24 @@ class DistributionSystem(System):
         parent_components: list[Component],
         bus_names: list[DistributionBus],
     ):
-        from gdm.systems.substation.components import TwoTerminalEquipment
+        from gdm.systems.substation.components import (
+            PrimaryEquipmentComponent,
+            TwoTerminalEquipment,
+        )
 
         for component in parent_components:
             if isinstance(
                 component,
-                (DistributionBranchBase, DistributionTransformerBase, TwoTerminalEquipment),
+                (
+                    DistributionBranchBase,
+                    DistributionTransformerBase,
+                    PrimaryEquipmentComponent,
+                    TwoTerminalEquipment,
+                ),
             ):
-                nodes = {bus.name for bus in component.buses}
-                if not nodes.issubset(set(bus_names)):
+                buses = getattr(component, "buses", None)
+                nodes = {bus.name for bus in buses or []}
+                if buses and not nodes.issubset(set(bus_names)):
                     continue
             if not subtree_system.has_component(component):
                 subtree_system.add_component(component)
@@ -508,12 +535,86 @@ class DistributionSystem(System):
         - This function is intended to produce a radial representation rooted at the
         source node, suitable for further pruning/augmentation in get_directed_graph.
         - If G is disconnected, only the component reachable from the source is included.
-        - Edge iteration uses networkx.edge_dfs to respect DFS order.
+        - NetworkX's DFS tree is used so every reachable bus appears once and
+          the result is acyclic by construction.
         """
+        from gdm.systems.substation.components import (
+            PrimaryEquipmentComponent,
+            TwoTerminalEquipment,
+        )
+
+        def edge_priority(key_and_data):
+            key, data = key_and_data
+            component_type = data.get("type")
+            if isinstance(component_type, type) and issubclass(
+                component_type, DistributionBranchBase
+            ):
+                priority = 0
+            elif isinstance(component_type, type) and issubclass(
+                component_type, DistributionTransformerBase
+            ):
+                priority = 1
+            elif (
+                isinstance(component_type, type)
+                and issubclass(component_type, PrimaryEquipmentComponent)
+                and not issubclass(component_type, TwoTerminalEquipment)
+            ):
+                priority = 2
+            elif data.get("is_switch"):
+                priority = 3
+            else:
+                priority = 4
+            return priority, str(data.get("name", "")), str(key)
+
         T = nx.MultiDiGraph()
-        for u, v, k in nx.edge_dfs(G, source=source):
-            T.add_edge(u, v, key=k, **G[u][v][k])
+        T.add_node(source)
+        for u, v in nx.dfs_edges(G, source=source):
+            edge_items = G.get_edge_data(u, v)
+            if not edge_items:
+                continue
+            key, data = min(edge_items.items(), key=edge_priority)
+            T.add_edge(u, v, key=key, **data)
         return T
+
+    def _remove_cycle_edge(self, graph: nx.MultiDiGraph, cycle: list[str]) -> None:
+        """Remove one switch edge from a directed cycle, or a stable fallback edge."""
+        for index, bus_1 in enumerate(cycle):
+            bus_2 = cycle[(index + 1) % len(cycle)]
+            for source, target in ((bus_1, bus_2), (bus_2, bus_1)):
+                edge_data = graph.get_edge_data(source, target)
+                if not edge_data:
+                    continue
+                switch_edge = next(
+                    (
+                        (source, target, key)
+                        for key, data in edge_data.items()
+                        if data.get("is_switch")
+                    ),
+                    None,
+                )
+                if switch_edge is not None:
+                    graph.remove_edge(*switch_edge)
+                    logger.debug(
+                        "Removed switch edge {} -> {} ({}) to radialize cycle {}",
+                        switch_edge[0],
+                        switch_edge[1],
+                        switch_edge[2],
+                        cycle,
+                    )
+                    return
+
+        bus_1 = cycle[0]
+        bus_2 = cycle[1] if len(cycle) > 1 else bus_1
+        edge_data = graph.get_edge_data(bus_1, bus_2)
+        if not edge_data:
+            raise nx.NetworkXUnfeasible(f"Unable to remove an edge from directed cycle {cycle}.")
+        edge_key = next(iter(edge_data))
+        graph.remove_edge(bus_1, bus_2, key=edge_key)
+        logger.warning(
+            "No switch found in cycle; removing edge ({}, {}) to break it.",
+            bus_1,
+            bus_2,
+        )
 
     def get_directed_graph(self, return_radial_network: bool = True) -> nx.DiGraph:
         """Constructs a directed graph representation of the distribution system.
@@ -552,31 +653,7 @@ class DistributionSystem(System):
         if return_radial_network:
             cycles = self.get_cycles(dfs_tree)
             while cycles:
-                cycle = cycles[0]
-                switch_edges = self.find_switch_buses_in_cycle(cycle)
-                logger.debug(f"  Cycle found: {cycle}, switch edges in cycle: {switch_edges}")
-                if switch_edges:
-                    bus_1, bus_2 = switch_edges[0]
-                    if dfs_tree.has_edge(bus_1, bus_2):
-                        dfs_tree.remove_edge(bus_1, bus_2)
-                    elif dfs_tree.has_edge(bus_2, bus_1):
-                        dfs_tree.remove_edge(bus_2, bus_1)
-                    else:
-                        logger.warning(
-                            f"  Switch edge ({bus_1}, {bus_2}) not present in DFS tree; skipping."
-                        )
-                        cycles.pop(0)
-                        continue
-                else:
-                    bus_1 = random.choice(cycle)
-                    if cycle.index(bus_1) == len(cycle) - 1:
-                        bus_2 = cycle[0]
-                    else:
-                        bus_2 = cycle[cycle.index(bus_1) + 1]
-                    dfs_tree.remove_edge(bus_1, bus_2)
-                    logger.warning(
-                        f"  No switch found in cycle. Removing edge ({bus_1}, {bus_2}) to break the cycle."
-                    )
+                self._remove_cycle_edge(dfs_tree, cycles[0])
                 cycles = self.get_cycles(dfs_tree)
 
             assert (
@@ -1149,7 +1226,7 @@ class DistributionSystem(System):
         cycles = list(nx.simple_cycles(graph))
         reduced_cycles = []
         for cycle in cycles:
-            if len(cycle) == 2:
+            if len(cycle) == 2 and not graph.is_directed():
                 u, v = cycle
                 model_types = {graph[u][v][k]["type"] for k in graph[u][v]}
                 if len(model_types) != 1:

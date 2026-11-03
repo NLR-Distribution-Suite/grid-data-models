@@ -100,13 +100,15 @@ class SubstationSystem(System):
         output_name: str | None = None,
         keep_time_series: bool = True,
     ) -> "DistributionSystem":
-        """Combine station topology and single-feeder systems into one model.
+        """Combine station electrical topology and single-feeder systems.
 
         Each feeder system must contain one feeder. Its matching
         :class:`FeederBoundary` declares the feeder root bus name through
         ``source_equivalent_id``. The root bus is merged into the boundary bus,
         feeder-local voltage sources are removed, and a source is created on the
-        highest-voltage station transformer bus.
+        highest-voltage station transformer bus. The combined system includes
+        station topology and primary electrical equipment, but not protection,
+        metering, or station-automation detail.
         """
 
         from gdm.systems.distribution import DistributionSystem
@@ -115,8 +117,15 @@ class SubstationSystem(System):
             DistributionVoltageSource,
         )
         from gdm.systems.distribution.equipment import VoltageSourceEquipment
-        from gdm.systems.substation.components import PowerTransformer
-        from gdm.systems.substation.topology import FeederBoundary
+        from gdm.systems.substation.components import PrimaryEquipmentComponent, PowerTransformer
+        from gdm.systems.substation.topology import (
+            Bay,
+            BusbarSection,
+            ExternalCircuit,
+            FeederBoundary,
+            Substation,
+            VoltageLevel,
+        )
 
         boundaries = list(self.get_components(FeederBoundary))
         if not boundaries:
@@ -128,28 +137,64 @@ class SubstationSystem(System):
         station_transformers = list(self.get_components(PowerTransformer))
         if not station_transformers:
             raise ValueError("SubstationSystem requires a PowerTransformer to create a source.")
-        source_bus = max(
-            (bus for transformer in station_transformers for bus in transformer.buses),
-            key=lambda bus: bus.rated_voltage.to("kilovolt").magnitude,
+        transformer_buses = [
+            bus for transformer in station_transformers for bus in transformer.buses
+        ]
+        source_voltage_kv = max(
+            bus.rated_voltage.to("kilovolt").magnitude for bus in transformer_buses
+        )
+        high_voltage_busbars = sorted(
+            (
+                bus
+                for bus in self.get_components(BusbarSection)
+                if bus.length is not None
+                and abs(bus.rated_voltage.to("kilovolt").magnitude - source_voltage_kv)
+                <= 0.001 * source_voltage_kv
+            ),
+            key=lambda bus: bus.name,
+        )
+        # Put the grid source on the physical high-voltage busbar when available,
+        # not on a transformer's internal winding node. This preserves the actual
+        # station path through breakers and instrument transformers.
+        source_bus = (
+            high_voltage_busbars[0]
+            if high_voltage_busbars
+            else max(
+                transformer_buses,
+                key=lambda bus: bus.rated_voltage.to("kilovolt").magnitude,
+            )
         )
 
         result = DistributionSystem(
             name=output_name or f"{self.name}-complete",
             auto_add_composed_components=True,
         )
+        electrical_component_types = (
+            Bay,
+            BusbarSection,
+            ExternalCircuit,
+            FeederBoundary,
+            PrimaryEquipmentComponent,
+            Substation,
+            VoltageLevel,
+        )
         station_components = [
             component
             for component in self.iter_all_components()
-            if type(component).__module__.startswith("gdm.systems.substation")
+            if isinstance(component, electrical_component_types)
         ]
         for component in station_components:
             if not result.has_component(component):
                 result.add_component(component)
+        source_equipment = VoltageSourceEquipment.example()
+        for phase_source in source_equipment.sources:
+            phase_source.voltage = source_bus.rated_voltage
+            phase_source.voltage_type = source_bus.voltage_type
         source = DistributionVoltageSource(
             name=f"{self.name}-source",
             bus=source_bus,
             phases=list(source_bus.phases),
-            equipment=VoltageSourceEquipment.example(),
+            equipment=source_equipment,
         )
         result.add_component(source)
 
