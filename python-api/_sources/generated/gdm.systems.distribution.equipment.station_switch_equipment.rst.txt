@@ -1,0 +1,7 @@
+gdm.systems.distribution.equipment.station\_switch\_equipment module
+====================================================================
+
+.. automodule:: gdm.systems.distribution.equipment.station_switch_equipment
+   :members:
+   :show-inheritance:
+   :undoc-members:

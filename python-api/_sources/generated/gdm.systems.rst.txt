@@ -1,0 +1,16 @@
+gdm.systems package
+===================
+
+.. automodule:: gdm.systems
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   gdm.systems.distribution
+   gdm.systems.substation

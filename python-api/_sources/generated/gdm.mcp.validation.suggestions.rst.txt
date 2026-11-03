@@ -1,0 +1,7 @@
+gdm.mcp.validation.suggestions module
+=====================================
+
+.. automodule:: gdm.mcp.validation.suggestions
+   :members:
+   :show-inheritance:
+   :undoc-members:

@@ -1,0 +1,7 @@
+gdm.mcp.validation.auto\_fixer module
+=====================================
+
+.. automodule:: gdm.mcp.validation.auto_fixer
+   :members:
+   :show-inheritance:
+   :undoc-members:

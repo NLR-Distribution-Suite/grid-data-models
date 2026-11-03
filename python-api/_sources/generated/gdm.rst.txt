@@ -1,0 +1,30 @@
+gdm package
+===========
+
+.. automodule:: gdm
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   gdm.distribution
+   gdm.mcp
+   gdm.systems
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   gdm.constants
+   gdm.exceptions
+   gdm.hashing_utils
+   gdm.quantities
+   gdm.tracked_changes
+   gdm.version
