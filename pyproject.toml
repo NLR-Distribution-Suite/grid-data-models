@@ -28,7 +28,7 @@ dependencies = [
   "infrasys==1.2.1", 
   "importlib_metadata",
   "typer",
-  "pandas~=3.0.6",
+  "pandas~=3.1.0",
   "geopandas",
   "plotly",
 ]
