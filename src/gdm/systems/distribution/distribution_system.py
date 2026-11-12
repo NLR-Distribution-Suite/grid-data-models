@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from collections import defaultdict
+from collections import defaultdict, deque
 from typing import TYPE_CHECKING, Annotated, Type
 import importlib.metadata
 from pathlib import Path
@@ -25,8 +25,18 @@ import shapely
 from gdm.systems.distribution.components.base.distribution_transformer_base import (
     DistributionTransformerBase,
 )
-from gdm.systems.distribution.enums import ColorNodeBy, ColorLineBy, PlotingStyle, MapType
+from gdm.systems.distribution.enums import (
+    ColorNodeBy,
+    ColorLineBy,
+    ConnectionType,
+    PlotingStyle,
+    MapType,
+    VoltageTypes,
+)
 from gdm.systems.distribution.enums import Phase
+from gdm.constants import LL_LN_CONVERSION_FACTOR
+from gdm.quantities import Voltage
+
 from gdm.systems.distribution.components import (
     DistributionBus,
     GeometryBranch,
@@ -1162,3 +1172,114 @@ class DistributionSystem(System):
                 reduced_cycles.append(cycle)
 
         return reduced_cycles
+
+    def assign_bus_voltages(self):
+        """
+        Assign bus voltages by traversing the system from voltage sources outward using BFS.
+        Voltage is assigned based on the voltage source and transformer ratings.
+        """
+
+        observed_buses = set()
+        observed_components = set()
+
+        bus_obj_map = self._create_bus_obj_map()
+
+        bus_queue = self._start_queue_w_voltage_sources()
+
+        while bus_queue:
+            current_bus_name = bus_queue.popleft()
+            current_voltage, current_voltage_type = self._get_current_bus_voltage(current_bus_name)
+            observed_buses.add(current_bus_name)
+            conn_objs = bus_obj_map[current_bus_name]
+            for obj in conn_objs:
+                if self._component_already_observed(obj, observed_components):
+                    continue
+                self._propagate_component_voltage(
+                    obj,
+                    current_bus_name,
+                    current_voltage,
+                    current_voltage_type,
+                    observed_buses,
+                    bus_queue,
+                )
+
+    def _get_current_bus_voltage(self, bus_name):
+        current_bus = self.get_component(DistributionBus, name=bus_name)
+        return current_bus.rated_voltage, current_bus.voltage_type
+
+    def _component_already_observed(self, obj, observed_components):
+        component_key = (obj.__class__.__name__, obj.name)
+        if component_key in observed_components:
+            return True
+        observed_components.add(component_key)
+        return False
+
+    def _transformer_winding_voltage(self, winding):
+        voltage = winding.rated_voltage
+        voltage_type = winding.voltage_type
+        if (
+            winding.connection_type == ConnectionType.STAR
+            and winding.num_phases > 1
+            and voltage_type == VoltageTypes.LINE_TO_LINE
+        ):
+            voltage = Voltage(
+                voltage.to("kilovolt").magnitude / LL_LN_CONVERSION_FACTOR,
+                "kilovolt",
+            )
+            voltage_type = VoltageTypes.LINE_TO_GROUND
+        return voltage, voltage_type
+
+    def _assign_transformer_bus_voltage(self, obj, bus_index, bus, current_voltage):
+        for winding_index, winding in enumerate(obj.equipment.windings):
+            voltage, voltage_type = self._transformer_winding_voltage(winding)
+            if winding_index == bus_index and voltage != current_voltage:
+                bus.voltage_type = voltage_type
+                bus.rated_voltage = voltage
+                return
+
+    def _propagate_component_voltage(
+        self,
+        obj,
+        current_bus_name,
+        current_voltage,
+        current_voltage_type,
+        observed_buses,
+        bus_queue,
+    ):
+        is_transformer = obj.__class__.__name__ == "DistributionTransformer"
+        for bus_index, bus in enumerate(obj.buses):
+            if bus.name == current_bus_name:
+                continue
+            if is_transformer:
+                self._assign_transformer_bus_voltage(obj, bus_index, bus, current_voltage)
+            else:
+                bus.rated_voltage = current_voltage
+                bus.voltage_type = current_voltage_type
+
+            if bus.name not in observed_buses:
+                bus_queue.append(bus.name)
+
+    def _start_queue_w_voltage_sources(self):
+        bus_queue = deque()
+
+        voltage_sources = list(self.get_components(DistributionVoltageSource))
+
+        for vsource in voltage_sources:
+            # Source equipment stores per-phase voltage as L-N.
+            # Bus rated_voltage is propagated in L-N form and converted in writers when needed.
+            vsource.bus.rated_voltage = vsource.equipment.sources[0].voltage
+            vsource.bus.voltage_type = vsource.equipment.sources[0].voltage_type
+            bus_queue.append(vsource.bus.name)
+
+        return bus_queue
+
+    def _create_bus_obj_map(self):
+        bus_obj_map = defaultdict(list)
+        for component_type in self.get_component_types():
+            component_list = list(self.get_components(component_type))
+            for comp in component_list:
+                if hasattr(comp, "buses"):
+                    for bus in comp.buses:
+                        bus_obj_map[bus.name].append(comp)
+
+        return bus_obj_map
