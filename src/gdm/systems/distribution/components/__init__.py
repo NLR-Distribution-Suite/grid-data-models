@@ -2,6 +2,10 @@ from gdm.systems.distribution.components.distribution_battery import Distributio
 from gdm.systems.distribution.components.distribution_bus import DistributionBus
 from gdm.systems.distribution.components.distribution_capacitor import DistributionCapacitor
 from gdm.systems.distribution.components.distribution_load import DistributionLoad
+from gdm.systems.distribution.components.distribution_generator import (
+    DistributionGenerator,
+    GeneratorOperatingMode,
+)
 from gdm.systems.distribution.components.distribution_regulator import DistributionRegulator
 from gdm.systems.distribution.components.distribution_solar import DistributionSolar
 from gdm.systems.distribution.components.distribution_transformer import DistributionTransformer

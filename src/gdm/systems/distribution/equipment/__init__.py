@@ -22,6 +22,7 @@ from gdm.systems.distribution.equipment.geometry_branch_equipment import (
     GeometryBranchEquipment,
 )
 from gdm.systems.distribution.equipment.inverter_equipment import InverterEquipment
+from gdm.systems.distribution.equipment.generator_equipment import GeneratorEquipment
 from gdm.systems.distribution.equipment.load_equipment import LoadEquipment
 from gdm.systems.distribution.equipment.matrix_impedance_branch_equipment import (
     MatrixImpedanceBranchEquipment,

@@ -17,6 +17,7 @@ from gdm.distribution.components import (
     DistributionFeeder,
     DistributionSolar,
     DistributionLoad,
+    DistributionGenerator,
     DistributionBus,
     GeometryBranch,
     GeometrySwitch,
@@ -40,6 +41,7 @@ from gdm.distribution.equipment import (
     WindingEquipment,
     BatteryEquipment,
     SolarEquipment,
+    GeneratorEquipment,
 )
 
 from gdm.distribution.controllers import (
@@ -106,6 +108,7 @@ DIST_INTERFACES = [
     DistributionFeeder,
     DistributionSolar,
     DistributionLoad,
+    DistributionGenerator,
     DistributionBus,
     GeometryBranch,
     GeometrySwitch,
@@ -126,6 +129,7 @@ DIST_INTERFACES = [
     WindingEquipment,
     BatteryEquipment,
     SolarEquipment,
+    GeneratorEquipment,
     PeakShavingBaseLoadingControlSetting,
     ReactivePowerCapacitorController,
     ActivePowerCapacitorController,

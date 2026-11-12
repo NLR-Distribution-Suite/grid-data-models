@@ -62,6 +62,7 @@ project:
             - file: api/components/distribution_recloser.md
             - file: api/components/distribution_vsource.md
             - file: api/components/distribution_solar.md
+            - file: api/components/distribution_generator.md
             - file: api/equipment/battery_equipment.md
             - file: api/equipment/branch_equipment.md
             - file: api/equipment/capacitor_equipment.md
@@ -73,6 +74,7 @@ project:
             - file: api/equipment/switch_equipment.md
             - file: api/equipment/recloser_equipment.md
             - file: api/equipment/solar_equipment.md
+            - file: api/equipment/generator_equipment.md
             - file: api/equipment/inverter_equipment.md
             - file: api/controllers/capacitor_controllers.md
             - file: api/controllers/regulator_controllers.md
