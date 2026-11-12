@@ -37,6 +37,18 @@ def test_upgrade_2_4_0_to_2_4_1_preserves_existing_data():
     assert data == expected
 
 
+def test_upgrade_2_4_1_to_2_4_2_preserves_existing_data():
+    data = json.loads(model_path.read_text())
+    upgrade_handler = UpgradeHandler()
+    upgrade_handler.upgrade(data, data["data_format_version"], "2.4.1")
+    expected = deepcopy(data)
+    expected["data_format_version"] = "2.4.2"
+
+    upgrade_handler.upgrade(data, "2.4.1", "2.4.2")
+
+    assert data == expected
+
+
 def test_unique_from_version():
     with pytest.raises(ValidationError):
         UpgradeHandler(

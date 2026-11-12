@@ -3,7 +3,7 @@ import subprocess
 import platform
 import sys
 
-VERSION = "2.4.1"
+VERSION = "2.4.2"
 SUPPORTED_VERSIONS = [VERSION]
 
 
