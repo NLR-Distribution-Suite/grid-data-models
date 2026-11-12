@@ -1,0 +1,30 @@
+gdm.mcp package
+===============
+
+.. automodule:: gdm.mcp
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   gdm.mcp.inspection
+   gdm.mcp.knowledge
+   gdm.mcp.operations
+   gdm.mcp.utilities
+   gdm.mcp.validation
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   gdm.mcp.exceptions
+   gdm.mcp.schemas
+   gdm.mcp.server
+   gdm.mcp.version

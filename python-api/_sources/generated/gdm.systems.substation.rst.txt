@@ -1,0 +1,27 @@
+gdm.systems.substation package
+==============================
+
+.. automodule:: gdm.systems.substation
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   gdm.systems.substation.automation
+   gdm.systems.substation.builder
+   gdm.systems.substation.components
+   gdm.systems.substation.detailed_reference
+   gdm.systems.substation.enums
+   gdm.systems.substation.equipment
+   gdm.systems.substation.metering
+   gdm.systems.substation.models
+   gdm.systems.substation.protection
+   gdm.systems.substation.reference_designs
+   gdm.systems.substation.renewable
+   gdm.systems.substation.substation_system
+   gdm.systems.substation.topology

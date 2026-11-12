@@ -1,0 +1,7 @@
+gdm.systems.distribution.components.matrix\_impedance\_recloser module
+======================================================================
+
+.. automodule:: gdm.systems.distribution.components.matrix_impedance_recloser
+   :members:
+   :show-inheritance:
+   :undoc-members:

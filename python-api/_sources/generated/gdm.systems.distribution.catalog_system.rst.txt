@@ -1,0 +1,7 @@
+gdm.systems.distribution.catalog\_system module
+===============================================
+
+.. automodule:: gdm.systems.distribution.catalog_system
+   :members:
+   :show-inheritance:
+   :undoc-members:

@@ -1,0 +1,7 @@
+gdm.exceptions module
+=====================
+
+.. automodule:: gdm.exceptions
+   :members:
+   :show-inheritance:
+   :undoc-members:

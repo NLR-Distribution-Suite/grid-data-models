@@ -1,0 +1,7 @@
+gdm.systems.substation.reference\_designs module
+================================================
+
+.. automodule:: gdm.systems.substation.reference_designs
+   :members:
+   :show-inheritance:
+   :undoc-members:

@@ -1,0 +1,7 @@
+gdm.systems.distribution.equipment.power\_transformer\_equipment module
+=======================================================================
+
+.. automodule:: gdm.systems.distribution.equipment.power_transformer_equipment
+   :members:
+   :show-inheritance:
+   :undoc-members:

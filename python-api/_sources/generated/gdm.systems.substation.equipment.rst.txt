@@ -1,0 +1,7 @@
+gdm.systems.substation.equipment module
+=======================================
+
+.. automodule:: gdm.systems.substation.equipment
+   :members:
+   :show-inheritance:
+   :undoc-members:
