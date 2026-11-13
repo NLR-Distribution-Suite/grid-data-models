@@ -31,6 +31,28 @@ equipment, protection, or SCADA, use [`SubstationSystem`](../api/substation.md).
 - [Distribution component API](../api/index.md): browse buses, feeders,
   branches, loads, transformers, DER, and other component types.
 
+### Electrical distance between primary buses
+
+For a connected radial system with one voltage source, compute a bus-labeled
+distance matrix for clustering:
+
+```python
+from gdm.systems.distribution.utils import electrical_distance_matrix
+
+distances = electrical_distance_matrix(system, base_mva=100)
+```
+
+The utility reduces the system to buses rated above 1 kV without changing the
+input. Each distance is the magnitude of the sum of complex series impedances
+along the unique path, in per unit on the specified three-phase MVA base.
+Incomplete phase matrices use the mean available phase self-impedance after
+neutral reduction. Supported two-winding, three-phase transformers use their
+first winding's rated impedance base; taps are ignored.
+
+Open switches and out-of-service equipment are excluded. Disconnected or
+non-radial networks and unsupported equipment raise an error. This simplified
+bus-level measure is not a phase-aware power-flow calculation.
+
 When a station contains several feeder boundaries, a larger distribution model
 can be filtered to the matching outfeeds with
 `DistributionSystem.get_substation_feeder_subsystem()`. To connect those

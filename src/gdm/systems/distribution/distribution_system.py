@@ -728,14 +728,21 @@ class DistributionSystem(System):
                     phases = [",".join([phs.value for phs in w]) for w in component.winding_phases]
                     phases = "\n".join(phases)
                     length = 15.0
+                    rated_power = component.equipment.windings[0].rated_power.to("watts").magnitude
+                    rated_voltage = (
+                        component.equipment.windings[0].rated_voltage.to("volt").magnitude
+                    )
+                    ampacity = rated_power / rated_voltage
                 else:
                     phases = ",".join([phs.value for phs in component.phases])
                     component_length = getattr(component, "length", None)
                     length = component_length.to("foot").magnitude if component_length else 0.0
+                    ampacity = component.equipment.ampacity.to("ampere").magnitude
                 edge_data["Phases"].append(phases)
                 edge_data["Name"].append(data["name"])
                 edge_data["Length"].append(length)
                 edge_data["Type"].append(data["type"].__name__)
+                edge_data["Ampacity"].append(ampacity)
                 edge_data["X"].append([x1, x2])
                 edge_data["Y"].append([y1, y2])
                 system_crs = bus1.coordinate.crs
