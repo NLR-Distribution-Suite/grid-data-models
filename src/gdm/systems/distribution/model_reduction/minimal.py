@@ -1,8 +1,7 @@
 from collections import defaultdict, deque
-from typing import TYPE_CHECKING
-
 from infrasys import Component
 
+from gdm.hashing_utils import remove_unreferenced_equipment
 from gdm.systems.distribution import DistributionSystem
 from gdm.systems.distribution.model_reduction.common import (
     _aggregate_subtree_components,
@@ -16,6 +15,9 @@ from gdm.systems.distribution.model_reduction.series import _find_chains, _merge
 from gdm.systems.distribution.components.base.distribution_switch_base import (
     DistributionSwitchBase,
 )
+from gdm.systems.distribution.components.base.distribution_component_base import (
+    InServiceDistributionComponentBase,
+)
 from gdm.systems.distribution.components import DistributionBus
 from gdm.systems.distribution.components.matrix_impedance_branch import MatrixImpedanceBranch
 from gdm.systems.distribution.components.geometry_branch import GeometryBranch
@@ -23,43 +25,6 @@ from gdm.systems.distribution.components.geometry_branch import GeometryBranch
 
 from infrasys.time_series_models import SingleTimeSeries, TimeSeriesData
 import networkx as nx
-
-if TYPE_CHECKING:
-    from matplotlib.axes import Axes
-
-
-def plot_graph(
-    graph: nx.Graph,
-    system: DistributionSystem,
-    show_plot: bool = False,
-    *,
-    ax: "Axes | None" = None,
-):
-    import matplotlib.pyplot as plt
-
-    coordinates = {}
-    for node in graph.nodes:
-        bus = system.get_component(DistributionBus, node)
-        if bus.coordinate is None:
-            raise ValueError(f"Bus {node!r} has no coordinates")
-        coordinates[node] = (bus.coordinate.x, bus.coordinate.y)
-
-    if graph.is_multigraph():
-        edges = list(graph.edges(keys=True, data=True))
-    else:
-        edges = list(graph.edges(data=True))
-    edges.sort(key=lambda edge: bool(edge[-1].get("is_switch", False)))
-    if ax is None:
-        _, ax = plt.subplots()
-    nx.draw(
-        graph,
-        pos=coordinates,
-        ax=ax,
-        edgelist=[edge[:-1] for edge in edges],
-        edge_color=["red" if edge[-1].get("is_switch", False) else "black" for edge in edges],
-    )
-    if show_plot:
-        plt.show()
 
 
 def _nearest_retained_buses(
@@ -76,6 +41,47 @@ def _nearest_retained_buses(
                 parents[neighbor] = node
                 queue.append(neighbor)
     return targets, parents
+
+
+def _out_of_service_buses(system: DistributionSystem) -> set[str]:
+    protected = set()
+    for component in system.get_components(InServiceDistributionComponentBase):
+        if component.in_service:
+            continue
+        if isinstance(component, DistributionBus):
+            protected.add(component.name)
+        elif hasattr(component, "buses"):
+            protected.update(bus.name for bus in component.buses)
+        elif hasattr(component, "bus") and isinstance(component.bus, DistributionBus):
+            protected.add(component.bus.name)
+        else:
+            raise ValueError(
+                f"Cannot retain out-of-service {type(component).__name__}.{component.name}"
+            )
+    return protected
+
+
+def _retain_protected_paths(graph: nx.Graph, retained: set[str], protected: set[str]) -> set[str]:
+    retained = retained.copy()
+    for island in nx.connected_components(graph):
+        if not island & retained:
+            retained.add(min(island & protected or island))
+    _, parents = _nearest_retained_buses(graph, retained)
+    for node in protected:
+        retained.add(node)
+        while node in parents:
+            node = parents[node]
+            retained.add(node)
+    return retained
+
+
+def _closed_forest(graph: nx.Graph, source: str, primary_buses: set[str]) -> nx.DiGraph:
+    forest = nx.DiGraph()
+    for island in nx.connected_components(graph):
+        root = source if source in island else min(island & primary_buses or island)
+        forest.add_edges_from(nx.bfs_edges(graph, root, sort_neighbors=sorted))
+        forest.add_nodes_from(island)
+    return forest
 
 
 def _switch_path_buses(graph: nx.MultiGraph, switch_buses: set[str]) -> set[str]:
@@ -217,12 +223,61 @@ def _check_removed_time_series(
         )
 
 
+def _reduce_primary(
+    system: DistributionSystem,
+    agg_time_series: bool,
+    time_series_type: type[TimeSeriesData],
+    retain_out_of_service: bool,
+) -> tuple[DistributionSystem, set[str]]:
+    primary_buses = _get_primary_buses(system)
+    protected_buses: set[str] = set()
+    forest = None
+    if retain_out_of_service:
+        protected_buses = _out_of_service_buses(system)
+        closed_graph = _closed_edge_graph(system)
+        forest = _closed_forest(closed_graph, system.get_source_bus().name, set(primary_buses))
+        primary_buses = sorted(
+            _retain_protected_paths(closed_graph, set(primary_buses), protected_buses)
+        )
+    primary_mapping: list[tuple[str, str, str]] = []
+    primary_system = _reduce_system(
+        system,
+        primary_buses,
+        "primary_system",
+        agg_time_series=agg_time_series,
+        time_series_type=time_series_type,
+        strict_time_series=agg_time_series,
+        asset_mapping=primary_mapping if agg_time_series else None,
+        directed_graph=forest,
+    )
+    if retain_out_of_service:
+        _ensure_retained_buses(
+            system, primary_system, primary_buses, agg_time_series, time_series_type
+        )
+    if agg_time_series:
+        _check_removed_time_series(system, primary_system, time_series_type, primary_mapping)
+    return primary_system, protected_buses
+
+
+def _check_retained_outages(
+    source: DistributionSystem, reduced: DistributionSystem, retain_out_of_service: bool
+) -> None:
+    if not retain_out_of_service:
+        return
+    for component in source.get_components(InServiceDistributionComponentBase):
+        if not component.in_service and not reduced.has_component(component):
+            raise ValueError(
+                f"Failed to retain out-of-service {type(component).__name__}.{component.name}"
+            )
+
+
 def reduce_to_minimal_system_with_sw(
     system: DistributionSystem,
     reduce_series_laterals: bool = False,
     agg_time_series: bool = False,
     agg_timeseries: bool | None = None,
     time_series_type: type[TimeSeriesData] = SingleTimeSeries,
+    retain_out_of_service: bool = False,
 ) -> DistributionSystem:
     """Reduce to switch-connected buses, aggregating removed assets at nearest retained buses.
 
@@ -235,22 +290,15 @@ def reduce_to_minimal_system_with_sw(
     selected time-series type is retained and load and solar profiles are
     aggregated. Unsupported or mismatched profiles raise an error when their
     components must be aggregated. agg_timeseries overrides agg_time_series
-    when provided.
+    when provided. When retain_out_of_service is enabled, out-of-service
+    components and the buses and paths needed to retain them remain in the
+    system, without being aggregated into in-service components.
     """
     if agg_timeseries is not None:
         agg_time_series = agg_timeseries
-    primary_mapping: list[tuple[str, str, str]] = []
-    primary_system = _reduce_system(
-        system,
-        _get_primary_buses(system),
-        "primary_system",
-        agg_time_series=agg_time_series,
-        time_series_type=time_series_type,
-        strict_time_series=agg_time_series,
-        asset_mapping=primary_mapping if agg_time_series else None,
+    primary_system, protected_buses = _reduce_primary(
+        system, agg_time_series, time_series_type, retain_out_of_service
     )
-    if agg_time_series:
-        _check_removed_time_series(system, primary_system, time_series_type, primary_mapping)
     switches = primary_system.get_components(DistributionSwitchBase)
     switch_buses = {bus.name for sw in switches for bus in sw.buses}
     graph = primary_system.get_undirected_graph()
@@ -265,6 +313,10 @@ def reduce_to_minimal_system_with_sw(
         node = parents[node]
         shortest_path_buses.add(node)
 
+    if retain_out_of_service:
+        shortest_path_buses = _retain_protected_paths(
+            closed_graph, shortest_path_buses, protected_buses
+        )
     graph_with_no_branching = graph.subgraph(shortest_path_buses).copy()
     targets, _ = _nearest_retained_buses(closed_graph, shortest_path_buses)
     unreachable = set(graph) - set(targets)
@@ -289,7 +341,13 @@ def reduce_to_minimal_system_with_sw(
     for bus_name in sorted(set(graph) - shortest_path_buses):
         groups[targets[bus_name]].append(bus_name)
     model_types = primary_system.get_model_types_with_field_type(DistributionBus)
-    split_phase_mapping = primary_system.get_split_phase_mapping()
+    if retain_out_of_service:
+        primary_forest = _closed_forest(
+            closed_graph, source, set(_get_primary_buses(primary_system))
+        )
+        split_phase_mapping = primary_system.get_split_phase_mapping(directed_graph=primary_forest)
+    else:
+        split_phase_mapping = primary_system.get_split_phase_mapping()
     aggregated_component_uuids = set()
     asset_mapping: list[tuple[str, str, str]] = []
     for target, bus_names in groups.items():
@@ -316,5 +374,5 @@ def reduce_to_minimal_system_with_sw(
         _series_lateral_with_consistant_buses(
             reduced_system, graph_with_no_branching, agg_time_series, time_series_type
         )
-        return reduced_system
-    return reduced_system
+    _check_retained_outages(system, reduced_system, retain_out_of_service)
+    return remove_unreferenced_equipment(reduced_system)

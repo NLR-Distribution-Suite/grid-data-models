@@ -6,6 +6,7 @@ from typing import Type
 from infrasys.time_series_models import SingleTimeSeries, TimeSeriesData
 import networkx as nx
 
+from gdm.hashing_utils import remove_unreferenced_equipment
 from gdm.systems.distribution.components.distribution_bus import DistributionBus
 from gdm.systems.distribution.distribution_system import DistributionSystem
 from gdm.systems.distribution.enums import Phase
@@ -114,12 +115,14 @@ def reduce_to_three_phase_system(
     three_phase_buses = _get_three_phase_buses(
         dist_system, include_intermediate_buses=include_intermediate_buses
     )
-    return _reduce_system(
-        dist_system,
-        three_phase_buses,
-        name,
-        agg_time_series,
-        agg_timeseries,
-        time_series_type,
-        allow_cycles=include_intermediate_buses,
+    return remove_unreferenced_equipment(
+        _reduce_system(
+            dist_system,
+            three_phase_buses,
+            name,
+            agg_time_series,
+            agg_timeseries,
+            time_series_type,
+            allow_cycles=include_intermediate_buses,
+        )
     )

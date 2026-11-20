@@ -5,6 +5,7 @@ from typing import Callable
 
 import networkx as nx
 
+from gdm.hashing_utils import remove_unreferenced_equipment
 from gdm.systems.distribution.components.base.distribution_branch_base import (
     DistributionBranchBase,
 )
@@ -55,6 +56,7 @@ def _switch_equipment_from_branch(
     line: DistributionBranchBase,
 ) -> MatrixImpedanceSwitchEquipment:
     """Build switch equipment from a branch's impedance data."""
+    equipment_uuid = uuid.uuid5(uuid.NAMESPACE_URL, f"gdm.radial_switch_equipment.{line.uuid}")
     if isinstance(line, GeometryBranch):
         line = line.to_matrix_representation(frequency_hz=60)
     if not isinstance(line, MatrixImpedanceBranch):
@@ -63,7 +65,9 @@ def _switch_equipment_from_branch(
             "MatrixImpedanceBranch and GeometryBranch lines are supported."
         )
         raise ValueError(msg)
-    return MatrixImpedanceSwitchEquipment(**line.equipment.model_dump(exclude_none=True))
+    return MatrixImpedanceSwitchEquipment(
+        uuid=equipment_uuid, **line.equipment.model_dump(exclude_none=True, exclude={"uuid"})
+    )
 
 
 def _convert_line_to_open_switch(
@@ -172,4 +176,4 @@ def reduce_to_radial_network(dist_system: DistributionSystem, name: str) -> Dist
         ]:
             closed_graph.remove_edge(bus_1, bus_2, key=key)
 
-    return system
+    return remove_unreferenced_equipment(system)
