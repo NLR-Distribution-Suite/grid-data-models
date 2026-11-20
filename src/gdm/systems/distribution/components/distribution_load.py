@@ -9,6 +9,7 @@ from gdm.systems.distribution.enums import Phase
 from gdm.systems.distribution.components.distribution_bus import DistributionBus
 from gdm.systems.distribution.components.base.distribution_component_base import (
     InServiceDistributionComponentBase,
+    _in_service_components,
 )
 from gdm.systems.distribution.components.distribution_feeder import DistributionFeeder
 from gdm.systems.distribution.components.distribution_substation import (
@@ -43,6 +44,7 @@ class DistributionLoad(InServiceDistributionComponentBase):
         name: str,
         split_phase_mapping: dict[str, set[Phase]],
     ) -> Self:
+        instances = _in_service_components(instances)
         phase_loads = defaultdict(list)
         for load in instances:
             if {Phase.S1, Phase.S2} & set(load.phases):

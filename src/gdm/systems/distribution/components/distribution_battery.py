@@ -13,6 +13,7 @@ from gdm.systems.distribution.controllers.distribution_inverter_controller impor
 )
 from gdm.systems.distribution.components.base.distribution_component_base import (
     InServiceDistributionComponentBase,
+    _in_service_components,
 )
 from gdm.systems.distribution.equipment.battery_equipment import BatteryEquipment
 from gdm.systems.distribution.components.distribution_bus import DistributionBus
@@ -119,6 +120,7 @@ class DistributionBattery(InServiceDistributionComponentBase):
             DistributionBattery: A new DistributionBattery instance representing
             the aggregate of the provided instances.
         """
+        instances = _in_service_components(instances)
         phases = set()
         for battery in instances:
             if {Phase.S1, Phase.S2} & set(battery.phases):

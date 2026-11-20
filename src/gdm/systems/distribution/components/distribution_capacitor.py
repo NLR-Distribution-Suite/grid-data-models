@@ -9,6 +9,7 @@ from gdm.systems.distribution.components.distribution_bus import DistributionBus
 from gdm.systems.distribution.equipment.capacitor_equipment import CapacitorEquipment
 from gdm.systems.distribution.components.base.distribution_component_base import (
     InServiceDistributionComponentBase,
+    _in_service_components,
 )
 from gdm.systems.distribution.components.distribution_feeder import DistributionFeeder
 from gdm.systems.distribution.components.distribution_substation import DistributionSubstation
@@ -73,6 +74,7 @@ class DistributionCapacitor(InServiceDistributionComponentBase):
         name: str,
         split_phase_mapping: dict[str, set[Phase]],
     ) -> "DistributionCapacitor":
+        instances = _in_service_components(instances)
         phase_caps = defaultdict(list)
         for cap in instances:
             if {Phase.S1, Phase.S2} & set(cap.phases):
@@ -101,7 +103,7 @@ class DistributionCapacitor(InServiceDistributionComponentBase):
                 rated_voltage=bus.rated_voltage,
                 voltage_type=bus.voltage_type,
             ),
-            state=[True] * len(phase_caps),
+            state=[state for cap in instances for state in cap.state],
         )
 
     @model_validator(mode="after")

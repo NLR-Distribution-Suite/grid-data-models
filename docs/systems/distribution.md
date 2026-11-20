@@ -31,6 +31,28 @@ equipment, protection, or SCADA, use [`SubstationSystem`](../api/substation.md).
 - [Distribution component API](../api/index.md): browse buses, feeders,
   branches, loads, transformers, DER, and other component types.
 
+When aggregating loads, solar systems, batteries, capacitors, or generators, out-of-service
+components are logged and excluded. An aggregate call with no in-service
+components raises `ValueError`; reducers skip such aggregates instead.
+Capacitor aggregation retains the installed capacity and bank states of the
+included capacitors. Generator aggregates sum power, ratings, and reactive
+limits, and require matching phases, operating controls, voltage ratings,
+connections, and machine parameters. Reducers keep incompatible generators in
+separate aggregates. Generator time-series aggregation is unsupported;
+aggregation during primary or three-phase reduction raises an error when time
+series are requested. This does not filter out-of-service network branches
+from the reducers' connectivity graphs.
+
+`reduce_to_minimal_system_with_sw` omits time series by default. Pass
+`agg_time_series=True` to retain the selected `time_series_type` and aggregate
+load and solar profiles through primary, switch-boundary, and optional series
+reduction. `agg_timeseries` is an alias that overrides `agg_time_series` when
+provided. Aggregation requires matching profile names and features (apart from
+`use_actual`) and compatible timestamps; multiplier profiles are converted to
+actual values. Unsupported or mismatched profiles raise an error instead of
+being discarded when their components must be removed. Profiled branches and
+other protected components remain boundaries during series reduction.
+
 When a station contains several feeder boundaries, a larger distribution model
 can be filtered to the matching outfeeds with
 `DistributionSystem.get_substation_feeder_subsystem()`. To connect those
