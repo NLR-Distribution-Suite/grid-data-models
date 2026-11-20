@@ -53,6 +53,27 @@ actual values. Unsupported or mismatched profiles raise an error instead of
 being discarded when their components must be removed. Profiled branches and
 other protected components remain boundaries during series reduction.
 
+Set `retain_out_of_service=True` to keep out-of-service components individually,
+along with their original buses and connecting paths, instead of including them
+in active aggregates. This can retain additional secondary buses, transformers,
+and disconnected islands. Their selected time series are retained when
+`agg_time_series=True`. The default is `False`.
+
+The primary, three-phase, radial, trivial-node, and minimal reducers remove
+unreferenced distribution equipment from their results automatically. To clean
+another system explicitly, create a cleaned copy with:
+
+```python
+from gdm.hashing_utils import remove_unreferenced_equipment
+
+cleaned = remove_unreferenced_equipment(reduced_system)
+```
+
+The original system is unchanged. Equipment referenced by retained components,
+including shared and nested equipment, is kept. Supplemental attributes and
+time series attached exclusively to removed equipment are omitted; those on
+retained components are copied.
+
 When a station contains several feeder boundaries, a larger distribution model
 can be filtered to the matching outfeeds with
 `DistributionSystem.get_substation_feeder_subsystem()`. To connect those

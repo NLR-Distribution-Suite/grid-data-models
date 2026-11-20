@@ -11,6 +11,7 @@ from infrasys import Component
 from infrasys.base_quantity import ureg
 from infrasys.time_series_models import SingleTimeSeries, NonSequentialTimeSeries
 
+from gdm.hashing_utils import remove_unreferenced_equipment
 from gdm.distribution.model_reduction import (
     reduce_to_three_phase_system,
     reduce_to_primary_system,
@@ -28,15 +29,16 @@ from gdm.distribution.components import (
 )
 from gdm.distribution.components.matrix_impedance_branch import MatrixImpedanceBranch
 from gdm.distribution.components.matrix_impedance_switch import MatrixImpedanceSwitch
+from gdm.systems.distribution.components.distribution_battery import DistributionBattery
 from gdm.systems.distribution.components.distribution_capacitor import DistributionCapacitor
 from gdm.systems.distribution.components.distribution_generator import (
     DistributionGenerator,
     GeneratorOperatingMode,
 )
+from gdm.systems.distribution.components.distribution_transformer import DistributionTransformer
 from gdm.systems.distribution.model_reduction.minimal import (
     _nearest_retained_buses,
     _series_lateral_with_consistant_buses,
-    plot_graph,
     reduce_to_minimal_system_with_sw,
 )
 from gdm.distribution.enums import Phase, VoltageTypes
@@ -62,10 +64,57 @@ from gdm.quantities import (
     ResistancePULength,
     Voltage,
 )
+from gdm.systems.distribution.equipment import LoadEquipment
+from gdm.systems.distribution.model_reduction import minimal, primary, radial, three_phase, trivial
 
 
 class CustomTimeSeries:
     "A dummy time series class for test"
+
+
+@pytest.mark.parametrize(
+    ("module", "reducer", "force_no_trivial_nodes"),
+    [
+        (primary, lambda system: primary.reduce_to_primary_system(system, "reduced"), False),
+        (
+            three_phase,
+            lambda system: three_phase.reduce_to_three_phase_system(system, "reduced"),
+            False,
+        ),
+        (radial, lambda system: radial.reduce_to_radial_network(system, "reduced"), False),
+        (trivial, lambda system: trivial.reduce_trivial_nodes(system), False),
+        (trivial, lambda system: trivial.reduce_trivial_nodes(system), True),
+        (minimal, lambda system: minimal.reduce_to_minimal_system_with_sw(system), False),
+        (
+            minimal,
+            lambda system: minimal.reduce_to_minimal_system_with_sw(
+                system, reduce_series_laterals=True
+            ),
+            False,
+        ),
+    ],
+)
+def test_reducers_clean_unreferenced_equipment(
+    simple_distribution_system, monkeypatch, module, reducer, force_no_trivial_nodes
+):
+    orphan = LoadEquipment.example()
+    cleanup_calls = []
+
+    def cleanup_with_orphan(system):
+        system.add_component(orphan)
+        cleanup_calls.append(system)
+        return remove_unreferenced_equipment(system)
+
+    monkeypatch.setattr(module, "remove_unreferenced_equipment", cleanup_with_orphan)
+    if force_no_trivial_nodes:
+        monkeypatch.setattr(trivial, "_find_trivial_buses", lambda *args: set())
+
+    reduced = reducer(simple_distribution_system)
+
+    assert len(cleanup_calls) == 1
+    assert cleanup_calls[0].has_component(orphan)
+    assert not reduced.has_component(orphan)
+    assert not simple_distribution_system.has_component(orphan)
 
 
 def test_series_lateral_aggregates_assets_and_weighted_impedance():
@@ -201,105 +250,6 @@ def test_series_lateral_keeps_out_of_service_boundaries(protected):
     assert reduced.number_of_edges() == 2
 
 
-def test_plot_graph_uses_bus_coordinates(monkeypatch):
-    import matplotlib.pyplot as plt
-    from infrasys import Location
-
-    system = DistributionSystem(auto_add_composed_components=True)
-    bus_a = DistributionBus.example()
-    bus_b = bus_a.model_copy(
-        update={"name": "another_bus", "uuid": uuid4(), "coordinate": Location(x=-10, y=15)}
-    )
-    system.add_component(bus_a)
-    system.add_component(bus_b)
-    graph = nx.Graph([(bus_a.name, bus_b.name)])
-    monkeypatch.setattr(plt, "show", lambda: None)
-
-    try:
-        plot_graph(graph, system)
-        ax = plt.gca()
-        assert ax.collections[0].get_offsets().tolist() == [[20.0, 30.0], [-10.0, 15.0]]
-        assert ax.collections[1].get_segments()[0].tolist() == [[20.0, 30.0], [-10.0, 15.0]]
-    finally:
-        plt.close("all")
-
-
-def test_plot_graph_rejects_missing_coordinates():
-    system = DistributionSystem(auto_add_composed_components=True)
-    bus = DistributionBus.example()
-    bus.coordinate = None
-    system.add_component(bus)
-
-    with pytest.raises(ValueError, match="has no coordinates"):
-        plot_graph(nx.Graph([(bus.name, bus.name)]), system)
-
-
-def test_plot_graph_colors_parallel_switches_red(monkeypatch):
-    import matplotlib.pyplot as plt
-    from matplotlib.colors import to_rgba
-    from infrasys import Location
-
-    system = DistributionSystem(auto_add_composed_components=True)
-    bus_a = DistributionBus.example()
-    bus_b = bus_a.model_copy(
-        update={"name": "another_bus", "uuid": uuid4(), "coordinate": Location(x=-10, y=15)}
-    )
-    system.add_component(bus_a)
-    system.add_component(bus_b)
-    graph = nx.MultiGraph()
-    graph.add_edge(bus_a.name, bus_b.name, is_switch=True)
-    graph.add_edge(bus_a.name, bus_b.name, is_switch=False)
-    monkeypatch.setattr(plt, "show", lambda: None)
-
-    try:
-        plot_graph(graph, system)
-        colors = [edge.get_edgecolor() for edge in plt.gca().patches]
-        assert colors == [to_rgba("black"), to_rgba("red")]
-    finally:
-        plt.close("all")
-
-
-def test_plot_graph_displays_separate_figures(monkeypatch):
-    import matplotlib.pyplot as plt
-
-    system = DistributionSystem(auto_add_composed_components=True)
-    bus = DistributionBus.example()
-    system.add_component(bus)
-    graph = nx.Graph()
-    graph.add_node(bus.name)
-    shown_figures = []
-    monkeypatch.setattr(plt, "show", lambda: shown_figures.extend(plt.get_fignums()))
-
-    try:
-        plot_graph(graph, system)
-        plot_graph(graph, system, show_plot=True)
-        assert len(shown_figures) == 2
-        assert len(set(shown_figures)) == 2
-    finally:
-        plt.close("all")
-
-
-def test_plot_graph_uses_provided_axes(monkeypatch):
-    import matplotlib.pyplot as plt
-
-    system = DistributionSystem(auto_add_composed_components=True)
-    bus = DistributionBus.example()
-    system.add_component(bus)
-    graph = nx.Graph()
-    graph.add_node(bus.name)
-    fig, axes = plt.subplots(1, 2)
-    shown_figures = []
-    monkeypatch.setattr(plt, "show", lambda: shown_figures.extend(plt.get_fignums()))
-
-    try:
-        plot_graph(graph, system, ax=axes[0])
-        plot_graph(graph, system, show_plot=True, ax=axes[1])
-        assert shown_figures == [fig.number]
-        assert all(len(ax.collections) == 1 for ax in axes)
-    finally:
-        plt.close(fig)
-
-
 @pytest.mark.parametrize("reduce_series_laterals", [False, True])
 def test_minimal_reduction_aggregates_removed_loads_and_preserves_source(reduce_series_laterals):
     from tests.conftest import (
@@ -423,6 +373,193 @@ def _minimal_time_series_system(time_series_type, multipliers=False, mismatched_
         )
         loads[bus_index] = load
     return system, buses, loads
+
+
+@pytest.mark.parametrize("reduce_series_laterals", [False, True])
+@pytest.mark.parametrize("agg_time_series", [False, True])
+def test_minimal_retains_outages_and_secondary_topology(reduce_series_laterals, agg_time_series):
+    from tests.conftest import (
+        build_distribution_capacitor,
+        build_distribution_load,
+        build_distribution_solar,
+    )
+
+    system, buses, loads = _minimal_time_series_system(SingleTimeSeries)
+    inactive_load = build_distribution_load(buses[6], 99)
+    inactive_solar = build_distribution_solar(buses[5], 99)
+    inactive_capacitor = build_distribution_capacitor(buses[5], 99)
+    inactive_generator = DistributionGenerator.example().model_copy(
+        update={"uuid": uuid4(), "name": "inactive_generator", "bus": buses[6]}
+    )
+    inactive_battery = DistributionBattery.example().model_copy(
+        update={"uuid": uuid4(), "name": "inactive_battery", "bus": buses[6]}
+    )
+    assets = [
+        inactive_load,
+        inactive_solar,
+        inactive_capacitor,
+        inactive_generator,
+        inactive_battery,
+    ]
+    for asset in assets:
+        asset.in_service = False
+        system.add_component(asset)
+    inactive_branch = system.get_component(MatrixImpedanceBranch, "line_bus_2_bus_5")
+    inactive_branch.in_service = False
+    buses[6].in_service = False
+    transformer = system.get_component(DistributionTransformer, "substation_xfmr")
+    profile = SingleTimeSeries.from_array(
+        data=ActivePower([11, 12], "kilowatt"),
+        name="active_power",
+        initial_timestamp=datetime(2020, 1, 1),
+        resolution=timedelta(hours=1),
+    )
+    system.add_time_series(
+        profile, inactive_load, profile_type="PMult", profile_name="outage", use_actual=True
+    )
+
+    reduced = reduce_to_minimal_system_with_sw(
+        system,
+        reduce_series_laterals=reduce_series_laterals,
+        agg_time_series=agg_time_series,
+        retain_out_of_service=True,
+    )
+
+    for component in [*assets, inactive_branch, buses[6], transformer]:
+        assert reduced.has_component(component)
+    assert not reduced.get_component(DistributionBus, buses[6].name).in_service
+    assert not reduced.get_component(MatrixImpedanceBranch, inactive_branch.name).in_service
+    for asset in assets:
+        retained = reduced.get_component(type(asset), asset.name)
+        assert retained.uuid == asset.uuid
+        assert retained.bus.name == asset.bus.name
+        assert not retained.in_service
+    assert reduced.has_time_series(inactive_load) is agg_time_series
+    if agg_time_series:
+        saved = reduced.get_time_series(
+            inactive_load,
+            "active_power",
+            profile_type="PMult",
+            profile_name="outage",
+            use_actual=True,
+        )
+        assert saved.data.to("kilowatt").magnitude == pytest.approx([11, 12])
+    assert sum(
+        get_total_kw(load) for load in reduced.get_components(DistributionLoad) if load.in_service
+    ) == pytest.approx(sum(get_total_kw(load) for load in loads.values()))
+    assert system.has_component(inactive_load)
+    assert not inactive_load.in_service
+
+
+def test_minimal_default_does_not_retain_outages_on_removed_buses():
+    from tests.conftest import build_distribution_load
+
+    system, buses, _ = _minimal_time_series_system(SingleTimeSeries)
+    inactive = build_distribution_load(buses[6], 99)
+    inactive.in_service = False
+    system.add_component(inactive)
+    reduced = reduce_to_minimal_system_with_sw(system)
+    assert not reduced.has_component(inactive)
+    assert system.has_component(inactive)
+
+
+def test_minimal_retains_outages_behind_open_switch():
+    from tests.conftest import build_distribution_load
+
+    system, buses, _ = _minimal_time_series_system(SingleTimeSeries)
+    switch = next(system.get_components(MatrixImpedanceSwitch))
+    switch.is_closed = [False] * 3
+    inactive = build_distribution_load(buses[4], 99)
+    inactive.in_service = False
+    system.add_component(inactive)
+
+    reduced = reduce_to_minimal_system_with_sw(system, retain_out_of_service=True)
+
+    assert reduced.has_component(inactive)
+    assert reduced.has_component(switch)
+    assert reduced.get_component(MatrixImpedanceSwitch, switch.name).is_closed == [False] * 3
+    assert reduced.get_component(DistributionLoad, inactive.name).bus.name == buses[4].name
+
+
+def test_minimal_retains_outage_through_secondary_path():
+    from tests.conftest import (
+        build_distribution_buses,
+        build_distribution_line,
+        build_distribution_load,
+    )
+
+    system, buses, _ = _minimal_time_series_system(SingleTimeSeries)
+    secondary = build_distribution_buses()[7].model_copy(
+        update={"rated_voltage": Voltage(0.4, "kilovolt")}
+    )
+    system.add_component(secondary)
+    branch = build_distribution_line(buses[6], secondary)
+    system.add_component(branch)
+    inactive = build_distribution_load(secondary, 99)
+    inactive.in_service = False
+    system.add_component(inactive)
+
+    reduced = reduce_to_minimal_system_with_sw(
+        system, retain_out_of_service=True, reduce_series_laterals=True
+    )
+
+    for component in (inactive, secondary, buses[6], branch):
+        assert reduced.has_component(component)
+    assert reduced.has_component(system.get_component(DistributionTransformer, "substation_xfmr"))
+    assert nx.has_path(reduced.get_undirected_graph(), buses[0].name, secondary.name)
+
+
+def test_minimal_retains_isolated_out_of_service_bus():
+    from tests.conftest import build_distribution_buses
+
+    system, _, _ = _minimal_time_series_system(SingleTimeSeries)
+    isolated = build_distribution_buses()[7]
+    isolated.in_service = False
+    system.add_component(isolated)
+
+    reduced = reduce_to_minimal_system_with_sw(system, retain_out_of_service=True)
+
+    assert reduced.has_component(isolated)
+    assert not reduced.get_component(DistributionBus, isolated.name).in_service
+
+
+def test_minimal_retains_secondary_outage_behind_open_switch():
+    from tests.conftest import build_distribution_load
+
+    system, buses, _ = _minimal_time_series_system(SingleTimeSeries)
+    switch = next(system.get_components(MatrixImpedanceSwitch))
+    switch.is_closed = [False] * 3
+    transformer = system.get_component(DistributionTransformer, "substation_xfmr")
+    system.remove_component(transformer, cascade_down=False)
+    transformer = transformer.model_copy(update={"buses": [buses[4], buses[6]]})
+    system.add_component(transformer)
+    inactive = build_distribution_load(buses[6], 99)
+    inactive.in_service = False
+    system.add_component(inactive)
+
+    reduced = reduce_to_minimal_system_with_sw(
+        system, retain_out_of_service=True, reduce_series_laterals=True
+    )
+
+    for component in (switch, transformer, buses[4], buses[6], inactive):
+        assert reduced.has_component(component)
+    assert reduced.get_component(MatrixImpedanceSwitch, switch.name).is_closed == [False] * 3
+
+
+def test_minimal_retention_option_preserves_results_without_outages():
+    system, _, _ = _minimal_time_series_system(SingleTimeSeries)
+    default = reduce_to_minimal_system_with_sw(system, reduce_series_laterals=True)
+    retained = reduce_to_minimal_system_with_sw(
+        system, reduce_series_laterals=True, retain_out_of_service=True
+    )
+    assert {bus.name for bus in retained.get_components(DistributionBus)} == {
+        bus.name for bus in default.get_components(DistributionBus)
+    }
+    assert sum(
+        get_total_kw(load) for load in retained.get_components(DistributionLoad)
+    ) == pytest.approx(
+        sum(get_total_kw(load) for load in default.get_components(DistributionLoad))
+    )
 
 
 @pytest.mark.parametrize("time_series_type", [SingleTimeSeries, NonSequentialTimeSeries])
@@ -1286,7 +1423,7 @@ def test_reduce_to_radial_opens_closed_switch(simple_distribution_system, tmp_pa
     assert radial_graph.number_of_edges() == radial_graph.number_of_nodes() - 1
 
 
-def test_reduce_to_radial_converts_shortest_line(simple_distribution_system):
+def test_reduce_to_radial_converts_shortest_line(simple_distribution_system, tmp_path):
     system = simple_distribution_system.deepcopy()
     system.auto_add_composed_components = True
     _add_loop_line(system, "bus_2", "bus_6", length_m=50.0)
@@ -1304,6 +1441,19 @@ def test_reduce_to_radial_converts_shortest_line(simple_distribution_system):
 
     original_line = system.get_component(MatrixImpedanceBranch, "line_bus_2_bus_6")
     assert _equipment_signature(switch.equipment) == _equipment_signature(original_line.equipment)
+    assert switch.equipment.uuid != original_line.equipment.uuid
+    assert reduced.get_component_by_uuid(switch.equipment.uuid) is switch.equipment
+    reduced_again = reduce_to_radial_network(system, name="radial_system")
+    assert (
+        reduced_again.get_component(MatrixImpedanceSwitch, switch.name).equipment.uuid
+        == switch.equipment.uuid
+    )
+
+    reloaded = _export_and_reload(reduced, tmp_path)
+    assert (
+        reloaded.get_component(MatrixImpedanceSwitch, switch.name).equipment.uuid
+        == switch.equipment.uuid
+    )
 
     _directed_graph_without_pruning_warnings(reduced)
 

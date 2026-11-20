@@ -3,6 +3,7 @@
 import networkx as nx
 import numpy as np
 
+from gdm.hashing_utils import remove_unreferenced_equipment
 from gdm.quantities import Distance
 from gdm.systems.distribution.components.base.distribution_branch_base import (
     DistributionBranchBase,
@@ -188,7 +189,7 @@ def reduce_trivial_nodes(
     trivial_buses = _find_trivial_buses(dist_system, graph, buses_with_components, bus_to_branches)
 
     if not trivial_buses:
-        return dist_system
+        return remove_unreferenced_equipment(dist_system)
 
     merged_branches: list[MatrixImpedanceBranch] = []
     consumed_branches: set[str] = set()
@@ -226,4 +227,4 @@ def reduce_trivial_nodes(
     for merged in merged_branches:
         dist_system.add_component(merged)
 
-    return dist_system
+    return remove_unreferenced_equipment(dist_system)
