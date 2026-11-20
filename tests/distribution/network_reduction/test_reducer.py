@@ -8,6 +8,7 @@ import pytest
 from loguru import logger
 
 from infrasys import Component
+from infrasys.base_quantity import ureg
 from infrasys.time_series_models import SingleTimeSeries, NonSequentialTimeSeries
 
 from gdm.distribution.model_reduction import (
@@ -27,6 +28,17 @@ from gdm.distribution.components import (
 )
 from gdm.distribution.components.matrix_impedance_branch import MatrixImpedanceBranch
 from gdm.distribution.components.matrix_impedance_switch import MatrixImpedanceSwitch
+from gdm.systems.distribution.components.distribution_capacitor import DistributionCapacitor
+from gdm.systems.distribution.components.distribution_generator import (
+    DistributionGenerator,
+    GeneratorOperatingMode,
+)
+from gdm.systems.distribution.model_reduction.minimal import (
+    _nearest_retained_buses,
+    _series_lateral_with_consistant_buses,
+    plot_graph,
+    reduce_to_minimal_system_with_sw,
+)
 from gdm.distribution.enums import Phase, VoltageTypes
 from gdm.distribution.equipment.matrix_impedance_branch_equipment import (
     MatrixImpedanceBranchEquipment,
@@ -54,6 +66,525 @@ from gdm.quantities import (
 
 class CustomTimeSeries:
     "A dummy time series class for test"
+
+
+def test_series_lateral_aggregates_assets_and_weighted_impedance():
+    from tests.conftest import (
+        build_distribution_buses,
+        build_distribution_line,
+        build_distribution_load,
+        build_distribution_voltage_source,
+    )
+
+    buses = build_distribution_buses()[:4]
+    system = DistributionSystem(auto_add_composed_components=True)
+    system.add_components(*buses)
+    system.add_component(build_distribution_voltage_source(buses[0]))
+    branches = [build_distribution_line(buses[i], buses[i + 1]) for i in range(3)]
+    for branch, length, factor, amps in zip(branches, [1, 2, 3], [1, 2, 4], [100, 50, 80]):
+        branch.feeder = branches[0].feeder
+        branch.substation = branches[0].substation
+        branch.length = Distance(length, "meter")
+        branch.equipment = branch.equipment.model_copy(
+            update={
+                "uuid": uuid4(),
+                "name": str(uuid4()),
+                "ampacity": Current(amps, "ampere"),
+                "r_matrix": branch.equipment.r_matrix * factor,
+                "x_matrix": branch.equipment.x_matrix * factor,
+                "c_matrix": branch.equipment.c_matrix * factor,
+            }
+        )
+        system.add_component(branch)
+    load = build_distribution_load(buses[1], 1)
+    system.add_component(load)
+    original_power = get_total_kw(load)
+    initial_matrix = branches[0].equipment.r_matrix
+
+    graph = _series_lateral_with_consistant_buses(system, system.get_undirected_graph())
+
+    assert set(graph) == {buses[0].name, buses[3].name}
+    merged = list(system.get_components(MatrixImpedanceBranch))
+    assert len(merged) == 1
+    assert merged[0].length.to("meter").magnitude == pytest.approx(6)
+    assert merged[0].equipment.ampacity.to("ampere").magnitude == pytest.approx(50)
+    assert merged[0].equipment.r_matrix.to(initial_matrix.units).magnitude == pytest.approx(
+        initial_matrix.magnitude * (17 / 6)
+    )
+    loads = list(system.get_components(DistributionLoad))
+    assert len(loads) == 1
+    assert loads[0].bus.name == buses[0].name
+    assert get_total_kw(loads[0]) == pytest.approx(original_power)
+
+
+def test_series_lateral_converts_geometry_to_matrix():
+    from gdm.systems.distribution.components.geometry_branch import GeometryBranch
+    from tests.conftest import build_distribution_buses, build_distribution_voltage_source
+
+    buses = build_distribution_buses()[:3]
+    system = DistributionSystem(auto_add_composed_components=True)
+    system.add_components(*buses)
+    system.add_component(build_distribution_voltage_source(buses[0]))
+    example = GeometryBranch.example()
+    branches = [
+        example.model_copy(
+            update={"uuid": uuid4(), "name": f"geometry_{i}", "buses": buses[i : i + 2]}
+        )
+        for i in range(2)
+    ]
+    for branch in branches:
+        system.add_component(branch)
+    expected = branches[0].to_matrix_representation()
+
+    graph = _series_lateral_with_consistant_buses(system, system.get_undirected_graph())
+
+    assert set(graph) == {buses[0].name, buses[2].name}
+    assert list(system.get_components(GeometryBranch)) == []
+    merged = next(system.get_components(MatrixImpedanceBranch))
+    assert merged.length.to("meter").magnitude == pytest.approx(
+        sum(branch.length.to("meter").magnitude for branch in branches)
+    )
+    assert merged.equipment.r_matrix.to(
+        expected.equipment.r_matrix.units
+    ).magnitude == pytest.approx(expected.equipment.r_matrix.magnitude)
+
+
+def test_series_lateral_keeps_different_bus_phases():
+    from tests.conftest import (
+        build_distribution_buses,
+        build_distribution_line,
+        build_distribution_voltage_source,
+    )
+
+    buses = build_distribution_buses()[:3]
+    buses[1].phases = [Phase.A]
+    system = DistributionSystem(auto_add_composed_components=True)
+    system.add_components(*buses)
+    system.add_component(build_distribution_voltage_source(buses[0]))
+    for i in range(2):
+        system.add_component(build_distribution_line(buses[i], buses[i + 1]))
+    graph = system.get_undirected_graph()
+
+    reduced = _series_lateral_with_consistant_buses(system, graph)
+
+    assert set(reduced) == set(graph)
+    assert reduced.number_of_edges() == graph.number_of_edges()
+
+
+@pytest.mark.parametrize("protected", ["branch", "asset"])
+def test_series_lateral_keeps_out_of_service_boundaries(protected):
+    from tests.conftest import (
+        build_distribution_buses,
+        build_distribution_line,
+        build_distribution_load,
+        build_distribution_voltage_source,
+    )
+
+    buses = build_distribution_buses()[:3]
+    system = DistributionSystem(auto_add_composed_components=True)
+    system.add_components(*buses)
+    system.add_component(build_distribution_voltage_source(buses[0]))
+    branches = [build_distribution_line(buses[i], buses[i + 1]) for i in range(2)]
+    branches[1].feeder = branches[0].feeder
+    branches[1].substation = branches[0].substation
+    if protected == "branch":
+        branches[0].in_service = False
+    else:
+        asset = build_distribution_load(buses[1], 1)
+        asset.in_service = False
+        system.add_component(asset)
+    system.add_components(*branches)
+
+    reduced = _series_lateral_with_consistant_buses(system, system.get_undirected_graph())
+
+    assert set(reduced) == {bus.name for bus in buses}
+    assert reduced.number_of_edges() == 2
+
+
+def test_plot_graph_uses_bus_coordinates(monkeypatch):
+    import matplotlib.pyplot as plt
+    from infrasys import Location
+
+    system = DistributionSystem(auto_add_composed_components=True)
+    bus_a = DistributionBus.example()
+    bus_b = bus_a.model_copy(
+        update={"name": "another_bus", "uuid": uuid4(), "coordinate": Location(x=-10, y=15)}
+    )
+    system.add_component(bus_a)
+    system.add_component(bus_b)
+    graph = nx.Graph([(bus_a.name, bus_b.name)])
+    monkeypatch.setattr(plt, "show", lambda: None)
+
+    try:
+        plot_graph(graph, system)
+        ax = plt.gca()
+        assert ax.collections[0].get_offsets().tolist() == [[20.0, 30.0], [-10.0, 15.0]]
+        assert ax.collections[1].get_segments()[0].tolist() == [[20.0, 30.0], [-10.0, 15.0]]
+    finally:
+        plt.close("all")
+
+
+def test_plot_graph_rejects_missing_coordinates():
+    system = DistributionSystem(auto_add_composed_components=True)
+    bus = DistributionBus.example()
+    bus.coordinate = None
+    system.add_component(bus)
+
+    with pytest.raises(ValueError, match="has no coordinates"):
+        plot_graph(nx.Graph([(bus.name, bus.name)]), system)
+
+
+def test_plot_graph_colors_parallel_switches_red(monkeypatch):
+    import matplotlib.pyplot as plt
+    from matplotlib.colors import to_rgba
+    from infrasys import Location
+
+    system = DistributionSystem(auto_add_composed_components=True)
+    bus_a = DistributionBus.example()
+    bus_b = bus_a.model_copy(
+        update={"name": "another_bus", "uuid": uuid4(), "coordinate": Location(x=-10, y=15)}
+    )
+    system.add_component(bus_a)
+    system.add_component(bus_b)
+    graph = nx.MultiGraph()
+    graph.add_edge(bus_a.name, bus_b.name, is_switch=True)
+    graph.add_edge(bus_a.name, bus_b.name, is_switch=False)
+    monkeypatch.setattr(plt, "show", lambda: None)
+
+    try:
+        plot_graph(graph, system)
+        colors = [edge.get_edgecolor() for edge in plt.gca().patches]
+        assert colors == [to_rgba("black"), to_rgba("red")]
+    finally:
+        plt.close("all")
+
+
+def test_plot_graph_displays_separate_figures(monkeypatch):
+    import matplotlib.pyplot as plt
+
+    system = DistributionSystem(auto_add_composed_components=True)
+    bus = DistributionBus.example()
+    system.add_component(bus)
+    graph = nx.Graph()
+    graph.add_node(bus.name)
+    shown_figures = []
+    monkeypatch.setattr(plt, "show", lambda: shown_figures.extend(plt.get_fignums()))
+
+    try:
+        plot_graph(graph, system)
+        plot_graph(graph, system, show_plot=True)
+        assert len(shown_figures) == 2
+        assert len(set(shown_figures)) == 2
+    finally:
+        plt.close("all")
+
+
+def test_plot_graph_uses_provided_axes(monkeypatch):
+    import matplotlib.pyplot as plt
+
+    system = DistributionSystem(auto_add_composed_components=True)
+    bus = DistributionBus.example()
+    system.add_component(bus)
+    graph = nx.Graph()
+    graph.add_node(bus.name)
+    fig, axes = plt.subplots(1, 2)
+    shown_figures = []
+    monkeypatch.setattr(plt, "show", lambda: shown_figures.extend(plt.get_fignums()))
+
+    try:
+        plot_graph(graph, system, ax=axes[0])
+        plot_graph(graph, system, show_plot=True, ax=axes[1])
+        assert shown_figures == [fig.number]
+        assert all(len(ax.collections) == 1 for ax in axes)
+    finally:
+        plt.close(fig)
+
+
+@pytest.mark.parametrize("reduce_series_laterals", [False, True])
+def test_minimal_reduction_aggregates_removed_loads_and_preserves_source(reduce_series_laterals):
+    from tests.conftest import (
+        build_distribution_buses,
+        build_distribution_capacitor,
+        build_distribution_line,
+        build_distribution_load,
+        build_distribution_voltage_source,
+    )
+
+    buses = [
+        bus.model_copy(update={"rated_voltage": Voltage(12.47, "kilovolt")})
+        for bus in build_distribution_buses()[:6]
+    ]
+    system = DistributionSystem(auto_add_composed_components=True)
+    system.add_components(*buses)
+    system.add_component(build_distribution_voltage_source(buses[0]))
+    branches = [
+        build_distribution_line(buses[i], buses[j]) for i, j in [(0, 1), (1, 2), (3, 4), (4, 5)]
+    ]
+    for branch in branches:
+        branch.feeder = branches[0].feeder
+        branch.substation = branches[0].substation
+        system.add_component(branch)
+    switch = MatrixImpedanceSwitch.example().model_copy(update={"buses": [buses[2], buses[3]]})
+    system.add_component(switch)
+    loads = [build_distribution_load(buses[i], i) for i in (3, 4, 5)]
+    system.add_components(*loads)
+    capacitor = build_distribution_capacitor(buses[4], 4)
+    system.add_component(capacitor)
+
+    original_graph = system.get_undirected_graph()
+    reduced = reduce_to_minimal_system_with_sw(system, reduce_series_laterals)
+    reduced_graph = reduced.get_undirected_graph()
+
+    assert set(original_graph) == {bus.name for bus in buses}
+    expected_buses = [buses[0], buses[2], buses[3]] if reduce_series_laterals else buses[:4]
+    assert set(reduced_graph) == {bus.name for bus in expected_buses}
+    assert {bus.name for bus in reduced.get_components(DistributionBus)} == set(reduced_graph)
+    assert reduced.get_source_bus().name == buses[0].name
+    assert reduced.has_component(switch)
+    reduced_loads = list(reduced.get_components(DistributionLoad))
+    assert all(load.bus.name == buses[3].name for load in reduced_loads)
+    assert sum(get_total_kw(load) for load in reduced_loads) == pytest.approx(
+        sum(get_total_kw(load) for load in loads)
+    )
+    assert sum(get_total_kvar(load) for load in reduced_loads) == pytest.approx(
+        sum(get_total_kvar(load) for load in loads)
+    )
+    reduced_capacitor = next(reduced.get_components(DistributionCapacitor))
+    assert reduced_capacitor.bus.name == buses[3].name
+    assert sum(
+        phase.rated_reactive_power.to("kvar").magnitude
+        for phase in reduced_capacitor.equipment.phase_capacitors
+    ) == pytest.approx(
+        sum(
+            phase.rated_reactive_power.to("kvar").magnitude
+            for phase in capacitor.equipment.phase_capacitors
+        )
+    )
+
+
+def test_minimal_reduction_assigns_nearest_retained_bus_deterministically():
+    graph = nx.Graph([("a", "middle"), ("z", "middle"), ("z", "near_z")])
+    targets, _ = _nearest_retained_buses(graph, {"z", "a"})
+
+    assert targets["middle"] == "a"
+    assert targets["near_z"] == "z"
+
+
+def _minimal_time_series_system(time_series_type, multipliers=False, mismatched_timestamps=False):
+    from tests.conftest import (
+        build_distribution_buses,
+        build_distribution_line,
+        build_distribution_load,
+        build_distribution_voltage_source,
+        build_distribution_xfmr,
+    )
+
+    buses = [
+        bus.model_copy(update={"rated_voltage": Voltage(12.47, "kilovolt")})
+        for bus in build_distribution_buses()[:7]
+    ]
+    buses[6].rated_voltage = Voltage(0.4, "kilovolt")
+    system = DistributionSystem(auto_add_composed_components=True)
+    system.add_components(*buses)
+    system.add_component(build_distribution_voltage_source(buses[0]))
+    branches = [
+        build_distribution_line(buses[i], buses[j]) for i, j in [(0, 1), (1, 2), (2, 3), (2, 5)]
+    ]
+    for branch in branches:
+        branch.feeder = branches[0].feeder
+        branch.substation = branches[0].substation
+        system.add_component(branch)
+    system.add_component(build_distribution_xfmr(buses[5], buses[6]))
+    system.add_component(
+        MatrixImpedanceSwitch.example().model_copy(update={"buses": [buses[3], buses[4]]})
+    )
+    loads = {}
+    for bus_index, values in ((0, [7, 8]), (1, [5, 6]), (5, [3, 4]), (6, [1, 2])):
+        load = build_distribution_load(buses[bus_index], bus_index)
+        system.add_component(load)
+        kwargs = {
+            "data": (
+                ureg.Quantity([0.5, 1], "dimensionless")
+                if multipliers
+                else ActivePower(values, "kilowatt")
+            ),
+            "name": "active_power",
+        }
+        if time_series_type is SingleTimeSeries:
+            kwargs.update(initial_timestamp=datetime(2020, 1, 1), resolution=timedelta(hours=1))
+        else:
+            kwargs["timestamps"] = [
+                datetime(2020, 1, 1),
+                datetime(2020, 1, 3 if mismatched_timestamps and bus_index == 1 else 2),
+            ]
+        profile = time_series_type.from_array(**kwargs)
+        system.add_time_series(
+            profile, load, profile_type="PMult", profile_name="profile", use_actual=not multipliers
+        )
+        loads[bus_index] = load
+    return system, buses, loads
+
+
+@pytest.mark.parametrize("time_series_type", [SingleTimeSeries, NonSequentialTimeSeries])
+@pytest.mark.parametrize("options", [{"agg_time_series": True}, {"agg_timeseries": True}])
+def test_minimal_reduction_aggregates_time_series_across_all_stages(time_series_type, options):
+    system, buses, _ = _minimal_time_series_system(time_series_type)
+    reduced = reduce_to_minimal_system_with_sw(
+        system, reduce_series_laterals=True, time_series_type=time_series_type, **options
+    )
+
+    loads = list(reduced.get_components(DistributionLoad))
+    assert {load.bus.name for load in loads} == {buses[0].name}
+    profiles = [
+        reduced.get_time_series(
+            load,
+            "active_power",
+            time_series_type=time_series_type,
+            profile_type="PMult",
+            profile_name="profile",
+            use_actual=True,
+        )
+        .data.to("kilowatt")
+        .magnitude
+        for load in loads
+    ]
+    assert sum(profiles) == pytest.approx([16, 20])
+    assert {bus.name for bus in reduced.get_components(DistributionBus)} == {
+        buses[0].name,
+        buses[3].name,
+        buses[4].name,
+    }
+
+
+def test_minimal_time_series_alias_overrides_flag():
+    system, _, _ = _minimal_time_series_system(SingleTimeSeries)
+    reduced = reduce_to_minimal_system_with_sw(system, agg_time_series=True, agg_timeseries=False)
+    assert all(
+        not reduced.has_time_series(load) for load in reduced.get_components(DistributionLoad)
+    )
+
+
+def test_minimal_reduction_aggregates_multiplier_profiles_across_stages():
+    system, _, _ = _minimal_time_series_system(SingleTimeSeries, multipliers=True)
+    reduced = reduce_to_minimal_system_with_sw(
+        system, reduce_series_laterals=True, agg_time_series=True
+    )
+    profiles = []
+    for load in reduced.get_components(DistributionLoad):
+        metadata = reduced.list_time_series_metadata(load)[0]
+        profile = get_aggregated_load_time_series(
+            reduced, [load], metadata.name, **metadata.features
+        )
+        profiles.append(profile.data.to("kilowatt").magnitude)
+    assert sum(profiles) == pytest.approx([24, 48])
+
+
+def test_minimal_reduction_preserves_distinct_profiles_for_same_variable():
+    system, _, loads = _minimal_time_series_system(SingleTimeSeries)
+    profile = SingleTimeSeries.from_array(
+        data=ureg.Quantity([0.5, 1], "dimensionless"),
+        name="active_power",
+        initial_timestamp=datetime(2020, 1, 1),
+        resolution=timedelta(hours=1),
+    )
+    system.add_time_series(
+        profile, *loads.values(), profile_type="PMult", profile_name="multiplier", use_actual=False
+    )
+    reduced = reduce_to_minimal_system_with_sw(
+        system, reduce_series_laterals=True, agg_time_series=True
+    )
+    results = {}
+    for load in reduced.get_components(DistributionLoad):
+        for metadata in reduced.list_time_series_metadata(load):
+            profile = get_aggregated_load_time_series(
+                reduced, [load], metadata.name, **metadata.features
+            )
+            name = metadata.features["profile_name"]
+            results.setdefault(name, []).append(profile.data.to("kilowatt").magnitude)
+    assert sum(results["profile"]) == pytest.approx([16, 20])
+    assert sum(results["multiplier"]) == pytest.approx([24, 48])
+
+
+def test_minimal_reduction_rejects_different_nonsequential_timestamps():
+    system, _, _ = _minimal_time_series_system(NonSequentialTimeSeries, mismatched_timestamps=True)
+    with pytest.raises(ValueError, match="different timestamps"):
+        reduce_to_minimal_system_with_sw(
+            system,
+            reduce_series_laterals=True,
+            agg_time_series=True,
+            time_series_type=NonSequentialTimeSeries,
+        )
+
+
+def test_minimal_reduction_rejects_removed_branch_with_time_series():
+    system, _, _ = _minimal_time_series_system(SingleTimeSeries)
+    branch = system.get_component(MatrixImpedanceBranch, "line_bus_2_bus_5")
+    profile = SingleTimeSeries.from_array(
+        data=ActivePower([1, 2], "kilowatt"),
+        name="active_power",
+        initial_timestamp=datetime(2020, 1, 1),
+        resolution=timedelta(hours=1),
+    )
+    system.add_time_series(profile, branch, profile_type="PMult", profile_name="branch")
+    with pytest.raises(ValueError, match="Cannot remove MatrixImpedanceBranch.line_bus_2_bus_5"):
+        reduce_to_minimal_system_with_sw(system, agg_time_series=True)
+    assert system.has_time_series(branch)
+
+
+def test_minimal_reduction_aggregates_solar_profiles_across_stages():
+    from tests.conftest import build_distribution_solar
+
+    system, buses, _ = _minimal_time_series_system(SingleTimeSeries)
+    profile = SingleTimeSeries.from_array(
+        data=Irradiance([0.5, 1], "kilowatt / meter ** 2"),
+        name="irradiance",
+        initial_timestamp=datetime(2020, 1, 1),
+        resolution=timedelta(hours=1),
+    )
+    for index in (1, 5, 6):
+        solar = build_distribution_solar(buses[index], index)
+        system.add_component(solar)
+        system.add_time_series(
+            profile, solar, profile_type="PMult", profile_name="solar", use_actual=False
+        )
+    reduced = reduce_to_minimal_system_with_sw(
+        system, reduce_series_laterals=True, agg_time_series=True
+    )
+    solar = next(reduced.get_components(DistributionSolar))
+    result = reduced.get_time_series(
+        solar, "irradiance", profile_type="PMult", profile_name="solar", use_actual=True
+    )
+    assert result.data.to("kilowatt").magnitude == pytest.approx([1.5015, 3.003])
+
+
+def test_minimal_reduction_reports_unsupported_generator_profiles():
+    system, buses, _ = _minimal_time_series_system(SingleTimeSeries)
+    generator = DistributionGenerator.example().model_copy(
+        update={"uuid": uuid4(), "name": "profiled_generator", "bus": buses[5]}
+    )
+    system.add_component(generator)
+    profile = SingleTimeSeries.from_array(
+        data=ActivePower([1, 2], "kilowatt"),
+        name="active_power",
+        initial_timestamp=datetime(2020, 1, 1),
+        resolution=timedelta(hours=1),
+    )
+    system.add_time_series(
+        profile, generator, profile_type="PMult", profile_name="profile", use_actual=True
+    )
+    with pytest.raises(ValueError, match="unsupported for DistributionGenerator"):
+        reduce_to_minimal_system_with_sw(system, agg_time_series=True)
+
+
+@pytest.mark.parametrize("stage", ["primary", "minimal", "series"])
+def test_minimal_reduction_rejects_mismatched_time_series(stage):
+    from tests.conftest import build_distribution_load
+
+    system, buses, _ = _minimal_time_series_system(SingleTimeSeries)
+    bus_index = {"primary": 6, "minimal": 5, "series": 1}[stage]
+    system.add_component(build_distribution_load(buses[bus_index], 99))
+    with pytest.raises(ValueError, match="mismatched DistributionLoad time series"):
+        reduce_to_minimal_system_with_sw(system, reduce_series_laterals=True, agg_time_series=True)
 
 
 def get_total_kw(load: DistributionLoad):
@@ -405,6 +936,57 @@ def test_reduce_to_primary_system(distribution_system_with_single_time_series):
         Original: {get_total_kvar(gdm_total_load)} Mvar"""
 
 
+@pytest.mark.parametrize("reducer", [reduce_to_primary_system, reduce_to_three_phase_system])
+def test_reduction_excludes_inactive_load_from_aggregate_and_time_series(
+    distribution_system_with_single_time_series, monkeypatch, reducer
+):
+    from gdm.systems.distribution.model_reduction import common
+
+    system = distribution_system_with_single_time_series
+    inactive = next(
+        load for load in system.get_components(DistributionLoad) if Phase.S1 in load.phases
+    )
+    inactive.in_service = False
+    expected_kw = sum(
+        get_total_kw(load) for load in system.get_components(DistributionLoad) if load.in_service
+    )
+    aggregated_inputs = []
+    original = common.get_aggregated_load_time_series
+
+    def record_inputs(system, components, *args, **kwargs):
+        aggregated_inputs.extend(components)
+        return original(system, components, *args, **kwargs)
+
+    monkeypatch.setattr(common, "get_aggregated_load_time_series", record_inputs)
+    reduced = reducer(system, name="reduced", agg_time_series=True)
+
+    assert sum(
+        get_total_kw(load) for load in reduced.get_components(DistributionLoad)
+    ) == pytest.approx(expected_kw)
+    assert aggregated_inputs
+    assert all(component.in_service for component in aggregated_inputs)
+    assert inactive not in aggregated_inputs
+
+
+@pytest.mark.parametrize("reducer", [reduce_to_primary_system, reduce_to_three_phase_system])
+def test_reduction_skips_aggregate_if_all_subtree_loads_are_inactive(
+    distribution_system_with_single_time_series, reducer
+):
+    system = distribution_system_with_single_time_series
+    for load in system.get_components(DistributionLoad):
+        if Phase.S1 in load.phases or Phase.S2 in load.phases:
+            load.in_service = False
+
+    reduced = reducer(system, name="reduced", agg_time_series=True)
+
+    expected_kw = sum(
+        get_total_kw(load) for load in system.get_components(DistributionLoad) if load.in_service
+    )
+    assert sum(
+        get_total_kw(load) for load in reduced.get_components(DistributionLoad)
+    ) == pytest.approx(expected_kw)
+
+
 def test_reduce_to_primary_system_does_not_repeat_graph_logs(simple_distribution_system):
     gdm_sys: DistributionSystem = simple_distribution_system
     captured_messages: list[str] = []
@@ -538,6 +1120,82 @@ def test_three_phase_reduction_keeps_phase_split_intermediates():
     }
     assert reduced_bus_names == expected_kept
     assert buses["lat_bus"].name not in reduced_bus_names
+
+
+def test_three_phase_reduction_groups_compatible_generators():
+    system, buses = _build_phase_split_system()
+    example = DistributionGenerator.example()
+    for name, mode, in_service in (
+        ("first", GeneratorOperatingMode.CONSTANT_PQ, True),
+        ("second", GeneratorOperatingMode.CONSTANT_PQ, True),
+        ("different", GeneratorOperatingMode.CONSTANT_PV, True),
+        ("outage", GeneratorOperatingMode.CONSTANT_PQ, False),
+    ):
+        system.add_component(
+            example.model_copy(
+                update={
+                    "uuid": uuid4(),
+                    "name": name,
+                    "bus": buses["lat_bus"],
+                    "phases": [Phase.A],
+                    "operating_mode": mode,
+                    "in_service": in_service,
+                }
+            )
+        )
+
+    reduced = reduce_to_three_phase_system(system, "reduced", include_intermediate_buses=True)
+    generators = list(reduced.get_components(DistributionGenerator))
+    assert len(generators) == 2
+    by_mode = {generator.operating_mode: generator for generator in generators}
+    assert by_mode[GeneratorOperatingMode.CONSTANT_PQ].active_power.to("kW").magnitude == 1000
+    assert by_mode[GeneratorOperatingMode.CONSTANT_PV].active_power.to("kW").magnitude == 500
+    assert all(generator.bus.name == "bus_X" for generator in generators)
+    assert len(list(system.get_components(DistributionGenerator))) == 4
+
+
+def test_primary_reduction_reports_unsupported_generator_profiles(simple_distribution_system):
+    system = simple_distribution_system
+    generator = DistributionGenerator.example().model_copy(
+        update={
+            "uuid": uuid4(),
+            "name": "profiled_generator",
+            "bus": system.get_component(DistributionBus, "bus_5"),
+        }
+    )
+    system.add_component(generator)
+    profile = SingleTimeSeries.from_array(
+        data=ActivePower([1, 2], "kilowatt"),
+        name="active_power",
+        initial_timestamp=datetime(2020, 1, 1),
+        resolution=timedelta(minutes=30),
+    )
+    system.add_time_series(
+        profile, generator, profile_type="PMult", profile_name="profile", use_actual=True
+    )
+    with pytest.raises(ValueError, match="unsupported for DistributionGenerator"):
+        reduce_to_primary_system(system, "reduced", agg_time_series=True)
+
+
+def test_primary_reduction_aggregates_split_phase_generators(simple_distribution_system):
+    system = simple_distribution_system
+    example = DistributionGenerator.example()
+    for name in ("first", "second"):
+        system.add_component(
+            example.model_copy(
+                update={
+                    "uuid": uuid4(),
+                    "name": name,
+                    "bus": system.get_component(DistributionBus, "split_phase_bus_9"),
+                    "phases": [Phase.S1, Phase.S2],
+                }
+            )
+        )
+    reduced = reduce_to_primary_system(system, "reduced")
+    generator = next(reduced.get_components(DistributionGenerator))
+    assert generator.active_power.to("kW").magnitude == 1000
+    assert set(generator.phases) == {Phase.A, Phase.B, Phase.C}
+    assert generator.bus.name == "src_bus"
 
 
 def _add_loop_switch(system: DistributionSystem, bus_1: str, bus_2: str, name: str) -> None:

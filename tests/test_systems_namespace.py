@@ -1,6 +1,8 @@
 import importlib
 import warnings
 
+import pytest
+
 from gdm.distribution import DistributionSystem as LegacyDistributionSystem
 from gdm.distribution.components import DistributionBus as LegacyDistributionBus
 from gdm.distribution.components.distribution_bus import (
@@ -39,3 +41,33 @@ def test_legacy_distribution_namespace_aliases_canonical_namespace():
     assert LegacyDistributionBus is DistributionBus
     assert LegacyDeepDistributionBus is DeepDistributionBus
     assert legacy_reduce_to_three_phase_system is reduce_to_three_phase_system
+
+
+def test_substation_namespace_exports_are_available():
+    substation = importlib.import_module("gdm.systems.substation")
+    for name in substation.__all__:
+        assert hasattr(substation, name), name
+
+
+@pytest.mark.parametrize(
+    ("module", "name"),
+    [
+        ("primary", "reduce_to_primary_system"),
+        ("three_phase", "reduce_to_three_phase_system"),
+        ("radial", "reduce_to_radial_network"),
+        ("trivial", "reduce_trivial_nodes"),
+    ],
+)
+def test_reducer_module_exports_match_legacy_paths(module, name):
+    root = "gdm.systems.distribution.model_reduction"
+    implementation = getattr(importlib.import_module(f"{root}.{module}"), name)
+    assert getattr(importlib.import_module(root), name) is implementation
+    assert getattr(importlib.import_module(f"{root}.reducer"), name) is implementation
+    assert (
+        getattr(importlib.import_module("gdm.distribution.model_reduction"), name)
+        is implementation
+    )
+    assert (
+        getattr(importlib.import_module("gdm.distribution.model_reduction.reducer"), name)
+        is implementation
+    )

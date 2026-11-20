@@ -12,6 +12,7 @@ from gdm.systems.distribution.components.distribution_feeder import Distribution
 from gdm.systems.distribution.equipment.inverter_equipment import InverterEquipment
 from gdm.systems.distribution.components.base.distribution_component_base import (
     InServiceDistributionComponentBase,
+    _in_service_components,
 )
 from gdm.systems.distribution.components.distribution_bus import DistributionBus
 from gdm.systems.distribution.equipment.solar_equipment import SolarEquipment
@@ -98,6 +99,7 @@ class DistributionSolar(InServiceDistributionComponentBase):
         name: str,
         split_phase_mapping: dict[str, set[Phase]],
     ) -> "DistributionSolar":
+        instances = _in_service_components(instances)
         phases = set()
         for solar in instances:
             if {Phase.S1, Phase.S2} & set(solar.phases):
@@ -113,16 +115,12 @@ class DistributionSolar(InServiceDistributionComponentBase):
             equipment=SolarEquipment(
                 name=f"{name}_solar_equipment",
                 rated_power=sum(inst.equipment.rated_power for inst in instances),
-                resistance=1
-                / sum(
-                    (1 / inst.equipment.resistance if inst.equipment.resistance else 0)
-                    for inst in instances
-                ),
-                reactance=1
-                / sum(
-                    (1 / inst.equipment.reactance if inst.equipment.reactance else 0)
-                    for inst in instances
-                ),
+                resistance=0
+                if any(inst.equipment.resistance == 0 for inst in instances)
+                else 1 / sum(1 / inst.equipment.resistance for inst in instances),
+                reactance=0
+                if any(inst.equipment.reactance == 0 for inst in instances)
+                else 1 / sum(1 / inst.equipment.reactance for inst in instances),
                 rated_voltage=bus.rated_voltage,
                 voltage_type=bus.voltage_type,
             ),

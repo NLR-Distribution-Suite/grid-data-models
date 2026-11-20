@@ -101,7 +101,7 @@ def _get_solar_power(
 
     user_attr = UserAttributes.model_validate(metadata.features)
     if user_attr.use_actual:
-        if denormalized_data.units not in {"kilowatt", "watt"}:
+        if str(denormalized_data.units) not in {"kilowatt", "watt"}:
             msg = f"Invalid unit for use_actual: {denormalized_data.units}"
             raise GDMQuantityUnitsError(msg)
 
@@ -269,7 +269,9 @@ def get_aggregated_solar_time_series(
     _check_for_time_series_consistency(times_series_sample, ts_components)
 
     ts_metadata: list[TimeSeriesMetadata] = [
-        sys.list_time_series_metadata(solar, var_name, time_series_type=time_series_type)[0]
+        sys.list_time_series_metadata(
+            solar, var_name, time_series_type=time_series_type, **features
+        )[0]
         for solar in solars
     ]
     _check_for_time_series_metadata_consistency(ts_metadata)
@@ -370,7 +372,9 @@ def get_aggregated_load_time_series(
 
     _check_for_time_series_consistency(times_series_sample, ts_components)
     ts_metadata: list[TimeSeriesMetadata] = [
-        sys.list_time_series_metadata(load, var_name, time_series_type=time_series_type)[0]
+        sys.list_time_series_metadata(
+            load, var_name, time_series_type=time_series_type, **features
+        )[0]
         for load in loads
     ]
     _check_for_time_series_metadata_consistency(ts_metadata)
