@@ -1,0 +1,7 @@
+gdm.systems.substation.substation\_system module
+================================================
+
+.. automodule:: gdm.systems.substation.substation_system
+   :members:
+   :show-inheritance:
+   :undoc-members:

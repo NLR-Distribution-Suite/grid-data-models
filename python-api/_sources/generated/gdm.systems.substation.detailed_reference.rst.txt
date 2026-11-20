@@ -1,0 +1,7 @@
+gdm.systems.substation.detailed\_reference module
+=================================================
+
+.. automodule:: gdm.systems.substation.detailed_reference
+   :members:
+   :show-inheritance:
+   :undoc-members:

@@ -1,0 +1,7 @@
+gdm.mcp.operations.splitter module
+==================================
+
+.. automodule:: gdm.mcp.operations.splitter
+   :members:
+   :show-inheritance:
+   :undoc-members:

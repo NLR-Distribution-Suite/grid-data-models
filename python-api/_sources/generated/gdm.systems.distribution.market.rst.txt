@@ -1,0 +1,16 @@
+gdm.systems.distribution.market package
+=======================================
+
+.. automodule:: gdm.systems.distribution.market
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   gdm.systems.distribution.market.aggregator
+   gdm.systems.distribution.market.tariff

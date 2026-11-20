@@ -1,0 +1,7 @@
+gdm.systems.distribution.model\_reduction.series module
+=======================================================
+
+.. automodule:: gdm.systems.distribution.model_reduction.series
+   :members:
+   :show-inheritance:
+   :undoc-members:

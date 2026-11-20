@@ -1,0 +1,7 @@
+gdm.tracked\_changes module
+===========================
+
+.. automodule:: gdm.tracked_changes
+   :members:
+   :show-inheritance:
+   :undoc-members:

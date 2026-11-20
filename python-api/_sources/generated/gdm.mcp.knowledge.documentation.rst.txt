@@ -1,0 +1,7 @@
+gdm.mcp.knowledge.documentation module
+======================================
+
+.. automodule:: gdm.mcp.knowledge.documentation
+   :members:
+   :show-inheritance:
+   :undoc-members:

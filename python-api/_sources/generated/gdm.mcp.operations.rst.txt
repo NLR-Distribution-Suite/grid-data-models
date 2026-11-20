@@ -1,0 +1,16 @@
+gdm.mcp.operations package
+==========================
+
+.. automodule:: gdm.mcp.operations
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   gdm.mcp.operations.merger
+   gdm.mcp.operations.splitter

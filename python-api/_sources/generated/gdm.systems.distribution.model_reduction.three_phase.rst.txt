@@ -1,0 +1,7 @@
+gdm.systems.distribution.model\_reduction.three\_phase module
+=============================================================
+
+.. automodule:: gdm.systems.distribution.model_reduction.three_phase
+   :members:
+   :show-inheritance:
+   :undoc-members:

@@ -1,0 +1,7 @@
+gdm.mcp.utilities.timeseries module
+===================================
+
+.. automodule:: gdm.mcp.utilities.timeseries
+   :members:
+   :show-inheritance:
+   :undoc-members:

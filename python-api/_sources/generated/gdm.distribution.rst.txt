@@ -1,0 +1,7 @@
+gdm.distribution package
+========================
+
+.. automodule:: gdm.distribution
+   :members:
+   :show-inheritance:
+   :undoc-members:

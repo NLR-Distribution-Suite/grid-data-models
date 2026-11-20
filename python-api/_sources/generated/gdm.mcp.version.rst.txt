@@ -1,0 +1,7 @@
+gdm.mcp.version module
+======================
+
+.. automodule:: gdm.mcp.version
+   :members:
+   :show-inheritance:
+   :undoc-members:

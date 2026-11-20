@@ -1,0 +1,17 @@
+gdm.mcp.inspection package
+==========================
+
+.. automodule:: gdm.mcp.inspection
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   gdm.mcp.inspection.inspector
+   gdm.mcp.inspection.relationships
+   gdm.mcp.inspection.topology

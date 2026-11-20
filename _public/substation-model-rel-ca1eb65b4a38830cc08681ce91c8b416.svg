@@ -1,0 +1,148 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1360" height="900" viewBox="0 0 1360 900" role="img" aria-labelledby="title description">
+  <title id="title">Substation model relationships</title>
+  <desc id="description">A relationship map showing SubstationSystem, facility groupings, electrical topology, and representative protection, metering, and automation models.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M 0 0 L 9 4.5 L 0 9 z" fill="#334155"/></marker>
+    <marker id="dash-arrow" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M 0 0 L 9 4.5 L 0 9 z" fill="#64748b"/></marker>
+    <style>
+      text { font-family: "Avenir Next", "Segoe UI", sans-serif; fill: #172033; }
+      .title { font-size: 27px; font-weight: 700; }
+      .subtitle { font-size: 14px; fill: #526276; }
+      .group { fill: #f8fafc; stroke: #cbd5e1; stroke-width: 1.5; }
+      .group-label { font-size: 14px; font-weight: 700; fill: #475569; letter-spacing: 1px; }
+      .node { stroke-width: 1.5; }
+      .system { fill: #dbeafe; stroke: #2563eb; }
+      .facility { fill: #dcfce7; stroke: #16a34a; }
+      .topology { fill: #ffedd5; stroke: #ea580c; }
+      .operation { fill: #f3e8ff; stroke: #9333ea; }
+      .reference { fill: #fef9c3; stroke: #ca8a04; }
+      .node-title { font-size: 17px; font-weight: 700; }
+      .node-detail { font-size: 12px; fill: #475569; }
+      .edge { fill: none; stroke: #334155; stroke-width: 1.7; marker-end: url(#arrow); }
+      .dashed { fill: none; stroke: #64748b; stroke-width: 1.5; stroke-dasharray: 6 5; marker-end: url(#dash-arrow); }
+      .edge-label { font-size: 12px; font-weight: 600; fill: #334155; }
+      .legend { font-size: 12px; fill: #475569; }
+    </style>
+  </defs>
+
+  <rect width="1360" height="900" fill="#ffffff"/>
+  <text x="50" y="51" class="title">Substation System Model Map</text>
+  <text x="50" y="77" class="subtitle">Solid arrows are typed object references. Dashed arrows show components registered in the system.</text>
+
+  <rect x="35" y="108" width="350" height="500" rx="6" class="group"/>
+  <text x="57" y="137" class="group-label">SYSTEM AND FACILITY</text>
+  <rect x="70" y="163" width="280" height="73" rx="5" class="node system"/>
+  <text x="88" y="190" class="node-title">SubstationSystem</text>
+  <text x="88" y="212" class="node-detail">Infrasys System; owns registered components</text>
+  <rect x="70" y="295" width="280" height="86" rx="5" class="node facility"/>
+  <text x="88" y="323" class="node-title">Substation</text>
+  <text x="88" y="345" class="node-detail">facility identity and lifecycle</text>
+  <text x="88" y="365" class="node-detail">aggregates voltage levels and bays</text>
+  <rect x="70" y="444" width="126" height="86" rx="5" class="node facility"/>
+  <text x="88" y="472" class="node-title">VoltageLevel</text>
+  <text x="88" y="494" class="node-detail">nominal voltage</text>
+  <text x="88" y="514" class="node-detail">phases, frequency</text>
+  <rect x="224" y="444" width="126" height="86" rx="5" class="node facility"/>
+  <text x="242" y="472" class="node-title">Bay</text>
+  <text x="242" y="494" class="node-detail">functional</text>
+  <text x="242" y="514" class="node-detail">equipment group</text>
+
+  <rect x="433" y="108" width="408" height="500" rx="6" class="group"/>
+  <text x="455" y="137" class="group-label">ELECTRICAL TOPOLOGY</text>
+  <rect x="480" y="163" width="310" height="86" rx="5" class="node topology"/>
+  <text x="498" y="191" class="node-title">BusbarSection</text>
+  <text x="498" y="213" class="node-detail">DistributionBus subclass; electrical node</text>
+  <text x="498" y="233" class="node-detail">references VoltageLevel</text>
+  <rect x="480" y="315" width="310" height="104" rx="5" class="node topology"/>
+  <text x="498" y="343" class="node-title">PrimaryEquipmentComponent</text>
+  <text x="498" y="365" class="node-detail">references Bay and VoltageLevel</text>
+  <text x="498" y="385" class="node-detail">base for installed station equipment</text>
+  <rect x="458" y="469" width="170" height="94" rx="5" class="node topology"/>
+  <text x="476" y="497" class="node-title">CircuitBreaker</text>
+  <text x="476" y="519" class="node-detail">Disconnector</text>
+  <text x="476" y="541" class="node-detail">two buses + state</text>
+  <rect x="661" y="469" width="160" height="94" rx="5" class="node topology"/>
+  <text x="679" y="497" class="node-title">PowerTransformer</text>
+  <text x="679" y="519" class="node-detail">one bus per</text>
+  <text x="679" y="541" class="node-detail">equipment winding</text>
+
+  <rect x="889" y="108" width="436" height="500" rx="6" class="group"/>
+  <text x="911" y="137" class="group-label">STATION FUNCTIONS</text>
+  <rect x="920" y="163" width="170" height="86" rx="5" class="node operation"/>
+  <text x="938" y="191" class="node-title">MeteringPoint</text>
+  <text x="938" y="213" class="node-detail">bus + CT/VT cores</text>
+  <text x="938" y="233" class="node-detail">revenue or operations</text>
+  <rect x="1120" y="163" width="170" height="86" rx="5" class="node operation"/>
+  <text x="1138" y="191" class="node-title">ProtectionFunction</text>
+  <text x="1138" y="213" class="node-detail">IED, cores, settings</text>
+  <text x="1138" y="233" class="node-detail">protected/trip equipment</text>
+  <rect x="920" y="324" width="170" height="86" rx="5" class="node operation"/>
+  <text x="938" y="352" class="node-title">LogicalNode</text>
+  <text x="938" y="374" class="node-detail">IED hosted IEC 61850</text>
+  <text x="938" y="394" class="node-detail">primary equipment link</text>
+  <rect x="1120" y="324" width="170" height="86" rx="5" class="node operation"/>
+  <text x="1138" y="352" class="node-title">SemanticSignal</text>
+  <text x="1138" y="374" class="node-detail">status, measurement,</text>
+  <text x="1138" y="394" class="node-detail">or command source</text>
+  <rect x="1020" y="469" width="170" height="74" rx="5" class="node operation"/>
+  <text x="1038" y="497" class="node-title">ProtocolMapping</text>
+  <text x="1038" y="519" class="node-detail">signal to protocol address</text>
+
+  <rect x="35" y="655" width="1290" height="180" rx="6" class="group"/>
+  <text x="57" y="684" class="group-label">BOUNDARY AND REFERENCE MODELS</text>
+  <rect x="75" y="714" width="210" height="82" rx="5" class="node reference"/>
+  <text x="93" y="742" class="node-title">FeederBoundary</text>
+  <text x="93" y="764" class="node-detail">feeder ID + BusbarSection</text>
+  <text x="93" y="784" class="node-detail">links to Substation</text>
+  <rect x="366" y="714" width="210" height="82" rx="5" class="node reference"/>
+  <text x="384" y="742" class="node-title">ExternalCircuit</text>
+  <text x="384" y="764" class="node-detail">circuit ID + BusbarSection</text>
+  <text x="384" y="784" class="node-detail">incoming or outgoing</text>
+  <rect x="657" y="714" width="250" height="82" rx="5" class="node reference"/>
+  <text x="675" y="742" class="node-title">Equipment Definitions</text>
+  <text x="675" y="764" class="node-detail">CircuitBreakerEquipment,</text>
+  <text x="675" y="784" class="node-detail">PowerTransformerEquipment, etc.</text>
+  <rect x="988" y="714" width="285" height="82" rx="5" class="node reference"/>
+  <text x="1006" y="742" class="node-title">Lifecycle and Evidence</text>
+  <text x="1006" y="764" class="node-detail">AssetReference, Rating, DocumentReference,</text>
+  <text x="1006" y="784" class="node-detail">LifecycleRecord, StateObservation</text>
+
+  <path d="M 210 236 L 210 293" class="dashed"/>
+  <text x="221" y="270" class="edge-label">registers</text>
+  <path d="M 350 337 L 478 337" class="dashed"/>
+  <text x="370" y="327" class="edge-label">registers components</text>
+  <path d="M 160 381 L 136 442" class="edge"/>
+  <text x="75" y="416" class="edge-label">voltage_levels</text>
+  <path d="M 261 381 L 283 442" class="edge"/>
+  <text x="284" y="416" class="edge-label">bays</text>
+  <path d="M 196 487 L 478 213" class="edge"/>
+  <text x="295" y="272" class="edge-label">voltage_level</text>
+  <path d="M 287 487 L 478 366" class="edge"/>
+  <text x="360" y="437" class="edge-label">bay</text>
+  <path d="M 635 249 L 635 313" class="edge"/>
+  <text x="646" y="286" class="edge-label">buses / bus</text>
+  <path d="M 563 420 L 543 467" class="edge"/>
+  <path d="M 720 420 L 741 467" class="edge"/>
+  <path d="M 920 205 L 792 205" class="edge"/>
+  <text x="832" y="193" class="edge-label">bus</text>
+  <path d="M 1120 205 L 792 350" class="edge"/>
+  <text x="902" y="266" class="edge-label">equipment + cores</text>
+  <path d="M 920 366 L 792 366" class="edge"/>
+  <text x="839" y="354" class="edge-label">equipment</text>
+  <path d="M 1120 366 L 792 385" class="edge"/>
+  <path d="M 1205 410 L 1114 467" class="edge"/>
+  <text x="1153" y="448" class="edge-label">source</text>
+  <path d="M 180 714 L 560 564" class="edge"/>
+  <text x="305" y="628" class="edge-label">bus; substation</text>
+  <path d="M 471 714 L 550 564" class="edge"/>
+  <text x="467" y="650" class="edge-label">bus</text>
+  <path d="M 780 714 L 741 564" class="edge"/>
+  <text x="750" y="649" class="edge-label">equipment</text>
+  <path d="M 1131 714 L 750 420" class="edge"/>
+  <text x="945" y="605" class="edge-label">referenced by Substation and equipment</text>
+
+  <line x1="50" y1="868" x2="81" y2="868" class="edge"/>
+  <text x="96" y="873" class="legend">typed object reference</text>
+  <line x1="300" y1="868" x2="331" y2="868" class="dashed"/>
+  <text x="346" y="873" class="legend">registered component</text>
+</svg>
